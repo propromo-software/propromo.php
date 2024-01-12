@@ -1,0 +1,24 @@
+meta {
+  name: Get issues for backlog
+  type: http
+  seq: 6
+}
+
+get {
+  url: {{host}}/board/{boardId}/backlog
+  body: none
+  auth: bearer
+}
+
+query {
+  ~startAt: 
+  ~maxResults: 
+  ~jql: 
+  ~validateQuery: 
+  ~fields: 
+  ~expand: 
+}
+
+auth:bearer {
+  token: {{JIRA_API_TOKEN}}
+}

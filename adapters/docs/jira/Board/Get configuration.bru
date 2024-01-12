@@ -1,0 +1,15 @@
+meta {
+  name: Get configuration
+  type: http
+  seq: 7
+}
+
+get {
+  url: {{host}}/board/{boardId}/configuration
+  body: none
+  auth: bearer
+}
+
+auth:bearer {
+  token: {{JIRA_API_TOKEN}}
+}

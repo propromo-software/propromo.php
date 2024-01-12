@@ -1,0 +1,21 @@
+meta {
+  name: Swap sprint
+  type: http
+  seq: 12
+}
+
+post {
+  url: {{host}}/sprint/{sprintId}/swap
+  body: json
+  auth: bearer
+}
+
+auth:bearer {
+  token: {{JIRA_API_TOKEN}}
+}
+
+body:json {
+  {
+    "sprintToSwapWith": ""
+  }
+}

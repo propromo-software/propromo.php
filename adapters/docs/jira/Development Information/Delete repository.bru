@@ -1,0 +1,23 @@
+meta {
+  name: Delete repository
+  type: http
+  seq: 3
+}
+
+delete {
+  url: {{host-4}}/repository/{repositoryId}
+  body: none
+  auth: bearer
+}
+
+query {
+  ~_updateSequenceId: 
+}
+
+headers {
+  Authorization: 
+}
+
+auth:bearer {
+  token: {{JIRA_API_TOKEN}}
+}

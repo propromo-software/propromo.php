@@ -1,0 +1,20 @@
+meta {
+  name: Delete Remote Links by Property
+  type: http
+  seq: 2
+}
+
+delete {
+  url: {{host-6}}/bulkByProperties
+  body: none
+  auth: bearer
+}
+
+query {
+  ~_updateSequenceNumber: 
+  ~params: 
+}
+
+auth:bearer {
+  token: {{JIRA_API_TOKEN}}
+}

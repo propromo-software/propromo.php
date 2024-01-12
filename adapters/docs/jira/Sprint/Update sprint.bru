@@ -1,0 +1,30 @@
+meta {
+  name: Update sprint
+  type: http
+  seq: 3
+}
+
+put {
+  url: {{host}}/sprint/{sprintId}
+  body: json
+  auth: bearer
+}
+
+auth:bearer {
+  token: {{JIRA_API_TOKEN}}
+}
+
+body:json {
+  {
+    "id": "",
+    "self": "",
+    "state": "",
+    "name": "",
+    "startDate": "",
+    "endDate": "",
+    "completeDate": "",
+    "createdDate": "",
+    "originBoardId": "",
+    "goal": ""
+  }
+}

@@ -1,0 +1,19 @@
+meta {
+  name: Get issue estimation for board
+  type: http
+  seq: 3
+}
+
+get {
+  url: {{host}}/issue/{issueIdOrKey}/estimation
+  body: none
+  auth: bearer
+}
+
+query {
+  ~boardId: 
+}
+
+auth:bearer {
+  token: {{JIRA_API_TOKEN}}
+}

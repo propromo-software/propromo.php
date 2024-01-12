@@ -1,0 +1,15 @@
+meta {
+  name: Delete Vulnerabilities by Property
+  type: http
+  seq: 6
+}
+
+delete {
+  url: {{host-7}}/bulkByProperties
+  body: none
+  auth: bearer
+}
+
+auth:bearer {
+  token: {{JIRA_API_TOKEN}}
+}

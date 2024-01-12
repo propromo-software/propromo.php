@@ -1,0 +1,15 @@
+meta {
+  name: Get features for board
+  type: http
+  seq: 11
+}
+
+get {
+  url: {{host}}/board/{boardId}/features
+  body: none
+  auth: bearer
+}
+
+auth:bearer {
+  token: {{JIRA_API_TOKEN}}
+}

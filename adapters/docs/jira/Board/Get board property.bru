@@ -1,0 +1,15 @@
+meta {
+  name: Get board property
+  type: http
+  seq: 18
+}
+
+get {
+  url: {{host}}/board/{boardId}/properties/{propertyKey}
+  body: none
+  auth: bearer
+}
+
+auth:bearer {
+  token: {{JIRA_API_TOKEN}}
+}

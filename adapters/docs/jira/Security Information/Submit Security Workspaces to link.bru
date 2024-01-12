@@ -1,0 +1,15 @@
+meta {
+  name: Submit Security Workspaces to link
+  type: http
+  seq: 1
+}
+
+post {
+  url: {{host-7}}/linkedWorkspaces/bulk
+  body: json
+  auth: bearer
+}
+
+auth:bearer {
+  token: {{JIRA_API_TOKEN}}
+}

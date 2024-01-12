@@ -1,0 +1,15 @@
+meta {
+  name: Get a deployment by key
+  type: http
+  seq: 3
+}
+
+get {
+  url: {{host-3}}/pipelines/{pipelineId}/environments/{environmentId}/deployments/{deploymentSequenceNumber}
+  body: none
+  auth: bearer
+}
+
+auth:bearer {
+  token: {{JIRA_API_TOKEN}}
+}

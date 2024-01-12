@@ -1,0 +1,15 @@
+meta {
+  name: Get sprint
+  type: http
+  seq: 2
+}
+
+get {
+  url: {{host}}/sprint/{sprintId}
+  body: none
+  auth: bearer
+}
+
+auth:bearer {
+  token: {{JIRA_API_TOKEN}}
+}

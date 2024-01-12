@@ -1,0 +1,31 @@
+meta {
+  name: Store development information
+  type: http
+  seq: 1
+}
+
+post {
+  url: {{host-4}}/bulk
+  body: json
+  auth: bearer
+}
+
+headers {
+  Authorization: 
+}
+
+auth:bearer {
+  token: {{JIRA_API_TOKEN}}
+}
+
+body:json {
+  {
+    "repositories": [],
+    "preventTransitions": "",
+    "operationType": "",
+    "properties": {},
+    "providerMetadata": {
+      "product": ""
+    }
+  }
+}

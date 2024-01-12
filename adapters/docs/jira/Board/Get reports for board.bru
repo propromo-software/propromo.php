@@ -1,0 +1,15 @@
+meta {
+  name: Get reports for board
+  type: http
+  seq: 23
+}
+
+get {
+  url: {{host}}/board/{boardId}/reports
+  body: none
+  auth: bearer
+}
+
+auth:bearer {
+  token: {{JIRA_API_TOKEN}}
+}

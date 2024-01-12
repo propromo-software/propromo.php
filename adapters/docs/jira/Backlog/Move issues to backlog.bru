@@ -1,0 +1,21 @@
+meta {
+  name: Move issues to backlog
+  type: http
+  seq: 1
+}
+
+post {
+  url: {{host}}/backlog/issue
+  body: json
+  auth: bearer
+}
+
+auth:bearer {
+  token: {{JIRA_API_TOKEN}}
+}
+
+body:json {
+  {
+    "issues": []
+  }
+}

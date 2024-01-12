@@ -1,0 +1,19 @@
+meta {
+  name: Delete Feature Flags by Property
+  type: http
+  seq: 2
+}
+
+delete {
+  url: {{host-5}}/bulkByProperties
+  body: none
+  auth: bearer
+}
+
+query {
+  ~_updateSequenceId: 
+}
+
+auth:bearer {
+  token: {{JIRA_API_TOKEN}}
+}

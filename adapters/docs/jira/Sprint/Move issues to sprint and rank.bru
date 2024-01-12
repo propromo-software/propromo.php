@@ -1,0 +1,24 @@
+meta {
+  name: Move issues to sprint and rank
+  type: http
+  seq: 7
+}
+
+post {
+  url: {{host}}/sprint/{sprintId}/issue
+  body: json
+  auth: bearer
+}
+
+auth:bearer {
+  token: {{JIRA_API_TOKEN}}
+}
+
+body:json {
+  {
+    "issues": [],
+    "rankBeforeIssue": "",
+    "rankAfterIssue": "",
+    "rankCustomFieldId": ""
+  }
+}

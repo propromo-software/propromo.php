@@ -1,0 +1,15 @@
+meta {
+  name: Delete sprint
+  type: http
+  seq: 5
+}
+
+delete {
+  url: {{host}}/sprint/{sprintId}
+  body: none
+  auth: bearer
+}
+
+auth:bearer {
+  token: {{JIRA_API_TOKEN}}
+}

@@ -1,0 +1,26 @@
+meta {
+  name: Partially update epic
+  type: http
+  seq: 4
+}
+
+post {
+  url: {{host}}/epic/{epicIdOrKey}
+  body: json
+  auth: bearer
+}
+
+auth:bearer {
+  token: {{JIRA_API_TOKEN}}
+}
+
+body:json {
+  {
+    "name": "",
+    "summary": "",
+    "color": {
+      "key": ""
+    },
+    "done": ""
+  }
+}

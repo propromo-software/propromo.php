@@ -1,0 +1,15 @@
+meta {
+  name: Get deployment gating status by key
+  type: http
+  seq: 5
+}
+
+get {
+  url: {{host-3}}/pipelines/{pipelineId}/environments/{environmentId}/deployments/{deploymentSequenceNumber}/gating-status
+  body: none
+  auth: bearer
+}
+
+auth:bearer {
+  token: {{JIRA_API_TOKEN}}
+}

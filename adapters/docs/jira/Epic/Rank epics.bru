@@ -1,0 +1,23 @@
+meta {
+  name: Rank epics
+  type: http
+  seq: 7
+}
+
+put {
+  url: {{host}}/epic/{epicIdOrKey}/rank
+  body: json
+  auth: bearer
+}
+
+auth:bearer {
+  token: {{JIRA_API_TOKEN}}
+}
+
+body:json {
+  {
+    "rankBeforeEpic": "",
+    "rankAfterEpic": "",
+    "rankCustomFieldId": ""
+  }
+}

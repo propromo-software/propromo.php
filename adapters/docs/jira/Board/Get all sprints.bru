@@ -1,0 +1,21 @@
+meta {
+  name: Get all sprints
+  type: http
+  seq: 24
+}
+
+get {
+  url: {{host}}/board/{boardId}/sprint
+  body: none
+  auth: bearer
+}
+
+query {
+  ~startAt: 
+  ~maxResults: 
+  ~state: 
+}
+
+auth:bearer {
+  token: {{JIRA_API_TOKEN}}
+}

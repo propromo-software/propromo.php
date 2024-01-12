@@ -1,0 +1,23 @@
+meta {
+  name: Delete development information entity
+  type: http
+  seq: 6
+}
+
+delete {
+  url: {{host-4}}/repository/{repositoryId}/{entityType}/{entityId}
+  body: none
+  auth: bearer
+}
+
+query {
+  ~_updateSequenceId: 
+}
+
+headers {
+  Authorization: 
+}
+
+auth:bearer {
+  token: {{JIRA_API_TOKEN}}
+}

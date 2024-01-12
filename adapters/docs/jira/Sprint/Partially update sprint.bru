@@ -1,0 +1,30 @@
+meta {
+  name: Partially update sprint
+  type: http
+  seq: 4
+}
+
+post {
+  url: {{host}}/sprint/{sprintId}
+  body: json
+  auth: bearer
+}
+
+auth:bearer {
+  token: {{JIRA_API_TOKEN}}
+}
+
+body:json {
+  {
+    "id": "",
+    "self": "",
+    "state": "",
+    "name": "",
+    "startDate": "",
+    "endDate": "",
+    "completeDate": "",
+    "createdDate": "",
+    "originBoardId": "",
+    "goal": ""
+  }
+}

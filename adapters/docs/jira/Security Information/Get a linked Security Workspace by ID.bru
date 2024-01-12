@@ -1,0 +1,15 @@
+meta {
+  name: Get a linked Security Workspace by ID
+  type: http
+  seq: 4
+}
+
+get {
+  url: {{host-7}}/linkedWorkspaces/{workspaceId}
+  body: none
+  auth: bearer
+}
+
+auth:bearer {
+  token: {{JIRA_API_TOKEN}}
+}

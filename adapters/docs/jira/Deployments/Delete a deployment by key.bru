@@ -1,0 +1,19 @@
+meta {
+  name: Delete a deployment by key
+  type: http
+  seq: 4
+}
+
+delete {
+  url: {{host-3}}/pipelines/{pipelineId}/environments/{environmentId}/deployments/{deploymentSequenceNumber}
+  body: none
+  auth: bearer
+}
+
+query {
+  ~_updateSequenceNumber: 
+}
+
+auth:bearer {
+  token: {{JIRA_API_TOKEN}}
+}

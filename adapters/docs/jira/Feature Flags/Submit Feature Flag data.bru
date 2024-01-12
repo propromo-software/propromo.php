@@ -1,0 +1,15 @@
+meta {
+  name: Submit Feature Flag data
+  type: http
+  seq: 1
+}
+
+post {
+  url: {{host-5}}/bulk
+  body: json
+  auth: bearer
+}
+
+auth:bearer {
+  token: {{JIRA_API_TOKEN}}
+}

@@ -1,0 +1,24 @@
+meta {
+  name: Get board issues for epic
+  type: http
+  seq: 10
+}
+
+get {
+  url: {{host}}/board/{boardId}/epic/{epicId}/issue
+  body: none
+  auth: bearer
+}
+
+query {
+  ~startAt: 
+  ~maxResults: 
+  ~jql: 
+  ~validateQuery: 
+  ~fields: 
+  ~expand: 
+}
+
+auth:bearer {
+  token: {{JIRA_API_TOKEN}}
+}

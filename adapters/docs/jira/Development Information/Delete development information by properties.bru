@@ -1,0 +1,23 @@
+meta {
+  name: Delete development information by properties
+  type: http
+  seq: 4
+}
+
+delete {
+  url: {{host-4}}/bulkByProperties
+  body: none
+  auth: bearer
+}
+
+query {
+  ~_updateSequenceId: 
+}
+
+headers {
+  Authorization: 
+}
+
+auth:bearer {
+  token: {{JIRA_API_TOKEN}}
+}

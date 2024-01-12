@@ -1,0 +1,21 @@
+meta {
+  name: Remove issues from epic
+  type: http
+  seq: 2
+}
+
+post {
+  url: {{host}}/epic/none/issue
+  body: json
+  auth: bearer
+}
+
+auth:bearer {
+  token: {{JIRA_API_TOKEN}}
+}
+
+body:json {
+  {
+    "issues": []
+  }
+}

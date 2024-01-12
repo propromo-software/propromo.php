@@ -1,0 +1,19 @@
+meta {
+  name: Delete a Remote Link by ID
+  type: http
+  seq: 4
+}
+
+delete {
+  url: {{host-6}}/remotelink/{remoteLinkId}
+  body: none
+  auth: bearer
+}
+
+query {
+  ~_updateSequenceNumber: 
+}
+
+auth:bearer {
+  token: {{JIRA_API_TOKEN}}
+}

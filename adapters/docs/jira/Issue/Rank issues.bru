@@ -1,0 +1,24 @@
+meta {
+  name: Rank issues
+  type: http
+  seq: 1
+}
+
+put {
+  url: {{host}}/issue/rank
+  body: json
+  auth: bearer
+}
+
+auth:bearer {
+  token: {{JIRA_API_TOKEN}}
+}
+
+body:json {
+  {
+    "issues": [],
+    "rankBeforeIssue": "",
+    "rankAfterIssue": "",
+    "rankCustomFieldId": ""
+  }
+}

@@ -1,0 +1,20 @@
+meta {
+  name: Get projects
+  type: http
+  seq: 15
+}
+
+get {
+  url: {{host}}/board/{boardId}/project
+  body: none
+  auth: bearer
+}
+
+query {
+  ~startAt: 
+  ~maxResults: 
+}
+
+auth:bearer {
+  token: {{JIRA_API_TOKEN}}
+}

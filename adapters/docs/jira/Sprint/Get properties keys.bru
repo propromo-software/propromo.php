@@ -1,0 +1,15 @@
+meta {
+  name: Get properties keys
+  type: http
+  seq: 8
+}
+
+get {
+  url: {{host}}/sprint/{sprintId}/properties
+  body: none
+  auth: bearer
+}
+
+auth:bearer {
+  token: {{JIRA_API_TOKEN}}
+}

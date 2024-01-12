@@ -1,0 +1,20 @@
+meta {
+  name: Get board by filter id
+  type: http
+  seq: 3
+}
+
+get {
+  url: {{host}}/board/filter/{filterId}
+  body: none
+  auth: bearer
+}
+
+query {
+  ~startAt: 
+  ~maxResults: 
+}
+
+auth:bearer {
+  token: {{JIRA_API_TOKEN}}
+}

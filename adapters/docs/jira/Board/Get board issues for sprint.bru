@@ -1,0 +1,24 @@
+meta {
+  name: Get board issues for sprint
+  type: http
+  seq: 25
+}
+
+get {
+  url: {{host}}/board/{boardId}/sprint/{sprintId}/issue
+  body: none
+  auth: bearer
+}
+
+query {
+  ~startAt: 
+  ~maxResults: 
+  ~jql: 
+  ~validateQuery: 
+  ~fields: 
+  ~expand: 
+}
+
+auth:bearer {
+  token: {{JIRA_API_TOKEN}}
+}

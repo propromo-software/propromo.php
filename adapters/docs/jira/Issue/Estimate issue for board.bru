@@ -1,0 +1,25 @@
+meta {
+  name: Estimate issue for board
+  type: http
+  seq: 4
+}
+
+put {
+  url: {{host}}/issue/{issueIdOrKey}/estimation
+  body: json
+  auth: bearer
+}
+
+query {
+  ~boardId: 
+}
+
+auth:bearer {
+  token: {{JIRA_API_TOKEN}}
+}
+
+body:json {
+  {
+    "value": ""
+  }
+}

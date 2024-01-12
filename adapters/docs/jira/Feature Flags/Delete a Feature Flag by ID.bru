@@ -1,0 +1,19 @@
+meta {
+  name: Delete a Feature Flag by ID
+  type: http
+  seq: 4
+}
+
+delete {
+  url: {{host-5}}/flag/{featureFlagId}
+  body: none
+  auth: bearer
+}
+
+query {
+  ~_updateSequenceId: 
+}
+
+auth:bearer {
+  token: {{JIRA_API_TOKEN}}
+}

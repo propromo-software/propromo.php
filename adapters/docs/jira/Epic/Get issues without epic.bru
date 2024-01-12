@@ -1,0 +1,24 @@
+meta {
+  name: Get issues without epic
+  type: http
+  seq: 1
+}
+
+get {
+  url: {{host}}/epic/none/issue
+  body: none
+  auth: bearer
+}
+
+query {
+  ~startAt: 
+  ~maxResults: 
+  ~jql: 
+  ~validateQuery: 
+  ~fields: 
+  ~expand: 
+}
+
+auth:bearer {
+  token: {{JIRA_API_TOKEN}}
+}

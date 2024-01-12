@@ -1,0 +1,15 @@
+meta {
+  name: Submit deployment data
+  type: http
+  seq: 1
+}
+
+post {
+  url: {{host-3}}/bulk
+  body: json
+  auth: bearer
+}
+
+auth:bearer {
+  token: {{JIRA_API_TOKEN}}
+}

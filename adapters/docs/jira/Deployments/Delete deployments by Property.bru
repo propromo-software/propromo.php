@@ -1,0 +1,19 @@
+meta {
+  name: Delete deployments by Property
+  type: http
+  seq: 2
+}
+
+delete {
+  url: {{host-3}}/bulkByProperties
+  body: none
+  auth: bearer
+}
+
+query {
+  ~_updateSequenceNumber: 
+}
+
+auth:bearer {
+  token: {{JIRA_API_TOKEN}}
+}

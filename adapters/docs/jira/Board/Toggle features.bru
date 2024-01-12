@@ -1,0 +1,23 @@
+meta {
+  name: Toggle features
+  type: http
+  seq: 12
+}
+
+put {
+  url: {{host}}/board/{boardId}/features
+  body: json
+  auth: bearer
+}
+
+auth:bearer {
+  token: {{JIRA_API_TOKEN}}
+}
+
+body:json {
+  {
+    "boardId": "",
+    "feature": "",
+    "enabling": ""
+  }
+}

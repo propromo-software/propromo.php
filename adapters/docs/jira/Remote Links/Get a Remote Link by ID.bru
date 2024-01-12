@@ -1,0 +1,15 @@
+meta {
+  name: Get a Remote Link by ID
+  type: http
+  seq: 3
+}
+
+get {
+  url: {{host-6}}/{remoteLinkId}
+  body: none
+  auth: bearer
+}
+
+auth:bearer {
+  token: {{JIRA_API_TOKEN}}
+}

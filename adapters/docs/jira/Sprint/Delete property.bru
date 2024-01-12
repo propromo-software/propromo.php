@@ -1,0 +1,15 @@
+meta {
+  name: Delete property
+  type: http
+  seq: 11
+}
+
+delete {
+  url: {{host}}/sprint/{sprintId}/properties/{propertyKey}
+  body: none
+  auth: bearer
+}
+
+auth:bearer {
+  token: {{JIRA_API_TOKEN}}
+}

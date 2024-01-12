@@ -1,0 +1,19 @@
+meta {
+  name: Delete builds by Property
+  type: http
+  seq: 2
+}
+
+delete {
+  url: {{host-2}}/bulkByProperties
+  body: none
+  auth: bearer
+}
+
+query {
+  ~_updateSequenceNumber: 
+}
+
+auth:bearer {
+  token: {{JIRA_API_TOKEN}}
+}

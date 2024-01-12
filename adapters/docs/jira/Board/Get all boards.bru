@@ -1,0 +1,30 @@
+meta {
+  name: Get all boards
+  type: http
+  seq: 1
+}
+
+get {
+  url: {{host}}/board
+  body: none
+  auth: bearer
+}
+
+query {
+  ~startAt: 
+  ~maxResults: 
+  ~type: 
+  ~name: 
+  ~projectKeyOrId: 
+  ~accountIdLocation: 
+  ~projectLocation: 
+  ~includePrivate: 
+  ~negateLocationFiltering: 
+  ~orderBy: 
+  ~expand: 
+  ~filterId: 
+}
+
+auth:bearer {
+  token: {{JIRA_API_TOKEN}}
+}

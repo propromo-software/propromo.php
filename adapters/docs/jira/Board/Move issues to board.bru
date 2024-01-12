@@ -1,0 +1,24 @@
+meta {
+  name: Move issues to board
+  type: http
+  seq: 14
+}
+
+post {
+  url: {{host}}/board/{boardId}/issue
+  body: json
+  auth: bearer
+}
+
+auth:bearer {
+  token: {{JIRA_API_TOKEN}}
+}
+
+body:json {
+  {
+    "issues": [],
+    "rankBeforeIssue": "",
+    "rankAfterIssue": "",
+    "rankCustomFieldId": ""
+  }
+}

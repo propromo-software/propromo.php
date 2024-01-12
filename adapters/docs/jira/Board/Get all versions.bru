@@ -1,0 +1,21 @@
+meta {
+  name: Get all versions
+  type: http
+  seq: 26
+}
+
+get {
+  url: {{host}}/board/{boardId}/version
+  body: none
+  auth: bearer
+}
+
+query {
+  ~startAt: 
+  ~maxResults: 
+  ~released: 
+}
+
+auth:bearer {
+  token: {{JIRA_API_TOKEN}}
+}

@@ -1,0 +1,25 @@
+meta {
+  name: Submit Remote Link data
+  type: http
+  seq: 1
+}
+
+post {
+  url: {{host-6}}/bulk
+  body: json
+  auth: bearer
+}
+
+auth:bearer {
+  token: {{JIRA_API_TOKEN}}
+}
+
+body:json {
+  {
+    "properties": {},
+    "remoteLinks": [],
+    "providerMetadata": {
+      "product": ""
+    }
+  }
+}

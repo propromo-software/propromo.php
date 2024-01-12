@@ -1,0 +1,21 @@
+meta {
+  name: Get issue
+  type: http
+  seq: 2
+}
+
+get {
+  url: {{host}}/issue/{issueIdOrKey}
+  body: none
+  auth: bearer
+}
+
+query {
+  ~fields: 
+  ~expand: 
+  ~updateHistory: 
+}
+
+auth:bearer {
+  token: {{JIRA_API_TOKEN}}
+}

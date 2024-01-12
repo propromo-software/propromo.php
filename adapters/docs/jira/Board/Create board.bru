@@ -1,0 +1,27 @@
+meta {
+  name: Create board
+  type: http
+  seq: 2
+}
+
+post {
+  url: {{host}}/board
+  body: json
+  auth: bearer
+}
+
+auth:bearer {
+  token: {{JIRA_API_TOKEN}}
+}
+
+body:json {
+  {
+    "name": "",
+    "type": "",
+    "filterId": "",
+    "location": {
+      "type": "",
+      "projectKeyOrId": ""
+    }
+  }
+}

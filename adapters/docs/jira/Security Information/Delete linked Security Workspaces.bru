@@ -1,0 +1,15 @@
+meta {
+  name: Delete linked Security Workspaces
+  type: http
+  seq: 2
+}
+
+delete {
+  url: {{host-7}}/linkedWorkspaces/bulk
+  body: none
+  auth: bearer
+}
+
+auth:bearer {
+  token: {{JIRA_API_TOKEN}}
+}

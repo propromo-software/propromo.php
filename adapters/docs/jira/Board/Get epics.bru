@@ -1,0 +1,21 @@
+meta {
+  name: Get epics
+  type: http
+  seq: 8
+}
+
+get {
+  url: {{host}}/board/{boardId}/epic
+  body: none
+  auth: bearer
+}
+
+query {
+  ~startAt: 
+  ~maxResults: 
+  ~done: 
+}
+
+auth:bearer {
+  token: {{JIRA_API_TOKEN}}
+}

@@ -1,0 +1,21 @@
+meta {
+  name: Move issues to epic
+  type: http
+  seq: 6
+}
+
+post {
+  url: {{host}}/epic/{epicIdOrKey}/issue
+  body: json
+  auth: bearer
+}
+
+auth:bearer {
+  token: {{JIRA_API_TOKEN}}
+}
+
+body:json {
+  {
+    "issues": []
+  }
+}

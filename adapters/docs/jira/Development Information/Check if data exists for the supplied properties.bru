@@ -1,0 +1,23 @@
+meta {
+  name: Check if data exists for the supplied properties
+  type: http
+  seq: 5
+}
+
+get {
+  url: {{host-4}}/existsByProperties
+  body: none
+  auth: bearer
+}
+
+query {
+  ~_updateSequenceId: 
+}
+
+headers {
+  Authorization: 
+}
+
+auth:bearer {
+  token: {{JIRA_API_TOKEN}}
+}
