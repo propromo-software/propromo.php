@@ -1,0 +1,15 @@
+meta {
+  name: List organization projects
+  type: http
+  seq: 1
+}
+
+get {
+  url: {{host}}/orgs/propromo/projects
+  body: none
+  auth: bearer
+}
+
+auth:bearer {
+  token: {{GITHUB_API_TOKEN}}
+}

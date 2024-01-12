@@ -1,0 +1,15 @@
+meta {
+  name: List project columns
+  type: http
+  seq: 1
+}
+
+get {
+  url: {{host}}/projects/propromo/columns
+  body: none
+  auth: bearer
+}
+
+auth:bearer {
+  token: {{GITHUB_API_TOKEN}}
+}

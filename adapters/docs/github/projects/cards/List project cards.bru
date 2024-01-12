@@ -1,0 +1,15 @@
+meta {
+  name: List project cards
+  type: http
+  seq: 1
+}
+
+get {
+  url: {{host}}/projects/columns/Todo/cards
+  body: none
+  auth: bearer
+}
+
+auth:bearer {
+  token: {{GITHUB_API_TOKEN}}
+}

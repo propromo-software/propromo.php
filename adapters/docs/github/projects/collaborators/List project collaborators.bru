@@ -1,0 +1,15 @@
+meta {
+  name: List project collaborators
+  type: http
+  seq: 1
+}
+
+get {
+  url: {{host}}/projects/1/collaborators
+  body: none
+  auth: bearer
+}
+
+auth:bearer {
+  token: {{GITHUB_API_TOKEN}}
+}
