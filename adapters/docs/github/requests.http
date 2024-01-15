@@ -1,0 +1,68 @@
+# VSC-EXTENSION: https://marketplace.visualstudio.com/items?itemName=humao.rest-client
+
+# --- ORGANISATION --- #
+
+# INFORMATION
+
+# @name Get an organization
+# @type http
+# @sequence 1
+
+GET https://api.github.com/orgs/propromo-software
+Authorization: Bearer {{$dotenv [%]GITHUB_API_TOKEN}}
+X-GitHub-Api-Version: 2022-11-28
+Accept: application/vnd.github+json
+
+###
+
+# --- PROJECT --- #
+
+# BOARD
+
+# @name List organization projects
+# @type http
+# @sequence 1
+
+GET https://api.github.com/orgs/propromo-software/projects
+Authorization: Bearer {{$dotenv [%]GITHUB_API_TOKEN}}
+X-GitHub-Api-Version: 2022-11-28
+Accept: application/vnd.github+json
+
+###
+
+# CARD
+
+# @name List project cards
+# @type http
+# @sequence 1
+
+GET https://api.github.com/projects/columns/2/cards
+Authorization: Bearer {{$dotenv [%]GITHUB_API_TOKEN}}
+X-GitHub-Api-Version: 2022-11-28
+Accept: application/vnd.github+json
+
+###
+
+# COLLABORATOR
+
+# @name List project collaborators
+# @type http
+# @sequence 1
+
+GET https://api.github.com/projects/1/collaborators
+Authorization: Bearer {{$dotenv [%]GITHUB_API_TOKEN}}
+X-GitHub-Api-Version: 2022-11-28
+Accept: application/vnd.github+json
+
+###
+
+# COLUMN
+
+# @name List project columns
+# @type http
+# @sequence 1
+
+GET https://api.github.com/projects/1/columns
+Authorization: Bearer {{$dotenv [%]GITHUB_API_TOKEN}}
+X-GitHub-Api-Version: 2022-11-28
+Accept: application/vnd.github+json
