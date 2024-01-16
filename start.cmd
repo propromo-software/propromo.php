@@ -1,7 +1,7 @@
 @echo off
 
 REM Install composer dependencies
-composer install
+composer install --ignore-platform-req=ext-fileinfo
 
 REM Rename .env.example to .env
 ren .env.example .env

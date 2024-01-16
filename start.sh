@@ -1,5 +1,5 @@
 # install composer dependencies
-composer install
+composer install --ignore-platform-req=ext-fileinfo
 
 # rename .env.example .env
 mv .env.example .env
