@@ -1,5 +1,3 @@
-import '../../node_modules/@shoelace-style/shoelace/dist/themes/light.css';
-import '../../node_modules/@shoelace-style/shoelace/dist/themes/dark.css';
 import '../../node_modules/@shoelace-style/shoelace/dist/components/icon/icon.js';
 import '../../node_modules/@shoelace-style/shoelace/dist/components/button/button.js';
 import '../../node_modules/@shoelace-style/shoelace/dist/components/input/input.js';
