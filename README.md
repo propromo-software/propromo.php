@@ -11,7 +11,33 @@
 
 > Your client wants to be involved. [Propromo](https://propromo.duckdns.org) makes it possible.
 
-## Deployment
+## Development
+
+### Dependencies
+```bash
+start.sh
+```
+
+```batch
+start.cmd
+```
+
+### Database
+```bash
+docker-compose -f postgres.yml up -d
+```
+
+### Website
+```bash
+php artisan serve --port=80
+```
+
+### Testing
+```bash
+php ./vendor/bin/pest
+```
+
+## Production
 
 **Deployment URL:** https://propromo-d08144c627d3.herokuapp.com
 
