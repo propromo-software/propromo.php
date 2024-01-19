@@ -8,7 +8,7 @@ class User {
 
 class Project {
     project_url :String
-    project_id :String
+    project_identification :String
 
 }
 
