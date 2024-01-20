@@ -1,0 +1,19 @@
+meta {
+  name: Get repository content
+  type: http
+  seq: 1
+}
+
+get {
+  url: {{baseUrl}}/repos/:owner/:repo/contents/:path?ref=<string>
+  body: none
+  auth: none
+}
+
+query {
+  ref: <string>
+}
+
+headers {
+  Accept: application/vnd.github.object
+}

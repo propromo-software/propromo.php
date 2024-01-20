@@ -1,0 +1,19 @@
+meta {
+  name: Get a workflow run
+  type: http
+  seq: 1
+}
+
+get {
+  url: {{baseUrl}}/repos/:owner/:repo/actions/runs/:run_id?exclude_pull_requests=false
+  body: none
+  auth: none
+}
+
+query {
+  exclude_pull_requests: false
+}
+
+headers {
+  Accept: application/json
+}

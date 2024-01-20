@@ -1,0 +1,11 @@
+meta {
+  name: Check if a user follows another user
+  type: http
+  seq: 1
+}
+
+get {
+  url: {{baseUrl}}/users/:username/following/:target_user
+  body: none
+  auth: none
+}

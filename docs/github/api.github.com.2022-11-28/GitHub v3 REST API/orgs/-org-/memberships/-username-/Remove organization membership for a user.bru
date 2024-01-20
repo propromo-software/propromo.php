@@ -1,0 +1,15 @@
+meta {
+  name: Remove organization membership for a user
+  type: http
+  seq: 3
+}
+
+delete {
+  url: {{baseUrl}}/orgs/:org/memberships/:username
+  body: none
+  auth: none
+}
+
+headers {
+  Accept: application/json
+}

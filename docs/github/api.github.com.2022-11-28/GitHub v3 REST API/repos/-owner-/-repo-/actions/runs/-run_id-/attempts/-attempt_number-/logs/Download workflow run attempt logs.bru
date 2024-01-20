@@ -1,0 +1,11 @@
+meta {
+  name: Download workflow run attempt logs
+  type: http
+  seq: 1
+}
+
+get {
+  url: {{baseUrl}}/repos/:owner/:repo/actions/runs/:run_id/attempts/:attempt_number/logs
+  body: none
+  auth: none
+}

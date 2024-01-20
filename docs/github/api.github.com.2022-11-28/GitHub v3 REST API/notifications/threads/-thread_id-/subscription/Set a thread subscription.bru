@@ -1,0 +1,22 @@
+meta {
+  name: Set a thread subscription
+  type: http
+  seq: 2
+}
+
+put {
+  url: {{baseUrl}}/notifications/threads/:thread_id/subscription
+  body: json
+  auth: none
+}
+
+headers {
+  Content-Type: application/json
+  Accept: application/json
+}
+
+body:json {
+  {
+    "ignored": false
+  }
+}

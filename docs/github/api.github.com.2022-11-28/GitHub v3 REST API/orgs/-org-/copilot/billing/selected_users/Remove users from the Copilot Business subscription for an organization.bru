@@ -1,0 +1,24 @@
+meta {
+  name: Remove users from the Copilot Business subscription for an organization
+  type: http
+  seq: 2
+}
+
+delete {
+  url: {{baseUrl}}/orgs/:org/copilot/billing/selected_users
+  body: json
+  auth: none
+}
+
+headers {
+  Content-Type: application/json
+  Accept: application/json
+}
+
+body:json {
+  {
+    "selected_usernames": [
+      "<string>"
+    ]
+  }
+}

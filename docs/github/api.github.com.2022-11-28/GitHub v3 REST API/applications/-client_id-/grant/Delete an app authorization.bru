@@ -1,0 +1,22 @@
+meta {
+  name: Delete an app authorization
+  type: http
+  seq: 1
+}
+
+delete {
+  url: {{baseUrl}}/applications/:client_id/grant
+  body: json
+  auth: none
+}
+
+headers {
+  Content-Type: application/json
+  Accept: application/json
+}
+
+body:json {
+  {
+    "access_token": "<string>"
+  }
+}

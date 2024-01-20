@@ -1,0 +1,20 @@
+meta {
+  name: Check if permissions defined by a devcontainer have been accepted by the authenticated user
+  type: http
+  seq: 1
+}
+
+get {
+  url: {{baseUrl}}/repos/:owner/:repo/codespaces/permissions_check?ref=<string>&devcontainer_path=<string>
+  body: none
+  auth: none
+}
+
+query {
+  ref: <string>
+  devcontainer_path: <string>
+}
+
+headers {
+  Accept: application/json
+}

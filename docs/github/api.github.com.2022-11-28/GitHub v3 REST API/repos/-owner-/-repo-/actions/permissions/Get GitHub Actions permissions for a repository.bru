@@ -1,0 +1,15 @@
+meta {
+  name: Get GitHub Actions permissions for a repository
+  type: http
+  seq: 1
+}
+
+get {
+  url: {{baseUrl}}/repos/:owner/:repo/actions/permissions
+  body: none
+  auth: none
+}
+
+headers {
+  Accept: application/json
+}

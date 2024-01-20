@@ -1,0 +1,15 @@
+meta {
+  name: Remove a repository from an app installation
+  type: http
+  seq: 2
+}
+
+delete {
+  url: {{baseUrl}}/user/installations/:installation_id/repositories/:repository_id
+  body: none
+  auth: none
+}
+
+headers {
+  Accept: application/json
+}

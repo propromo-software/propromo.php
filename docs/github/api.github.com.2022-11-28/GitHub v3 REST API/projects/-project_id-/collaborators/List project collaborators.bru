@@ -1,0 +1,21 @@
+meta {
+  name: List project collaborators
+  type: http
+  seq: 1
+}
+
+get {
+  url: {{baseUrl}}/projects/:project_id/collaborators?affiliation=all&per_page=30&page=1
+  body: none
+  auth: none
+}
+
+query {
+  affiliation: all
+  per_page: 30
+  page: 1
+}
+
+headers {
+  Accept: application/json
+}

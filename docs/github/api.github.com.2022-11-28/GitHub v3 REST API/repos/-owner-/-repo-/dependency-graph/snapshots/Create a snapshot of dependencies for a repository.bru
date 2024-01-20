@@ -1,0 +1,76 @@
+meta {
+  name: Create a snapshot of dependencies for a repository
+  type: http
+  seq: 1
+}
+
+post {
+  url: {{baseUrl}}/repos/:owner/:repo/dependency-graph/snapshots
+  body: json
+  auth: none
+}
+
+headers {
+  Content-Type: application/json
+  Accept: application/json
+}
+
+body:json {
+  {
+    "detector": {
+      "name": "<string>",
+      "version": "<string>",
+      "url": "<string>"
+    },
+    "version": "<integer>",
+    "ref": "refs/",
+    "sha": "<string>",
+    "job": {
+      "id": "<string>",
+      "correlator": "<string>",
+      "html_url": "<string>"
+    },
+    "scanned": "<dateTime>",
+    "metadata": {
+      "adipisicing_d4d": "<string>",
+      "commodo_d65": "<string>",
+      "ea658": "<string>"
+    },
+    "manifests": {
+      "Excepteur99b": {
+        "name": "<string>",
+        "file": {
+          "source_location": "<string>"
+        },
+        "metadata": {
+          "cupidatat_3": "<string>",
+          "inae4": "<string>",
+          "eiusmod_f7b": "<string>",
+          "incididunt_d_": "<string>",
+          "nisi_4": "<string>"
+        },
+        "resolved": {
+          "tempor_": {
+            "package_url": "pkg",
+            "metadata": {
+              "reprehenderit_1": "<string>",
+              "commodo_9": "<string>",
+              "Excepteur80": "<string>",
+              "magna_1": "<string>",
+              "magnace": "<string>",
+              "eu_6e4": "<string>",
+              "cupidatat_f": "<string>",
+              "exc6a": "<string>"
+            },
+            "relationship": "direct",
+            "scope": "runtime",
+            "dependencies": [
+              "<string>",
+              "<string>"
+            ]
+          }
+        }
+      }
+    }
+  }
+}

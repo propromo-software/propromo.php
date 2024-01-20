@@ -1,0 +1,15 @@
+meta {
+  name: List package versions for a package owned by a user
+  type: http
+  seq: 1
+}
+
+get {
+  url: {{baseUrl}}/users/:username/packages/:package_type/:package_name/versions
+  body: none
+  auth: none
+}
+
+headers {
+  Accept: application/json
+}

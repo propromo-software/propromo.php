@@ -1,0 +1,29 @@
+meta {
+  name: Update the authenticated user
+  type: http
+  seq: 2
+}
+
+patch {
+  url: {{baseUrl}}/user
+  body: json
+  auth: none
+}
+
+headers {
+  Content-Type: application/json
+  Accept: application/json
+}
+
+body:json {
+  {
+    "name": "<string>",
+    "email": "<string>",
+    "blog": "<string>",
+    "twitter_username": "<string>",
+    "company": "<string>",
+    "location": "<string>",
+    "hireable": "<boolean>",
+    "bio": "<string>"
+  }
+}

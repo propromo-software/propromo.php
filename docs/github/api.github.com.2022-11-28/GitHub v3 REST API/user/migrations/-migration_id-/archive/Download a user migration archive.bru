@@ -1,0 +1,15 @@
+meta {
+  name: Download a user migration archive
+  type: http
+  seq: 1
+}
+
+get {
+  url: {{baseUrl}}/user/migrations/:migration_id/archive
+  body: none
+  auth: none
+}
+
+headers {
+  Accept: application/json
+}

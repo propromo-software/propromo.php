@@ -1,0 +1,15 @@
+meta {
+  name: Get a GitHub Pages site
+  type: http
+  seq: 1
+}
+
+get {
+  url: {{baseUrl}}/repos/:owner/:repo/pages
+  body: none
+  auth: none
+}
+
+headers {
+  Accept: application/json
+}

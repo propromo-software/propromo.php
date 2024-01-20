@@ -1,0 +1,15 @@
+meta {
+  name: Get the authenticated user
+  type: http
+  seq: 1
+}
+
+get {
+  url: {{baseUrl}}/user
+  body: none
+  auth: none
+}
+
+headers {
+  Accept: application/json
+}

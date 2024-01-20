@@ -1,0 +1,11 @@
+meta {
+  name: Delete a workflow run
+  type: http
+  seq: 2
+}
+
+delete {
+  url: {{baseUrl}}/repos/:owner/:repo/actions/runs/:run_id
+  body: none
+  auth: none
+}

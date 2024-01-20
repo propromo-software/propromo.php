@@ -1,0 +1,30 @@
+meta {
+  name: Create a tag object
+  type: http
+  seq: 1
+}
+
+post {
+  url: {{baseUrl}}/repos/:owner/:repo/git/tags
+  body: json
+  auth: none
+}
+
+headers {
+  Content-Type: application/json
+  Accept: application/json
+}
+
+body:json {
+  {
+    "tag": "<string>",
+    "message": "<string>",
+    "object": "<string>",
+    "type": "tree",
+    "tagger": {
+      "name": "<string>",
+      "email": "<string>",
+      "date": "<dateTime>"
+    }
+  }
+}

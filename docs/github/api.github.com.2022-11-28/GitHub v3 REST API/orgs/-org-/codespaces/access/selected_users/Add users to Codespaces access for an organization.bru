@@ -1,0 +1,25 @@
+meta {
+  name: Add users to Codespaces access for an organization
+  type: http
+  seq: 1
+}
+
+post {
+  url: {{baseUrl}}/orgs/:org/codespaces/access/selected_users
+  body: json
+  auth: none
+}
+
+headers {
+  Content-Type: application/json
+  Accept: application/json
+}
+
+body:json {
+  {
+    "selected_usernames": [
+      "<string>",
+      "<string>"
+    ]
+  }
+}

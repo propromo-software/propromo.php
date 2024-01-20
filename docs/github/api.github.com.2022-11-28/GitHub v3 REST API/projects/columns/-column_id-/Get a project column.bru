@@ -1,0 +1,15 @@
+meta {
+  name: Get a project column
+  type: http
+  seq: 1
+}
+
+get {
+  url: {{baseUrl}}/projects/columns/:column_id
+  body: none
+  auth: none
+}
+
+headers {
+  Accept: application/json
+}

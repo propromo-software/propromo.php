@@ -1,0 +1,15 @@
+meta {
+  name: Get a classroom
+  type: http
+  seq: 1
+}
+
+get {
+  url: {{baseUrl}}/classrooms/:classroom_id
+  body: none
+  auth: none
+}
+
+headers {
+  Accept: application/json
+}

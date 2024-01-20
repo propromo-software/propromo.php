@@ -1,0 +1,15 @@
+meta {
+  name: Delete commit signature protection
+  type: http
+  seq: 3
+}
+
+delete {
+  url: {{baseUrl}}/repos/:owner/:repo/branches/:branch/protection/required_signatures
+  body: none
+  auth: none
+}
+
+headers {
+  Accept: application/json
+}

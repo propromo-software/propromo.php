@@ -1,0 +1,15 @@
+meta {
+  name: Delete a GPG key for the authenticated user
+  type: http
+  seq: 2
+}
+
+delete {
+  url: {{baseUrl}}/user/gpg_keys/:gpg_key_id
+  body: none
+  auth: none
+}
+
+headers {
+  Accept: application/json
+}

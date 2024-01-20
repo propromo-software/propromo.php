@@ -1,0 +1,15 @@
+meta {
+  name: Get a branch
+  type: http
+  seq: 1
+}
+
+get {
+  url: {{baseUrl}}/repos/:owner/:repo/branches/:branch
+  body: none
+  auth: none
+}
+
+headers {
+  Accept: application/json
+}

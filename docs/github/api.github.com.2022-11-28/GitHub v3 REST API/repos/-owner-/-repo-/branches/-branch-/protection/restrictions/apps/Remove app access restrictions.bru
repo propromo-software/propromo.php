@@ -1,0 +1,25 @@
+meta {
+  name: Remove app access restrictions
+  type: http
+  seq: 4
+}
+
+delete {
+  url: {{baseUrl}}/repos/:owner/:repo/branches/:branch/protection/restrictions/apps
+  body: json
+  auth: none
+}
+
+headers {
+  Content-Type: application/json
+  Accept: application/json
+}
+
+body:json {
+  {
+    "apps": [
+      "<string>",
+      "<string>"
+    ]
+  }
+}

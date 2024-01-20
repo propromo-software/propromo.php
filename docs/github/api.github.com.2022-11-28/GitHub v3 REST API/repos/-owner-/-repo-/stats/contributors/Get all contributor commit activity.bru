@@ -1,0 +1,15 @@
+meta {
+  name: Get all contributor commit activity
+  type: http
+  seq: 1
+}
+
+get {
+  url: {{baseUrl}}/repos/:owner/:repo/stats/contributors
+  body: none
+  auth: none
+}
+
+headers {
+  Accept: application/json
+}

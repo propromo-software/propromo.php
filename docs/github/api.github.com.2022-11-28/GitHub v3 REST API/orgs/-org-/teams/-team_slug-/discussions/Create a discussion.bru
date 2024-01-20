@@ -1,0 +1,24 @@
+meta {
+  name: Create a discussion
+  type: http
+  seq: 2
+}
+
+post {
+  url: {{baseUrl}}/orgs/:org/teams/:team_slug/discussions
+  body: json
+  auth: none
+}
+
+headers {
+  Content-Type: application/json
+  Accept: application/json
+}
+
+body:json {
+  {
+    "title": "<string>",
+    "body": "<string>",
+    "private": false
+  }
+}

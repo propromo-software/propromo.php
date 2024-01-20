@@ -1,0 +1,15 @@
+meta {
+  name: Delete branch protection
+  type: http
+  seq: 3
+}
+
+delete {
+  url: {{baseUrl}}/repos/:owner/:repo/branches/:branch/protection
+  body: none
+  auth: none
+}
+
+headers {
+  Accept: application/json
+}

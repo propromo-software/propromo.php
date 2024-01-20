@@ -1,0 +1,15 @@
+meta {
+  name: Get a team -Legacy-
+  type: http
+  seq: 1
+}
+
+get {
+  url: {{baseUrl}}/teams/:team_id
+  body: none
+  auth: none
+}
+
+headers {
+  Accept: application/json
+}

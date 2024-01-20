@@ -1,0 +1,15 @@
+meta {
+  name: Check if a person is followed by the authenticated user
+  type: http
+  seq: 1
+}
+
+get {
+  url: {{baseUrl}}/user/following/:username
+  body: none
+  auth: none
+}
+
+headers {
+  Accept: application/json
+}

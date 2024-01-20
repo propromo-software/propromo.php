@@ -1,0 +1,22 @@
+meta {
+  name: Create a check suite
+  type: http
+  seq: 1
+}
+
+post {
+  url: {{baseUrl}}/repos/:owner/:repo/check-suites
+  body: json
+  auth: none
+}
+
+headers {
+  Content-Type: application/json
+  Accept: application/json
+}
+
+body:json {
+  {
+    "head_sha": "<string>"
+  }
+}

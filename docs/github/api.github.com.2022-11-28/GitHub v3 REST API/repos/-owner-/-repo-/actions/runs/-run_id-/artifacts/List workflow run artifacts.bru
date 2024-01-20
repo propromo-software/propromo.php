@@ -1,0 +1,21 @@
+meta {
+  name: List workflow run artifacts
+  type: http
+  seq: 1
+}
+
+get {
+  url: {{baseUrl}}/repos/:owner/:repo/actions/runs/:run_id/artifacts?per_page=30&page=1&name=<string>
+  body: none
+  auth: none
+}
+
+query {
+  per_page: 30
+  page: 1
+  name: <string>
+}
+
+headers {
+  Accept: application/json
+}

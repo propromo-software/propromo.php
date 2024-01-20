@@ -1,0 +1,27 @@
+meta {
+  name: List repositories for the authenticated user
+  type: http
+  seq: 1
+}
+
+get {
+  url: {{baseUrl}}/user/repos?visibility=all&affiliation=owner,collaborator,organization_member&type=all&sort=full_name&direction=asc&per_page=30&page=1&since=<dateTime>&before=<dateTime>
+  body: none
+  auth: none
+}
+
+query {
+  visibility: all
+  affiliation: owner,collaborator,organization_member
+  type: all
+  sort: full_name
+  direction: asc
+  per_page: 30
+  page: 1
+  since: <dateTime>
+  before: <dateTime>
+}
+
+headers {
+  Accept: application/json
+}

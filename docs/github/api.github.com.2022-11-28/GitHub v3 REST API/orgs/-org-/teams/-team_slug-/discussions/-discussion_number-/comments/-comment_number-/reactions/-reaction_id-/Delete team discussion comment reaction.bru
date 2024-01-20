@@ -1,0 +1,11 @@
+meta {
+  name: Delete team discussion comment reaction
+  type: http
+  seq: 1
+}
+
+delete {
+  url: {{baseUrl}}/orgs/:org/teams/:team_slug/discussions/:discussion_number/comments/:comment_number/reactions/:reaction_id
+  body: none
+  auth: none
+}

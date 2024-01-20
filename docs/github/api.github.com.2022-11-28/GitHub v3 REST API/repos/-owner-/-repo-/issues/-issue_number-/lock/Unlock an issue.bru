@@ -1,0 +1,15 @@
+meta {
+  name: Unlock an issue
+  type: http
+  seq: 2
+}
+
+delete {
+  url: {{baseUrl}}/repos/:owner/:repo/issues/:issue_number/lock
+  body: none
+  auth: none
+}
+
+headers {
+  Accept: application/json
+}

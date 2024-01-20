@@ -1,0 +1,23 @@
+meta {
+  name: Create a check run
+  type: http
+  seq: 1
+}
+
+post {
+  url: {{baseUrl}}/repos/:owner/:repo/check-runs
+  body: json
+  auth: none
+}
+
+headers {
+  Content-Type: application/json
+  Accept: application/json
+}
+
+body:json {
+  {
+    "status": "completed",
+    "conclusion": -67147762.30790895
+  }
+}

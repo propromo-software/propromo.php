@@ -1,0 +1,11 @@
+meta {
+  name: Delete an organization variable
+  type: http
+  seq: 3
+}
+
+delete {
+  url: {{baseUrl}}/orgs/:org/actions/variables/:name
+  body: none
+  auth: none
+}

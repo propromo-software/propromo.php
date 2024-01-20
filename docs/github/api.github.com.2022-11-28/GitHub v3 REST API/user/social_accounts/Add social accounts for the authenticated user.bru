@@ -1,0 +1,25 @@
+meta {
+  name: Add social accounts for the authenticated user
+  type: http
+  seq: 2
+}
+
+post {
+  url: {{baseUrl}}/user/social_accounts
+  body: json
+  auth: none
+}
+
+headers {
+  Content-Type: application/json
+  Accept: application/json
+}
+
+body:json {
+  {
+    "account_urls": [
+      "<string>",
+      "<string>"
+    ]
+  }
+}

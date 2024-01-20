@@ -1,0 +1,15 @@
+meta {
+  name: Get a code of conduct
+  type: http
+  seq: 1
+}
+
+get {
+  url: {{baseUrl}}/codes_of_conduct/:key
+  body: none
+  auth: none
+}
+
+headers {
+  Accept: application/json
+}

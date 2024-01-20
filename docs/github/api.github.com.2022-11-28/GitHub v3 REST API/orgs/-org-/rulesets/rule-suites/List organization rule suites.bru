@@ -1,0 +1,24 @@
+meta {
+  name: List organization rule suites
+  type: http
+  seq: 1
+}
+
+get {
+  url: {{baseUrl}}/orgs/:org/rulesets/rule-suites?repository_name=<integer>&time_period=day&actor_name=<string>&rule_suite_result=all&per_page=30&page=1
+  body: none
+  auth: none
+}
+
+query {
+  repository_name: <integer>
+  time_period: day
+  actor_name: <string>
+  rule_suite_result: all
+  per_page: 30
+  page: 1
+}
+
+headers {
+  Accept: application/json
+}

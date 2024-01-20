@@ -1,0 +1,15 @@
+meta {
+  name: Request a CVE for a repository security advisory
+  type: http
+  seq: 1
+}
+
+post {
+  url: {{baseUrl}}/repos/:owner/:repo/security-advisories/:ghsa_id/cve
+  body: none
+  auth: none
+}
+
+headers {
+  Accept: application/json
+}

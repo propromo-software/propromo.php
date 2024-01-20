@@ -1,0 +1,15 @@
+meta {
+  name: Get a check suite
+  type: http
+  seq: 1
+}
+
+get {
+  url: {{baseUrl}}/repos/:owner/:repo/check-suites/:check_suite_id
+  body: none
+  auth: none
+}
+
+headers {
+  Accept: application/json
+}

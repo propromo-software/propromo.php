@@ -1,0 +1,24 @@
+meta {
+  name: List notifications for the authenticated user
+  type: http
+  seq: 1
+}
+
+get {
+  url: {{baseUrl}}/notifications?all=false&participating=false&since=<dateTime>&before=<dateTime>&page=1&per_page=50
+  body: none
+  auth: none
+}
+
+query {
+  all: false
+  participating: false
+  since: <dateTime>
+  before: <dateTime>
+  page: 1
+  per_page: 50
+}
+
+headers {
+  Accept: application/json
+}

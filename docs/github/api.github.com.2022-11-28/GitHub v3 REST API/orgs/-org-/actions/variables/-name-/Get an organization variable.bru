@@ -1,0 +1,15 @@
+meta {
+  name: Get an organization variable
+  type: http
+  seq: 1
+}
+
+get {
+  url: {{baseUrl}}/orgs/:org/actions/variables/:name
+  body: none
+  auth: none
+}
+
+headers {
+  Accept: application/json
+}

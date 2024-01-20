@@ -1,0 +1,15 @@
+meta {
+  name: Get a user
+  type: http
+  seq: 1
+}
+
+get {
+  url: {{baseUrl}}/users/:username
+  body: none
+  auth: none
+}
+
+headers {
+  Accept: application/json
+}

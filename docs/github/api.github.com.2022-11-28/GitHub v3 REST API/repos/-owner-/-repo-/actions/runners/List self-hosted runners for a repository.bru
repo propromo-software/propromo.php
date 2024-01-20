@@ -1,0 +1,21 @@
+meta {
+  name: List self-hosted runners for a repository
+  type: http
+  seq: 1
+}
+
+get {
+  url: {{baseUrl}}/repos/:owner/:repo/actions/runners?name=<string>&per_page=30&page=1
+  body: none
+  auth: none
+}
+
+query {
+  name: <string>
+  per_page: 30
+  page: 1
+}
+
+headers {
+  Accept: application/json
+}

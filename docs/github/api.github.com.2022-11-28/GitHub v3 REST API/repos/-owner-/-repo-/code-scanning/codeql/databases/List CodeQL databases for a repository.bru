@@ -1,0 +1,15 @@
+meta {
+  name: List CodeQL databases for a repository
+  type: http
+  seq: 1
+}
+
+get {
+  url: {{baseUrl}}/repos/:owner/:repo/code-scanning/codeql/databases
+  body: none
+  auth: none
+}
+
+headers {
+  Accept: application/json
+}

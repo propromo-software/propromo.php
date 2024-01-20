@@ -1,0 +1,15 @@
+meta {
+  name: Get GitHub Actions permissions for an organization
+  type: http
+  seq: 1
+}
+
+get {
+  url: {{baseUrl}}/orgs/:org/actions/permissions
+  body: none
+  auth: none
+}
+
+headers {
+  Accept: application/json
+}

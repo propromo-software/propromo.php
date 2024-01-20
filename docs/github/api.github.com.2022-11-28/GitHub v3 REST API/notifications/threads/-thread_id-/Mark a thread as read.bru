@@ -1,0 +1,15 @@
+meta {
+  name: Mark a thread as read
+  type: http
+  seq: 2
+}
+
+patch {
+  url: {{baseUrl}}/notifications/threads/:thread_id
+  body: none
+  auth: none
+}
+
+headers {
+  Accept: application/json
+}

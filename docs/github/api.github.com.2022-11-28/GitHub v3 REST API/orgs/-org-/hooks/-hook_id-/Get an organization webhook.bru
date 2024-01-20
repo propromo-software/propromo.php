@@ -1,0 +1,15 @@
+meta {
+  name: Get an organization webhook
+  type: http
+  seq: 1
+}
+
+get {
+  url: {{baseUrl}}/orgs/:org/hooks/:hook_id
+  body: none
+  auth: none
+}
+
+headers {
+  Accept: application/json
+}

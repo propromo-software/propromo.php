@@ -1,0 +1,11 @@
+meta {
+  name: Delete an environment variable
+  type: http
+  seq: 3
+}
+
+delete {
+  url: {{baseUrl}}/repositories/:repository_id/environments/:environment_name/variables/:name
+  body: none
+  auth: none
+}

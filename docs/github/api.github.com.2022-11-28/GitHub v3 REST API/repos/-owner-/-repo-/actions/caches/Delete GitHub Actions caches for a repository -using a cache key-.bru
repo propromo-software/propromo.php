@@ -1,0 +1,20 @@
+meta {
+  name: Delete GitHub Actions caches for a repository -using a cache key-
+  type: http
+  seq: 2
+}
+
+delete {
+  url: {{baseUrl}}/repos/:owner/:repo/actions/caches?key=<string>&ref=<string>
+  body: none
+  auth: none
+}
+
+query {
+  key: <string>
+  ref: <string>
+}
+
+headers {
+  Accept: application/json
+}

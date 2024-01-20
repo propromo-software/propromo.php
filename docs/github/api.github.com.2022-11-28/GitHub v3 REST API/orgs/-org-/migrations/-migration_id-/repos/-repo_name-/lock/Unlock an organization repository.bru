@@ -1,0 +1,15 @@
+meta {
+  name: Unlock an organization repository
+  type: http
+  seq: 1
+}
+
+delete {
+  url: {{baseUrl}}/orgs/:org/migrations/:migration_id/repos/:repo_name/lock
+  body: none
+  auth: none
+}
+
+headers {
+  Accept: application/json
+}

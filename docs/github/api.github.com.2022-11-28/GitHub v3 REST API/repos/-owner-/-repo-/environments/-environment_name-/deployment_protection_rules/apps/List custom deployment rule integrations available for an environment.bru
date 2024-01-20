@@ -1,0 +1,20 @@
+meta {
+  name: List custom deployment rule integrations available for an environment
+  type: http
+  seq: 1
+}
+
+get {
+  url: {{baseUrl}}/repos/:owner/:repo/environments/:environment_name/deployment_protection_rules/apps?page=1&per_page=30
+  body: none
+  auth: none
+}
+
+query {
+  page: 1
+  per_page: 30
+}
+
+headers {
+  Accept: application/json
+}

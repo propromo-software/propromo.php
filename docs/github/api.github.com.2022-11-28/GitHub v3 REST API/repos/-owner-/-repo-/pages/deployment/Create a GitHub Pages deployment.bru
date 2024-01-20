@@ -1,0 +1,25 @@
+meta {
+  name: Create a GitHub Pages deployment
+  type: http
+  seq: 1
+}
+
+post {
+  url: {{baseUrl}}/repos/:owner/:repo/pages/deployment
+  body: json
+  auth: none
+}
+
+headers {
+  Content-Type: application/json
+  Accept: application/json
+}
+
+body:json {
+  {
+    "artifact_url": "<string>",
+    "pages_build_version": "GITHUB_SHA",
+    "oidc_token": "<string>",
+    "environment": "github-pages"
+  }
+}

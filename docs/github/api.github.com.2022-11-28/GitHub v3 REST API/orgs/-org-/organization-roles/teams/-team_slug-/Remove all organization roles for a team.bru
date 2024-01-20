@@ -1,0 +1,11 @@
+meta {
+  name: Remove all organization roles for a team
+  type: http
+  seq: 1
+}
+
+delete {
+  url: {{baseUrl}}/orgs/:org/organization-roles/teams/:team_slug
+  body: none
+  auth: none
+}

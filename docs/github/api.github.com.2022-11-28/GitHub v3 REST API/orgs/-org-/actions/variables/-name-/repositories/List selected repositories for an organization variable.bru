@@ -1,0 +1,20 @@
+meta {
+  name: List selected repositories for an organization variable
+  type: http
+  seq: 1
+}
+
+get {
+  url: {{baseUrl}}/orgs/:org/actions/variables/:name/repositories?page=1&per_page=30
+  body: none
+  auth: none
+}
+
+query {
+  page: 1
+  per_page: 30
+}
+
+headers {
+  Accept: application/json
+}

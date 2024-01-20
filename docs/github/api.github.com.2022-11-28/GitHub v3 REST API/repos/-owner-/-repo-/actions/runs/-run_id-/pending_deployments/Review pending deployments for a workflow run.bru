@@ -1,0 +1,27 @@
+meta {
+  name: Review pending deployments for a workflow run
+  type: http
+  seq: 2
+}
+
+post {
+  url: {{baseUrl}}/repos/:owner/:repo/actions/runs/:run_id/pending_deployments
+  body: json
+  auth: none
+}
+
+headers {
+  Content-Type: application/json
+  Accept: application/json
+}
+
+body:json {
+  {
+    "environment_ids": [
+      "<integer>",
+      "<integer>"
+    ],
+    "state": "approved",
+    "comment": "<string>"
+  }
+}

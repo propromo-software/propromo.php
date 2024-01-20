@@ -1,0 +1,22 @@
+meta {
+  name: Add or update team project permissions -Legacy-
+  type: http
+  seq: 2
+}
+
+put {
+  url: {{baseUrl}}/teams/:team_id/projects/:project_id
+  body: json
+  auth: none
+}
+
+headers {
+  Content-Type: application/json
+  Accept: application/json
+}
+
+body:json {
+  {
+    "permission": "admin"
+  }
+}

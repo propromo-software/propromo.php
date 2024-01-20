@@ -1,0 +1,15 @@
+meta {
+  name: Delete an autolink reference from a repository
+  type: http
+  seq: 2
+}
+
+delete {
+  url: {{baseUrl}}/repos/:owner/:repo/autolinks/:autolink_id
+  body: none
+  auth: none
+}
+
+headers {
+  Accept: application/json
+}

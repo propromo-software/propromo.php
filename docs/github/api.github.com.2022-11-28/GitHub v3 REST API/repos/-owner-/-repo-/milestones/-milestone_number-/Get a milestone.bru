@@ -1,0 +1,15 @@
+meta {
+  name: Get a milestone
+  type: http
+  seq: 1
+}
+
+get {
+  url: {{baseUrl}}/repos/:owner/:repo/milestones/:milestone_number
+  body: none
+  auth: none
+}
+
+headers {
+  Accept: application/json
+}

@@ -1,0 +1,20 @@
+meta {
+  name: Get an organization migration status
+  type: http
+  seq: 1
+}
+
+get {
+  url: {{baseUrl}}/orgs/:org/migrations/:migration_id?exclude=repositories&exclude=repositories
+  body: none
+  auth: none
+}
+
+query {
+  exclude: repositories
+  exclude: repositories
+}
+
+headers {
+  Accept: application/json
+}

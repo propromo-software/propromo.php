@@ -1,0 +1,15 @@
+meta {
+  name: Get emojis
+  type: http
+  seq: 1
+}
+
+get {
+  url: {{baseUrl}}/emojis
+  body: none
+  auth: none
+}
+
+headers {
+  Accept: application/json
+}

@@ -1,0 +1,25 @@
+meta {
+  name: Set app access restrictions
+  type: http
+  seq: 3
+}
+
+put {
+  url: {{baseUrl}}/repos/:owner/:repo/branches/:branch/protection/restrictions/apps
+  body: json
+  auth: none
+}
+
+headers {
+  Content-Type: application/json
+  Accept: application/json
+}
+
+body:json {
+  {
+    "apps": [
+      "<string>",
+      "<string>"
+    ]
+  }
+}

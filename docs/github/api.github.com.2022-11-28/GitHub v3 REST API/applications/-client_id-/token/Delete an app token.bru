@@ -1,0 +1,22 @@
+meta {
+  name: Delete an app token
+  type: http
+  seq: 3
+}
+
+delete {
+  url: {{baseUrl}}/applications/:client_id/token
+  body: json
+  auth: none
+}
+
+headers {
+  Content-Type: application/json
+  Accept: application/json
+}
+
+body:json {
+  {
+    "access_token": "<string>"
+  }
+}

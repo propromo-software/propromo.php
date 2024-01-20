@@ -1,0 +1,30 @@
+meta {
+  name: List Dependabot alerts for an organization
+  type: http
+  seq: 1
+}
+
+get {
+  url: {{baseUrl}}/orgs/:org/dependabot/alerts?state=<string>&severity=<string>&ecosystem=<string>&package=<string>&scope=runtime&sort=created&direction=desc&before=<string>&after=<string>&first=30&last=<integer>&per_page=30
+  body: none
+  auth: none
+}
+
+query {
+  state: <string>
+  severity: <string>
+  ecosystem: <string>
+  package: <string>
+  scope: runtime
+  sort: created
+  direction: desc
+  before: <string>
+  after: <string>
+  first: 30
+  last: <integer>
+  per_page: 30
+}
+
+headers {
+  Accept: application/json
+}

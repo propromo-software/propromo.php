@@ -1,0 +1,11 @@
+meta {
+  name: Delete a custom organization role-
+  type: http
+  seq: 3
+}
+
+delete {
+  url: {{baseUrl}}/orgs/:org/organization-roles/:role_id
+  body: none
+  auth: none
+}

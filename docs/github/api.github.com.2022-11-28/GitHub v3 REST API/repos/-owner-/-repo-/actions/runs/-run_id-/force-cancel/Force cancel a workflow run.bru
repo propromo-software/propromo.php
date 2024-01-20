@@ -1,0 +1,15 @@
+meta {
+  name: Force cancel a workflow run
+  type: http
+  seq: 1
+}
+
+post {
+  url: {{baseUrl}}/repos/:owner/:repo/actions/runs/:run_id/force-cancel
+  body: none
+  auth: none
+}
+
+headers {
+  Accept: application/json
+}

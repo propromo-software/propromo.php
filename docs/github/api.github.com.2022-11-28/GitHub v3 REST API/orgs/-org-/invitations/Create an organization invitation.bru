@@ -1,0 +1,28 @@
+meta {
+  name: Create an organization invitation
+  type: http
+  seq: 2
+}
+
+post {
+  url: {{baseUrl}}/orgs/:org/invitations
+  body: json
+  auth: none
+}
+
+headers {
+  Content-Type: application/json
+  Accept: application/json
+}
+
+body:json {
+  {
+    "invitee_id": "<integer>",
+    "email": "<string>",
+    "role": "direct_member",
+    "team_ids": [
+      "<integer>",
+      "<integer>"
+    ]
+  }
+}

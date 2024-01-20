@@ -1,0 +1,15 @@
+meta {
+  name: Request a GitHub Pages build
+  type: http
+  seq: 2
+}
+
+post {
+  url: {{baseUrl}}/repos/:owner/:repo/pages/builds
+  body: none
+  auth: none
+}
+
+headers {
+  Accept: application/json
+}

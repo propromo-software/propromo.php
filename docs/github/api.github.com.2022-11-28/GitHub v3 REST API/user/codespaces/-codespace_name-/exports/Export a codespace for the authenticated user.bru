@@ -1,0 +1,15 @@
+meta {
+  name: Export a codespace for the authenticated user
+  type: http
+  seq: 1
+}
+
+post {
+  url: {{baseUrl}}/user/codespaces/:codespace_name/exports
+  body: none
+  auth: none
+}
+
+headers {
+  Accept: application/json
+}

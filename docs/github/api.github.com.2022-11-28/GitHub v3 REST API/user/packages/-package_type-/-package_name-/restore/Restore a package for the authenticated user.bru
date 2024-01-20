@@ -1,0 +1,19 @@
+meta {
+  name: Restore a package for the authenticated user
+  type: http
+  seq: 1
+}
+
+post {
+  url: {{baseUrl}}/user/packages/:package_type/:package_name/restore?token=<string>
+  body: none
+  auth: none
+}
+
+query {
+  token: <string>
+}
+
+headers {
+  Accept: application/json
+}

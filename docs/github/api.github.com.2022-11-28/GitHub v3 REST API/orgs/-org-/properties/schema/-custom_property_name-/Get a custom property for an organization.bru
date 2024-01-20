@@ -1,0 +1,15 @@
+meta {
+  name: Get a custom property for an organization
+  type: http
+  seq: 1
+}
+
+get {
+  url: {{baseUrl}}/orgs/:org/properties/schema/:custom_property_name
+  body: none
+  auth: none
+}
+
+headers {
+  Accept: application/json
+}

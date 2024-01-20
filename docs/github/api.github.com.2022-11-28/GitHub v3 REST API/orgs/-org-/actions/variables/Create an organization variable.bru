@@ -1,0 +1,28 @@
+meta {
+  name: Create an organization variable
+  type: http
+  seq: 2
+}
+
+post {
+  url: {{baseUrl}}/orgs/:org/actions/variables
+  body: json
+  auth: none
+}
+
+headers {
+  Content-Type: application/json
+  Accept: application/json
+}
+
+body:json {
+  {
+    "name": "<string>",
+    "value": "<string>",
+    "visibility": "private",
+    "selected_repository_ids": [
+      "<integer>",
+      "<integer>"
+    ]
+  }
+}

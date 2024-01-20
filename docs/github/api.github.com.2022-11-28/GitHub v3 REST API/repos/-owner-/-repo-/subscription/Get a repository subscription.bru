@@ -1,0 +1,15 @@
+meta {
+  name: Get a repository subscription
+  type: http
+  seq: 1
+}
+
+get {
+  url: {{baseUrl}}/repos/:owner/:repo/subscription
+  body: none
+  auth: none
+}
+
+headers {
+  Accept: application/json
+}

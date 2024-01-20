@@ -1,0 +1,30 @@
+meta {
+  name: Create a release
+  type: http
+  seq: 2
+}
+
+post {
+  url: {{baseUrl}}/repos/:owner/:repo/releases
+  body: json
+  auth: none
+}
+
+headers {
+  Content-Type: application/json
+  Accept: application/json
+}
+
+body:json {
+  {
+    "tag_name": "<string>",
+    "target_commitish": "<string>",
+    "name": "<string>",
+    "body": "<string>",
+    "draft": false,
+    "prerelease": false,
+    "discussion_category_name": "<string>",
+    "generate_release_notes": false,
+    "make_latest": true
+  }
+}

@@ -1,0 +1,15 @@
+meta {
+  name: Get a release by tag name
+  type: http
+  seq: 1
+}
+
+get {
+  url: {{baseUrl}}/repos/:owner/:repo/releases/tags/:tag
+  body: none
+  auth: none
+}
+
+headers {
+  Accept: application/json
+}

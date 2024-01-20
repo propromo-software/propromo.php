@@ -1,0 +1,15 @@
+meta {
+  name: Suspend an app installation
+  type: http
+  seq: 1
+}
+
+put {
+  url: {{baseUrl}}/app/installations/:installation_id/suspended
+  body: none
+  auth: none
+}
+
+headers {
+  Accept: application/json
+}

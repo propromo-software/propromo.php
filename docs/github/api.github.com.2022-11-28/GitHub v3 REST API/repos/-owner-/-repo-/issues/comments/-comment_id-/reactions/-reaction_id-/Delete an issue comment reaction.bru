@@ -1,0 +1,11 @@
+meta {
+  name: Delete an issue comment reaction
+  type: http
+  seq: 1
+}
+
+delete {
+  url: {{baseUrl}}/repos/:owner/:repo/issues/comments/:comment_id/reactions/:reaction_id
+  body: none
+  auth: none
+}

@@ -1,0 +1,15 @@
+meta {
+  name: Create a temporary private fork
+  type: http
+  seq: 1
+}
+
+post {
+  url: {{baseUrl}}/repos/:owner/:repo/security-advisories/:ghsa_id/forks
+  body: none
+  auth: none
+}
+
+headers {
+  Accept: application/json
+}

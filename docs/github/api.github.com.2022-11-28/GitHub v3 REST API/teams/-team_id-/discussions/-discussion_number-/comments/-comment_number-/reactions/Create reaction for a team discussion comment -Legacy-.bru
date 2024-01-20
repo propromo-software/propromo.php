@@ -1,0 +1,22 @@
+meta {
+  name: Create reaction for a team discussion comment -Legacy-
+  type: http
+  seq: 2
+}
+
+post {
+  url: {{baseUrl}}/teams/:team_id/discussions/:discussion_number/comments/:comment_number/reactions
+  body: json
+  auth: none
+}
+
+headers {
+  Content-Type: application/json
+  Accept: application/json
+}
+
+body:json {
+  {
+    "content": "-1"
+  }
+}

@@ -1,0 +1,15 @@
+meta {
+  name: List runner applications for a repository
+  type: http
+  seq: 1
+}
+
+get {
+  url: {{baseUrl}}/repos/:owner/:repo/actions/runners/downloads
+  body: none
+  auth: none
+}
+
+headers {
+  Accept: application/json
+}

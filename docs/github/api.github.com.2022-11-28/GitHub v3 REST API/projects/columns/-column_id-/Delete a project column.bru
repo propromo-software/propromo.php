@@ -1,0 +1,15 @@
+meta {
+  name: Delete a project column
+  type: http
+  seq: 3
+}
+
+delete {
+  url: {{baseUrl}}/projects/columns/:column_id
+  body: none
+  auth: none
+}
+
+headers {
+  Accept: application/json
+}

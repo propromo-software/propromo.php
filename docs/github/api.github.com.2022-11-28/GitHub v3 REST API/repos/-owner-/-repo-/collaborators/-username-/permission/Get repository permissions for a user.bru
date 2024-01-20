@@ -1,0 +1,15 @@
+meta {
+  name: Get repository permissions for a user
+  type: http
+  seq: 1
+}
+
+get {
+  url: {{baseUrl}}/repos/:owner/:repo/collaborators/:username/permission
+  body: none
+  auth: none
+}
+
+headers {
+  Accept: application/json
+}

@@ -1,0 +1,15 @@
+meta {
+  name: Get list of conflicting packages during Docker migration for user
+  type: http
+  seq: 1
+}
+
+get {
+  url: {{baseUrl}}/users/:username/docker/conflicts
+  body: none
+  auth: none
+}
+
+headers {
+  Accept: application/json
+}

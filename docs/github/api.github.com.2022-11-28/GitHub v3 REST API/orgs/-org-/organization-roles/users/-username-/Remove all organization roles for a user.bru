@@ -1,0 +1,11 @@
+meta {
+  name: Remove all organization roles for a user
+  type: http
+  seq: 1
+}
+
+delete {
+  url: {{baseUrl}}/orgs/:org/organization-roles/users/:username
+  body: none
+  auth: none
+}

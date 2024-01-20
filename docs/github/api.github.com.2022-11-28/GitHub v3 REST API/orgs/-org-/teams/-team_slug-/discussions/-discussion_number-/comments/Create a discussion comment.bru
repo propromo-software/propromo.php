@@ -1,0 +1,22 @@
+meta {
+  name: Create a discussion comment
+  type: http
+  seq: 2
+}
+
+post {
+  url: {{baseUrl}}/orgs/:org/teams/:team_slug/discussions/:discussion_number/comments
+  body: json
+  auth: none
+}
+
+headers {
+  Content-Type: application/json
+  Accept: application/json
+}
+
+body:json {
+  {
+    "body": "<string>"
+  }
+}

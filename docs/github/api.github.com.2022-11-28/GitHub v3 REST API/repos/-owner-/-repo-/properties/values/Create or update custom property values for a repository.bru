@@ -1,0 +1,31 @@
+meta {
+  name: Create or update custom property values for a repository
+  type: http
+  seq: 2
+}
+
+patch {
+  url: {{baseUrl}}/repos/:owner/:repo/properties/values
+  body: json
+  auth: none
+}
+
+headers {
+  Content-Type: application/json
+  Accept: application/json
+}
+
+body:json {
+  {
+    "properties": [
+      {
+        "property_name": "<string>",
+        "value": "<string>"
+      },
+      {
+        "property_name": "<string>",
+        "value": "<string>"
+      }
+    ]
+  }
+}

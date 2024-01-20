@@ -1,0 +1,15 @@
+meta {
+  name: Get a thread
+  type: http
+  seq: 1
+}
+
+get {
+  url: {{baseUrl}}/notifications/threads/:thread_id
+  body: none
+  auth: none
+}
+
+headers {
+  Accept: application/json
+}

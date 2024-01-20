@@ -1,0 +1,15 @@
+meta {
+  name: Delete a project
+  type: http
+  seq: 3
+}
+
+delete {
+  url: {{baseUrl}}/projects/:project_id
+  body: none
+  auth: none
+}
+
+headers {
+  Accept: application/json
+}

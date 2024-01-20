@@ -1,0 +1,11 @@
+meta {
+  name: Delete access restrictions
+  type: http
+  seq: 2
+}
+
+delete {
+  url: {{baseUrl}}/repos/:owner/:repo/branches/:branch/protection/restrictions
+  body: none
+  auth: none
+}

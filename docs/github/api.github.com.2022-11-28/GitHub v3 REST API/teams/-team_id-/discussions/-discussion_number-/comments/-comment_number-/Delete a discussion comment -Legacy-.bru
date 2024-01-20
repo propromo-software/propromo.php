@@ -1,0 +1,11 @@
+meta {
+  name: Delete a discussion comment -Legacy-
+  type: http
+  seq: 3
+}
+
+delete {
+  url: {{baseUrl}}/teams/:team_id/discussions/:discussion_number/comments/:comment_number
+  body: none
+  auth: none
+}

@@ -1,0 +1,15 @@
+meta {
+  name: Add a repository to an app installation
+  type: http
+  seq: 1
+}
+
+put {
+  url: {{baseUrl}}/user/installations/:installation_id/repositories/:repository_id
+  body: none
+  auth: none
+}
+
+headers {
+  Accept: application/json
+}

@@ -1,0 +1,20 @@
+meta {
+  name: Get default attributes for a codespace
+  type: http
+  seq: 1
+}
+
+get {
+  url: {{baseUrl}}/repos/:owner/:repo/codespaces/new?ref=<string>&client_ip=<string>
+  body: none
+  auth: none
+}
+
+query {
+  ref: <string>
+  client_ip: <string>
+}
+
+headers {
+  Accept: application/json
+}

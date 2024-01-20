@@ -1,0 +1,15 @@
+meta {
+  name: Delete a user migration archive
+  type: http
+  seq: 2
+}
+
+delete {
+  url: {{baseUrl}}/user/migrations/:migration_id/archive
+  body: none
+  auth: none
+}
+
+headers {
+  Accept: application/json
+}

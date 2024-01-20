@@ -1,0 +1,15 @@
+meta {
+  name: Get a delivery for an app webhook
+  type: http
+  seq: 1
+}
+
+get {
+  url: {{baseUrl}}/app/hook/deliveries/:delivery_id
+  body: none
+  auth: none
+}
+
+headers {
+  Accept: application/json
+}

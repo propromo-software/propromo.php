@@ -1,0 +1,15 @@
+meta {
+  name: Set public organization membership for the authenticated user
+  type: http
+  seq: 2
+}
+
+put {
+  url: {{baseUrl}}/orgs/:org/public_members/:username
+  body: none
+  auth: none
+}
+
+headers {
+  Accept: application/json
+}

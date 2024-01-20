@@ -1,0 +1,24 @@
+meta {
+  name: Update a release asset
+  type: http
+  seq: 2
+}
+
+patch {
+  url: {{baseUrl}}/repos/:owner/:repo/releases/assets/:asset_id
+  body: json
+  auth: none
+}
+
+headers {
+  Content-Type: application/json
+  Accept: application/json
+}
+
+body:json {
+  {
+    "name": "<string>",
+    "label": "<string>",
+    "state": "<string>"
+  }
+}

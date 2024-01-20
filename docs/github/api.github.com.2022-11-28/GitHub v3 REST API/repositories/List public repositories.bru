@@ -1,0 +1,19 @@
+meta {
+  name: List public repositories
+  type: http
+  seq: 1
+}
+
+get {
+  url: {{baseUrl}}/repositories?since=<integer>
+  body: none
+  auth: none
+}
+
+query {
+  since: <integer>
+}
+
+headers {
+  Accept: application/json
+}

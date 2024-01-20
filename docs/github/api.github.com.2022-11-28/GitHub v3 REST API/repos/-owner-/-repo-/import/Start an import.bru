@@ -1,0 +1,26 @@
+meta {
+  name: Start an import
+  type: http
+  seq: 2
+}
+
+put {
+  url: {{baseUrl}}/repos/:owner/:repo/import
+  body: json
+  auth: none
+}
+
+headers {
+  Content-Type: application/json
+  Accept: application/json
+}
+
+body:json {
+  {
+    "vcs_url": "<string>",
+    "vcs": "subversion",
+    "vcs_username": "<string>",
+    "vcs_password": "<string>",
+    "tfvc_project": "<string>"
+  }
+}

@@ -1,0 +1,15 @@
+meta {
+  name: Add team member -Legacy-
+  type: http
+  seq: 2
+}
+
+put {
+  url: {{baseUrl}}/teams/:team_id/members/:username
+  body: none
+  auth: none
+}
+
+headers {
+  Accept: application/json
+}

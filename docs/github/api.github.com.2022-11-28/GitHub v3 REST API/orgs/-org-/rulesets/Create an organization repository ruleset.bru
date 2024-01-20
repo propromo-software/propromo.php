@@ -1,0 +1,67 @@
+meta {
+  name: Create an organization repository ruleset
+  type: http
+  seq: 2
+}
+
+post {
+  url: {{baseUrl}}/orgs/:org/rulesets
+  body: json
+  auth: none
+}
+
+headers {
+  Content-Type: application/json
+  Accept: application/json
+}
+
+body:json {
+  {
+    "name": "<string>",
+    "enforcement": "evaluate",
+    "target": "tag",
+    "bypass_actors": [
+      {
+        "actor_id": "<integer>",
+        "actor_type": "Team",
+        "bypass_mode": "pull_request"
+      },
+      {
+        "actor_id": "<integer>",
+        "actor_type": "Team",
+        "bypass_mode": "always"
+      }
+    ],
+    "conditions": {
+      "repository_name": {
+        "include": [
+          "<string>",
+          "<string>"
+        ],
+        "exclude": [
+          "<string>",
+          "<string>"
+        ],
+        "protected": "<boolean>"
+      },
+      "ref_name": {
+        "include": [
+          "<string>",
+          "<string>"
+        ],
+        "exclude": [
+          "<string>",
+          "<string>"
+        ]
+      }
+    },
+    "rules": [
+      {
+        "type": "creation"
+      },
+      {
+        "type": "creation"
+      }
+    ]
+  }
+}

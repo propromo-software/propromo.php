@@ -1,0 +1,25 @@
+meta {
+  name: Remove team access restrictions
+  type: http
+  seq: 4
+}
+
+delete {
+  url: {{baseUrl}}/repos/:owner/:repo/branches/:branch/protection/restrictions/teams
+  body: json
+  auth: none
+}
+
+headers {
+  Content-Type: application/json
+  Accept: application/json
+}
+
+body:json {
+  {
+    "teams": [
+      "<string>",
+      "<string>"
+    ]
+  }
+}

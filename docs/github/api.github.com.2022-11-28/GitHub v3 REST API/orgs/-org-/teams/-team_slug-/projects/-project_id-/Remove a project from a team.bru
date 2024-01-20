@@ -1,0 +1,11 @@
+meta {
+  name: Remove a project from a team
+  type: http
+  seq: 3
+}
+
+delete {
+  url: {{baseUrl}}/orgs/:org/teams/:team_slug/projects/:project_id
+  body: none
+  auth: none
+}

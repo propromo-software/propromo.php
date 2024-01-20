@@ -1,0 +1,15 @@
+meta {
+  name: Remove user as a collaborator
+  type: http
+  seq: 2
+}
+
+delete {
+  url: {{baseUrl}}/projects/:project_id/collaborators/:username
+  body: none
+  auth: none
+}
+
+headers {
+  Accept: application/json
+}

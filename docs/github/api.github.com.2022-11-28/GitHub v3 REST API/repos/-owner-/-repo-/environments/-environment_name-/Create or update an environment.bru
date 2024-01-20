@@ -1,0 +1,37 @@
+meta {
+  name: Create or update an environment
+  type: http
+  seq: 2
+}
+
+put {
+  url: {{baseUrl}}/repos/:owner/:repo/environments/:environment_name
+  body: json
+  auth: none
+}
+
+headers {
+  Content-Type: application/json
+  Accept: application/json
+}
+
+body:json {
+  {
+    "wait_timer": "<integer>",
+    "prevent_self_review": "<boolean>",
+    "reviewers": [
+      {
+        "type": "User",
+        "id": "<integer>"
+      },
+      {
+        "type": "Team",
+        "id": "<integer>"
+      }
+    ],
+    "deployment_branch_policy": {
+      "protected_branches": "<boolean>",
+      "custom_branch_policies": "<boolean>"
+    }
+  }
+}

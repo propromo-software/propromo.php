@@ -1,0 +1,26 @@
+meta {
+  name: Update a project
+  type: http
+  seq: 2
+}
+
+patch {
+  url: {{baseUrl}}/projects/:project_id
+  body: json
+  auth: none
+}
+
+headers {
+  Content-Type: application/json
+  Accept: application/json
+}
+
+body:json {
+  {
+    "name": "<string>",
+    "body": "<string>",
+    "state": "<string>",
+    "organization_permission": "write",
+    "private": "<boolean>"
+  }
+}

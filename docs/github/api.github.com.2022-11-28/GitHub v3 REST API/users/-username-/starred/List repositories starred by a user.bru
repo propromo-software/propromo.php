@@ -1,0 +1,22 @@
+meta {
+  name: List repositories starred by a user
+  type: http
+  seq: 1
+}
+
+get {
+  url: {{baseUrl}}/users/:username/starred?sort=created&direction=desc&per_page=30&page=1
+  body: none
+  auth: none
+}
+
+query {
+  sort: created
+  direction: desc
+  per_page: 30
+  page: 1
+}
+
+headers {
+  Accept: application/json
+}

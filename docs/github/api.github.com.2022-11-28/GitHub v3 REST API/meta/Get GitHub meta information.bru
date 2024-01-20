@@ -1,0 +1,15 @@
+meta {
+  name: Get GitHub meta information
+  type: http
+  seq: 1
+}
+
+get {
+  url: {{baseUrl}}/meta
+  body: none
+  auth: none
+}
+
+headers {
+  Accept: application/json
+}

@@ -1,0 +1,11 @@
+meta {
+  name: Remove interaction restrictions for an organization
+  type: http
+  seq: 3
+}
+
+delete {
+  url: {{baseUrl}}/orgs/:org/interaction-limits
+  body: none
+  auth: none
+}

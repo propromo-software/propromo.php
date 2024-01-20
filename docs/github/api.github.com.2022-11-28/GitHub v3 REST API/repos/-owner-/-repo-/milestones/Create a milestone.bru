@@ -1,0 +1,25 @@
+meta {
+  name: Create a milestone
+  type: http
+  seq: 2
+}
+
+post {
+  url: {{baseUrl}}/repos/:owner/:repo/milestones
+  body: json
+  auth: none
+}
+
+headers {
+  Content-Type: application/json
+  Accept: application/json
+}
+
+body:json {
+  {
+    "title": "<string>",
+    "state": "open",
+    "description": "<string>",
+    "due_on": "<dateTime>"
+  }
+}

@@ -1,0 +1,15 @@
+meta {
+  name: Get a DNS health check for GitHub Pages
+  type: http
+  seq: 1
+}
+
+get {
+  url: {{baseUrl}}/repos/:owner/:repo/pages/health
+  body: none
+  auth: none
+}
+
+headers {
+  Accept: application/json
+}

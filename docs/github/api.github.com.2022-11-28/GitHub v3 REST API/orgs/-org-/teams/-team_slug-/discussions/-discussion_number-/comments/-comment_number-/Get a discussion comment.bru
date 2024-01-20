@@ -1,0 +1,15 @@
+meta {
+  name: Get a discussion comment
+  type: http
+  seq: 1
+}
+
+get {
+  url: {{baseUrl}}/orgs/:org/teams/:team_slug/discussions/:discussion_number/comments/:comment_number
+  body: none
+  auth: none
+}
+
+headers {
+  Accept: application/json
+}

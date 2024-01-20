@@ -1,0 +1,34 @@
+meta {
+  name: Create a gist
+  type: http
+  seq: 2
+}
+
+post {
+  url: {{baseUrl}}/gists
+  body: json
+  auth: none
+}
+
+headers {
+  Content-Type: application/json
+  Accept: application/json
+}
+
+body:json {
+  {
+    "files": {
+      "Ut_c": {
+        "content": "<string>"
+      },
+      "fugiatdb7": {
+        "content": "<string>"
+      },
+      "ut1e": {
+        "content": "<string>"
+      }
+    },
+    "description": "<string>",
+    "public": false
+  }
+}

@@ -1,0 +1,15 @@
+meta {
+  name: Get information about a SARIF upload
+  type: http
+  seq: 1
+}
+
+get {
+  url: {{baseUrl}}/repos/:owner/:repo/code-scanning/sarifs/:sarif_id
+  body: none
+  auth: none
+}
+
+headers {
+  Accept: application/json
+}

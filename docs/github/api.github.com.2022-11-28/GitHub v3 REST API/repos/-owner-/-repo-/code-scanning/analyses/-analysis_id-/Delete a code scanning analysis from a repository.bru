@@ -1,0 +1,19 @@
+meta {
+  name: Delete a code scanning analysis from a repository
+  type: http
+  seq: 2
+}
+
+delete {
+  url: {{baseUrl}}/repos/:owner/:repo/code-scanning/analyses/:analysis_id?confirm_delete=<string>
+  body: none
+  auth: none
+}
+
+query {
+  confirm_delete: <string>
+}
+
+headers {
+  Accept: application/json
+}

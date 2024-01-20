@@ -1,0 +1,15 @@
+meta {
+  name: Unblock a user
+  type: http
+  seq: 3
+}
+
+delete {
+  url: {{baseUrl}}/user/blocks/:username
+  body: none
+  auth: none
+}
+
+headers {
+  Accept: application/json
+}

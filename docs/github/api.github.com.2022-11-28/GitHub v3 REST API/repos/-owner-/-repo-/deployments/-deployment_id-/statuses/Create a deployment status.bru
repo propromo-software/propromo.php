@@ -1,0 +1,28 @@
+meta {
+  name: Create a deployment status
+  type: http
+  seq: 2
+}
+
+post {
+  url: {{baseUrl}}/repos/:owner/:repo/deployments/:deployment_id/statuses
+  body: json
+  auth: none
+}
+
+headers {
+  Content-Type: application/json
+  Accept: application/json
+}
+
+body:json {
+  {
+    "state": "inactive",
+    "target_url": "",
+    "log_url": "",
+    "description": "",
+    "environment": "<string>",
+    "environment_url": "",
+    "auto_inactive": "<boolean>"
+  }
+}

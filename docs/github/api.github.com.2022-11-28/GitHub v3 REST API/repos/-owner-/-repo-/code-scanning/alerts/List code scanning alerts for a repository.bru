@@ -1,0 +1,27 @@
+meta {
+  name: List code scanning alerts for a repository
+  type: http
+  seq: 1
+}
+
+get {
+  url: {{baseUrl}}/repos/:owner/:repo/code-scanning/alerts?tool_name=<string>&tool_guid=<string>&page=1&per_page=30&ref=<string>&direction=desc&sort=created&state=open&severity=low
+  body: none
+  auth: none
+}
+
+query {
+  tool_name: <string>
+  tool_guid: <string>
+  page: 1
+  per_page: 30
+  ref: <string>
+  direction: desc
+  sort: created
+  state: open
+  severity: low
+}
+
+headers {
+  Accept: application/json
+}

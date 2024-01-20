@@ -1,0 +1,11 @@
+meta {
+  name: Delete a release reaction
+  type: http
+  seq: 1
+}
+
+delete {
+  url: {{baseUrl}}/repos/:owner/:repo/releases/:release_id/reactions/:reaction_id
+  body: none
+  auth: none
+}

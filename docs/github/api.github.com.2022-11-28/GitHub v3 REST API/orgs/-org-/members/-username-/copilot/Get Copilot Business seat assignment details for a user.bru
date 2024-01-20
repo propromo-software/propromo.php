@@ -1,0 +1,15 @@
+meta {
+  name: Get Copilot Business seat assignment details for a user
+  type: http
+  seq: 1
+}
+
+get {
+  url: {{baseUrl}}/orgs/:org/members/:username/copilot
+  body: none
+  auth: none
+}
+
+headers {
+  Accept: application/json
+}

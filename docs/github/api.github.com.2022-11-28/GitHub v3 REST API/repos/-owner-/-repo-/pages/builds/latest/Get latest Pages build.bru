@@ -1,0 +1,15 @@
+meta {
+  name: Get latest Pages build
+  type: http
+  seq: 1
+}
+
+get {
+  url: {{baseUrl}}/repos/:owner/:repo/pages/builds/latest
+  body: none
+  auth: none
+}
+
+headers {
+  Accept: application/json
+}

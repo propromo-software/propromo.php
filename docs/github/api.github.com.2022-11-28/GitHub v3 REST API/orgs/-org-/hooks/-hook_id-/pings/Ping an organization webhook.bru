@@ -1,0 +1,15 @@
+meta {
+  name: Ping an organization webhook
+  type: http
+  seq: 1
+}
+
+post {
+  url: {{baseUrl}}/orgs/:org/hooks/:hook_id/pings
+  body: none
+  auth: none
+}
+
+headers {
+  Accept: application/json
+}

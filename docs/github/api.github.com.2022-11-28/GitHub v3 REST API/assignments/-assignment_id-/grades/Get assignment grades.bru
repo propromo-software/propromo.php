@@ -1,0 +1,15 @@
+meta {
+  name: Get assignment grades
+  type: http
+  seq: 1
+}
+
+get {
+  url: {{baseUrl}}/assignments/:assignment_id/grades
+  body: none
+  auth: none
+}
+
+headers {
+  Accept: application/json
+}

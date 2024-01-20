@@ -1,0 +1,11 @@
+meta {
+  name: Check if a pull request has been merged
+  type: http
+  seq: 1
+}
+
+get {
+  url: {{baseUrl}}/repos/:owner/:repo/pulls/:pull_number/merge
+  body: none
+  auth: none
+}

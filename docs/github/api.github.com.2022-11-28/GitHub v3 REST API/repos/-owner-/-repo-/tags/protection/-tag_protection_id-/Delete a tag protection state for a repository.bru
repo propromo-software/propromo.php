@@ -1,0 +1,15 @@
+meta {
+  name: Delete a tag protection state for a repository
+  type: http
+  seq: 1
+}
+
+delete {
+  url: {{baseUrl}}/repos/:owner/:repo/tags/protection/:tag_protection_id
+  body: none
+  auth: none
+}
+
+headers {
+  Accept: application/json
+}

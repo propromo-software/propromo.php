@@ -1,0 +1,22 @@
+meta {
+  name: Update a repository invitation
+  type: http
+  seq: 1
+}
+
+patch {
+  url: {{baseUrl}}/repos/:owner/:repo/invitations/:invitation_id
+  body: json
+  auth: none
+}
+
+headers {
+  Content-Type: application/json
+  Accept: application/json
+}
+
+body:json {
+  {
+    "permissions": "triage"
+  }
+}

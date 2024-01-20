@@ -1,0 +1,15 @@
+meta {
+  name: Get an environment
+  type: http
+  seq: 1
+}
+
+get {
+  url: {{baseUrl}}/repos/:owner/:repo/environments/:environment_name
+  body: none
+  auth: none
+}
+
+headers {
+  Accept: application/json
+}

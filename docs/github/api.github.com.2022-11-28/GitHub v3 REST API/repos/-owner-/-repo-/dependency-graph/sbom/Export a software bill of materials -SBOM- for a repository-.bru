@@ -1,0 +1,15 @@
+meta {
+  name: Export a software bill of materials -SBOM- for a repository-
+  type: http
+  seq: 1
+}
+
+get {
+  url: {{baseUrl}}/repos/:owner/:repo/dependency-graph/sbom
+  body: none
+  auth: none
+}
+
+headers {
+  Accept: application/json
+}

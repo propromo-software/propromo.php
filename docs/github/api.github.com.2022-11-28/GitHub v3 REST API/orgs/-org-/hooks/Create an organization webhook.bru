@@ -1,0 +1,34 @@
+meta {
+  name: Create an organization webhook
+  type: http
+  seq: 2
+}
+
+post {
+  url: {{baseUrl}}/orgs/:org/hooks
+  body: json
+  auth: none
+}
+
+headers {
+  Content-Type: application/json
+  Accept: application/json
+}
+
+body:json {
+  {
+    "name": "<string>",
+    "config": {
+      "url": "<uri>",
+      "content_type": "<string>",
+      "secret": "<string>",
+      "insecure_ssl": "<string>",
+      "username": "<string>",
+      "password": "<string>"
+    },
+    "events": [
+      "push"
+    ],
+    "active": true
+  }
+}

@@ -1,0 +1,15 @@
+meta {
+  name: Accept a repository invitation
+  type: http
+  seq: 1
+}
+
+patch {
+  url: {{baseUrl}}/user/repository_invitations/:invitation_id
+  body: none
+  auth: none
+}
+
+headers {
+  Accept: application/json
+}

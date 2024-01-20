@@ -1,0 +1,23 @@
+meta {
+  name: List review comments in a repository
+  type: http
+  seq: 1
+}
+
+get {
+  url: {{baseUrl}}/repos/:owner/:repo/pulls/comments?sort=created_at&direction=asc&since=<dateTime>&per_page=30&page=1
+  body: none
+  auth: none
+}
+
+query {
+  sort: created_at
+  direction: asc
+  since: <dateTime>
+  per_page: 30
+  page: 1
+}
+
+headers {
+  Accept: application/json
+}

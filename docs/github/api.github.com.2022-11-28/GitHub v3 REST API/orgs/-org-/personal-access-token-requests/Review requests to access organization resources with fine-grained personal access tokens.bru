@@ -1,0 +1,26 @@
+meta {
+  name: Review requests to access organization resources with fine-grained personal access tokens
+  type: http
+  seq: 2
+}
+
+post {
+  url: {{baseUrl}}/orgs/:org/personal-access-token-requests
+  body: json
+  auth: none
+}
+
+headers {
+  Content-Type: application/json
+  Accept: application/json
+}
+
+body:json {
+  {
+    "action": "approve",
+    "pat_request_ids": [
+      "<integer>"
+    ],
+    "reason": "<string>"
+  }
+}

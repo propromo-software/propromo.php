@@ -1,0 +1,22 @@
+meta {
+  name: Add or update team project permissions
+  type: http
+  seq: 2
+}
+
+put {
+  url: {{baseUrl}}/orgs/:org/teams/:team_slug/projects/:project_id
+  body: json
+  auth: none
+}
+
+headers {
+  Content-Type: application/json
+  Accept: application/json
+}
+
+body:json {
+  {
+    "permission": "write"
+  }
+}

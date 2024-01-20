@@ -1,0 +1,15 @@
+meta {
+  name: Delete a codespace from the organization
+  type: http
+  seq: 1
+}
+
+delete {
+  url: {{baseUrl}}/orgs/:org/members/:username/codespaces/:codespace_name
+  body: none
+  auth: none
+}
+
+headers {
+  Accept: application/json
+}

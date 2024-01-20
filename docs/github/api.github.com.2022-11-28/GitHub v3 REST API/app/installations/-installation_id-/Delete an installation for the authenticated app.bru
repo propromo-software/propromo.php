@@ -1,0 +1,15 @@
+meta {
+  name: Delete an installation for the authenticated app
+  type: http
+  seq: 2
+}
+
+delete {
+  url: {{baseUrl}}/app/installations/:installation_id
+  body: none
+  auth: none
+}
+
+headers {
+  Accept: application/json
+}

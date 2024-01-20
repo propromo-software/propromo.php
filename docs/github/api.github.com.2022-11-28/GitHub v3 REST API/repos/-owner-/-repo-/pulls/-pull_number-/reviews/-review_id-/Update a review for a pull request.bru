@@ -1,0 +1,22 @@
+meta {
+  name: Update a review for a pull request
+  type: http
+  seq: 2
+}
+
+put {
+  url: {{baseUrl}}/repos/:owner/:repo/pulls/:pull_number/reviews/:review_id
+  body: json
+  auth: none
+}
+
+headers {
+  Content-Type: application/json
+  Accept: application/json
+}
+
+body:json {
+  {
+    "body": "<string>"
+  }
+}

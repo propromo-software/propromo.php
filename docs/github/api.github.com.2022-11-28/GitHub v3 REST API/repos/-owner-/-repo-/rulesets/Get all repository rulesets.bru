@@ -1,0 +1,21 @@
+meta {
+  name: Get all repository rulesets
+  type: http
+  seq: 1
+}
+
+get {
+  url: {{baseUrl}}/repos/:owner/:repo/rulesets?per_page=30&page=1&includes_parents=true
+  body: none
+  auth: none
+}
+
+query {
+  per_page: 30
+  page: 1
+  includes_parents: true
+}
+
+headers {
+  Accept: application/json
+}

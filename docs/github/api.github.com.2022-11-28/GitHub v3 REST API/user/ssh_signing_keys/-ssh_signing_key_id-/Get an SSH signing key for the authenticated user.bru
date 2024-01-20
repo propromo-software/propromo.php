@@ -1,0 +1,15 @@
+meta {
+  name: Get an SSH signing key for the authenticated user
+  type: http
+  seq: 1
+}
+
+get {
+  url: {{baseUrl}}/user/ssh_signing_keys/:ssh_signing_key_id
+  body: none
+  auth: none
+}
+
+headers {
+  Accept: application/json
+}

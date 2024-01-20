@@ -1,0 +1,26 @@
+meta {
+  name: Manage access control for organization codespaces
+  type: http
+  seq: 1
+}
+
+put {
+  url: {{baseUrl}}/orgs/:org/codespaces/access
+  body: json
+  auth: none
+}
+
+headers {
+  Content-Type: application/json
+  Accept: application/json
+}
+
+body:json {
+  {
+    "visibility": "all_members",
+    "selected_usernames": [
+      "<string>",
+      "<string>"
+    ]
+  }
+}

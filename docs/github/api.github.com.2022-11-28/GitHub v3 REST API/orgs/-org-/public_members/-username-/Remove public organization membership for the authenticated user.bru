@@ -1,0 +1,11 @@
+meta {
+  name: Remove public organization membership for the authenticated user
+  type: http
+  seq: 3
+}
+
+delete {
+  url: {{baseUrl}}/orgs/:org/public_members/:username
+  body: none
+  auth: none
+}

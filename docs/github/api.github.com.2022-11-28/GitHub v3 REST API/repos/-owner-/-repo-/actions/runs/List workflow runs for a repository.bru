@@ -1,0 +1,28 @@
+meta {
+  name: List workflow runs for a repository
+  type: http
+  seq: 1
+}
+
+get {
+  url: {{baseUrl}}/repos/:owner/:repo/actions/runs?actor=<string>&branch=<string>&event=<string>&status=timed_out&per_page=30&page=1&created=<dateTime>&exclude_pull_requests=false&check_suite_id=<integer>&head_sha=<string>
+  body: none
+  auth: none
+}
+
+query {
+  actor: <string>
+  branch: <string>
+  event: <string>
+  status: timed_out
+  per_page: 30
+  page: 1
+  created: <dateTime>
+  exclude_pull_requests: false
+  check_suite_id: <integer>
+  head_sha: <string>
+}
+
+headers {
+  Accept: application/json
+}

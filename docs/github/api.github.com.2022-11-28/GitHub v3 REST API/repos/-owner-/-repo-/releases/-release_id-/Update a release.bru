@@ -1,0 +1,29 @@
+meta {
+  name: Update a release
+  type: http
+  seq: 2
+}
+
+patch {
+  url: {{baseUrl}}/repos/:owner/:repo/releases/:release_id
+  body: json
+  auth: none
+}
+
+headers {
+  Content-Type: application/json
+  Accept: application/json
+}
+
+body:json {
+  {
+    "tag_name": "<string>",
+    "target_commitish": "<string>",
+    "name": "<string>",
+    "body": "<string>",
+    "draft": "<boolean>",
+    "prerelease": "<boolean>",
+    "make_latest": true,
+    "discussion_category_name": "<string>"
+  }
+}

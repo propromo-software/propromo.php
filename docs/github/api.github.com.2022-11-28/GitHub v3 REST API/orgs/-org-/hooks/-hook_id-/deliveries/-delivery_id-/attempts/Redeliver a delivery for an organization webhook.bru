@@ -1,0 +1,15 @@
+meta {
+  name: Redeliver a delivery for an organization webhook
+  type: http
+  seq: 1
+}
+
+post {
+  url: {{baseUrl}}/orgs/:org/hooks/:hook_id/deliveries/:delivery_id/attempts
+  body: none
+  auth: none
+}
+
+headers {
+  Accept: application/json
+}

@@ -1,0 +1,23 @@
+meta {
+  name: Create a blob
+  type: http
+  seq: 1
+}
+
+post {
+  url: {{baseUrl}}/repos/:owner/:repo/git/blobs
+  body: json
+  auth: none
+}
+
+headers {
+  Content-Type: application/json
+  Accept: application/json
+}
+
+body:json {
+  {
+    "content": "<string>",
+    "encoding": "utf-8"
+  }
+}

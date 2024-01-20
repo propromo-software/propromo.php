@@ -1,0 +1,22 @@
+meta {
+  name: Set default workflow permissions for a repository
+  type: http
+  seq: 2
+}
+
+put {
+  url: {{baseUrl}}/repos/:owner/:repo/actions/permissions/workflow
+  body: json
+  auth: none
+}
+
+headers {
+  Content-Type: application/json
+}
+
+body:json {
+  {
+    "default_workflow_permissions": "write",
+    "can_approve_pull_request_reviews": "<boolean>"
+  }
+}

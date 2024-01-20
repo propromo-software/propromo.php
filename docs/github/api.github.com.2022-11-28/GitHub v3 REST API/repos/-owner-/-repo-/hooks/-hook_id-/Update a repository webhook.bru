@@ -1,0 +1,39 @@
+meta {
+  name: Update a repository webhook
+  type: http
+  seq: 2
+}
+
+patch {
+  url: {{baseUrl}}/repos/:owner/:repo/hooks/:hook_id
+  body: json
+  auth: none
+}
+
+headers {
+  Content-Type: application/json
+  Accept: application/json
+}
+
+body:json {
+  {
+    "config": {
+      "url": "<uri>",
+      "content_type": "<string>",
+      "secret": "<string>",
+      "insecure_ssl": "<string>"
+    },
+    "events": [
+      "push"
+    ],
+    "add_events": [
+      "<string>",
+      "<string>"
+    ],
+    "remove_events": [
+      "<string>",
+      "<string>"
+    ],
+    "active": true
+  }
+}

@@ -1,0 +1,15 @@
+meta {
+  name: Get Copilot Business seat information and settings for an organization
+  type: http
+  seq: 1
+}
+
+get {
+  url: {{baseUrl}}/orgs/:org/copilot/billing
+  body: none
+  auth: none
+}
+
+headers {
+  Accept: application/json
+}

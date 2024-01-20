@@ -1,0 +1,25 @@
+meta {
+  name: Add assignees to an issue
+  type: http
+  seq: 1
+}
+
+post {
+  url: {{baseUrl}}/repos/:owner/:repo/issues/:issue_number/assignees
+  body: json
+  auth: none
+}
+
+headers {
+  Content-Type: application/json
+  Accept: application/json
+}
+
+body:json {
+  {
+    "assignees": [
+      "<string>",
+      "<string>"
+    ]
+  }
+}

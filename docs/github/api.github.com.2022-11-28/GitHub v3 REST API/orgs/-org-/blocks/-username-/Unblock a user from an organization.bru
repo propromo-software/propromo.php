@@ -1,0 +1,11 @@
+meta {
+  name: Unblock a user from an organization
+  type: http
+  seq: 3
+}
+
+delete {
+  url: {{baseUrl}}/orgs/:org/blocks/:username
+  body: none
+  auth: none
+}

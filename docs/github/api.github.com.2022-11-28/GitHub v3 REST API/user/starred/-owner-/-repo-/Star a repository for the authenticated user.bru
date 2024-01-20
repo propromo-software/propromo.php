@@ -1,0 +1,15 @@
+meta {
+  name: Star a repository for the authenticated user
+  type: http
+  seq: 2
+}
+
+put {
+  url: {{baseUrl}}/user/starred/:owner/:repo
+  body: none
+  auth: none
+}
+
+headers {
+  Accept: application/json
+}

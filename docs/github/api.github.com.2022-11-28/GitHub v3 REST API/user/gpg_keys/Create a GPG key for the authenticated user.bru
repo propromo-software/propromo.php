@@ -1,0 +1,23 @@
+meta {
+  name: Create a GPG key for the authenticated user
+  type: http
+  seq: 2
+}
+
+post {
+  url: {{baseUrl}}/user/gpg_keys
+  body: json
+  auth: none
+}
+
+headers {
+  Content-Type: application/json
+  Accept: application/json
+}
+
+body:json {
+  {
+    "armored_public_key": "<string>",
+    "name": "<string>"
+  }
+}

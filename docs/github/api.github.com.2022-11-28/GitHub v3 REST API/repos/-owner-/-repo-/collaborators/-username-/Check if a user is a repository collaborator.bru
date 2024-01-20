@@ -1,0 +1,11 @@
+meta {
+  name: Check if a user is a repository collaborator
+  type: http
+  seq: 1
+}
+
+get {
+  url: {{baseUrl}}/repos/:owner/:repo/collaborators/:username
+  body: none
+  auth: none
+}

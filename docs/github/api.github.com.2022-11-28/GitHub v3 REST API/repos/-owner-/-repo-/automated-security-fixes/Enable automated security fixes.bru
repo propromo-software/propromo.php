@@ -1,0 +1,11 @@
+meta {
+  name: Enable automated security fixes
+  type: http
+  seq: 2
+}
+
+put {
+  url: {{baseUrl}}/repos/:owner/:repo/automated-security-fixes
+  body: none
+  auth: none
+}

@@ -1,0 +1,56 @@
+meta {
+  name: Update a repository
+  type: http
+  seq: 2
+}
+
+patch {
+  url: {{baseUrl}}/repos/:owner/:repo
+  body: json
+  auth: none
+}
+
+headers {
+  Content-Type: application/json
+  Accept: application/json
+}
+
+body:json {
+  {
+    "name": "<string>",
+    "description": "<string>",
+    "homepage": "<string>",
+    "private": false,
+    "visibility": "public",
+    "security_and_analysis": {
+      "advanced_security": {
+        "status": "<string>"
+      },
+      "secret_scanning": {
+        "status": "<string>"
+      },
+      "secret_scanning_push_protection": {
+        "status": "<string>"
+      }
+    },
+    "has_issues": true,
+    "has_projects": true,
+    "has_wiki": true,
+    "is_template": false,
+    "default_branch": "<string>",
+    "allow_squash_merge": true,
+    "allow_merge_commit": true,
+    "allow_rebase_merge": true,
+    "allow_auto_merge": false,
+    "delete_branch_on_merge": false,
+    "allow_update_branch": false,
+    "use_squash_pr_title_as_default": false,
+    "squash_merge_commit_title": "PR_TITLE",
+    "squash_merge_commit_message": "BLANK",
+    "merge_commit_title": "PR_TITLE",
+    "merge_commit_message": "BLANK",
+    "archived": false,
+    "allow_forking": false,
+    "web_commit_signoff_required": false
+  }
+}

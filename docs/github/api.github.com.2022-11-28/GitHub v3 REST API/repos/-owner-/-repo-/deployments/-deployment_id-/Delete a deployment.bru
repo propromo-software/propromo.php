@@ -1,0 +1,15 @@
+meta {
+  name: Delete a deployment
+  type: http
+  seq: 2
+}
+
+delete {
+  url: {{baseUrl}}/repos/:owner/:repo/deployments/:deployment_id
+  body: none
+  auth: none
+}
+
+headers {
+  Accept: application/json
+}

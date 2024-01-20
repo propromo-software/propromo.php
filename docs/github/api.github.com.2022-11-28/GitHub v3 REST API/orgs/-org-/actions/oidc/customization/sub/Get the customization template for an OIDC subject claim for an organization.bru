@@ -1,0 +1,15 @@
+meta {
+  name: Get the customization template for an OIDC subject claim for an organization
+  type: http
+  seq: 1
+}
+
+get {
+  url: {{baseUrl}}/orgs/:org/actions/oidc/customization/sub
+  body: none
+  auth: none
+}
+
+headers {
+  Accept: application/json
+}

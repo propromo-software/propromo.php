@@ -1,0 +1,44 @@
+meta {
+  name: Create a review for a pull request
+  type: http
+  seq: 2
+}
+
+post {
+  url: {{baseUrl}}/repos/:owner/:repo/pulls/:pull_number/reviews
+  body: json
+  auth: none
+}
+
+headers {
+  Content-Type: application/json
+  Accept: application/json
+}
+
+body:json {
+  {
+    "commit_id": "<string>",
+    "body": "<string>",
+    "event": "APPROVE",
+    "comments": [
+      {
+        "path": "<string>",
+        "body": "<string>",
+        "position": "<integer>",
+        "line": "<integer>",
+        "side": "<string>",
+        "start_line": "<integer>",
+        "start_side": "<string>"
+      },
+      {
+        "path": "<string>",
+        "body": "<string>",
+        "position": "<integer>",
+        "line": "<integer>",
+        "side": "<string>",
+        "start_line": "<integer>",
+        "start_side": "<string>"
+      }
+    ]
+  }
+}

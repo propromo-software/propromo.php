@@ -1,0 +1,11 @@
+meta {
+  name: Remove a security manager team
+  type: http
+  seq: 2
+}
+
+delete {
+  url: {{baseUrl}}/orgs/:org/security-managers/teams/:team_slug
+  body: none
+  auth: none
+}

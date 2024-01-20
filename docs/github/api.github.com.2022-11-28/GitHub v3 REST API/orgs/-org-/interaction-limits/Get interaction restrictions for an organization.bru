@@ -1,0 +1,15 @@
+meta {
+  name: Get interaction restrictions for an organization
+  type: http
+  seq: 1
+}
+
+get {
+  url: {{baseUrl}}/orgs/:org/interaction-limits
+  body: none
+  auth: none
+}
+
+headers {
+  Accept: application/json
+}

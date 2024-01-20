@@ -1,0 +1,15 @@
+meta {
+  name: Get an issue event
+  type: http
+  seq: 1
+}
+
+get {
+  url: {{baseUrl}}/repos/:owner/:repo/issues/events/:event_id
+  body: none
+  auth: none
+}
+
+headers {
+  Accept: application/json
+}

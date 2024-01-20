@@ -1,0 +1,15 @@
+meta {
+  name: Get all status check contexts
+  type: http
+  seq: 1
+}
+
+get {
+  url: {{baseUrl}}/repos/:owner/:repo/branches/:branch/protection/required_status_checks/contexts
+  body: none
+  auth: none
+}
+
+headers {
+  Accept: application/json
+}

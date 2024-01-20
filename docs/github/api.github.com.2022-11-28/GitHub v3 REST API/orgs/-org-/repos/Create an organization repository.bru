@@ -1,0 +1,48 @@
+meta {
+  name: Create an organization repository
+  type: http
+  seq: 2
+}
+
+post {
+  url: {{baseUrl}}/orgs/:org/repos
+  body: json
+  auth: none
+}
+
+headers {
+  Content-Type: application/json
+  Accept: application/json
+}
+
+body:json {
+  {
+    "name": "<string>",
+    "description": "<string>",
+    "homepage": "<string>",
+    "private": false,
+    "visibility": "public",
+    "has_issues": true,
+    "has_projects": true,
+    "has_wiki": true,
+    "has_downloads": true,
+    "is_template": false,
+    "team_id": "<integer>",
+    "auto_init": false,
+    "gitignore_template": "<string>",
+    "license_template": "<string>",
+    "allow_squash_merge": true,
+    "allow_merge_commit": true,
+    "allow_rebase_merge": true,
+    "allow_auto_merge": false,
+    "delete_branch_on_merge": false,
+    "use_squash_pr_title_as_default": false,
+    "squash_merge_commit_title": "PR_TITLE",
+    "squash_merge_commit_message": "PR_BODY",
+    "merge_commit_title": "PR_TITLE",
+    "merge_commit_message": "PR_BODY",
+    "custom_properties": {
+      "dolor0c": 36326324.74954042
+    }
+  }
+}

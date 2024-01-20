@@ -1,0 +1,33 @@
+meta {
+  name: Create a codespace for the authenticated user
+  type: http
+  seq: 2
+}
+
+post {
+  url: {{baseUrl}}/user/codespaces
+  body: json
+  auth: none
+}
+
+headers {
+  Content-Type: application/json
+  Accept: application/json
+}
+
+body:json {
+  {
+    "repository_id": "<integer>",
+    "ref": "<string>",
+    "location": "<string>",
+    "geo": "UsEast",
+    "client_ip": "<string>",
+    "machine": "<string>",
+    "devcontainer_path": "<string>",
+    "multi_repo_permissions_opt_out": "<boolean>",
+    "working_directory": "<string>",
+    "idle_timeout_minutes": "<integer>",
+    "display_name": "<string>",
+    "retention_period_minutes": "<integer>"
+  }
+}

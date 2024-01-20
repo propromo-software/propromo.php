@@ -1,0 +1,11 @@
+meta {
+  name: Remove team membership for a user -Legacy-
+  type: http
+  seq: 3
+}
+
+delete {
+  url: {{baseUrl}}/teams/:team_id/memberships/:username
+  body: none
+  auth: none
+}

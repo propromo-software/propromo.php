@@ -1,0 +1,15 @@
+meta {
+  name: Get an organization membership for the authenticated user
+  type: http
+  seq: 1
+}
+
+get {
+  url: {{baseUrl}}/user/memberships/orgs/:org
+  body: none
+  auth: none
+}
+
+headers {
+  Accept: application/json
+}

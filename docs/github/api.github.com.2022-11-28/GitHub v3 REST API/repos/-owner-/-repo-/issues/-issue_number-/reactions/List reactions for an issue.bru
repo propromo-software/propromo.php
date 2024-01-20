@@ -1,0 +1,21 @@
+meta {
+  name: List reactions for an issue
+  type: http
+  seq: 1
+}
+
+get {
+  url: {{baseUrl}}/repos/:owner/:repo/issues/:issue_number/reactions?content=confused&per_page=30&page=1
+  body: none
+  auth: none
+}
+
+query {
+  content: confused
+  per_page: 30
+  page: 1
+}
+
+headers {
+  Accept: application/json
+}

@@ -1,0 +1,19 @@
+meta {
+  name: Get a tree
+  type: http
+  seq: 1
+}
+
+get {
+  url: {{baseUrl}}/repos/:owner/:repo/git/trees/:tree_sha?recursive=<string>
+  body: none
+  auth: none
+}
+
+query {
+  recursive: <string>
+}
+
+headers {
+  Accept: application/json
+}

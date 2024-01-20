@@ -1,0 +1,15 @@
+meta {
+  name: Star a gist
+  type: http
+  seq: 2
+}
+
+put {
+  url: {{baseUrl}}/gists/:gist_id/star
+  body: none
+  auth: none
+}
+
+headers {
+  Accept: application/json
+}

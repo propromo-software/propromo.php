@@ -1,0 +1,31 @@
+meta {
+  name: Create a review comment for a pull request
+  type: http
+  seq: 2
+}
+
+post {
+  url: {{baseUrl}}/repos/:owner/:repo/pulls/:pull_number/comments
+  body: json
+  auth: none
+}
+
+headers {
+  Content-Type: application/json
+  Accept: application/json
+}
+
+body:json {
+  {
+    "body": "<string>",
+    "commit_id": "<string>",
+    "path": "<string>",
+    "position": "<integer>",
+    "side": "RIGHT",
+    "line": "<integer>",
+    "start_line": "<integer>",
+    "start_side": "RIGHT",
+    "in_reply_to": "<integer>",
+    "subject_type": "file"
+  }
+}

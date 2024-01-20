@@ -1,0 +1,15 @@
+meta {
+  name: Get the latest release
+  type: http
+  seq: 1
+}
+
+get {
+  url: {{baseUrl}}/repos/:owner/:repo/releases/latest
+  body: none
+  auth: none
+}
+
+headers {
+  Accept: application/json
+}

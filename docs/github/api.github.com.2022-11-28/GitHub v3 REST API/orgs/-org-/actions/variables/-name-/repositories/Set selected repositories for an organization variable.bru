@@ -1,0 +1,24 @@
+meta {
+  name: Set selected repositories for an organization variable
+  type: http
+  seq: 2
+}
+
+put {
+  url: {{baseUrl}}/orgs/:org/actions/variables/:name/repositories
+  body: json
+  auth: none
+}
+
+headers {
+  Content-Type: application/json
+}
+
+body:json {
+  {
+    "selected_repository_ids": [
+      "<integer>",
+      "<integer>"
+    ]
+  }
+}

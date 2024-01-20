@@ -1,0 +1,23 @@
+meta {
+  name: Create an environment variable
+  type: http
+  seq: 2
+}
+
+post {
+  url: {{baseUrl}}/repositories/:repository_id/environments/:environment_name/variables
+  body: json
+  auth: none
+}
+
+headers {
+  Content-Type: application/json
+  Accept: application/json
+}
+
+body:json {
+  {
+    "name": "<string>",
+    "value": "<string>"
+  }
+}

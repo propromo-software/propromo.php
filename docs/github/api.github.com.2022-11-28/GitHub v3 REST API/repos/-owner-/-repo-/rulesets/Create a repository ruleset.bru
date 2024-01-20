@@ -1,0 +1,56 @@
+meta {
+  name: Create a repository ruleset
+  type: http
+  seq: 2
+}
+
+post {
+  url: {{baseUrl}}/repos/:owner/:repo/rulesets
+  body: json
+  auth: none
+}
+
+headers {
+  Content-Type: application/json
+  Accept: application/json
+}
+
+body:json {
+  {
+    "name": "<string>",
+    "enforcement": "active",
+    "target": "branch",
+    "bypass_actors": [
+      {
+        "actor_id": "<integer>",
+        "actor_type": "Team",
+        "bypass_mode": "always"
+      },
+      {
+        "actor_id": "<integer>",
+        "actor_type": "Team",
+        "bypass_mode": "always"
+      }
+    ],
+    "conditions": {
+      "ref_name": {
+        "include": [
+          "<string>",
+          "<string>"
+        ],
+        "exclude": [
+          "<string>",
+          "<string>"
+        ]
+      }
+    },
+    "rules": [
+      {
+        "type": "creation"
+      },
+      {
+        "type": "creation"
+      }
+    ]
+  }
+}

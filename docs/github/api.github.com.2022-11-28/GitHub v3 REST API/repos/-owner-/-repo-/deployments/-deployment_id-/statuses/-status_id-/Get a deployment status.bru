@@ -1,0 +1,15 @@
+meta {
+  name: Get a deployment status
+  type: http
+  seq: 1
+}
+
+get {
+  url: {{baseUrl}}/repos/:owner/:repo/deployments/:deployment_id/statuses/:status_id
+  body: none
+  auth: none
+}
+
+headers {
+  Accept: application/json
+}

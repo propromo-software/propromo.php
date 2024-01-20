@@ -1,0 +1,15 @@
+meta {
+  name: Get a review for a pull request
+  type: http
+  seq: 1
+}
+
+get {
+  url: {{baseUrl}}/repos/:owner/:repo/pulls/:pull_number/reviews/:review_id
+  body: none
+  auth: none
+}
+
+headers {
+  Accept: application/json
+}

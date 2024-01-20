@@ -1,0 +1,15 @@
+meta {
+  name: Get a license
+  type: http
+  seq: 1
+}
+
+get {
+  url: {{baseUrl}}/licenses/:license
+  body: none
+  auth: none
+}
+
+headers {
+  Accept: application/json
+}

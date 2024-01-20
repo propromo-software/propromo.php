@@ -1,0 +1,15 @@
+meta {
+  name: Get a public SSH key for the authenticated user
+  type: http
+  seq: 1
+}
+
+get {
+  url: {{baseUrl}}/user/keys/:key_id
+  body: none
+  auth: none
+}
+
+headers {
+  Accept: application/json
+}

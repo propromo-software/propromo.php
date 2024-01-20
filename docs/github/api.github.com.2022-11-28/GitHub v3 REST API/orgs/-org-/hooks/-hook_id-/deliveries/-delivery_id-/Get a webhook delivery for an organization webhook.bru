@@ -1,0 +1,15 @@
+meta {
+  name: Get a webhook delivery for an organization webhook
+  type: http
+  seq: 1
+}
+
+get {
+  url: {{baseUrl}}/orgs/:org/hooks/:hook_id/deliveries/:delivery_id
+  body: none
+  auth: none
+}
+
+headers {
+  Accept: application/json
+}

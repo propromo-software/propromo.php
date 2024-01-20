@@ -1,0 +1,15 @@
+meta {
+  name: Delete a package for an organization
+  type: http
+  seq: 2
+}
+
+delete {
+  url: {{baseUrl}}/orgs/:org/packages/:package_type/:package_name
+  body: none
+  auth: none
+}
+
+headers {
+  Accept: application/json
+}

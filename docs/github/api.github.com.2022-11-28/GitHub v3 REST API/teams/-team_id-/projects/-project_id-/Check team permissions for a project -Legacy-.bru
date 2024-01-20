@@ -1,0 +1,15 @@
+meta {
+  name: Check team permissions for a project -Legacy-
+  type: http
+  seq: 1
+}
+
+get {
+  url: {{baseUrl}}/teams/:team_id/projects/:project_id
+  body: none
+  auth: none
+}
+
+headers {
+  Accept: application/json
+}

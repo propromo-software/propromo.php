@@ -1,0 +1,15 @@
+meta {
+  name: Get a webhook configuration for an app
+  type: http
+  seq: 1
+}
+
+get {
+  url: {{baseUrl}}/app/hook/config
+  body: none
+  auth: none
+}
+
+headers {
+  Accept: application/json
+}

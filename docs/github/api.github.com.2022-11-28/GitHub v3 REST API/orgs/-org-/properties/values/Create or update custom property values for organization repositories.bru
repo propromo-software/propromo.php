@@ -1,0 +1,34 @@
+meta {
+  name: Create or update custom property values for organization repositories
+  type: http
+  seq: 2
+}
+
+patch {
+  url: {{baseUrl}}/orgs/:org/properties/values
+  body: json
+  auth: none
+}
+
+headers {
+  Content-Type: application/json
+  Accept: application/json
+}
+
+body:json {
+  {
+    "repository_names": [
+      "<string>"
+    ],
+    "properties": [
+      {
+        "property_name": "<string>",
+        "value": "<string>"
+      },
+      {
+        "property_name": "<string>",
+        "value": "<string>"
+      }
+    ]
+  }
+}

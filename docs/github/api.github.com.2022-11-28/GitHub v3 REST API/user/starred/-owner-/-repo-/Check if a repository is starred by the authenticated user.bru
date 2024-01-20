@@ -1,0 +1,15 @@
+meta {
+  name: Check if a repository is starred by the authenticated user
+  type: http
+  seq: 1
+}
+
+get {
+  url: {{baseUrl}}/user/starred/:owner/:repo
+  body: none
+  auth: none
+}
+
+headers {
+  Accept: application/json
+}

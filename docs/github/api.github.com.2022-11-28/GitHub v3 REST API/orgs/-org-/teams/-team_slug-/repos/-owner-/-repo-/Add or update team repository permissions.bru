@@ -1,0 +1,21 @@
+meta {
+  name: Add or update team repository permissions
+  type: http
+  seq: 2
+}
+
+put {
+  url: {{baseUrl}}/orgs/:org/teams/:team_slug/repos/:owner/:repo
+  body: json
+  auth: none
+}
+
+headers {
+  Content-Type: application/json
+}
+
+body:json {
+  {
+    "permission": "push"
+  }
+}

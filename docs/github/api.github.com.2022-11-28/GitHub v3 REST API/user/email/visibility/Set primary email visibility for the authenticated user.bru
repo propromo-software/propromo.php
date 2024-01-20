@@ -1,0 +1,22 @@
+meta {
+  name: Set primary email visibility for the authenticated user
+  type: http
+  seq: 1
+}
+
+patch {
+  url: {{baseUrl}}/user/email/visibility
+  body: json
+  auth: none
+}
+
+headers {
+  Content-Type: application/json
+  Accept: application/json
+}
+
+body:json {
+  {
+    "visibility": "public"
+  }
+}

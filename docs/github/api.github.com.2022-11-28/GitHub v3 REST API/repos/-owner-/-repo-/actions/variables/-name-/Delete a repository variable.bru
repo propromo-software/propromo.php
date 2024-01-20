@@ -1,0 +1,11 @@
+meta {
+  name: Delete a repository variable
+  type: http
+  seq: 3
+}
+
+delete {
+  url: {{baseUrl}}/repos/:owner/:repo/actions/variables/:name
+  body: none
+  auth: none
+}

@@ -1,0 +1,15 @@
+meta {
+  name: Delete a reference
+  type: http
+  seq: 2
+}
+
+delete {
+  url: {{baseUrl}}/repos/:owner/:repo/git/refs/:ref
+  body: none
+  auth: none
+}
+
+headers {
+  Accept: application/json
+}

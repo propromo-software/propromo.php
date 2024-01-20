@@ -1,0 +1,36 @@
+meta {
+  name: Start an organization migration
+  type: http
+  seq: 2
+}
+
+post {
+  url: {{baseUrl}}/orgs/:org/migrations
+  body: json
+  auth: none
+}
+
+headers {
+  Content-Type: application/json
+  Accept: application/json
+}
+
+body:json {
+  {
+    "repositories": [
+      "<string>",
+      "<string>"
+    ],
+    "lock_repositories": false,
+    "exclude_metadata": false,
+    "exclude_git_data": false,
+    "exclude_attachments": false,
+    "exclude_releases": false,
+    "exclude_owner_projects": false,
+    "org_metadata_only": false,
+    "exclude": [
+      "repositories",
+      "repositories"
+    ]
+  }
+}

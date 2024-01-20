@@ -1,0 +1,20 @@
+meta {
+  name: List users
+  type: http
+  seq: 1
+}
+
+get {
+  url: {{baseUrl}}/users?since=<integer>&per_page=30
+  body: none
+  auth: none
+}
+
+query {
+  since: <integer>
+  per_page: 30
+}
+
+headers {
+  Accept: application/json
+}

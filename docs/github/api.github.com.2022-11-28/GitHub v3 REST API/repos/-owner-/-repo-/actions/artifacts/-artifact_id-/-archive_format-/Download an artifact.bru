@@ -1,0 +1,15 @@
+meta {
+  name: Download an artifact
+  type: http
+  seq: 1
+}
+
+get {
+  url: {{baseUrl}}/repos/:owner/:repo/actions/artifacts/:artifact_id/:archive_format
+  body: none
+  auth: none
+}
+
+headers {
+  Accept: application/json
+}

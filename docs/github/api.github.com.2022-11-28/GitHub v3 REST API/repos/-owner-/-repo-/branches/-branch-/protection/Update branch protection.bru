@@ -1,0 +1,94 @@
+meta {
+  name: Update branch protection
+  type: http
+  seq: 2
+}
+
+put {
+  url: {{baseUrl}}/repos/:owner/:repo/branches/:branch/protection
+  body: json
+  auth: none
+}
+
+headers {
+  Content-Type: application/json
+  Accept: application/json
+}
+
+body:json {
+  {
+    "required_status_checks": {
+      "strict": "<boolean>",
+      "contexts": [
+        "<string>",
+        "<string>"
+      ],
+      "checks": [
+        {
+          "context": "<string>",
+          "app_id": "<integer>"
+        },
+        {
+          "context": "<string>",
+          "app_id": "<integer>"
+        }
+      ]
+    },
+    "enforce_admins": "<boolean>",
+    "required_pull_request_reviews": {
+      "dismissal_restrictions": {
+        "users": [
+          "<string>",
+          "<string>"
+        ],
+        "teams": [
+          "<string>",
+          "<string>"
+        ],
+        "apps": [
+          "<string>",
+          "<string>"
+        ]
+      },
+      "dismiss_stale_reviews": "<boolean>",
+      "require_code_owner_reviews": "<boolean>",
+      "required_approving_review_count": "<integer>",
+      "require_last_push_approval": false,
+      "bypass_pull_request_allowances": {
+        "users": [
+          "<string>",
+          "<string>"
+        ],
+        "teams": [
+          "<string>",
+          "<string>"
+        ],
+        "apps": [
+          "<string>",
+          "<string>"
+        ]
+      }
+    },
+    "restrictions": {
+      "users": [
+        "<string>",
+        "<string>"
+      ],
+      "teams": [
+        "<string>",
+        "<string>"
+      ],
+      "apps": [
+        "<string>",
+        "<string>"
+      ]
+    },
+    "required_linear_history": "<boolean>",
+    "allow_force_pushes": "<boolean>",
+    "allow_deletions": "<boolean>",
+    "block_creations": "<boolean>",
+    "required_conversation_resolution": "<boolean>",
+    "lock_branch": false,
+    "allow_fork_syncing": false
+  }
+}

@@ -1,0 +1,15 @@
+meta {
+  name: Delete a repository ruleset
+  type: http
+  seq: 3
+}
+
+delete {
+  url: {{baseUrl}}/repos/:owner/:repo/rulesets/:ruleset_id
+  body: none
+  auth: none
+}
+
+headers {
+  Accept: application/json
+}

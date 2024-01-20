@@ -1,0 +1,15 @@
+meta {
+  name: Create a remove token for an organization
+  type: http
+  seq: 1
+}
+
+post {
+  url: {{baseUrl}}/orgs/:org/actions/runners/remove-token
+  body: none
+  auth: none
+}
+
+headers {
+  Accept: application/json
+}

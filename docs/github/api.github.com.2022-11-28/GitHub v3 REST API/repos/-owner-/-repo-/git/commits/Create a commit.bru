@@ -1,0 +1,38 @@
+meta {
+  name: Create a commit
+  type: http
+  seq: 1
+}
+
+post {
+  url: {{baseUrl}}/repos/:owner/:repo/git/commits
+  body: json
+  auth: none
+}
+
+headers {
+  Content-Type: application/json
+  Accept: application/json
+}
+
+body:json {
+  {
+    "message": "<string>",
+    "tree": "<string>",
+    "parents": [
+      "<string>",
+      "<string>"
+    ],
+    "author": {
+      "name": "<string>",
+      "email": "<string>",
+      "date": "<dateTime>"
+    },
+    "committer": {
+      "name": "<string>",
+      "email": "<string>",
+      "date": "<dateTime>"
+    },
+    "signature": "<string>"
+  }
+}

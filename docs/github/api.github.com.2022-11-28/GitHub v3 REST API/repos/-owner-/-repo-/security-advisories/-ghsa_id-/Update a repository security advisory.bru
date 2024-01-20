@@ -1,0 +1,75 @@
+meta {
+  name: Update a repository security advisory
+  type: http
+  seq: 2
+}
+
+patch {
+  url: {{baseUrl}}/repos/:owner/:repo/security-advisories/:ghsa_id
+  body: json
+  auth: none
+}
+
+headers {
+  Content-Type: application/json
+  Accept: application/json
+}
+
+body:json {
+  {
+    "summary": "<string>",
+    "description": "<string>",
+    "cve_id": "<string>",
+    "vulnerabilities": [
+      {
+        "package": {
+          "ecosystem": "erlang",
+          "name": "<string>"
+        },
+        "vulnerable_version_range": "<string>",
+        "patched_versions": "<string>",
+        "vulnerable_functions": [
+          "<string>",
+          "<string>"
+        ]
+      },
+      {
+        "package": {
+          "ecosystem": "actions",
+          "name": "<string>"
+        },
+        "vulnerable_version_range": "<string>",
+        "patched_versions": "<string>",
+        "vulnerable_functions": [
+          "<string>",
+          "<string>"
+        ]
+      }
+    ],
+    "cwe_ids": [
+      "<string>",
+      "<string>"
+    ],
+    "credits": [
+      {
+        "login": "<string>",
+        "type": "tool"
+      },
+      {
+        "login": "<string>",
+        "type": "remediation_verifier"
+      }
+    ],
+    "severity": "high",
+    "cvss_vector_string": "<string>",
+    "state": "closed",
+    "collaborating_users": [
+      "<string>",
+      "<string>"
+    ],
+    "collaborating_teams": [
+      "<string>",
+      "<string>"
+    ]
+  }
+}

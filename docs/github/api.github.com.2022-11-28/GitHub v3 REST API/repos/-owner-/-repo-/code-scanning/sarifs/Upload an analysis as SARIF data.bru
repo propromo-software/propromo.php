@@ -1,0 +1,28 @@
+meta {
+  name: Upload an analysis as SARIF data
+  type: http
+  seq: 1
+}
+
+post {
+  url: {{baseUrl}}/repos/:owner/:repo/code-scanning/sarifs
+  body: json
+  auth: none
+}
+
+headers {
+  Content-Type: application/json
+  Accept: application/json
+}
+
+body:json {
+  {
+    "commit_sha": "6Ee163cF3DA6Ee163cF3DA6Ee163cF3DA6Ee163c",
+    "ref": "refs/pull/",
+    "sarif": "<string>",
+    "checkout_uri": "<uri>",
+    "started_at": "<dateTime>",
+    "tool_name": "<string>",
+    "validate": "<boolean>"
+  }
+}

@@ -1,0 +1,24 @@
+meta {
+  name: Render a Markdown document
+  type: http
+  seq: 1
+}
+
+post {
+  url: {{baseUrl}}/markdown
+  body: json
+  auth: none
+}
+
+headers {
+  Content-Type: application/json
+  Accept: text/html
+}
+
+body:json {
+  {
+    "text": "<string>",
+    "mode": "markdown",
+    "context": "<string>"
+  }
+}

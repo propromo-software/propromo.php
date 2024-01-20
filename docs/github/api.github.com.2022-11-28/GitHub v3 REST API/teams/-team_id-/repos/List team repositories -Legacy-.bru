@@ -1,0 +1,20 @@
+meta {
+  name: List team repositories -Legacy-
+  type: http
+  seq: 1
+}
+
+get {
+  url: {{baseUrl}}/teams/:team_id/repos?per_page=30&page=1
+  body: none
+  auth: none
+}
+
+query {
+  per_page: 30
+  page: 1
+}
+
+headers {
+  Accept: application/json
+}

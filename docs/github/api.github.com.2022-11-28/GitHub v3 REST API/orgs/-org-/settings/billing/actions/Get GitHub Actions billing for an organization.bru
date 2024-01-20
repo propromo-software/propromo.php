@@ -1,0 +1,15 @@
+meta {
+  name: Get GitHub Actions billing for an organization
+  type: http
+  seq: 1
+}
+
+get {
+  url: {{baseUrl}}/orgs/:org/settings/billing/actions
+  body: none
+  auth: none
+}
+
+headers {
+  Accept: application/json
+}

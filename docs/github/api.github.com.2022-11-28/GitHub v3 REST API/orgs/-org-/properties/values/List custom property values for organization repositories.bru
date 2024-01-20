@@ -1,0 +1,21 @@
+meta {
+  name: List custom property values for organization repositories
+  type: http
+  seq: 1
+}
+
+get {
+  url: {{baseUrl}}/orgs/:org/properties/values?per_page=30&page=1&repository_query=<string>
+  body: none
+  auth: none
+}
+
+query {
+  per_page: 30
+  page: 1
+  repository_query: <string>
+}
+
+headers {
+  Accept: application/json
+}

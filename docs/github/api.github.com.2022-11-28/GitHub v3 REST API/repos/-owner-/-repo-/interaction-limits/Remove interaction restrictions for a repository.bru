@@ -1,0 +1,11 @@
+meta {
+  name: Remove interaction restrictions for a repository
+  type: http
+  seq: 3
+}
+
+delete {
+  url: {{baseUrl}}/repos/:owner/:repo/interaction-limits
+  body: none
+  auth: none
+}

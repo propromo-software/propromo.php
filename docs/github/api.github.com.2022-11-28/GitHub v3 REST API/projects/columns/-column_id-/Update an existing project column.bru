@@ -1,0 +1,22 @@
+meta {
+  name: Update an existing project column
+  type: http
+  seq: 2
+}
+
+patch {
+  url: {{baseUrl}}/projects/columns/:column_id
+  body: json
+  auth: none
+}
+
+headers {
+  Content-Type: application/json
+  Accept: application/json
+}
+
+body:json {
+  {
+    "name": "<string>"
+  }
+}

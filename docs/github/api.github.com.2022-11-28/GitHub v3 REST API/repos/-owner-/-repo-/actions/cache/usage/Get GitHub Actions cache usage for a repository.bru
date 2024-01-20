@@ -1,0 +1,15 @@
+meta {
+  name: Get GitHub Actions cache usage for a repository
+  type: http
+  seq: 1
+}
+
+get {
+  url: {{baseUrl}}/repos/:owner/:repo/actions/cache/usage
+  body: none
+  auth: none
+}
+
+headers {
+  Accept: application/json
+}

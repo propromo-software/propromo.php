@@ -1,0 +1,22 @@
+meta {
+  name: Sync a fork branch with the upstream repository
+  type: http
+  seq: 1
+}
+
+post {
+  url: {{baseUrl}}/repos/:owner/:repo/merge-upstream
+  body: json
+  auth: none
+}
+
+headers {
+  Content-Type: application/json
+  Accept: application/json
+}
+
+body:json {
+  {
+    "branch": "<string>"
+  }
+}

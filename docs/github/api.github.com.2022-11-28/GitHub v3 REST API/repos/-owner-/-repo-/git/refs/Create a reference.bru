@@ -1,0 +1,23 @@
+meta {
+  name: Create a reference
+  type: http
+  seq: 1
+}
+
+post {
+  url: {{baseUrl}}/repos/:owner/:repo/git/refs
+  body: json
+  auth: none
+}
+
+headers {
+  Content-Type: application/json
+  Accept: application/json
+}
+
+body:json {
+  {
+    "ref": "<string>",
+    "sha": "<string>"
+  }
+}

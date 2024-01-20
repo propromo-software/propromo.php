@@ -1,0 +1,15 @@
+meta {
+  name: Get rate limit status for the authenticated user
+  type: http
+  seq: 1
+}
+
+get {
+  url: {{baseUrl}}/rate_limit
+  body: none
+  auth: none
+}
+
+headers {
+  Accept: application/json
+}

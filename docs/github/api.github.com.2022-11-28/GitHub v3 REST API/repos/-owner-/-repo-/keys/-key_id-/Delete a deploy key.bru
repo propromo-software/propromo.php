@@ -1,0 +1,11 @@
+meta {
+  name: Delete a deploy key
+  type: http
+  seq: 2
+}
+
+delete {
+  url: {{baseUrl}}/repos/:owner/:repo/keys/:key_id
+  body: none
+  auth: none
+}

@@ -1,0 +1,11 @@
+meta {
+  name: Delete a discussion
+  type: http
+  seq: 3
+}
+
+delete {
+  url: {{baseUrl}}/orgs/:org/teams/:team_slug/discussions/:discussion_number
+  body: none
+  auth: none
+}

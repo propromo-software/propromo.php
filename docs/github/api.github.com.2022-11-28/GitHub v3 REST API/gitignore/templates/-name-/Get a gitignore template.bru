@@ -1,0 +1,15 @@
+meta {
+  name: Get a gitignore template
+  type: http
+  seq: 1
+}
+
+get {
+  url: {{baseUrl}}/gitignore/templates/:name
+  body: none
+  auth: none
+}
+
+headers {
+  Accept: application/json
+}

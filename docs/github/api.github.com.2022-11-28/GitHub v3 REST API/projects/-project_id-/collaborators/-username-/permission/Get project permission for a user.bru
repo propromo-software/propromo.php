@@ -1,0 +1,15 @@
+meta {
+  name: Get project permission for a user
+  type: http
+  seq: 1
+}
+
+get {
+  url: {{baseUrl}}/projects/:project_id/collaborators/:username/permission
+  body: none
+  auth: none
+}
+
+headers {
+  Accept: application/json
+}

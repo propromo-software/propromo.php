@@ -1,0 +1,27 @@
+meta {
+  name: Update an organization variable
+  type: http
+  seq: 2
+}
+
+patch {
+  url: {{baseUrl}}/orgs/:org/actions/variables/:name
+  body: json
+  auth: none
+}
+
+headers {
+  Content-Type: application/json
+}
+
+body:json {
+  {
+    "name": "<string>",
+    "value": "<string>",
+    "visibility": "selected",
+    "selected_repository_ids": [
+      "<integer>",
+      "<integer>"
+    ]
+  }
+}

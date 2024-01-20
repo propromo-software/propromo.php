@@ -1,0 +1,21 @@
+meta {
+  name: List package versions for a package owned by an organization
+  type: http
+  seq: 1
+}
+
+get {
+  url: {{baseUrl}}/orgs/:org/packages/:package_type/:package_name/versions?page=1&per_page=30&state=active
+  body: none
+  auth: none
+}
+
+query {
+  page: 1
+  per_page: 30
+  state: active
+}
+
+headers {
+  Accept: application/json
+}

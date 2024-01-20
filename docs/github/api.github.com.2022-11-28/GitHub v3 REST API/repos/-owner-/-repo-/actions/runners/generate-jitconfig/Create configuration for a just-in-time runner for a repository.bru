@@ -1,0 +1,27 @@
+meta {
+  name: Create configuration for a just-in-time runner for a repository
+  type: http
+  seq: 1
+}
+
+post {
+  url: {{baseUrl}}/repos/:owner/:repo/actions/runners/generate-jitconfig
+  body: json
+  auth: none
+}
+
+headers {
+  Content-Type: application/json
+  Accept: application/json
+}
+
+body:json {
+  {
+    "name": "<string>",
+    "runner_group_id": "<integer>",
+    "labels": [
+      "<string>"
+    ],
+    "work_folder": "_work"
+  }
+}

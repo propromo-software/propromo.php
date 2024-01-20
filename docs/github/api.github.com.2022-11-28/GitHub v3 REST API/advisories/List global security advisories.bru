@@ -1,0 +1,34 @@
+meta {
+  name: List global security advisories
+  type: http
+  seq: 1
+}
+
+get {
+  url: {{baseUrl}}/advisories?ghsa_id=<string>&type=reviewed&cve_id=<string>&ecosystem=pub&severity=medium&cwes=<string>&is_withdrawn=<boolean>&affects=<string>&published=<string>&updated=<string>&modified=<string>&before=<string>&after=<string>&direction=desc&per_page=30&sort=published
+  body: none
+  auth: none
+}
+
+query {
+  ghsa_id: <string>
+  type: reviewed
+  cve_id: <string>
+  ecosystem: pub
+  severity: medium
+  cwes: <string>
+  is_withdrawn: <boolean>
+  affects: <string>
+  published: <string>
+  updated: <string>
+  modified: <string>
+  before: <string>
+  after: <string>
+  direction: desc
+  per_page: 30
+  sort: published
+}
+
+headers {
+  Accept: application/json
+}

@@ -1,0 +1,15 @@
+meta {
+  name: Get the level of access for workflows outside of the repository
+  type: http
+  seq: 1
+}
+
+get {
+  url: {{baseUrl}}/repos/:owner/:repo/actions/permissions/access
+  body: none
+  auth: none
+}
+
+headers {
+  Accept: application/json
+}

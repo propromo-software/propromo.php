@@ -1,0 +1,15 @@
+meta {
+  name: Delete a gist
+  type: http
+  seq: 3
+}
+
+delete {
+  url: {{baseUrl}}/gists/:gist_id
+  body: none
+  auth: none
+}
+
+headers {
+  Accept: application/json
+}

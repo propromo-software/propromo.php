@@ -1,0 +1,23 @@
+meta {
+  name: Update a reference
+  type: http
+  seq: 1
+}
+
+patch {
+  url: {{baseUrl}}/repos/:owner/:repo/git/refs/:ref
+  body: json
+  auth: none
+}
+
+headers {
+  Content-Type: application/json
+  Accept: application/json
+}
+
+body:json {
+  {
+    "sha": "<string>",
+    "force": false
+  }
+}

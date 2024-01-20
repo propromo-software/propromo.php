@@ -1,0 +1,15 @@
+meta {
+  name: List organization fine-grained permissions for an organization
+  type: http
+  seq: 1
+}
+
+get {
+  url: {{baseUrl}}/orgs/:org/organization-fine-grained-permissions
+  body: none
+  auth: none
+}
+
+headers {
+  Accept: application/json
+}

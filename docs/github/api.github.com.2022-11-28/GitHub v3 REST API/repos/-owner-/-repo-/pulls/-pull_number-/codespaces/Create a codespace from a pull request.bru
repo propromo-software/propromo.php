@@ -1,0 +1,31 @@
+meta {
+  name: Create a codespace from a pull request
+  type: http
+  seq: 1
+}
+
+post {
+  url: {{baseUrl}}/repos/:owner/:repo/pulls/:pull_number/codespaces
+  body: json
+  auth: none
+}
+
+headers {
+  Content-Type: application/json
+  Accept: application/json
+}
+
+body:json {
+  {
+    "location": "<string>",
+    "geo": "SoutheastAsia",
+    "client_ip": "<string>",
+    "machine": "<string>",
+    "devcontainer_path": "<string>",
+    "multi_repo_permissions_opt_out": "<boolean>",
+    "working_directory": "<string>",
+    "idle_timeout_minutes": "<integer>",
+    "display_name": "<string>",
+    "retention_period_minutes": "<integer>"
+  }
+}

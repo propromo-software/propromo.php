@@ -1,0 +1,11 @@
+meta {
+  name: Enable a workflow
+  type: http
+  seq: 1
+}
+
+put {
+  url: {{baseUrl}}/repos/:owner/:repo/actions/workflows/:workflow_id/enable
+  body: none
+  auth: none
+}

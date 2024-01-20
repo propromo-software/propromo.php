@@ -1,0 +1,23 @@
+meta {
+  name: Set interaction restrictions for an organization
+  type: http
+  seq: 2
+}
+
+put {
+  url: {{baseUrl}}/orgs/:org/interaction-limits
+  body: json
+  auth: none
+}
+
+headers {
+  Content-Type: application/json
+  Accept: application/json
+}
+
+body:json {
+  {
+    "limit": "contributors_only",
+    "expiry": "three_days"
+  }
+}

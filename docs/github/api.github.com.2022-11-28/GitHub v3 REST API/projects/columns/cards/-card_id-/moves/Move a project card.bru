@@ -1,0 +1,23 @@
+meta {
+  name: Move a project card
+  type: http
+  seq: 1
+}
+
+post {
+  url: {{baseUrl}}/projects/columns/cards/:card_id/moves
+  body: json
+  auth: none
+}
+
+headers {
+  Content-Type: application/json
+  Accept: application/json
+}
+
+body:json {
+  {
+    "position": "bottom",
+    "column_id": "<integer>"
+  }
+}

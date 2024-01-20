@@ -1,0 +1,15 @@
+meta {
+  name: Restore package version for a user
+  type: http
+  seq: 1
+}
+
+post {
+  url: {{baseUrl}}/users/:username/packages/:package_type/:package_name/versions/:package_version_id/restore
+  body: none
+  auth: none
+}
+
+headers {
+  Accept: application/json
+}

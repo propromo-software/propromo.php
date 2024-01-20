@@ -1,0 +1,15 @@
+meta {
+  name: Unstar a gist
+  type: http
+  seq: 3
+}
+
+delete {
+  url: {{baseUrl}}/gists/:gist_id/star
+  body: none
+  auth: none
+}
+
+headers {
+  Accept: application/json
+}

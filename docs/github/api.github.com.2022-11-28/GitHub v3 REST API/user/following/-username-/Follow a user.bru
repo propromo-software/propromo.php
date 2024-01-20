@@ -1,0 +1,15 @@
+meta {
+  name: Follow a user
+  type: http
+  seq: 2
+}
+
+put {
+  url: {{baseUrl}}/user/following/:username
+  body: none
+  auth: none
+}
+
+headers {
+  Accept: application/json
+}

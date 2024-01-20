@@ -1,0 +1,15 @@
+meta {
+  name: Get a discussion
+  type: http
+  seq: 1
+}
+
+get {
+  url: {{baseUrl}}/orgs/:org/teams/:team_slug/discussions/:discussion_number
+  body: none
+  auth: none
+}
+
+headers {
+  Accept: application/json
+}

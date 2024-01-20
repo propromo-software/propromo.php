@@ -1,0 +1,15 @@
+meta {
+  name: Delete a thread subscription
+  type: http
+  seq: 3
+}
+
+delete {
+  url: {{baseUrl}}/notifications/threads/:thread_id/subscription
+  body: none
+  auth: none
+}
+
+headers {
+  Accept: application/json
+}

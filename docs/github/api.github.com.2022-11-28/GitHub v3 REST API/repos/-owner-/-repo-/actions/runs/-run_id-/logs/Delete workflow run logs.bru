@@ -1,0 +1,15 @@
+meta {
+  name: Delete workflow run logs
+  type: http
+  seq: 2
+}
+
+delete {
+  url: {{baseUrl}}/repos/:owner/:repo/actions/runs/:run_id/logs
+  body: none
+  auth: none
+}
+
+headers {
+  Accept: application/json
+}

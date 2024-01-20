@@ -1,0 +1,21 @@
+meta {
+  name: List instances of a code scanning alert
+  type: http
+  seq: 1
+}
+
+get {
+  url: {{baseUrl}}/repos/:owner/:repo/code-scanning/alerts/:alert_number/instances?page=1&per_page=30&ref=<string>
+  body: none
+  auth: none
+}
+
+query {
+  page: 1
+  per_page: 30
+  ref: <string>
+}
+
+headers {
+  Accept: application/json
+}

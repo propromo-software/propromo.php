@@ -1,0 +1,11 @@
+meta {
+  name: Delete a self-hosted runner from an organization
+  type: http
+  seq: 2
+}
+
+delete {
+  url: {{baseUrl}}/orgs/:org/actions/runners/:runner_id
+  body: none
+  auth: none
+}

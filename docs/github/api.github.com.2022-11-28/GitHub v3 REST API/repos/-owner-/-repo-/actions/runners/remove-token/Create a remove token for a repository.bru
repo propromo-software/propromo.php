@@ -1,0 +1,15 @@
+meta {
+  name: Create a remove token for a repository
+  type: http
+  seq: 1
+}
+
+post {
+  url: {{baseUrl}}/repos/:owner/:repo/actions/runners/remove-token
+  body: none
+  auth: none
+}
+
+headers {
+  Accept: application/json
+}

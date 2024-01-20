@@ -1,0 +1,22 @@
+meta {
+  name: Create a reply for a review comment
+  type: http
+  seq: 1
+}
+
+post {
+  url: {{baseUrl}}/repos/:owner/:repo/pulls/:pull_number/comments/:comment_id/replies
+  body: json
+  auth: none
+}
+
+headers {
+  Content-Type: application/json
+  Accept: application/json
+}
+
+body:json {
+  {
+    "body": "<string>"
+  }
+}

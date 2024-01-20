@@ -1,0 +1,15 @@
+meta {
+  name: Get all API versions
+  type: http
+  seq: 1
+}
+
+get {
+  url: {{baseUrl}}/versions
+  body: none
+  auth: none
+}
+
+headers {
+  Accept: application/json
+}

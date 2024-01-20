@@ -1,0 +1,26 @@
+meta {
+  name: List repository activities
+  type: http
+  seq: 1
+}
+
+get {
+  url: {{baseUrl}}/repos/:owner/:repo/activity?direction=desc&per_page=30&before=<string>&after=<string>&ref=<string>&actor=<string>&time_period=quarter&activity_type=branch_creation
+  body: none
+  auth: none
+}
+
+query {
+  direction: desc
+  per_page: 30
+  before: <string>
+  after: <string>
+  ref: <string>
+  actor: <string>
+  time_period: quarter
+  activity_type: branch_creation
+}
+
+headers {
+  Accept: application/json
+}

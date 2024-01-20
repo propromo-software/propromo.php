@@ -1,0 +1,24 @@
+meta {
+  name: Create an autolink reference for a repository
+  type: http
+  seq: 2
+}
+
+post {
+  url: {{baseUrl}}/repos/:owner/:repo/autolinks
+  body: json
+  auth: none
+}
+
+headers {
+  Content-Type: application/json
+  Accept: application/json
+}
+
+body:json {
+  {
+    "key_prefix": "<string>",
+    "url_template": "<string>",
+    "is_alphanumeric": true
+  }
+}

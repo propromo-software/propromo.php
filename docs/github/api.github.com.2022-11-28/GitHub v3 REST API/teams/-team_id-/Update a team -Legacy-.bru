@@ -1,0 +1,27 @@
+meta {
+  name: Update a team -Legacy-
+  type: http
+  seq: 2
+}
+
+patch {
+  url: {{baseUrl}}/teams/:team_id
+  body: json
+  auth: none
+}
+
+headers {
+  Content-Type: application/json
+  Accept: application/json
+}
+
+body:json {
+  {
+    "name": "<string>",
+    "description": "<string>",
+    "privacy": "closed",
+    "notification_setting": "notifications_enabled",
+    "permission": "pull",
+    "parent_team_id": "<integer>"
+  }
+}

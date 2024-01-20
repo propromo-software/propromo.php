@@ -1,0 +1,15 @@
+meta {
+  name: Get all organization roles for an organization
+  type: http
+  seq: 1
+}
+
+get {
+  url: {{baseUrl}}/orgs/:org/organization-roles
+  body: none
+  auth: none
+}
+
+headers {
+  Accept: application/json
+}

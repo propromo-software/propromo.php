@@ -1,0 +1,25 @@
+meta {
+  name: Create a commit comment
+  type: http
+  seq: 2
+}
+
+post {
+  url: {{baseUrl}}/repos/:owner/:repo/commits/:commit_sha/comments
+  body: json
+  auth: none
+}
+
+headers {
+  Content-Type: application/json
+  Accept: application/json
+}
+
+body:json {
+  {
+    "body": "<string>",
+    "path": "<string>",
+    "position": "<integer>",
+    "line": "<integer>"
+  }
+}

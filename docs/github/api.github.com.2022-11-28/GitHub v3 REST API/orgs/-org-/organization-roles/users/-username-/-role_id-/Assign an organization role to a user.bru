@@ -1,0 +1,11 @@
+meta {
+  name: Assign an organization role to a user
+  type: http
+  seq: 1
+}
+
+put {
+  url: {{baseUrl}}/orgs/:org/organization-roles/users/:username/:role_id
+  body: none
+  auth: none
+}

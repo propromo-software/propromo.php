@@ -1,0 +1,53 @@
+meta {
+  name: Update pull request review protection
+  type: http
+  seq: 2
+}
+
+patch {
+  url: {{baseUrl}}/repos/:owner/:repo/branches/:branch/protection/required_pull_request_reviews
+  body: json
+  auth: none
+}
+
+headers {
+  Content-Type: application/json
+  Accept: application/json
+}
+
+body:json {
+  {
+    "dismissal_restrictions": {
+      "users": [
+        "<string>",
+        "<string>"
+      ],
+      "teams": [
+        "<string>",
+        "<string>"
+      ],
+      "apps": [
+        "<string>",
+        "<string>"
+      ]
+    },
+    "dismiss_stale_reviews": "<boolean>",
+    "require_code_owner_reviews": "<boolean>",
+    "required_approving_review_count": "<integer>",
+    "require_last_push_approval": false,
+    "bypass_pull_request_allowances": {
+      "users": [
+        "<string>",
+        "<string>"
+      ],
+      "teams": [
+        "<string>",
+        "<string>"
+      ],
+      "apps": [
+        "<string>",
+        "<string>"
+      ]
+    }
+  }
+}

@@ -1,0 +1,22 @@
+meta {
+  name: Check a token
+  type: http
+  seq: 1
+}
+
+post {
+  url: {{baseUrl}}/applications/:client_id/token
+  body: json
+  auth: none
+}
+
+headers {
+  Content-Type: application/json
+  Accept: application/json
+}
+
+body:json {
+  {
+    "access_token": "<string>"
+  }
+}

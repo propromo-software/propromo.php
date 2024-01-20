@@ -1,0 +1,11 @@
+meta {
+  name: Remove selected repository from an organization variable
+  type: http
+  seq: 2
+}
+
+delete {
+  url: {{baseUrl}}/orgs/:org/actions/variables/:name/repositories/:repository_id
+  body: none
+  auth: none
+}

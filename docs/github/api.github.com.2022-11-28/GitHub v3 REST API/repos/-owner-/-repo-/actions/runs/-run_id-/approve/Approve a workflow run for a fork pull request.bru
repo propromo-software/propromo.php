@@ -1,0 +1,15 @@
+meta {
+  name: Approve a workflow run for a fork pull request
+  type: http
+  seq: 1
+}
+
+post {
+  url: {{baseUrl}}/repos/:owner/:repo/actions/runs/:run_id/approve
+  body: none
+  auth: none
+}
+
+headers {
+  Accept: application/json
+}

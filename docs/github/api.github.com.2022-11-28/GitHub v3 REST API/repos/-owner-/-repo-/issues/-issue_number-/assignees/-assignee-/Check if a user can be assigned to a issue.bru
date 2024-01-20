@@ -1,0 +1,15 @@
+meta {
+  name: Check if a user can be assigned to a issue
+  type: http
+  seq: 1
+}
+
+get {
+  url: {{baseUrl}}/repos/:owner/:repo/issues/:issue_number/assignees/:assignee
+  body: none
+  auth: none
+}
+
+headers {
+  Accept: application/json
+}

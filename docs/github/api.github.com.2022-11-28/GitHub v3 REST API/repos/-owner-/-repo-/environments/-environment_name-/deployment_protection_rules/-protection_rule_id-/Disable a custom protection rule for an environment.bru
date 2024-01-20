@@ -1,0 +1,11 @@
+meta {
+  name: Disable a custom protection rule for an environment
+  type: http
+  seq: 2
+}
+
+delete {
+  url: {{baseUrl}}/repos/:owner/:repo/environments/:environment_name/deployment_protection_rules/:protection_rule_id
+  body: none
+  auth: none
+}

@@ -1,0 +1,27 @@
+meta {
+  name: Update a codespace for the authenticated user
+  type: http
+  seq: 2
+}
+
+patch {
+  url: {{baseUrl}}/user/codespaces/:codespace_name
+  body: json
+  auth: none
+}
+
+headers {
+  Content-Type: application/json
+  Accept: application/json
+}
+
+body:json {
+  {
+    "machine": "<string>",
+    "display_name": "<string>",
+    "recent_folders": [
+      "<string>",
+      "<string>"
+    ]
+  }
+}

@@ -1,0 +1,27 @@
+meta {
+  name: Update a team
+  type: http
+  seq: 2
+}
+
+patch {
+  url: {{baseUrl}}/orgs/:org/teams/:team_slug
+  body: json
+  auth: none
+}
+
+headers {
+  Content-Type: application/json
+  Accept: application/json
+}
+
+body:json {
+  {
+    "name": "<string>",
+    "description": "<string>",
+    "privacy": "secret",
+    "notification_setting": "notifications_disabled",
+    "permission": "pull",
+    "parent_team_id": "<integer>"
+  }
+}

@@ -1,0 +1,22 @@
+meta {
+  name: List accounts for a plan -stubbed-
+  type: http
+  seq: 1
+}
+
+get {
+  url: {{baseUrl}}/marketplace_listing/stubbed/plans/:plan_id/accounts?sort=created&direction=asc&per_page=30&page=1
+  body: none
+  auth: none
+}
+
+query {
+  sort: created
+  direction: asc
+  per_page: 30
+  page: 1
+}
+
+headers {
+  Accept: application/json
+}

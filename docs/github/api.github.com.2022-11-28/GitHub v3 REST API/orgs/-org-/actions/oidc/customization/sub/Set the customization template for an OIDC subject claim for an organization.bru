@@ -1,0 +1,25 @@
+meta {
+  name: Set the customization template for an OIDC subject claim for an organization
+  type: http
+  seq: 2
+}
+
+put {
+  url: {{baseUrl}}/orgs/:org/actions/oidc/customization/sub
+  body: json
+  auth: none
+}
+
+headers {
+  Content-Type: application/json
+  Accept: application/json
+}
+
+body:json {
+  {
+    "include_claim_keys": [
+      "<string>",
+      "<string>"
+    ]
+  }
+}

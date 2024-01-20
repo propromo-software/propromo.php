@@ -1,0 +1,15 @@
+meta {
+  name: Get an environment variable
+  type: http
+  seq: 1
+}
+
+get {
+  url: {{baseUrl}}/repositories/:repository_id/environments/:environment_name/variables/:name
+  body: none
+  auth: none
+}
+
+headers {
+  Accept: application/json
+}

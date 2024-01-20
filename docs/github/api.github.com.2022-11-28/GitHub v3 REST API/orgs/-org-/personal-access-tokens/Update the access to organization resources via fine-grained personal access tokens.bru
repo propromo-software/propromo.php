@@ -1,0 +1,25 @@
+meta {
+  name: Update the access to organization resources via fine-grained personal access tokens
+  type: http
+  seq: 2
+}
+
+post {
+  url: {{baseUrl}}/orgs/:org/personal-access-tokens
+  body: json
+  auth: none
+}
+
+headers {
+  Content-Type: application/json
+  Accept: application/json
+}
+
+body:json {
+  {
+    "action": "revoke",
+    "pat_ids": [
+      "<integer>"
+    ]
+  }
+}

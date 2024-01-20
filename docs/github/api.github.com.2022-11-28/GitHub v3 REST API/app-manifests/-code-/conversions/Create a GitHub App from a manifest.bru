@@ -1,0 +1,15 @@
+meta {
+  name: Create a GitHub App from a manifest
+  type: http
+  seq: 1
+}
+
+post {
+  url: {{baseUrl}}/app-manifests/:code/conversions
+  body: none
+  auth: none
+}
+
+headers {
+  Accept: application/json
+}

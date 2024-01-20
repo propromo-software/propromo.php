@@ -1,0 +1,15 @@
+meta {
+  name: Get a code scanning default setup configuration
+  type: http
+  seq: 1
+}
+
+get {
+  url: {{baseUrl}}/repos/:owner/:repo/code-scanning/default-setup
+  body: none
+  auth: none
+}
+
+headers {
+  Accept: application/json
+}

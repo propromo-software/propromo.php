@@ -1,0 +1,24 @@
+meta {
+  name: Set selected repositories enabled for GitHub Actions in an organization
+  type: http
+  seq: 2
+}
+
+put {
+  url: {{baseUrl}}/orgs/:org/actions/permissions/repositories
+  body: json
+  auth: none
+}
+
+headers {
+  Content-Type: application/json
+}
+
+body:json {
+  {
+    "selected_repository_ids": [
+      "<integer>",
+      "<integer>"
+    ]
+  }
+}

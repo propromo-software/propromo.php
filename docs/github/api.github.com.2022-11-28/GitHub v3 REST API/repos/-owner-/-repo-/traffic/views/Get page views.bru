@@ -1,0 +1,19 @@
+meta {
+  name: Get page views
+  type: http
+  seq: 1
+}
+
+get {
+  url: {{baseUrl}}/repos/:owner/:repo/traffic/views?per=day
+  body: none
+  auth: none
+}
+
+query {
+  per: day
+}
+
+headers {
+  Accept: application/json
+}

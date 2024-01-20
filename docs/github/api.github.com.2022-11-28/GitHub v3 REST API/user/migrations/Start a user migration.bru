@@ -1,0 +1,36 @@
+meta {
+  name: Start a user migration
+  type: http
+  seq: 2
+}
+
+post {
+  url: {{baseUrl}}/user/migrations
+  body: json
+  auth: none
+}
+
+headers {
+  Content-Type: application/json
+  Accept: application/json
+}
+
+body:json {
+  {
+    "repositories": [
+      "<string>",
+      "<string>"
+    ],
+    "lock_repositories": "<boolean>",
+    "exclude_metadata": "<boolean>",
+    "exclude_git_data": "<boolean>",
+    "exclude_attachments": "<boolean>",
+    "exclude_releases": "<boolean>",
+    "exclude_owner_projects": "<boolean>",
+    "org_metadata_only": false,
+    "exclude": [
+      "repositories",
+      "repositories"
+    ]
+  }
+}

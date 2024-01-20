@@ -1,0 +1,15 @@
+meta {
+  name: Get a discussion -Legacy-
+  type: http
+  seq: 1
+}
+
+get {
+  url: {{baseUrl}}/teams/:team_id/discussions/:discussion_number
+  body: none
+  auth: none
+}
+
+headers {
+  Accept: application/json
+}

@@ -1,0 +1,43 @@
+meta {
+  name: Set custom labels for a self-hosted runner for a repository
+  type: http
+  seq: 3
+}
+
+put {
+  url: {{baseUrl}}/repos/:owner/:repo/actions/runners/:runner_id/labels
+  body: json
+  auth: none
+}
+
+headers {
+  Content-Type: application/json
+  Accept: application/json
+}
+
+body:json {
+  {
+    "labels": [
+      "<string>",
+      "<string>",
+      "<string>",
+      "<string>",
+      "<string>",
+      "<string>",
+      "<string>",
+      "<string>",
+      "<string>",
+      "<string>",
+      "<string>",
+      "<string>",
+      "<string>",
+      "<string>",
+      "<string>",
+      "<string>",
+      "<string>",
+      "<string>",
+      "<string>",
+      "<string>"
+    ]
+  }
+}

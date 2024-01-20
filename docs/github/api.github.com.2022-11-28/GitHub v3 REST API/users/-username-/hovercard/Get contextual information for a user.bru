@@ -1,0 +1,20 @@
+meta {
+  name: Get contextual information for a user
+  type: http
+  seq: 1
+}
+
+get {
+  url: {{baseUrl}}/users/:username/hovercard?subject_type=pull_request&subject_id=<string>
+  body: none
+  auth: none
+}
+
+query {
+  subject_type: pull_request
+  subject_id: <string>
+}
+
+headers {
+  Accept: application/json
+}

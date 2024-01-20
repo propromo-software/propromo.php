@@ -1,0 +1,15 @@
+meta {
+  name: Delete a package version for the authenticated user
+  type: http
+  seq: 2
+}
+
+delete {
+  url: {{baseUrl}}/user/packages/:package_type/:package_name/versions/:package_version_id
+  body: none
+  auth: none
+}
+
+headers {
+  Accept: application/json
+}

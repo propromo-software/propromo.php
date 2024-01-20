@@ -1,0 +1,15 @@
+meta {
+  name: Get a gist revision
+  type: http
+  seq: 1
+}
+
+get {
+  url: {{baseUrl}}/gists/:gist_id/:sha
+  body: none
+  auth: none
+}
+
+headers {
+  Accept: application/json
+}

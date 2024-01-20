@@ -1,0 +1,15 @@
+meta {
+  name: Get the last year of commit activity
+  type: http
+  seq: 1
+}
+
+get {
+  url: {{baseUrl}}/repos/:owner/:repo/stats/commit_activity
+  body: none
+  auth: none
+}
+
+headers {
+  Accept: application/json
+}

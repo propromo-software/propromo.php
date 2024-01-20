@@ -1,0 +1,20 @@
+meta {
+  name: Get a user migration status
+  type: http
+  seq: 1
+}
+
+get {
+  url: {{baseUrl}}/user/migrations/:migration_id?exclude=<string>&exclude=<string>
+  body: none
+  auth: none
+}
+
+query {
+  exclude: <string>
+  exclude: <string>
+}
+
+headers {
+  Accept: application/json
+}

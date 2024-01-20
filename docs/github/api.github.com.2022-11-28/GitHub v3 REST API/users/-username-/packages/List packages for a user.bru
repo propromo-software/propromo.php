@@ -1,0 +1,22 @@
+meta {
+  name: List packages for a user
+  type: http
+  seq: 1
+}
+
+get {
+  url: {{baseUrl}}/users/:username/packages?package_type=container&visibility=private&page=1&per_page=30
+  body: none
+  auth: none
+}
+
+query {
+  package_type: container
+  visibility: private
+  page: 1
+  per_page: 30
+}
+
+headers {
+  Accept: application/json
+}

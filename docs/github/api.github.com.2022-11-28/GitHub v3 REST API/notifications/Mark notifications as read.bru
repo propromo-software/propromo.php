@@ -1,0 +1,23 @@
+meta {
+  name: Mark notifications as read
+  type: http
+  seq: 2
+}
+
+put {
+  url: {{baseUrl}}/notifications
+  body: json
+  auth: none
+}
+
+headers {
+  Content-Type: application/json
+  Accept: application/json
+}
+
+body:json {
+  {
+    "last_read_at": "<dateTime>",
+    "read": "<boolean>"
+  }
+}

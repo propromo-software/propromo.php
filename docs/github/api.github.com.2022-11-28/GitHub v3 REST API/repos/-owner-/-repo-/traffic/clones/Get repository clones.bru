@@ -1,0 +1,19 @@
+meta {
+  name: Get repository clones
+  type: http
+  seq: 1
+}
+
+get {
+  url: {{baseUrl}}/repos/:owner/:repo/traffic/clones?per=day
+  body: none
+  auth: none
+}
+
+query {
+  per: day
+}
+
+headers {
+  Accept: application/json
+}

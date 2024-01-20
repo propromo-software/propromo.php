@@ -1,0 +1,15 @@
+meta {
+  name: Delete an SSH signing key for the authenticated user
+  type: http
+  seq: 2
+}
+
+delete {
+  url: {{baseUrl}}/user/ssh_signing_keys/:ssh_signing_key_id
+  body: none
+  auth: none
+}
+
+headers {
+  Accept: application/json
+}

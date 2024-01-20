@@ -1,0 +1,29 @@
+meta {
+  name: List repository issues
+  type: http
+  seq: 1
+}
+
+get {
+  url: {{baseUrl}}/repos/:owner/:repo/issues?milestone=<string>&state=open&assignee=<string>&creator=<string>&mentioned=<string>&labels=<string>&sort=created&direction=desc&since=<dateTime>&per_page=30&page=1
+  body: none
+  auth: none
+}
+
+query {
+  milestone: <string>
+  state: open
+  assignee: <string>
+  creator: <string>
+  mentioned: <string>
+  labels: <string>
+  sort: created
+  direction: desc
+  since: <dateTime>
+  per_page: 30
+  page: 1
+}
+
+headers {
+  Accept: application/json
+}

@@ -1,0 +1,15 @@
+meta {
+  name: Get an import status
+  type: http
+  seq: 1
+}
+
+get {
+  url: {{baseUrl}}/repos/:owner/:repo/import
+  body: none
+  auth: none
+}
+
+headers {
+  Accept: application/json
+}

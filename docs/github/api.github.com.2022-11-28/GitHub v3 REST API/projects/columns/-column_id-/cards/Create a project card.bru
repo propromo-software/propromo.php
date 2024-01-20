@@ -1,0 +1,22 @@
+meta {
+  name: Create a project card
+  type: http
+  seq: 2
+}
+
+post {
+  url: {{baseUrl}}/projects/columns/:column_id/cards
+  body: json
+  auth: none
+}
+
+headers {
+  Content-Type: application/json
+  Accept: application/json
+}
+
+body:json {
+  {
+    "note": "<string>"
+  }
+}

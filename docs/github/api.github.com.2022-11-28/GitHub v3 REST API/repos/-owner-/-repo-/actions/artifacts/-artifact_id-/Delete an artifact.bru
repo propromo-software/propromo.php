@@ -1,0 +1,11 @@
+meta {
+  name: Delete an artifact
+  type: http
+  seq: 2
+}
+
+delete {
+  url: {{baseUrl}}/repos/:owner/:repo/actions/artifacts/:artifact_id
+  body: none
+  auth: none
+}

@@ -1,0 +1,11 @@
+meta {
+  name: Disable a workflow
+  type: http
+  seq: 1
+}
+
+put {
+  url: {{baseUrl}}/repos/:owner/:repo/actions/workflows/:workflow_id/disable
+  body: none
+  auth: none
+}

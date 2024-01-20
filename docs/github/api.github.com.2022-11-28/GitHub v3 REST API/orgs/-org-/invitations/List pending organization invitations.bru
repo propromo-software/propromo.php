@@ -1,0 +1,22 @@
+meta {
+  name: List pending organization invitations
+  type: http
+  seq: 1
+}
+
+get {
+  url: {{baseUrl}}/orgs/:org/invitations?per_page=30&page=1&role=all&invitation_source=all
+  body: none
+  auth: none
+}
+
+query {
+  per_page: 30
+  page: 1
+  role: all
+  invitation_source: all
+}
+
+headers {
+  Accept: application/json
+}

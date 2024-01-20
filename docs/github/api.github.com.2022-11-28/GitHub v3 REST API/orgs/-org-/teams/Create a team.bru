@@ -1,0 +1,35 @@
+meta {
+  name: Create a team
+  type: http
+  seq: 2
+}
+
+post {
+  url: {{baseUrl}}/orgs/:org/teams
+  body: json
+  auth: none
+}
+
+headers {
+  Content-Type: application/json
+  Accept: application/json
+}
+
+body:json {
+  {
+    "name": "<string>",
+    "description": "<string>",
+    "maintainers": [
+      "<string>",
+      "<string>"
+    ],
+    "repo_names": [
+      "<string>",
+      "<string>"
+    ],
+    "privacy": "secret",
+    "notification_setting": "notifications_disabled",
+    "permission": "pull",
+    "parent_team_id": "<integer>"
+  }
+}

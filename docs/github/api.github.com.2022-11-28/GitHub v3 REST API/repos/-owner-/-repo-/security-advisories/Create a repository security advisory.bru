@@ -1,0 +1,67 @@
+meta {
+  name: Create a repository security advisory
+  type: http
+  seq: 2
+}
+
+post {
+  url: {{baseUrl}}/repos/:owner/:repo/security-advisories
+  body: json
+  auth: none
+}
+
+headers {
+  Content-Type: application/json
+  Accept: application/json
+}
+
+body:json {
+  {
+    "summary": "<string>",
+    "description": "<string>",
+    "vulnerabilities": [
+      {
+        "package": {
+          "ecosystem": "composer",
+          "name": "<string>"
+        },
+        "vulnerable_version_range": "<string>",
+        "patched_versions": "<string>",
+        "vulnerable_functions": [
+          "<string>",
+          "<string>"
+        ]
+      },
+      {
+        "package": {
+          "ecosystem": "erlang",
+          "name": "<string>"
+        },
+        "vulnerable_version_range": "<string>",
+        "patched_versions": "<string>",
+        "vulnerable_functions": [
+          "<string>",
+          "<string>"
+        ]
+      }
+    ],
+    "cve_id": "<string>",
+    "cwe_ids": [
+      "<string>",
+      "<string>"
+    ],
+    "credits": [
+      {
+        "login": "<string>",
+        "type": "remediation_reviewer"
+      },
+      {
+        "login": "<string>",
+        "type": "finder"
+      }
+    ],
+    "severity": "critical",
+    "cvss_vector_string": "<string>",
+    "start_private_fork": false
+  }
+}

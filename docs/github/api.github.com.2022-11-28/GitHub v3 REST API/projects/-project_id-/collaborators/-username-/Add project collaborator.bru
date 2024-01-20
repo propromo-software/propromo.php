@@ -1,0 +1,22 @@
+meta {
+  name: Add project collaborator
+  type: http
+  seq: 1
+}
+
+put {
+  url: {{baseUrl}}/projects/:project_id/collaborators/:username
+  body: json
+  auth: none
+}
+
+headers {
+  Content-Type: application/json
+  Accept: application/json
+}
+
+body:json {
+  {
+    "permission": "write"
+  }
+}

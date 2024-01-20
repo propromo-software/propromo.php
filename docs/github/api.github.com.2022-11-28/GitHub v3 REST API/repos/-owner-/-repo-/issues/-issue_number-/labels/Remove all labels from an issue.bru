@@ -1,0 +1,15 @@
+meta {
+  name: Remove all labels from an issue
+  type: http
+  seq: 4
+}
+
+delete {
+  url: {{baseUrl}}/repos/:owner/:repo/issues/:issue_number/labels
+  body: none
+  auth: none
+}
+
+headers {
+  Accept: application/json
+}

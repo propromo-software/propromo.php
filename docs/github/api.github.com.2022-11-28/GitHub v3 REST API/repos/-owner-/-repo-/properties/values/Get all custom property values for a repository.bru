@@ -1,0 +1,15 @@
+meta {
+  name: Get all custom property values for a repository
+  type: http
+  seq: 1
+}
+
+get {
+  url: {{baseUrl}}/repos/:owner/:repo/properties/values
+  body: none
+  auth: none
+}
+
+headers {
+  Accept: application/json
+}

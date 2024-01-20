@@ -1,0 +1,21 @@
+meta {
+  name: Upload a release asset
+  type: http
+  seq: 2
+}
+
+post {
+  url: https://uploads.github.com/repos/:owner/:repo/releases/:release_id/assets?name=<string>&label=<string>
+  body: none
+  auth: none
+}
+
+query {
+  name: <string>
+  label: <string>
+}
+
+headers {
+  Content-Type: application/octet-stream
+  Accept: application/json
+}

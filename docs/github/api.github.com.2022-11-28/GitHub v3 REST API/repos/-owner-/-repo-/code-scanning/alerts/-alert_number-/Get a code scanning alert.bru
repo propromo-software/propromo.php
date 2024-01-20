@@ -1,0 +1,15 @@
+meta {
+  name: Get a code scanning alert
+  type: http
+  seq: 1
+}
+
+get {
+  url: {{baseUrl}}/repos/:owner/:repo/code-scanning/alerts/:alert_number
+  body: none
+  auth: none
+}
+
+headers {
+  Accept: application/json
+}

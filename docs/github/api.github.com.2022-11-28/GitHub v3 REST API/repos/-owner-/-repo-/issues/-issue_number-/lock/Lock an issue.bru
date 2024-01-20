@@ -1,0 +1,22 @@
+meta {
+  name: Lock an issue
+  type: http
+  seq: 1
+}
+
+put {
+  url: {{baseUrl}}/repos/:owner/:repo/issues/:issue_number/lock
+  body: json
+  auth: none
+}
+
+headers {
+  Content-Type: application/json
+  Accept: application/json
+}
+
+body:json {
+  {
+    "lock_reason": "spam"
+  }
+}

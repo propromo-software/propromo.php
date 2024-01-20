@@ -1,0 +1,15 @@
+meta {
+  name: Get a gist comment
+  type: http
+  seq: 1
+}
+
+get {
+  url: {{baseUrl}}/gists/:gist_id/comments/:comment_id
+  body: none
+  auth: none
+}
+
+headers {
+  Accept: application/json
+}

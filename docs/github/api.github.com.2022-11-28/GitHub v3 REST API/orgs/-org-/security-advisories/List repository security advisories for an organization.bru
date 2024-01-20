@@ -1,0 +1,24 @@
+meta {
+  name: List repository security advisories for an organization
+  type: http
+  seq: 1
+}
+
+get {
+  url: {{baseUrl}}/orgs/:org/security-advisories?direction=desc&sort=created&before=<string>&after=<string>&per_page=30&state=published
+  body: none
+  auth: none
+}
+
+query {
+  direction: desc
+  sort: created
+  before: <string>
+  after: <string>
+  per_page: 30
+  state: published
+}
+
+headers {
+  Accept: application/json
+}

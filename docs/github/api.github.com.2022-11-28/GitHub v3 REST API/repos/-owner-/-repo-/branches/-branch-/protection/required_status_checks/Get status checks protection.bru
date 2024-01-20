@@ -1,0 +1,15 @@
+meta {
+  name: Get status checks protection
+  type: http
+  seq: 1
+}
+
+get {
+  url: {{baseUrl}}/repos/:owner/:repo/branches/:branch/protection/required_status_checks
+  body: none
+  auth: none
+}
+
+headers {
+  Accept: application/json
+}

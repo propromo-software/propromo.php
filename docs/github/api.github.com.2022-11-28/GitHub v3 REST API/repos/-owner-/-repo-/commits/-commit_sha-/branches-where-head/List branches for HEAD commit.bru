@@ -1,0 +1,15 @@
+meta {
+  name: List branches for HEAD commit
+  type: http
+  seq: 1
+}
+
+get {
+  url: {{baseUrl}}/repos/:owner/:repo/commits/:commit_sha/branches-where-head
+  body: none
+  auth: none
+}
+
+headers {
+  Accept: application/json
+}

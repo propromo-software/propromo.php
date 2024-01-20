@@ -1,0 +1,22 @@
+meta {
+  name: Update information about a GitHub Pages site
+  type: http
+  seq: 3
+}
+
+put {
+  url: {{baseUrl}}/repos/:owner/:repo/pages
+  body: json
+  auth: none
+}
+
+headers {
+  Content-Type: application/json
+  Accept: application/json
+}
+
+body:json {
+  {
+    "build_type": false
+  }
+}

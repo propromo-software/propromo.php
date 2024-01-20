@@ -1,0 +1,22 @@
+meta {
+  name: Create a gist comment
+  type: http
+  seq: 2
+}
+
+post {
+  url: {{baseUrl}}/gists/:gist_id/comments
+  body: json
+  auth: none
+}
+
+headers {
+  Content-Type: application/json
+  Accept: application/json
+}
+
+body:json {
+  {
+    "body": "<string>"
+  }
+}

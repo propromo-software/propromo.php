@@ -1,0 +1,79 @@
+meta {
+  name: Create an installation access token for an app
+  type: http
+  seq: 1
+}
+
+post {
+  url: {{baseUrl}}/app/installations/:installation_id/access_tokens
+  body: json
+  auth: none
+}
+
+headers {
+  Content-Type: application/json
+  Accept: application/json
+}
+
+body:json {
+  {
+    "repositories": [
+      "<string>",
+      "<string>"
+    ],
+    "repository_ids": [
+      "<integer>",
+      "<integer>"
+    ],
+    "permissions": {
+      "actions": "write",
+      "administration": "read",
+      "checks": "read",
+      "codespaces": "write",
+      "contents": "read",
+      "dependabot_secrets": "write",
+      "deployments": "read",
+      "environments": "read",
+      "issues": "read",
+      "metadata": "write",
+      "packages": "read",
+      "pages": "read",
+      "pull_requests": "read",
+      "repository_custom_properties": "write",
+      "repository_hooks": "write",
+      "repository_projects": "admin",
+      "secret_scanning_alerts": "read",
+      "secrets": "write",
+      "security_events": "read",
+      "single_file": "write",
+      "statuses": "read",
+      "vulnerability_alerts": "read",
+      "workflows": "write",
+      "members": "write",
+      "organization_administration": "read",
+      "organization_custom_roles": "write",
+      "organization_custom_org_roles": "read",
+      "organization_custom_properties": "admin",
+      "organization_copilot_seat_management": "write",
+      "organization_announcement_banners": "write",
+      "organization_events": "read",
+      "organization_hooks": "write",
+      "organization_personal_access_tokens": "write",
+      "organization_personal_access_token_requests": "read",
+      "organization_plan": "read",
+      "organization_projects": "write",
+      "organization_packages": "read",
+      "organization_secrets": "write",
+      "organization_self_hosted_runners": "write",
+      "organization_user_blocking": "read",
+      "team_discussions": "read",
+      "email_addresses": "read",
+      "followers": "read",
+      "git_ssh_keys": "write",
+      "gpg_keys": "read",
+      "interaction_limits": "write",
+      "profile": "write",
+      "starring": "read"
+    }
+  }
+}

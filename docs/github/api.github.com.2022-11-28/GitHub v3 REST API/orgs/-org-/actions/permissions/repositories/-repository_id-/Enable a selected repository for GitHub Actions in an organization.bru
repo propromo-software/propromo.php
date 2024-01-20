@@ -1,0 +1,11 @@
+meta {
+  name: Enable a selected repository for GitHub Actions in an organization
+  type: http
+  seq: 1
+}
+
+put {
+  url: {{baseUrl}}/orgs/:org/actions/permissions/repositories/:repository_id
+  body: none
+  auth: none
+}

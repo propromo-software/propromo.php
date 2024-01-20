@@ -1,0 +1,28 @@
+meta {
+  name: List fine-grained personal access tokens with access to organization resources
+  type: http
+  seq: 1
+}
+
+get {
+  url: {{baseUrl}}/orgs/:org/personal-access-tokens?per_page=30&page=1&sort=created_at&direction=desc&owner=<string>&owner=<string>&repository=<string>&permission=<string>&last_used_before=<dateTime>&last_used_after=<dateTime>
+  body: none
+  auth: none
+}
+
+query {
+  per_page: 30
+  page: 1
+  sort: created_at
+  direction: desc
+  owner: <string>
+  owner: <string>
+  repository: <string>
+  permission: <string>
+  last_used_before: <dateTime>
+  last_used_after: <dateTime>
+}
+
+headers {
+  Accept: application/json
+}
