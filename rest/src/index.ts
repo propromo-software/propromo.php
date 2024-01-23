@@ -1,6 +1,8 @@
 import { Elysia } from "elysia"; // https://elysiajs.com/introduction.html
 import { cors } from '@elysiajs/cors'; // https://elysiajs.com/plugins/cors.html#cors-plugin
-import { Octokit } from "octokit"; // unused: App // https://github.com/octokit/octokit.js | https://github.com/octokit/types.ts
+import { Octokit } from "octokit"; // unused: App // https://github.com/octokit/octokit.js
+import { GraphqlResponseError } from "@octokit/graphql"; 
+import { Organization } from "@octokit/graphql-schema"; // https://www.npmjs.com/package/@octokit/graphql-schema
 import 'dotenv/config'; // process.env.<ENV_VAR_NAME>
 
 const GITHUB_PAT = process.env.GITHUB_PAT;
@@ -12,42 +14,53 @@ const app = new Elysia()
   }))
   .get("/", () => "Hello Elysia")
   .get('/organization/:organization_name', async ({ params: { organization_name } }) => {
-  const {
-    organization: organization,
-  } = await octokit.graphql(`{
-    organization(login: ${"\"" + organization_name + "\""}) {
-      name
-      description
-      url
-      teams(first: 10) {
-        totalCount
-        nodes {
-          name
+  try {
+    const {
+      organization,
+    } = await octokit.graphql<{ organization: Organization }>(`{
+      organization(login: ${"\"" + organization_name + "\""}) {
+        name
+        description
+        url
+        teams(first: 10) {
+          totalCount
+          nodes {
+            name
+          }
         }
-      }
-      membersWithRole(first: 10) {
-        totalCount
-        nodes {
-          name
+        membersWithRole(first: 10) {
+          totalCount
+          nodes {
+            name
+          }
         }
-      }
-      repositories(first: 10) {
-        nodes {
-          name
+        repositories(first: 10) {
+          nodes {
+            name
+          }
         }
-      }
-      projectsV2(first: 10) {
-        totalCount
-        nodes {
-          title
+        projectsV2(first: 10) {
+          totalCount
+          nodes {
+            title
+          }
         }
+        websiteUrl
+        email
       }
-      websiteUrl
-      email
-    }
-  }`);
+    }`);
 
-  return JSON.stringify(organization, null, 2);
+    return JSON.stringify(organization, null, 2);
+  } catch (error) {
+    if (error instanceof GraphqlResponseError) {
+      console.log("Request failed:", error.request);
+      console.log(error.message);
+      return error;
+    } else {
+      console.error("ERROR 500");
+      return "ERROR 500";
+    }
+  }
   })
   .listen(process.env.PORT || 3000);
 

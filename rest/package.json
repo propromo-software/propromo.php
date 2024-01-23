@@ -7,6 +7,7 @@
   },
   "dependencies": {
     "@elysiajs/cors": "^0.8.0",
+    "@octokit/graphql-schema": "^14.47.1",
     "dotenv": "^16.3.2",
     "elysia": "latest",
     "octokit": "^3.1.2"
