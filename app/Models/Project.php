@@ -34,7 +34,7 @@ class Project extends Model
 
     protected $fillable = [
         "project_url",
-        "project_identification",
+        "project_hash",
         "user_id"
     ];
 

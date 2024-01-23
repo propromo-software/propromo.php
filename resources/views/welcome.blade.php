@@ -849,7 +849,7 @@
         </div>
         @endif
 
-        <livewire:submit-id-form />
+        <livewire:join-project-form />
     </div>
 </body>
 
