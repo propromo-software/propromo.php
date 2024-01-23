@@ -1,4 +1,5 @@
 import { Elysia } from "elysia"; // https://elysiajs.com/introduction.html
+import { cors } from '@elysiajs/cors'; // https://elysiajs.com/plugins/cors.html#cors-plugin
 import { Octokit } from "octokit"; // unused: App // https://github.com/octokit/octokit.js | https://github.com/octokit/types.ts
 import 'dotenv/config'; // process.env.<ENV_VAR_NAME>
 
@@ -6,6 +7,9 @@ const GITHUB_PAT = process.env.GITHUB_PAT;
 const octokit = new Octokit({ auth: GITHUB_PAT });
 
 const app = new Elysia()
+  .use(cors({
+    origin: 'https://propromo.duckdns.org'
+  }))
   .get("/", () => "Hello Elysia")
   .get('/organization/:organization_name', async ({ params: { organization_name } }) => {
   const {
@@ -45,7 +49,7 @@ const app = new Elysia()
 
   return JSON.stringify(organization, null, 2);
   })
-  .listen(3000);
+  .listen(process.env.PORT || 3000);
 
 console.log(
   `🦊 Elysia is running at ${app.server?.hostname}:${app.server?.port}`
