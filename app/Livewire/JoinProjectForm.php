@@ -5,14 +5,19 @@ namespace App\Livewire;
 use App\Models\Project;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Livewire\Attributes\Rule;
 use Livewire\Component;
 
 class JoinProjectForm extends Component
 {
+
+    #[Rule('required|min:10|max:2048')]
     public $projectUrl;
 
     public function save(){
         if(Auth::check()) {
+            $this->validate();
+
             $projectHash = Hash::make($this->projectUrl, [
                 'memory' => 516,
                 'time' => 2,
