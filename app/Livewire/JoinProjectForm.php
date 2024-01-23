@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Livewire\Attributes\Rule;
 use Livewire\Component;
+use Session;
 
 class JoinProjectForm extends Component
 {
@@ -23,12 +24,14 @@ class JoinProjectForm extends Component
                 'time' => 2,
                 'threads' => 2,
             ]);
-
-            Project::create([
+            $project = Project::create([
                 "project_url" => $this->projectUrl,
                 "project_hash" => $projectHash,
                 "user_id" => Auth::user()->id
             ]);
+
+            Session::put('project',$project);
+            $this->redirect('/projects');
         }else{
             $this->redirect('/register');
         }
