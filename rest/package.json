@@ -8,6 +8,7 @@
   "dependencies": {
     "@elysiajs/cors": "^0.8.0",
     "@elysiajs/html": "^0.8.0",
+    "@elysiajs/static": "^0.8.1",
     "@elysiajs/swagger": "^0.8.3",
     "@octokit/graphql-schema": "^14.47.1",
     "dotenv": "^16.3.2",

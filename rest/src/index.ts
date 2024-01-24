@@ -1,9 +1,10 @@
 import { Elysia, t } from "elysia"; // https://elysiajs.com/introduction.html
 import { cors } from '@elysiajs/cors'; // https://elysiajs.com/plugins/cors.html
 import { html } from '@elysiajs/html'; // https://elysiajs.com/plugins/html.html
+import { swagger } from '@elysiajs/swagger'; // https://elysiajs.com/plugins/swagger
+import { staticPlugin } from '@elysiajs/static'; // https://github.com/elysiajs/elysia-static
 import { Octokit } from "octokit"; // { App } // https://github.com/octokit/octokit.js
 import { GraphqlResponseError } from "@octokit/graphql"; // Testing GraphQL Queries: https://docs.github.com/en/graphql/overview/explorer
-import { swagger } from '@elysiajs/swagger'; // https://elysiajs.com/plugins/swagger
 import { Organization, Repository } from "@octokit/graphql-schema"; // https://www.npmjs.com/package/@octokit/graphql-schema
 import 'dotenv/config'; // process.env.<ENV_VAR_NAME>
 
@@ -11,6 +12,10 @@ const GITHUB_PAT = process.env.GITHUB_PAT;
 const octokit = new Octokit({ auth: GITHUB_PAT });
 
 const app = new Elysia()
+  .use(staticPlugin({
+    assets: "static",
+    prefix: "/"
+  }))
   .use(cors({
     origin: 'https://propromo.duckdns.org'
   }))
@@ -258,6 +263,7 @@ const app = new Elysia()
             <meta charset="UTF-8">
             <meta name="viewport" content="width=device-width, initial-scale=1.0">
             <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/water.css@2/out/water.css">
+            <link rel="icon" href="/favicon.png" type="image/x-icon">
             <title>Propromo RestAPI</title>
         </head>
         <body>
