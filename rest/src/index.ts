@@ -14,9 +14,82 @@ const app = new Elysia()
   .use(cors({
     origin: 'https://propromo.duckdns.org'
   }))
-  .use(swagger({
-    path: "/api"
-  }))
+  .get('/orgs/:organization_name/projects/:project_id/views/:project_view', async (
+    { params: { organization_name, project_id, project_view }, set }:
+      {
+        params: { organization_name: string, project_id: number, project_view: number },
+        set: { status: number, headers: { ['Content-Type']: string }, redirect: string }
+      }) => {
+    try {
+      const {
+        organization,
+      } = await octokit.graphql<{ organization: Organization }>(`{
+      organization(login: "${organization_name}") {
+        name
+        projectsV2(first: 100) {
+          nodes {
+            number
+            title
+            url
+            closed
+            views(first: ${project_view}) {
+              totalCount
+              nodes {
+                name
+              }
+            }
+          }
+        }
+      }
+    }`);
+
+      if (project_view < 1 || organization.projectsV2.nodes?.length === 0) {
+        set.status = 404;
+        set.headers['Content-Type'] = 'text/plain';
+        return { error: 404, message: 'Not Found' };
+      }
+
+      let error = false;
+      // remove all views except the one with the given view number
+      organization?.projectsV2?.nodes?.forEach(node => {
+        if (node && node.views && node.views.nodes) {
+          if (project_view > node.views.totalCount) {
+            node.views.nodes = node.views.nodes.filter((view, index) => index === project_view-1);
+            error = true;
+          }
+
+          node.views.nodes = [node.views.nodes[project_view-1]];
+        }
+      });
+
+      if (error) {
+        set.status = 404;
+        set.headers['Content-Type'] = 'text/plain';
+        return { error: 404, message: 'Not Found' };
+      }
+
+      // remove all projects except the one with the given project_id
+      if (organization.projectsV2 && organization.projectsV2.nodes) {
+        organization.projectsV2.nodes = organization.projectsV2.nodes.filter(node => node?.number === Number(project_id));
+      }
+
+      return JSON.stringify(organization, null, 2);
+    } catch (error) {
+      if (error instanceof GraphqlResponseError) {
+        console.log("Request failed:", error.request);
+        console.log(error.message);
+        return error;
+      } else {
+        return error;
+      }
+    }
+  }, {
+    params: t.Object({
+      organization_name: t.String(),
+      project_id: t.String(),
+      project_view: t.String()
+    })
+  })
   .get('/organization/:organization_name', async ({ params: { organization_name } }: { params: { organization_name: string } }) => {
     try {
       const {
@@ -61,8 +134,7 @@ const app = new Elysia()
         console.log(error.message);
         return error;
       } else {
-        console.error("ERROR 500");
-        return "ERROR 500";
+        return error;
       }
     }
   }, {
@@ -111,8 +183,7 @@ const app = new Elysia()
         console.log(error.message);
         return error;
       } else {
-        console.error("ERROR 500");
-        return "ERROR 500";
+        return error;
       }
     }
   }, {
@@ -166,8 +237,7 @@ const app = new Elysia()
         console.log(error.message);
         return error;
       } else {
-        console.error("ERROR 500");
-        return "ERROR 500";
+        return error;
       }
     }
   }, {
@@ -177,6 +247,9 @@ const app = new Elysia()
       project_name: t.String()
     })
   })
+  .use(swagger({
+    path: "/api"
+  }))
   .use(html())
   .get('/', () => `
     <!DOCTYPE html>
