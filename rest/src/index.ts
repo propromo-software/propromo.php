@@ -4,7 +4,7 @@ import { html } from '@elysiajs/html'; // https://elysiajs.com/plugins/html.html
 import { Octokit } from "octokit"; // { App } // https://github.com/octokit/octokit.js
 import { GraphqlResponseError } from "@octokit/graphql"; // Testing GraphQL Queries: https://docs.github.com/en/graphql/overview/explorer
 import { swagger } from '@elysiajs/swagger'; // https://elysiajs.com/plugins/swagger
-import { Organization } from "@octokit/graphql-schema"; // https://www.npmjs.com/package/@octokit/graphql-schema
+import { Organization, Repository } from "@octokit/graphql-schema"; // https://www.npmjs.com/package/@octokit/graphql-schema
 import 'dotenv/config'; // process.env.<ENV_VAR_NAME>
 
 const GITHUB_PAT = process.env.GITHUB_PAT;
@@ -17,27 +17,6 @@ const app = new Elysia()
   .use(swagger({
     path: "/api"
   }))
-  .use(html())
-  .get('/', () => `
-    <!DOCTYPE html>
-    <html lang='en'>
-        <head>
-            <meta charset="UTF-8">
-            <meta name="viewport" content="width=device-width, initial-scale=1.0">
-            <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/water.css@2/out/water.css">
-            <title>Propromo RestAPI</title>
-        </head>
-        <body>
-          <h1>Propromo API</h1>
-
-          <h2>Routes:</h2>
-          <ul>
-            <li><a href="/api">swagger rest-api-docs</a></li>
-            <li><a href="https://propromo.duckdns.org">website</a></li>
-          </ul>
-        </body>
-    </html>`
-  )
   .get('/organization/:organization_name', async ({ params: { organization_name } }: { params: { organization_name: string } }) => {
     try {
       const {
@@ -147,8 +126,8 @@ const app = new Elysia()
       { query: { view: number }, params: { organization_name: string, repository_name: string, project_name: string } }) => {
     try {
       const {
-        organization,
-      } = await octokit.graphql<{ organization: Organization }>(`{
+        repository,
+      } = await octokit.graphql<{ repository: Repository }>(`{
       repository(owner: "${organization_name}", name: "${repository_name}") {
         projectsV2(query: "${project_name}", first: 1) {
           nodes {
@@ -180,7 +159,7 @@ const app = new Elysia()
       }
     }`);
 
-      return JSON.stringify(organization, null, 2);
+      return JSON.stringify(repository, null, 2);
     } catch (error) {
       if (error instanceof GraphqlResponseError) {
         console.log("Request failed:", error.request);
@@ -198,6 +177,27 @@ const app = new Elysia()
       project_name: t.String()
     })
   })
+  .use(html())
+  .get('/', () => `
+    <!DOCTYPE html>
+    <html lang='en'>
+        <head>
+            <meta charset="UTF-8">
+            <meta name="viewport" content="width=device-width, initial-scale=1.0">
+            <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/water.css@2/out/water.css">
+            <title>Propromo RestAPI</title>
+        </head>
+        <body>
+          <h1>Propromo API</h1>
+
+          <h2>Routes:</h2>
+          <ul>
+            <li><a href="/api">swagger rest-api-docs</a></li>
+            <li><a href="https://propromo.duckdns.org">website</a></li>
+          </ul>
+        </body>
+    </html>`
+  )
   .listen(process.env.PORT || 3000);
 
 console.log(
