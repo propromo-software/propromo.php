@@ -5,6 +5,35 @@ import { swagger } from '@elysiajs/swagger'; // https://elysiajs.com/plugins/swa
 import { staticPlugin } from '@elysiajs/static'; // https://github.com/elysiajs/elysia-static
 import { GITHUB_URLS, GITHUB_ORGANIZATION } from "./github";
 
+const ROOT = `
+<!DOCTYPE html>
+<html lang='en'>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/water.css@2/out/water.css">
+        <link rel="icon" href="/favicon.png" type="image/x-icon">
+        <title>Propromo RestAPI</title>
+    </head>
+    <body>
+      <h1>Propromo API</h1>
+
+      <h2>Routes:</h2>
+      <ul>
+        <li><a href="/api">Swagger RestApi Docs</a></li>
+        <li><a href="/api/json">Swagger RestApi OpenAPI Spec</a> (<a href="/api/json" download="propromo-rest-openapi-spec.json">download</a>)</li>
+        <li><a href="https://propromo.duckdns.org">Website</a></li>
+      </ul>
+    </body>
+</html>`;
+
+const ROOT_PATHS = ["/", "/home", "/root", "/start", "/info", "/about", "/links"];
+
+const ROOT_ROUTES = new Elysia({ prefix: '' });
+ROOT_PATHS.forEach((path) => {
+  ROOT_ROUTES.get(path, () => ROOT);
+});
+
 const app = new Elysia()
   .use(staticPlugin({
     assets: "static",
@@ -18,30 +47,11 @@ const app = new Elysia()
     .use(GITHUB_ORGANIZATION)
   )
   .use(swagger({
-    path: "/api"
+    path: "/api",
+    exclude: [...ROOT_PATHS, "/api"]
   }))
   .use(html())
-  .get('/', () => `
-    <!DOCTYPE html>
-    <html lang='en'>
-        <head>
-            <meta charset="UTF-8">
-            <meta name="viewport" content="width=device-width, initial-scale=1.0">
-            <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/water.css@2/out/water.css">
-            <link rel="icon" href="/favicon.png" type="image/x-icon">
-            <title>Propromo RestAPI</title>
-        </head>
-        <body>
-          <h1>Propromo API</h1>
-
-          <h2>Routes:</h2>
-          <ul>
-            <li><a href="/api">swagger rest-api-docs</a></li>
-            <li><a href="https://propromo.duckdns.org">website</a></li>
-          </ul>
-        </body>
-    </html>`
-  )
+  .use(ROOT_ROUTES)
   .listen(process.env.PORT || 3000);
 
 console.log(
