@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\ProfileController;
+use App\Livewire\HomePage;
 use Illuminate\Support\Facades\Route;
 use \App\Models\Project;
 
@@ -15,9 +16,7 @@ use \App\Models\Project;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/', HomePage::class);
 
 Route::get('/projects', function () {
     return view('projects');
