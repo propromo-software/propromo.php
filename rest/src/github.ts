@@ -13,8 +13,9 @@ const GITHUB_PAT = process.env.GITHUB_PAT;
 export const GITHUB_URL = new Elysia({ prefix: '/url' })
     .get('/orgs/:organization_name/projects/:project_id/views/:project_view', async (
         { params: { organization_name, project_id, project_view } }) => { // set can set the response headers
+        const project_view_id = project_view && project_view != "%7Bproject_view%7D" ? project_view : "-1";
         const response = await fetchGraphql<{ organization: Organization }>(
-            GITHUB_ORGANIZATION_PROJECT_VIEW_BY_URL(organization_name, project_id, project_view ?? "-1"),
+            GITHUB_ORGANIZATION_PROJECT_VIEW_BY_URL(organization_name, project_id, project_view_id),
             GITHUB_PAT
         );
 
