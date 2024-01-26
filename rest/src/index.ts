@@ -3,7 +3,27 @@ import { cors } from '@elysiajs/cors'; // https://elysiajs.com/plugins/cors.html
 import { html } from '@elysiajs/html'; // https://elysiajs.com/plugins/html.html
 import { swagger } from '@elysiajs/swagger'; // https://elysiajs.com/plugins/swagger
 import { staticPlugin } from '@elysiajs/static'; // https://github.com/elysiajs/elysia-static
-import { GITHUB_URLS, GITHUB_ORGANIZATION } from "./github";
+import { GITHUB_URL, GITHUB_ORGANIZATION } from "./github";
+
+const SWAGGER_PATH = "/api";
+const HOME_URLS = {
+  "api": {
+    "swagger": {
+      "url": SWAGGER_PATH,
+      "name": "Swagger RestApi Docs"
+    },
+    "download": {
+      "url": `${SWAGGER_PATH}/json`,
+      "name": "Swagger RestApi OpenAPI Spec",
+      "file": "propromo-rest-openapi-spec.json",
+      "action": "download"
+    }
+  },
+  "website": {
+    "url": "https://propromo.duckdns.org",
+    "name": "Website"
+  }
+} as const;
 
 const ROOT = `
 <!DOCTYPE html>
@@ -20,9 +40,11 @@ const ROOT = `
 
       <h2>Routes:</h2>
       <ul>
-        <li><a href="/api">Swagger RestApi Docs</a></li>
-        <li><a href="/api/json">Swagger RestApi OpenAPI Spec</a> (<a href="/api/json" download="propromo-rest-openapi-spec.json">download</a>)</li>
-        <li><a href="https://propromo.duckdns.org">Website</a></li>
+        <li><a href="${HOME_URLS.api.swagger.url}">${HOME_URLS.api.swagger.name}</a></li>
+        <li><a href="${HOME_URLS.api.download.url}">${HOME_URLS.api.download.name}</a> 
+        (<a href="${HOME_URLS.api.download.url}" download="${HOME_URLS.api.download.file}">${HOME_URLS.api.download.action}</a>)
+        </li>
+        <li><a href="${HOME_URLS.website.url}">${HOME_URLS.website.name}</a></li>
       </ul>
     </body>
 </html>`;
@@ -40,15 +62,15 @@ const app = new Elysia()
     prefix: "/"
   }))
   .use(cors({
-    origin: 'https://propromo.duckdns.org'
+    origin: HOME_URLS.website.url
   }))
   .group('/github', (app) => app
-    .use(GITHUB_URLS)
+    .use(GITHUB_URL)
     .use(GITHUB_ORGANIZATION)
   )
   .use(swagger({
-    path: "/api",
-    exclude: [...ROOT_PATHS, "/api"]
+    path: SWAGGER_PATH,
+    exclude: [...ROOT_PATHS, SWAGGER_PATH]
   }))
   .use(html())
   .use(ROOT_ROUTES)
