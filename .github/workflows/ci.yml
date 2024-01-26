@@ -17,7 +17,7 @@ jobs:
           coverage: xdebug
 
       - name: Copy .env
-        run: php -r "file_exists('.env') || copy('.env.example', '.env');"
+        run: php -r "file_exists('.env') || copy('.env.workflow.tests', '.env');"
       - name: Update Composer
         run: |
          composer self-update
@@ -31,7 +31,7 @@ jobs:
       - name: Directory Permissions
         run: chmod -R 777 storage bootstrap/cache
       - name: Create Database
-        env:
+        env: # just documentation, are not used
           DB_CONNECTION: sqlite
           DB_DATABASE: database.sqlite
         run: |
