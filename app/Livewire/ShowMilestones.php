@@ -21,7 +21,7 @@ class ShowMilestones extends Component
 
                 $this->milestones = $response->json()['data']['organization']['projectV2']['repositories']['nodes'][0]['milestones']['nodes'];
 
-                Cache::store('redis')->put("milestones_$project->project_hash", $this->milestones , 600);
+                Cache::store("file")->put("milestones_$project->project_hash", $this->milestones , 600);
 
             } else {
                 $this->milestones = [];
