@@ -13,7 +13,7 @@ class ShowMilestones extends Component
 
     public function mount($project)
     {
-        if(!Cache::has('milestones')){
+        if(!Cache::has("milestones_$project->project_hash")){
 
             $url = 'https://propromo-rest-de8dfcad6586.herokuapp.com/github/url/orgs/' . $project->organisation_name .'/projects/' . $project->project_identification . '/views/'. $project->project_view;
             $response = Http::get($url);
@@ -22,13 +22,13 @@ class ShowMilestones extends Component
 
                 $this->milestones = $response->json()['data']['organization']['projectV2']['repositories']['nodes'][0]['milestones']['nodes'];
 
-                Cache::store('redis')->put('milestones', $this->milestones , 600);
+                Cache::store('redis')->put("milestones_$project->project_hash", $this->milestones , 600);
 
             } else {
                 $this->milestones = [];
             }
         } else {
-            $this->milestones = Cache::get('milestones');
+            $this->milestones = Cache::get("milestones_$project->project_hash");
         }
     }
 
