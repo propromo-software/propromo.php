@@ -1,7 +1,7 @@
 <div>
     <div>
         @foreach($milestones as $milestone)
-            <h1 class="font-extrabold">
+            <h1 class="font-extrabold text-5xl">
                 {{
                     $milestone['title']
                 }}

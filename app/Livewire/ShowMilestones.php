@@ -4,7 +4,6 @@ namespace App\Livewire;
 
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Http;
-use Illuminate\Support\Facades\Storage;
 use Livewire\Component;
 
 class ShowMilestones extends Component
