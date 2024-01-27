@@ -2,7 +2,7 @@
 composer install --ignore-platform-req=ext-fileinfo
 
 # rename .env.example .env
-mv .env.example .env
+cp .env.example .env
 
 # install node dependencies
 npm install
@@ -17,4 +17,4 @@ php artisan migrate:fresh
 npm run dev &
 
 # start redis
-docker-compose -d -f redis.yaml up
+docker-compose -f redis.yaml up
