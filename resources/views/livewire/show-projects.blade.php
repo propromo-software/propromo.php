@@ -1,3 +1,5 @@
 <div>
-    {{-- Success is as dangerous as failure. --}}
+    @foreach($projects as $project)
+        @include('livewire.includes.project-card')
+    @endforeach
 </div>

@@ -13,10 +13,16 @@ use Session;
 class JoinProjectForm extends Component
 {
 
-    #[Rule('required|min:10|max:2048')]
+    protected $rules = [
+        'projectUrl' => 'required|min:10|max:2048',
+    ];
+
     public $projectUrl;
 
     public function save(){
+
+        $this->validate();
+
         if(Auth::check()) {
             $this->validate();
 

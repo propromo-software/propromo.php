@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\ProfileController;
 use App\Livewire\HomePage;
+use App\Livewire\ShowProject;
 use Illuminate\Support\Facades\Route;
 use \App\Models\Project;
 
@@ -22,6 +23,8 @@ Route::get('/projects', function () {
     return view('projects');
 })->middleware(['auth', 'verified'])->name('projects');
 
+
+Route::get('/projects/{project}', ShowProject::class);
 
 Route::get('/dashboard', function () {
     return view('dashboard');

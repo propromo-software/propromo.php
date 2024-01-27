@@ -11,10 +11,10 @@
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 
 </head>
-<body>
 
-<body class="antialiased">
-<div class="relative min-h-screen bg-gray-100 bg-center sm:flex sm:justify-center sm:items-center bg-dots-darker dark:bg-dots-lighter dark:bg-gray-900 selection:bg-red-500 selection:text-white">
+
+<body>
+<div class="grid-cols-1 justify-items-center mb-4">
     @if (Route::has('login'))
         <div class="z-10 p-6 text-right sm:fixed sm:top-0 sm:right-0">
             @auth
@@ -31,8 +31,14 @@
             @endauth
         </div>
     @endif
+    </div>
+<h1 class="text-8xl font-extrabold text-center mb-4">Projects</h1>
 
-    <h1 class="text-8xl font-extrabold">Projects</h1>
+
+<div class="grid place-items-center">
+    <livewire:show-projects />
+</div>
+
 
 </body>
 </html>
