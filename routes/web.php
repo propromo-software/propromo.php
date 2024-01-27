@@ -26,6 +26,11 @@ Route::get('/projects', function () {
 
 Route::get('/projects/{project}', ShowProject::class);
 
+
+Route::get('/projects/{project}/milestones/{milestone}', ShowProject::class);
+
+
+
 Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');

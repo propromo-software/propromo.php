@@ -12,7 +12,6 @@
 
 </head>
 
-
 <body>
 <div class="grid-cols-1 justify-items-center mb-4">
     @if (Route::has('login'))
