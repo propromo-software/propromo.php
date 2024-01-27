@@ -2,6 +2,7 @@
 
 namespace App\Livewire;
 
+use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Storage;
 use Livewire\Component;
@@ -12,12 +13,22 @@ class ShowMilestones extends Component
 
     public function mount($project)
     {
-        $url = 'https://propromo-rest-de8dfcad6586.herokuapp.com/github/url/orgs/' . $project->organisation_name .'/projects/' . $project->project_identification . '/views/'. $project->project_view;
-        $response = Http::get($url);
-        if ($response->successful()) {
-            $this->milestones = $response->json()['data']['organization']['projectV2']['repositories']['nodes'][0]['milestones']['nodes'];
+        if(!Cache::has('milestones')){
+
+            $url = 'https://propromo-rest-de8dfcad6586.herokuapp.com/github/url/orgs/' . $project->organisation_name .'/projects/' . $project->project_identification . '/views/'. $project->project_view;
+            $response = Http::get($url);
+
+            if ($response->successful()) {
+
+                $this->milestones = $response->json()['data']['organization']['projectV2']['repositories']['nodes'][0]['milestones']['nodes'];
+
+                Cache::store('redis')->put('milestones', $this->milestones , 600);
+
+            } else {
+                $this->milestones = [];
+            }
         } else {
-            $this->milestones = [];
+            $this->milestones = Cache::get('milestones');
         }
     }
 

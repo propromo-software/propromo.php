@@ -14,4 +14,7 @@ php artisan key:generate
 php artisan migrate:fresh
 
 # start vite dev-server
-npm run dev
+npm run dev &
+
+# start redis
+docker-compose -d -f redis.yaml up
