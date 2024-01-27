@@ -26,6 +26,14 @@ use PhpParser\Builder;
  * @method static \Illuminate\Database\Eloquent\Builder|Project whereProjectUrl($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Project whereUpdatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Project whereUserId($value)
+ * @property string $organisation_name
+ * @property int $project_id
+ * @property int $project_view
+ * @property string $project_hash
+ * @method static \Illuminate\Database\Eloquent\Builder|Project whereOrganisationName($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Project whereProjectHash($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Project whereProjectId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Project whereProjectView($value)
  * @mixin \Eloquent
  */
 class Project extends Model
@@ -35,6 +43,9 @@ class Project extends Model
     protected $fillable = [
         "project_url",
         "project_hash",
+        "organisation_name",
+        "project_identification",
+        "project_view",
         "user_id"
     ];
 

@@ -4,7 +4,7 @@
 
 /**
  * A helper file for Laravel, to provide autocomplete information to your IDE
- * Generated for Laravel 10.41.0.
+ * Generated for Laravel 10.42.0.
  *
  * This file should not be included in your code, only analyzed by your IDE!
  *
@@ -8002,6 +8002,18 @@
         {
                         /** @var \Illuminate\Http\Client\Factory $instance */
                         return $instance->globalResponseMiddleware($middleware);
+        }
+                    /**
+         * Set the options to apply to every request.
+         *
+         * @param array $options
+         * @return \Illuminate\Http\Client\Factory 
+         * @static 
+         */ 
+        public static function globalOptions($options)
+        {
+                        /** @var \Illuminate\Http\Client\Factory $instance */
+                        return $instance->globalOptions($options);
         }
                     /**
          * Create a new response instance for use during stubbing.

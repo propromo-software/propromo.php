@@ -15,6 +15,9 @@ return new class extends Migration
             $table->id();
             $table->unsignedBigInteger('user_id');
             $table->string('project_url');
+            $table->string('organisation_name');
+            $table->integer('project_identification');
+            $table->integer('project_view');
             $table->string('project_hash');
             $table->timestamps();
         });
