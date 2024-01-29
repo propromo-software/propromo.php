@@ -1,6 +1,3 @@
 <div>
     Projects
-
-
-
 </div>

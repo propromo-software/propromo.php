@@ -1,13 +1,13 @@
 <div>
     <div class="prose">
         @foreach($milestones as $milestone)
-            <h1 class="text-5xl font-extrabold">
+            <h1>
                 {{
                     $milestone['title']
                 }}
             </h1>
 
-            <h2 class="font-bold">
+            <h2>
                 Opened Issues
             </h2>
 
@@ -19,10 +19,9 @@
                 @endforeach
             </ul>
 
-            <h2 class="font-bold">
+            <h2>
                 Closed Issues
             </h2>
-
 
             <ul>
                 @foreach($milestone['closed_issues']['nodes'] as $issue)

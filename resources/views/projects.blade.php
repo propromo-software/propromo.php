@@ -13,31 +13,30 @@
 </head>
 
 <body>
-<div class="grid-cols-1 justify-items-center mb-4">
+<div>
     @if (Route::has('login'))
-        <div class="z-10 p-6 text-right sm:fixed sm:top-0 sm:right-0">
+        <div>
             @auth
-                <a href="{{ url('/dashboard') }}" class="font-semibold text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white focus:outline focus:outline-2 focus:rounded-sm focus:outline-red-500">Dashboard</a>
+                <a href="{{ url('/dashboard') }}">Dashboard</a>
                 <br>
-                <a href="{{ url('/') }}" class="font-semibold text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white focus:outline focus:outline-2 focus:rounded-sm focus:outline-red-500">Home</a>
+                <a href="{{ url('/') }}">Home</a>
 
             @else
-                <a href="{{ route('login') }}" class="font-semibold text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white focus:outline focus:outline-2 focus:rounded-sm focus:outline-red-500">Log in</a>
+                <a href="{{ route('login') }}">Log in</a>
 
                 @if (Route::has('register'))
-                    <a href="{{ route('register') }}" class="ml-4 font-semibold text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white focus:outline focus:outline-2 focus:rounded-sm focus:outline-red-500">Register</a>
+                    <a href="{{ route('register') }}">Register</a>
                 @endif
             @endauth
         </div>
     @endif
-    </div>
-<h1 class="text-8xl font-extrabold text-center mb-4">Projects</h1>
-
-
-<div class="grid place-items-center">
-    <livewire:show-projects />
 </div>
 
+<h1 class="mb-8 text-center text-8xl">Projects</h1>
+
+<div class="flex flex-wrap justify-center">
+    <livewire:show-projects />
+</div>
 
 </body>
 </html>

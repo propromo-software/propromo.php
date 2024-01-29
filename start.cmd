@@ -4,7 +4,7 @@ rem install composer dependencies
 call composer install
 
 rem rename .env.example .env
-copy .env.example .env
+copy .env.dev.example .env
 
 rem generate application key
 php artisan key:generate

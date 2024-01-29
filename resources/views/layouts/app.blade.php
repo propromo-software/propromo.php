@@ -15,33 +15,33 @@
         <!-- Scripts -->
         @vite(['resources/css/app.css', 'resources/js/app.js'])
     </head>
-    <body class="font-sans antialiased">
+    <body>
 
 
-        <div class="min-h-screen bg-gray-100 dark:bg-gray-900">
+        <div>
 
             <!-- Page Heading -->
             @if (isset($header))
-                <header class="bg-white dark:bg-gray-800">
-                    <div class="px-4 py-6 mx-auto max-w-7xl sm:px-6 lg:px-8">
+                <header>
+                    <div>
                         {{ $header }}
                     </div>
                 </header>
             @endif
 
-            <div class="relative min-h-screen bg-gray-100 bg-center sm:flex sm:justify-center sm:items-center bg-dots-darker dark:bg-dots-lighter dark:bg-gray-900 selection:bg-red-500 selection:text-white">
+            <div>
                 @if (Route::has('login'))
-                    <div class="z-10 p-6 text-right sm:fixed sm:top-0 sm:right-0">
+                    <div>
                         @auth
-                            <a href="{{ url('/dashboard') }}" class="font-semibold text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white focus:outline focus:outline-2 focus:rounded-sm focus:outline-red-500">Dashboard</a>
+                            <a href="{{ url('/dashboard') }}">Dashboard</a>
                             <br>
-                            <a href="{{ url('/projects') }}" class="font-semibold text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white focus:outline focus:outline-2 focus:rounded-sm focus:outline-red-500">Projects</a>
+                            <a href="{{ url('/projects') }}">Projects</a>
 
                         @else
-                            <a href="{{ route('login') }}" class="font-semibold text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white focus:outline focus:outline-2 focus:rounded-sm focus:outline-red-500">Log in</a>
+                            <a href="{{ route('login') }}">Log in</a>
 
                             @if (Route::has('register'))
-                                <a href="{{ route('register') }}" class="ml-4 font-semibold text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white focus:outline focus:outline-2 focus:rounded-sm focus:outline-red-500">Register</a>
+                                <a href="{{ route('register') }}">Register</a>
                             @endif
                         @endauth
                     </div>
