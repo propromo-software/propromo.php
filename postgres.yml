@@ -6,7 +6,7 @@ services:
     container_name: propromo-postgres
     environment:
       POSTGRES_DB: propromo
-      POSTGRES_USER: propromo
+      POSTGRES_USER: postgres
       POSTGRES_PASSWORD: propromo
     ports:
       - "5432:5432"

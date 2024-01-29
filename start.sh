@@ -17,4 +17,4 @@ php artisan migrate:fresh
 npm run dev &
 
 # start redis
-docker-compose -f redis.yaml up
+docker-compose -f redis.yml up

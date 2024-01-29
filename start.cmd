@@ -1,19 +1,28 @@
 @echo off
 
-REM Install composer dependencies
-composer install --ignore-platform-req=ext-fileinfo
+rem install composer dependencies
+call composer install
 
-REM Rename .env.example to .env
-ren .env.example .env
+rem rename .env.example .env
+copy .env.example .env
 
-REM Install node dependencies
-npm install
-
-REM Generate application key
+rem generate application key
 php artisan key:generate
 
-REM Drop and create tables
+rem start redis
+docker-compose -f redis.yml up -d
+
+rem start postgres
+docker-compose -f postgres.yml up -d
+
+rem drop create tables
 php artisan migrate:fresh
 
-REM Start Vite dev-server
-npm run dev
+rem install node dependencies
+call npm install
+
+rem start vite dev-server
+start npm run dev
+
+rem start laravel dev-server
+start php artisan serve
