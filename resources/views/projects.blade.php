@@ -13,6 +13,7 @@
 </head>
 
 <body>
+
 <div>
     @if (Route::has('login'))
         <div>
@@ -32,7 +33,9 @@
     @endif
 </div>
 
-<h1 class="mb-8 text-center text-8xl">Projects</h1>
+<h1 class="mb-8 text-center text-8xl font-koulen">Projects</h1>
+
+<h2 class="font-sourceSansPro text-2xl">Hallo</h2>
 
 <div class="flex flex-wrap justify-center">
     <livewire:show-projects />

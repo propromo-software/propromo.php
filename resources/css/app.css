@@ -1,9 +1,12 @@
 @import './light-theme.css';
 @import './dark-theme.css';
+@import url('https://api.fonts.coollabs.io/css2?family=Koulen');
+@import url('https://api.fonts.coollabs.io/css2?family=Source+Sans+3:wght@700&display=swap');
 
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
 
 /* Overwriting Custom Component Styles */
 sl-input, sl-button { /* colors are applied via css-vars in the themes files (using tailwind colors for primary and neutral) */

@@ -1,6 +1,8 @@
 import defaultTheme from 'tailwindcss/defaultTheme';
 import typography from '@tailwindcss/typography';
 
+
+
 /** @type {import('tailwindcss').Config} */
 export default {
     content: [
@@ -13,6 +15,8 @@ export default {
         extend: {
             fontFamily: {
                 sans: ['Figtree', ...defaultTheme.fontFamily.sans],
+                koulen: ['"Koulen"', 'normal'],
+                sourceSansPro: ['"Source Sans 3"']
             },
         },
     },
