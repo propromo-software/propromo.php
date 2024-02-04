@@ -24,3 +24,24 @@ export enum GRAMMATICAL_NUMBER {
     PLURAL = 0,
     DEFAULT = -1
 }
+
+export enum GITHUB_REPOSITORY_SCOPES {
+    COUNT = "count",
+    INFO = "info",
+    LICENSE = "license",
+    VULNERABILITIES = "vulnerabilities",
+    TOPICS = "topics",
+    LABELS = "labels",
+    RELEASES = "releases",
+    DEPLOYMENTS = "deployments",
+    MILESTONES = "milestones",
+    ISSUES = "issues",
+    ALL = "all"
+}
+
+export enum GITHUB_PROJECT_SCOPES {
+    INFO = "root",
+    REPOSITORIES_LINKED = "repositories"
+}
+
+export type GITHUB_PROJECT_INPUT_SCOPES = GITHUB_PROJECT_SCOPES[] | {project_scopes: GITHUB_PROJECT_SCOPES[], repository_scopes: null | GITHUB_REPOSITORY_SCOPES[]};

@@ -32,3 +32,20 @@ export async function fetchGithubDataUsingGraphql<T>(graphqlInput: string, auth:
         }
     }
 }
+
+export function validateViewParameter(view: number | undefined) {
+    if (view === undefined) {
+        return -1;
+    }
+
+    return view;
+}
+
+export function isValidEnumArray(array: string[], enumValues: string[]): boolean {
+    for (let i = 0; i < array.length; i++) {
+        if (!enumValues.includes(array[i])) {
+            return false;
+        }
+    }
+    return true;
+}

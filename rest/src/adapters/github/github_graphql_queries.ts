@@ -1,4 +1,5 @@
-import { GRAMMATICAL_NUMBER } from "./github_types";
+import { issues, license, topics, labels, vulnerabilities, releases, deployments } from "./github_repository_scopes";
+import { GITHUB_PROJECT_INPUT_SCOPES, GITHUB_PROJECT_SCOPES, GITHUB_REPOSITORY_SCOPES, GRAMMATICAL_NUMBER } from "./github_types";
 
 /* Query building helper functions: */
 
@@ -17,50 +18,6 @@ const GITHUB_REPOSITORY = function (amount: GRAMMATICAL_NUMBER, owner?: string, 
         repositoryQueryEnd = ``;
     }
 
-    const ISSUE_NODES = `
-    nodes {
-        title
-        bodyUrl
-        createdAt
-        updatedAt
-        url
-        closedAt
-        body
-        lastEditedAt
-        milestone {
-            createdAt
-            closedAt
-            description
-            dueOn
-            progressPercentage
-            title
-            updatedAt
-        }
-        assignees(first: 10) {
-            nodes {
-                avatarUrl
-                email
-                login
-                name
-                pronouns
-                url
-                websiteUrl
-            }
-        }
-        labels(first: 10) {
-            nodes {
-                url
-                name
-                color
-                createdAt
-                updatedAt
-                description
-                isDefault
-            }
-        }
-    # comments
-    }`;
-
     return `
     ${repositoryQueryStart}
             name
@@ -76,108 +33,12 @@ const GITHUB_REPOSITORY = function (amount: GRAMMATICAL_NUMBER, owner?: string, 
             sshUrl
             projectsUrl
             
-            licenseInfo {
-                url
-                spdxId
-                name
-                nickname
-                description
-                conditions {
-                    description
-                    key
-                    label
-                }
-            }
-            
-            vulnerabilityAlerts(first: 10) {
-                nodes {
-                    createdAt
-                    fixedAt
-                    dependencyScope
-                    securityVulnerability {
-                        vulnerableVersionRange
-                        updatedAt
-                        advisory {
-                            classification
-                            description
-                            publishedAt
-                            summary
-                            updatedAt
-                            updatedAt
-                        }
-                        
-                        firstPatchedVersion {
-                            identifier
-                        }
-                        package {
-                            ecosystem
-                            name
-                        }
-                    }
-                    dependabotUpdate {
-                        error {
-                            title
-                            body
-                            errorType
-                        }
-                    }
-                }
-            }
-            repositoryTopics(first: 10) {
-                nodes {
-                    topic {
-                        name
-                    }
-                    url
-                }
-            }
-            releases(first: 10) {
-                nodes {
-                    name
-                    createdAt
-                    description
-                    isDraft
-                    isLatest
-                    isPrerelease
-                    name
-                    tagName
-                    updatedAt
-                    url
-                    tag {
-                        name
-                    }
-                    tagCommit {
-                        additions
-                        deletions
-                        authoredDate
-                        changedFilesIfAvailable
-                        author {
-                            avatarUrl
-                            email
-                            name
-                        }
-                    }
-                    author {
-                        avatarUrl
-                        email
-                        login
-                        name
-                        pronouns
-                        url
-                        websiteUrl
-                    }
-                    releaseAssets(first: 10) {
-                        nodes {
-                            contentType
-                            createdAt
-                            downloadCount
-                            name
-                            size
-                            updatedAt
-                        }
-                    }
-                }
-            }
+            ${license}
+            ${vulnerabilities}
+            ${topics}
+            ${releases}
+            ${labels}
+            ${deployments}
             milestones(first: 10) {
                 nodes {
                     createdAt
@@ -189,11 +50,11 @@ const GITHUB_REPOSITORY = function (amount: GRAMMATICAL_NUMBER, owner?: string, 
                     updatedAt
                     open_issues: issues(first: 50, states: [OPEN]) {
                         totalCount
-                        ${ISSUE_NODES}
+                        ${issues}
                     }
                     closed_issues: issues(first: 50, states: [CLOSED]) {
                         totalCount
-                        ${ISSUE_NODES}
+                        ${issues}
                     }
                 }
             }
@@ -219,74 +80,6 @@ const GITHUB_REPOSITORY = function (amount: GRAMMATICAL_NUMBER, owner?: string, 
                     name
                 }
             }
-            labels(first: 10) {
-                totalCount
-                nodes {
-                    color
-                    createdAt
-                    description
-                    name
-                    url
-                }
-            }
-            deployments(first:10) {
-                nodes {
-                updatedAt
-                createdAt
-                updatedAt
-                description
-                environment
-                task
-                latestStatus {
-                    createdAt
-                    updatedAt
-                    description
-                    logUrl
-                    environmentUrl
-                    state
-                    deployment {
-                        createdAt
-                        description
-                        commit {
-                            additions
-                            deletions
-                            authoredDate
-                            changedFilesIfAvailable
-                            author {
-                                avatarUrl
-                                email
-                                name
-                            }
-                        }
-                    }
-                }
-                statuses(first: 10) {
-                    nodes {
-                        createdAt
-                        updatedAt
-                        description
-                        logUrl
-                        environmentUrl
-                        state
-                        deployment {
-                            createdAt
-                            description
-                            commit {
-                                additions
-                                deletions
-                                authoredDate
-                                changedFilesIfAvailable
-                                author {
-                                    avatarUrl
-                                    email
-                                    name
-                                }
-                            }
-                        }
-                    }
-                }
-                }
-            }
             collaborators(first: 10) {
                 nodes {
                     avatarUrl
@@ -300,6 +93,80 @@ const GITHUB_REPOSITORY = function (amount: GRAMMATICAL_NUMBER, owner?: string, 
             }
         ${repositoryQueryEnd}
     }`;
+}
+
+/**
+* Helper function that returns the Github GraphQl query part needed for the fetching of multiple **repositories** associated with a project using the parent query as root (scoped).
+*/
+const GITHUB_PROJECT_REPOSITORIES_SCOPED = function (scopes: GITHUB_REPOSITORY_SCOPES[] | null) {
+    // not included: collaborators, mentionableUsers, primaryLanguage, languages
+
+    const milestones = `
+    milestones(first: 10) {
+        nodes {
+            createdAt
+            closedAt
+            description
+            dueOn
+            progressPercentage
+            title
+            updatedAt
+
+            ${scopes && scopes.includes(GITHUB_REPOSITORY_SCOPES.ISSUES) ? `
+            open_issues: issues(first: 50, states: [OPEN]) {
+                totalCount
+                ${issues}
+            }
+            closed_issues: issues(first: 50, states: [CLOSED]) {
+                totalCount
+                ${issues}
+            }
+            ` : ""}
+        }
+    }
+    `;
+
+    if (scopes === null) {
+        return "";
+    } else if (scopes.length === 1 && scopes.includes(GITHUB_REPOSITORY_SCOPES.COUNT)) {
+        return `
+        repositories(first: 10) {
+            totalCount
+        }
+        `;
+    } else if (scopes.includes(GITHUB_REPOSITORY_SCOPES.ALL)) {
+        return GITHUB_REPOSITORY(GRAMMATICAL_NUMBER.PLURAL);
+    } else {
+        return `
+        repositories(first: 10) {
+            ${scopes.includes(GITHUB_REPOSITORY_SCOPES.COUNT) ? "totalCount" : ""}
+            nodes {
+                ${scopes.includes(GITHUB_REPOSITORY_SCOPES.INFO) ? `
+                name
+                description
+                updatedAt
+                createdAt
+                isArchived
+                isPrivate
+                isTemplate
+                
+                resourcePath
+                homepageUrl
+                sshUrl
+                projectsUrl
+                ` : ""}
+
+                ${scopes.includes(GITHUB_REPOSITORY_SCOPES.LICENSE) ? license : ""}
+                ${scopes.includes(GITHUB_REPOSITORY_SCOPES.TOPICS) ? topics : ""}
+                ${scopes.includes(GITHUB_REPOSITORY_SCOPES.LABELS) ? labels : ""}
+                ${scopes.includes(GITHUB_REPOSITORY_SCOPES.VULNERABILITIES) ? vulnerabilities : ""}
+                ${scopes.includes(GITHUB_REPOSITORY_SCOPES.RELEASES) ? releases : ""}
+                ${scopes.includes(GITHUB_REPOSITORY_SCOPES.DEPLOYMENTS) ? deployments : ""}
+                ${scopes.includes(GITHUB_REPOSITORY_SCOPES.MILESTONES) ? milestones : ""}
+            }
+        }
+        `;
+    }
 }
 
 /**
@@ -402,14 +269,52 @@ const GITHUB_PROJECT = function (amount: GRAMMATICAL_NUMBER, name?: string | num
     }`;
 }
 
+/**
+ * Helper function that returns the Github GraphQl query part needed for the fetching of a **project** using the parent query as root (scoped).
+ */
+const GITHUB_PROJECT_SCOPED = function (project_id: number, scopes: GITHUB_PROJECT_INPUT_SCOPES) {
+    let info = "";
+    let repositories = "";
+
+    const FETCH_ALL_REPOSITORY_SCOPES = Array.isArray(scopes);
+    const project_scopes = FETCH_ALL_REPOSITORY_SCOPES ? scopes : scopes.project_scopes;
+    const repository_scopes: GITHUB_REPOSITORY_SCOPES[] | null = FETCH_ALL_REPOSITORY_SCOPES ? null : scopes.repository_scopes;
+
+    if (project_scopes.includes(GITHUB_PROJECT_SCOPES.INFO)) {
+        info = `
+            title
+            shortDescription
+            url
+            public
+            createdAt
+            updatedAt
+            closedAt
+            readme
+        `;
+    }
+
+    if (project_scopes.includes(GITHUB_PROJECT_SCOPES.REPOSITORIES_LINKED) && repository_scopes) {
+        repositories = `
+        ${GITHUB_PROJECT_REPOSITORIES_SCOPED(repository_scopes)}
+        `;
+    }
+
+    return `
+    projectV2(number: ${project_id}) {
+        ${info}
+        ${repositories}
+    }`;
+}
 
 /* Entry functions: */
+
+/* ORGANIZATIONS */
 
 /**
  * Entry function for the fetching of a **organization project** from the Github GraphQl API.
  * Schema: ``/orgs/<ORGANIZATION_NAME>/projects/<PROJECT_NUMBER>[/views/<VIEW_NUMBER>]``
  */
-export const GITHUB_ORGANIZATION_PROJECT_VIEW_BY_URL = function (organization_name: string, project_id: number, project_view: number) {
+export const GITHUB_ORGANIZATION_PROJECT_BY_URL = function (organization_name: string, project_id: number, project_view: number) {
     // every projects items are stored in the repositories it is connected to
     return `{
         organization(login: "${organization_name}") {
@@ -419,10 +324,57 @@ export const GITHUB_ORGANIZATION_PROJECT_VIEW_BY_URL = function (organization_na
 }
 
 /**
+ * Entry function for the fetching of a **organization projects root info** from the Github GraphQl API.
+ * Schema: ``/users/<ORGANIZATION_NAME>/projects/<PROJECT_NUMBER>/info``
+ */
+export const GITHUB_ORGANIZATION_PROJECT_INFO_BY_URL = function (organization_name: string, project_id: number) {
+    // every projects items are stored in the repositories it is connected to
+    return `{
+        organization(login: "${organization_name}") {
+            ${GITHUB_PROJECT_SCOPED(project_id, [GITHUB_PROJECT_SCOPES.INFO])}
+        }
+    }`
+}
+
+/**
+ * Entry function for the fetching of a **organization projects repositories** from the Github GraphQl API.
+ * Schema: ``/users/<ORGANIZATION_NAME>/projects/<PROJECT_NUMBER>/repositories``
+ */
+export const GITHUB_ORGANIZATION_PROJECT_REPOSITORIES_BY_URL = function (organization_name: string, project_id: number) {
+    // every projects items are stored in the repositories it is connected to
+    return `{
+        organization(login: "${organization_name}") {
+            ${GITHUB_PROJECT_SCOPED(project_id, {
+                project_scopes: [GITHUB_PROJECT_SCOPES.REPOSITORIES_LINKED],
+                repository_scopes: [GITHUB_REPOSITORY_SCOPES.ALL]
+            })}
+        }
+    }`
+}
+
+/**
+ * Entry function for the fetching of a **organization projects repositories** from the Github GraphQl API (scoped).
+ * Schema: ``/users/<ORGANIZATION_NAME>/projects/<PROJECT_NUMBER>/repositories?scopes=<REPOSITORY_SCOPES>``
+ */
+export const GITHUB_ORGANIZATION_PROJECT_REPOSITORIES_BY_URL_AND_QUERY = function (organization_name: string, project_id: number, repository_scopes: GITHUB_REPOSITORY_SCOPES[] | null) {
+    // every projects items are stored in the repositories it is connected to
+    return `{
+        organization(login: "${organization_name}") {
+            ${GITHUB_PROJECT_SCOPED(project_id, {
+                project_scopes: [GITHUB_PROJECT_SCOPES.REPOSITORIES_LINKED],
+                repository_scopes: repository_scopes
+            })}
+        }
+    }`
+}
+
+/* USERS */
+
+/**
  * Entry function for the fetching of a **user project** from the Github GraphQl API.
  * Schema: ``/users/<USER_NAME>/projects/<PROJECT_NUMBER>[/views/<VIEW_NUMBER>]``
  */
-export const GITHUB_USER_PROJECT_VIEW_BY_URL = function (user_name: string, project_id: number, project_view: number) {
+export const GITHUB_USER_PROJECT_BY_URL = function (user_name: string, project_id: number, project_view: number) { // not implemented yet
     // every projects items are stored in the repositories it is connected to
     return `{
         user(login: "${user_name}") {
