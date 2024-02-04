@@ -297,7 +297,7 @@ const GITHUB_REPOSITORY = function (amount: GRAMMATICAL_NUMBER, owner?: string, 
     }`;
 }
 
-const GITHUB_PROJECT = function (amount: GRAMMATICAL_NUMBER, name?: string | number, view?: string) {
+const GITHUB_PROJECT = function (amount: GRAMMATICAL_NUMBER, name?: string | number, view?: number) {
     let projectQueryParameters = amount === GRAMMATICAL_NUMBER.SINGULAR ? `query: "${name}", first: 1` : `first: 100`;
     let projectV2 = `projectsV2(${projectQueryParameters})`;
     let repositoryQueryStart = `
@@ -325,8 +325,8 @@ const GITHUB_PROJECT = function (amount: GRAMMATICAL_NUMBER, name?: string | num
         layout
     }`;
 
-    if (view === "-1") {
-        view = "10";
+    if (view === -1) {
+        view = 10;
         
         viewQuery = `
         views(first: ${view}) {
@@ -395,7 +395,7 @@ const GITHUB_PROJECT = function (amount: GRAMMATICAL_NUMBER, name?: string | num
 }
 
 // /orgs/<ORGANIZATION_NAME>/projects/<PROJECT_NUMBER>?/views/<VIEW_NUMBER>
-export const GITHUB_ORGANIZATION_PROJECT_VIEW_BY_URL = function (organization_name: string, project_id: string, project_view: string) {
+export const GITHUB_ORGANIZATION_PROJECT_VIEW_BY_URL = function (organization_name: string, project_id: number, project_view: number) {
     // every projects items are stored in the repositories it is connected to
     return `{
         organization(login: "${organization_name}") {
@@ -405,7 +405,7 @@ export const GITHUB_ORGANIZATION_PROJECT_VIEW_BY_URL = function (organization_na
 }
 
 // /users/<USER_NAME>/projects/<PROJECT_NUMBER>?/views/<VIEW_NUMBER>
-export const GITHUB_USER_PROJECT_VIEW_BY_URL = function (user_name: string, project_id: string, project_view: string) {
+export const GITHUB_USER_PROJECT_VIEW_BY_URL = function (user_name: string, project_id: number, project_view: number) {
     // every projects items are stored in the repositories it is connected to
     return `{
         user(login: "${user_name}") {
@@ -509,7 +509,7 @@ export const GITHUB_REPOSITORY_BY_OWNER_NAME_AND_REPOSITORY_NAME = function (org
     }`
 }
 
-export const GITHUB_PROJECT_BY_OWNER_NAME_AND_REPOSITORY_NAME_AND_PROJECT_NAME = function (organization_name: string, repository_name: string, project_name: string, view: string) {
+export const GITHUB_PROJECT_BY_OWNER_NAME_AND_REPOSITORY_NAME_AND_PROJECT_NAME = function (organization_name: string, repository_name: string, project_name: string, view: number) {
     // every project has a repository for its items
     return `{
         repository(owner: "${organization_name}", name: "${repository_name}") {
