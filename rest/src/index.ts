@@ -25,6 +25,12 @@ const HOME_URLS = {
   }
 } as const;
 
+const CORS_ORIGINS = [
+  HOME_URLS.website.url,
+  "https://propromo-d08144c627d3.herokuapp.com",
+  "https://propromo-ts.vercel.app"
+]
+
 const ROOT = `
 <!DOCTYPE html>
 <html lang='en'>
@@ -62,7 +68,7 @@ const app = new Elysia()
     prefix: "/"
   }))
   .use(cors({
-    origin: HOME_URLS.website.url
+    origin: CORS_ORIGINS
   }))
   .group('/github', (app) => app
     .use(GITHUB_URL)
