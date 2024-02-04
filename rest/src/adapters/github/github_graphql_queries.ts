@@ -1,4 +1,4 @@
-import { GRAMMATICAL_NUMBER } from "./types";
+import { GRAMMATICAL_NUMBER } from "./github_types";
 
 const GITHUB_REPOSITORY = function (amount: GRAMMATICAL_NUMBER, owner?: string, name?: string) {
     let repositoryQueryStart = `

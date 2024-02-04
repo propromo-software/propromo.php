@@ -1,12 +1,15 @@
 import { GraphqlResponseError } from "@octokit/graphql"; // Testing GraphQL Queries: https://docs.github.com/en/graphql/overview/explorer
 import { ParseError, NotFoundError, InternalServerError, Context } from "elysia"; // https://elysiajs.com/introduction.html
 import { Octokit } from "octokit"; // { App } // https://github.com/octokit/octokit.js
-import { GraphqlResponse, GraphqlResponseErrorCode } from "./types";
+import { GraphqlResponse, GraphqlResponseErrorCode } from "./github_types";
 
-export async function fetchGraphql<T>(graphqlInput: string, auth: string | undefined, set: Context["set"]): Promise<GraphqlResponse<T>> {
+export async function fetchGithubDataUsingGraphql<T>(graphqlInput: string, auth: string | undefined, set: Context["set"]): Promise<GraphqlResponse<T>> {
+    set.headers = { "Content-Type": "application/json" };
+
     try {
         const octokit = new Octokit({ auth });
         const result = await octokit.graphql<T>(graphqlInput);
+
         return { success: true, data: result };
     } catch (error: any) { // don't catch ValidationError!
         if (error instanceof GraphqlResponseError) {

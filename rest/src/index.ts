@@ -3,7 +3,7 @@ import { cors } from '@elysiajs/cors'; // https://elysiajs.com/plugins/cors.html
 import { html } from '@elysiajs/html'; // https://elysiajs.com/plugins/html.html
 import { swagger } from '@elysiajs/swagger'; // https://elysiajs.com/plugins/swagger
 import { staticPlugin } from '@elysiajs/static'; // https://github.com/elysiajs/elysia-static
-import { GITHUB_URL, GITHUB_ORGANIZATION } from "./github";
+import { GITHUB_URL, GITHUB_ORGANIZATION } from "./adapters/github";
 
 const SWAGGER_PATH = "/api";
 const HOME_URLS = {
