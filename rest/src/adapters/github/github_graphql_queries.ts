@@ -1,5 +1,10 @@
 import { GRAMMATICAL_NUMBER } from "./github_types";
 
+/* Query building helper functions: */
+
+/**
+* Helper function that returns the Github GraphQl query part needed for the fetching of a **repository** or multiple **repositories** using the parent query as root.
+*/
 const GITHUB_REPOSITORY = function (amount: GRAMMATICAL_NUMBER, owner?: string, name?: string) {
     let repositoryQueryStart = `
         repositories(first: 10) {
@@ -297,6 +302,9 @@ const GITHUB_REPOSITORY = function (amount: GRAMMATICAL_NUMBER, owner?: string, 
     }`;
 }
 
+/**
+ * Helper function that returns the Github GraphQl query part needed for the fetching of a **project** or multiple **projects** using the parent query as root.
+ */
 const GITHUB_PROJECT = function (amount: GRAMMATICAL_NUMBER, name?: string | number, view?: number) {
     let projectQueryParameters = amount === GRAMMATICAL_NUMBER.SINGULAR ? `query: "${name}", first: 1` : `first: 100`;
     let projectV2 = `projectsV2(${projectQueryParameters})`;
@@ -394,7 +402,13 @@ const GITHUB_PROJECT = function (amount: GRAMMATICAL_NUMBER, name?: string | num
     }`;
 }
 
-// /orgs/<ORGANIZATION_NAME>/projects/<PROJECT_NUMBER>?/views/<VIEW_NUMBER>
+
+/* Entry functions: */
+
+/**
+ * Entry function for the fetching of a **organization project** from the Github GraphQl API.
+ * Schema: ``/orgs/<ORGANIZATION_NAME>/projects/<PROJECT_NUMBER>[/views/<VIEW_NUMBER>]``
+ */
 export const GITHUB_ORGANIZATION_PROJECT_VIEW_BY_URL = function (organization_name: string, project_id: number, project_view: number) {
     // every projects items are stored in the repositories it is connected to
     return `{
@@ -404,7 +418,10 @@ export const GITHUB_ORGANIZATION_PROJECT_VIEW_BY_URL = function (organization_na
     }`
 }
 
-// /users/<USER_NAME>/projects/<PROJECT_NUMBER>?/views/<VIEW_NUMBER>
+/**
+ * Entry function for the fetching of a **user project** from the Github GraphQl API.
+ * Schema: ``/users/<USER_NAME>/projects/<PROJECT_NUMBER>[/views/<VIEW_NUMBER>]``
+ */
 export const GITHUB_USER_PROJECT_VIEW_BY_URL = function (user_name: string, project_id: number, project_view: number) {
     // every projects items are stored in the repositories it is connected to
     return `{
@@ -413,6 +430,9 @@ export const GITHUB_USER_PROJECT_VIEW_BY_URL = function (user_name: string, proj
         }
     }`
 }
+
+
+/* Testing functions: */
 
 export const GITHUB_ORGANIZATION_BY_NAME = function (organization_name: string) { 
     return `{
