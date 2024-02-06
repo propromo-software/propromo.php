@@ -19,6 +19,12 @@ export default {
                 sourceSansPro: ['"Source Sans 3"']
             },
         },
+        colors: {
+            'primary-blue': '#0D3269',
+            'secondary-grey': '#9A9A9A',
+            'other-grey': '#DCDCDC'
+
+        },
     },
 
     plugins: [typography],
