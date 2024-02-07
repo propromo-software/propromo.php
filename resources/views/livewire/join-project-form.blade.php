@@ -10,12 +10,6 @@
                 >
                 </sl-input>
 
-
-                <input type="text" id="url" value="https://github.com/propromo-software" placeholder="url"
-                       filled
-                       wire:model="projectUrl"
-                class="w-full"/>
-
                 <sl-button wire:click="save">JOIN</sl-button>
             </div>
         </form>

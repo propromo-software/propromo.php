@@ -10,8 +10,11 @@
 
 /* Overwriting Custom Component Styles */
 sl-input, sl-button { /* colors are applied via css-vars in the themes files (using tailwind colors for primary and neutral) */
-    all: revert !important; /* purge tailwind classes for all sl components */
+    all: revert; /*!important*/ /* purge tailwind classes for all sl components */
+}
 
+#url {
+    @apply w-full
 }
 
 sl-input::part(base){
