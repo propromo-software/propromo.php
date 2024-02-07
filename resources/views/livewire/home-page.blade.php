@@ -1,8 +1,8 @@
 <div>
 
-    <div class="block mx-auto">
-        <div class="flex gap-14 items-center">
-            <div class="w-1/5">
+    <div class="grid justify-center">
+        <div class="flex gap-14 items-center mb-10">
+            <div class="w-80">
                 <img
                     src="{{asset('/assets/logo/Propromo-Logo-circle.svg')}}"
                     alt="propromo-logo">
@@ -21,6 +21,5 @@
         </div>
 
             <livewire:join-project-form/>
-
     </div>
 </div>
