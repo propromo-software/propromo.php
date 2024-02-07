@@ -36,18 +36,23 @@
                             <a href="{{ url('/dashboard') }}">Dashboard</a>
                             <br>
                             <a href="{{ url('/projects') }}">Projects</a>
-
                         @else
-                            <a href="{{ route('login') }}">Log in</a>
+                            <div class="flex justify-end gap-2 mt-5 mx-8">
+                                <sl-button>
+                                    <a href="{{ route('login') }}">LOG IN</a>
+                                </sl-button>
 
-                            @if (Route::has('register'))
-                                <a href="{{ route('register') }}">Register</a>
-                            @endif
+                                @if (Route::has('register'))
+                                    <sl-button>
+                                        <a href="{{ route('register') }}">REGISTER</a>
+                                    </sl-button>
+                                @endif
+                            </div>
+
                         @endauth
                     </div>
                 @endif
 
-            <!-- Page Content -->
             <main>
                 {{ $slot }}
             </main>

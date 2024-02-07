@@ -13,7 +13,8 @@ sl-input, sl-button { /* colors are applied via css-vars in the themes files (us
     all: revert !important; /* purge tailwind classes for all sl components */
 }
 
+
 /* Input */
 sl-button::part(base) {
-    @apply cursor-pointer; /* add tailwind classes */
+    @apply cursor-pointer bg-primary-blue text-white rounded-md font-sourceSansPro; /* add tailwind classes */
 }

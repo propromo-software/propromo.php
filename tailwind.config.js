@@ -20,11 +20,13 @@ export default {
             },
         },
         colors: {
+            'white': '#FFFFFF',
             'primary-blue': '#0D3269',
             'secondary-grey': '#9A9A9A',
-            'other-grey': '#DCDCDC'
-
+            'other-grey': '#DCDCDC',
+            'border-color': 'rgba(0, 0, 0, 0.2)'
         },
+
     },
 
     plugins: [typography],
