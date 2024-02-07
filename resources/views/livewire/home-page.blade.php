@@ -17,5 +17,11 @@
             </div>
         </div>
         <livewire:join-project-form/>
+
+        <h1 class="font-koulen text-4xl text-secondary-grey text-center mt-20">PROJECT PREVIEW</h1>
+
+        <iframe class="mt-2" width="100%" height="315"
+                src="https://youtu.be/SXmJH72-O5g?autoplay=1">
+        </iframe>
     </div>
 </div>
