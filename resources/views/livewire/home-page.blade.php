@@ -1,7 +1,6 @@
 <div>
 
     <div class="block mx-auto">
-
         <div class="flex gap-14 items-center">
             <div class="w-1/5">
                 <img
