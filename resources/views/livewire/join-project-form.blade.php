@@ -1,4 +1,4 @@
-<div class="mt-20">
+<div>
         <form wire:submit="save">
             <label class="text-primary-blue font-koulen text-2xl" for="url">JOIN A PROJECT: </label>
             <br>
@@ -9,7 +9,6 @@
                           class="w-full"
                 >
                 </sl-input>
-
                 <sl-button wire:click="save">JOIN</sl-button>
             </div>
         </form>

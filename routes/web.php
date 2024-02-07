@@ -4,7 +4,7 @@ use App\Http\Controllers\ProfileController;
 use App\Livewire\HomePage;
 use App\Livewire\ShowProject;
 use Illuminate\Support\Facades\Route;
-use \App\Models\Project;
+use App\Livewire\JoinProjectPage;
 
 /*
 |--------------------------------------------------------------------------
@@ -23,12 +23,9 @@ Route::get('/projects', function () {
     return view('projects');
 })->middleware(['auth', 'verified'])->name('projects');
 
+Route::get('/join', JoinProjectPage::class)->middleware(['auth', 'verified'])->name('join');
 
 Route::get('/projects/{project}', ShowProject::class);
-
-
-Route::get('/projects/{project}/milestones/{milestone}', ShowProject::class);
-
 
 
 Route::get('/dashboard', function () {
