@@ -1,13 +1,20 @@
-<div>
-    <div class="grid justify-center">
+<div class="mt-20">
         <form wire:submit="save">
             <label class="text-primary-blue font-koulen text-2xl" for="url">JOIN A PROJECT: </label>
             <br>
-            <div class="flex gap-5 w-max">
+            <div class="flex gap-5">
+
+                <sl-input type="text" id="url" value="https://github.com/propromo-software" placeholder="url"
+                          wire:model="projectUrl"
+                          class="w-full"
+                >
+                </sl-input>
+
 
                 <input type="text" id="url" value="https://github.com/propromo-software" placeholder="url"
                        filled
-                       wire:model="projectUrl" class="p-0.5">
+                       wire:model="projectUrl"
+                class="w-full"/>
 
                 <sl-button wire:click="save">JOIN</sl-button>
             </div>
@@ -16,6 +23,4 @@
         @error('projectUrl')
             <span>{{$message}}</span>
         @enderror
-
-    </div>
 </div>

@@ -407,7 +407,7 @@
     --sl-input-spacing-medium: var(--sl-spacing-medium);
     --sl-input-spacing-large: var(--sl-spacing-large);
 
-    --sl-input-focus-ring-color: hsl(198.6 88.7% 48.4% / 40%);
+    --sl-input-focus-ring-color: rgba(13, 50, 105, 0.45);
     --sl-input-focus-ring-offset: 0;
 
     --sl-input-filled-background-color: var(--sl-color-neutral-100);

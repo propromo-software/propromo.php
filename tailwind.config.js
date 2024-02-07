@@ -16,7 +16,7 @@ export default {
             fontFamily: {
                 sans: ['Figtree', ...defaultTheme.fontFamily.sans],
                 koulen: ['"Koulen"', 'normal'],
-                sourceSansPro: ['"Source Sans 3"']
+                sourceSansPro: ['"Source Sans 3"', 'normal']
             },
         },
         colors: {

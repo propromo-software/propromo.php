@@ -1,11 +1,8 @@
-<div>
-
-    <div class="grid justify-center">
-        <div class="flex gap-14 items-center mb-10">
+<div class="flex justify-center">
+    <div class="columns-1 w-fit">
+        <div class="flex justify-center gap-14 items-center mb-10">
             <div class="w-80">
-                <img
-                    src="{{asset('/assets/logo/Propromo-Logo-circle.svg')}}"
-                    alt="propromo-logo">
+                <img src="{{asset('/assets/logo/Propromo-Logo-circle.svg')}}" alt="propromo-logo">
             </div>
             <div>
                 <h1 class="flex-initial font-koulen text-7xl text-primary-blue">PROPROMO</h1>
@@ -19,7 +16,6 @@
                 </div>
             </div>
         </div>
-
-            <livewire:join-project-form/>
+        <livewire:join-project-form/>
     </div>
 </div>
