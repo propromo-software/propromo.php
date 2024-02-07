@@ -4,7 +4,7 @@
             <br>
             <div class="flex gap-5">
 
-                <sl-input type="text" id="url" value="https://github.com/propromo-software" placeholder="url"
+                <sl-input type="text" id="url" value="https://github.com/propromo-software" placeholder="Here goes the project-url"
                           wire:model="projectUrl"
                           class="w-full"
                 >
