@@ -14,7 +14,7 @@ class ShowMilestones extends Component
     {
         if(!Cache::has("milestones_$project->project_hash")){
 
-            $url = 'https://propromo-rest-de8dfcad6586.herokuapp.com/github/url/orgs/' . $project->organisation_name .'/projects/' . $project->project_identification . '/views/'. $project->project_view;
+            $url = 'https://propromo-rest-de8dfcad6586.herokuapp.com/github/orgs/' . $project->organisation_name .'/projects/' . $project->project_identification . '/views/'. $project->project_view;
             $response = Http::get($url);
 
             if ($response->successful()) {
