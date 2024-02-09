@@ -39,10 +39,11 @@ class JoinProjectForm extends Component
                 "organisation_name" => Str::between($this->projectUrl, '/orgs/', '/projects/'),
                 "project_identification" => intval(Str::between($this->projectUrl, '/projects/', '/views/')),
                 "project_view" => intval(Str::after($this->projectUrl, '/views/')),
-                "user_id" => Auth::user()->id
             ]);
 
-            Session::put('project',$project);
+            $project->users()->attach(Auth::user()->id);
+
+            Session::put('project', $project);
 
             $this->redirect('/projects');
 

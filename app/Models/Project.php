@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use PhpParser\Builder;
 
 /**
@@ -45,11 +46,11 @@ class Project extends Model
         "project_hash",
         "organisation_name",
         "project_identification",
-        "project_view",
-        "user_id"
+        "project_view"
     ];
 
-    public function user(){
-        return $this->belongsTo(User::class);
+    public function users(): BelongsToMany
+    {
+        return $this->belongsToMany(User::class,'project_user', 'project_id', 'user_id');
     }
 }

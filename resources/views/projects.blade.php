@@ -41,6 +41,5 @@
     <livewire:show-projects />
 </div>
 
-
 </body>
 </html>
