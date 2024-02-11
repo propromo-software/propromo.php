@@ -14,31 +14,11 @@
 
 <body>
 
-<div>
-    @if (Route::has('login'))
-        <div>
-            @auth
-                <a href="{{ url('/dashboard') }}">Dashboard</a>
-                <br>
-                <a href="{{ url('/') }}">Home</a>
+@include('layouts.navigation')
 
-            @else
-                <a href="{{ route('login') }}">Log in</a>
-
-                @if (Route::has('register'))
-                    <a href="{{ route('register') }}">Register</a>
-                @endif
-            @endauth
-        </div>
-    @endif
-</div>
-
-<h1 class="mb-8 text-center text-8xl font-koulen">Projects</h1>
-
-<h2 class="font-sourceSansPro text-2xl">Hallo</h2>
 
 <div class="flex flex-wrap justify-center">
-    <livewire:show-projects />
+    <livewire:show-projects/>
 </div>
 
 </body>
