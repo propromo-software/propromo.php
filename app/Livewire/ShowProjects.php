@@ -9,6 +9,10 @@ use Livewire\Component;
 
 class ShowProjects extends Component
 {
+    public function mount(){
+
+    }
+
     public function render()
     {
         return view('livewire.show-projects',[

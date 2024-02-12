@@ -3,6 +3,7 @@
 namespace App\Livewire;
 
 use App\Models\Project;
+use Couchbase\PrependOptions;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
@@ -45,7 +46,7 @@ class JoinProjectForm extends Component
 
             Session::put('project', $project);
 
-            $this->redirect('/projects');
+            $this->redirect('/projects/'.$project->id);
 
         }else{
             $this->redirect('/register');

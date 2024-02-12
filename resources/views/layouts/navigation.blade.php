@@ -9,7 +9,7 @@
                     Session::has("project") ? Session::get("project")->organisation_name : 'no projects available'
                 }}
             </div>
-            <sl-icon name="copy" class="text-2xl text-primary-blue">
+            <sl-icon name="copy" class="text-2xl text-primary-blue cursor-pointer">
 
             </sl-icon>
         </div>

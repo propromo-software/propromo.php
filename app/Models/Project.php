@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use PhpParser\Builder;
 
 /**
@@ -35,6 +36,10 @@ use PhpParser\Builder;
  * @method static \Illuminate\Database\Eloquent\Builder|Project whereProjectHash($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Project whereProjectId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Project whereProjectView($value)
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Milestone> $milestones
+ * @property-read int|null $milestones_count
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\User> $users
+ * @property-read int|null $users_count
  * @mixin \Eloquent
  */
 class Project extends Model
@@ -52,5 +57,10 @@ class Project extends Model
     public function users(): BelongsToMany
     {
         return $this->belongsToMany(User::class,'project_user', 'project_id', 'user_id');
+    }
+
+    public function milestones(): HasMany
+    {
+        return $this->hasMany(Milestone::class);
     }
 }
