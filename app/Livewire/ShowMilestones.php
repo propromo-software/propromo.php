@@ -25,13 +25,13 @@ class ShowMilestones extends Component
 
             if ($response->successful()) {
 
-                $this->milestones = $response->json()['data']['organization']['projectV2']['repositories']['nodes'][0]['milestones']['nodes'];
+                $milestones = $response->json()['data']['organization']['projectV2']['repositories']['nodes'][0]['milestones']['nodes'];
 
                 // delete existing milestone & tasks
                 $project->milestones()->delete();
 
                 // save milestone-data into db
-                foreach ($this->milestones as $milestoneData) {
+                foreach ($milestones as $milestoneData) {
 
                     $milestone = new Milestone();
 
@@ -96,7 +96,7 @@ class ShowMilestones extends Component
                         // parse labels out of url
                         $labels = $issue['labels']['nodes'];
 
-                        foreach ($labels as $labelData) {
+                        foreach ($labels as $labelData){
                             $label = new Label();
 
                             $label->url = $labelData['url'];
@@ -108,8 +108,11 @@ class ShowMilestones extends Component
 
                             $task->labels()->save($label);
                         }
+
                     }
                 }
+                $this->milestones = $project->milestones()->get()->toArray();
+
                 Cache::store("file")->put("milestones_$project->project_hash", $this->milestones, 600);
 
             } else {
@@ -122,6 +125,7 @@ class ShowMilestones extends Component
 
     public function render()
     {
+
         return view('livewire.show-milestones',
             [
                 "milestones" => $this->milestones

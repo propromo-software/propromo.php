@@ -14,12 +14,12 @@
 
 <body>
 
-@include('layouts.navigation')
+    @include('layouts.navigation')
 
 
-<div class="flex flex-wrap justify-center">
-    <livewire:show-projects/>
-</div>
+    <div class="flex flex-wrap justify-center">
+        <livewire:show-projects/>
+    </div>
 
 </body>
 </html>

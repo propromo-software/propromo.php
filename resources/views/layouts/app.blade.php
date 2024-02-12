@@ -32,30 +32,12 @@
     @endif
 
     <div>
-        <div>
-                @auth
-                    <div class="flex justify-end gap-2 mt-5 mx-8">
-                        <sl-button>
-                            <a href="{{ url('/projects') }}">PROJECTS</a>
-                        </sl-button>
-                        <sl-button>
-                            <a href="{{ url('/logout') }}">LOG OUT</a>
-                        </sl-button>
-                    </div>
-                @else
-                    <div class="flex justify-end gap-2 mt-5 mx-8">
-                        <sl-button>
-                            <a href="{{ route('login') }}">LOG IN</a>
-                        </sl-button>
 
-                        <sl-button>
-                            <a href="{{ route('register') }}">REGISTER</a>
-                        </sl-button>
-                    </div>
-                @endauth
-        </div>
+        @if(!request()->is('/'))
+            @include('layouts.navigation')
+        @endif
 
-        <main>
+            <main>
             {{ $slot }}
         </main>
     </div>

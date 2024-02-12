@@ -41,7 +41,6 @@ class Assignee extends Model
 {
     use HasFactory;
 
-
     protected $fillable = [
         "task_id",
         "avatar_url",
@@ -54,7 +53,8 @@ class Assignee extends Model
     ];
 
 
-    public function task(): BelongsTo{
+    public function task(): BelongsTo
+    {
         return $this->belongsTo(Task::class);
     }
 }

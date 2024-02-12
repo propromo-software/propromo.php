@@ -1,3 +1,27 @@
+<div>
+    <div>
+    @auth
+        <div class="flex justify-end gap-2 mt-5 mx-8">
+            <sl-button>
+                <a href="{{ url('/projects') }}">PROJECTS</a>
+            </sl-button>
+            <sl-button>
+                <a href="{{ url('/logout') }}">LOG OUT</a>
+            </sl-button>
+        </div>
+    @else
+        <div class="flex justify-end gap-2 mt-5 mx-8">
+            <sl-button>
+                <a href="{{ route('login') }}">LOG IN</a>
+            </sl-button>
+
+            <sl-button>
+                <a href="{{ route('register') }}">REGISTER</a>
+            </sl-button>
+        </div>
+    @endauth
+</div>
+
 <div class="flex justify-center">
     <div class="columns-1 w-fit">
         <div class="flex justify-center gap-14 items-center mb-10">
@@ -24,4 +48,5 @@
                 src="https://youtu.be/SXmJH72-O5g?autoplay=1">
         </iframe>
     </div>
+</div>
 </div>
