@@ -1,9 +1,9 @@
-<div class="px-6 py-4 border-2 rounded-xl border-other-grey w-fit" wire:key="{{$milestone['title']}}}">
+<div class="px-6 py-4 border-2 rounded-xl border-other-grey w-max" wire:key="{{$milestone['title']}}}">
 
     <div class="flex justify-between gap-20">
 
         <div>
-            <h1 class="text-primary-blue text-5xl font-koulen">
+            <h1 class="text-primary-blue text-4xl font-koulen">
                 {{$milestone['title']}}
             </h1>
 

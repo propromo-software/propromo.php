@@ -108,7 +108,6 @@ class ShowMilestones extends Component
 
                             $task->labels()->save($label);
                         }
-
                     }
                 }
                 $this->milestones = $project->milestones()->get()->toArray();

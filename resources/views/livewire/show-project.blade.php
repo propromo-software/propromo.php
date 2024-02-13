@@ -1,3 +1,5 @@
-<div class="flex flex-col items-center">
-    <livewire:show-milestones :project="$project"/>
+<div class="flex flex-col justify-center mx-4">
+
+    @include('livewire.includes.project-card')
+
 </div>
