@@ -17,6 +17,6 @@
             </a>
     </div>
 
-    <livewire:show-milestones :project="$project"/>
+    <livewire:show-milestones lazy :project="$project"/>
 
 </div>

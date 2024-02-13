@@ -9,7 +9,7 @@
                           class="w-full"
                 >
                 </sl-input>
-                <sl-button wire:click="save">JOIN</sl-button>
+                    <sl-button wire:click="save" wire:loading.attr="disabled">JOIN</sl-button>
             </div>
         </form>
 

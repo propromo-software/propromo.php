@@ -122,6 +122,15 @@ class ShowMilestones extends Component
         }
     }
 
+    public function placeholder()
+    {
+        return <<<'HTML'
+        <div>
+            <sl-spinner></sl-spinner>
+        </div>
+        HTML;
+    }
+
     public function render()
     {
 
