@@ -14,7 +14,6 @@
 ## Development
 
 [![.github/workflows/ci.yml](https://github.com/propromo-software/propromo/actions/workflows/ci.yml/badge.svg)](https://github.com/propromo-software/propromo/actions/workflows/ci.yml)
-[![.github/workflows/cd.yml](https://github.com/propromo-software/propromo/actions/workflows/cd.yml/badge.svg)](https://github.com/propromo-software/propromo/actions/workflows/cd.yml)
 
 ### Dependencies
 ```bash
