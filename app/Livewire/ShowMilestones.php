@@ -20,7 +20,7 @@ class ShowMilestones extends Component
     {
         if (!Cache::has("milestones_$project->project_hash")) {
 
-            $url = 'https://propromo-rest-de8dfcad6586.herokuapp.com/v1/github/orgs/' . $project->organisation_name . '/projects/' . $project->project_identification . '/views/' . $project->project_view;
+            $url = 'https://propromo-rest.duckdns.org/v1/github/orgs/' . $project->organisation_name . '/projects/' . $project->project_identification . '/views/' . $project->project_view;
             $response = Http::get($url);
 
             if ($response->successful()) {
@@ -59,15 +59,16 @@ class ShowMilestones extends Component
                     foreach ($issues as $issue) {
                         $task = new Task();
 
+                        /*
                         $task->created_at = date('Y-m-d H:i:s', strtotime($issue['createdAt']));
                         $task->updated_at = !empty($issue['updatedAt']) ? date('Y-m-d H:i:s', strtotime($issue['updatedAt'])) : null;
                         $task->last_edited_at = !empty($issue['lastEditedAt']) ? date('Y-m-d H:i:s', strtotime($issue['lastEditedAt'])) : null;
                         $task->closed_at = !empty($issue['closedAt']) ? date('Y-m-d H:i:s', strtotime($issue['closedAt'])) : null;
-                        $task->is_active = empty($issue['closedAt']);
                         $task->body_url = $issue['bodyUrl'];
                         $task->url = $issue['url'];
                         $task->body = $issue['body'];
                         $task->title = $issue['title'];
+                       */
 
                         $milestone->tasks()->save($task);
 
