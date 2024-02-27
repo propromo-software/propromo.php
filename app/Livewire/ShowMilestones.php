@@ -20,7 +20,7 @@ class ShowMilestones extends Component
     {
         if (!Cache::has("milestones_$project->project_hash")) {
 
-            $url = 'https://propromo-rest-de8dfcad6586.herokuapp.com/github/orgs/' . $project->organisation_name . '/projects/' . $project->project_identification . '/views/' . $project->project_view;
+            $url = 'https://propromo-rest-de8dfcad6586.herokuapp.com/v1/github/orgs/' . $project->organisation_name . '/projects/' . $project->project_identification . '/views/' . $project->project_view;
             $response = Http::get($url);
 
             if ($response->successful()) {
@@ -88,7 +88,6 @@ class ShowMilestones extends Component
                             $assignee->website_url = $assigneeData['websiteUrl'];
 
                             $task->assignees()->save($assignee);
-
                         }
 
                         $task->labels()->delete();
@@ -96,7 +95,7 @@ class ShowMilestones extends Component
                         // parse labels out of url
                         $labels = $issue['labels']['nodes'];
 
-                        foreach ($labels as $labelData){
+                        foreach ($labels as $labelData) {
                             $label = new Label();
 
                             $label->url = $labelData['url'];
@@ -113,7 +112,6 @@ class ShowMilestones extends Component
                 $this->milestones = $project->milestones()->get()->toArray();
 
                 Cache::store("file")->put("milestones_$project->project_hash", $this->milestones, 600);
-
             } else {
                 $this->milestones = [];
             }
@@ -134,7 +132,8 @@ class ShowMilestones extends Component
     public function render()
     {
 
-        return view('livewire.show-milestones',
+        return view(
+            'livewire.show-milestones',
             [
                 "milestones" => $this->milestones
             ]

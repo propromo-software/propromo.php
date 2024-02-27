@@ -21,11 +21,12 @@ class JoinProjectForm extends Component
 
     public $projectUrl;
 
-    public function save(){
+    public function save()
+    {
 
         $this->validate();
 
-        if(Auth::check()) {
+        if (Auth::check()) {
             $this->validate();
 
             $projectHash = Hash::make($this->projectUrl, [
@@ -43,7 +44,7 @@ class JoinProjectForm extends Component
                 "project_view" => intval(Str::after($this->projectUrl, '/views/'))
             ]);
 
-            $url = 'https://propromo-rest.duckdns.org/github/orgs/' . $project->organisation_name . '/projects/' . $project->project_identification . '/infos';
+            $url = 'https://propromo-rest.duckdns.org/v1/github/orgs/' . $project->organisation_name . '/projects/' . $project->project_identification . '/infos';
             $response = Http::get($url);
 
             if ($response->successful()) {
@@ -57,14 +58,13 @@ class JoinProjectForm extends Component
             }
 
 
-                $project->save();
-                $project->users()->attach(Auth::user()->id);
+            $project->save();
+            $project->users()->attach(Auth::user()->id);
 
             Session::put('project', $project);
 
-            $this->redirect('/projects/'.$project->id);
-
-        }else{
+            $this->redirect('/projects/' . $project->id);
+        } else {
             $this->redirect('/register');
         }
     }
