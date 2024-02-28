@@ -2,12 +2,11 @@
 
 namespace App\Livewire;
 
-use App\Models\Project;
 use Exception;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Facades\Http;
-use Illuminate\Support\Str;
+
+;
+
 use Livewire\Component;
 use App\Traits\ProjectCreator;
 
@@ -15,6 +14,8 @@ class JoinProjectForm extends Component
 {
 
     use ProjectCreator;
+
+    public $createProjectError;
 
     protected $rules = [
         'projectUrl' => 'required|min:10|max:2048'
@@ -25,18 +26,18 @@ class JoinProjectForm extends Component
     /**
      * @throws \Throwable
      */
-    public function save()
-    {
+    public function save() {
         $this->validate();
 
         if (Auth::check()) {
 
             $this->validate();
-
-            $project = $this->createProject($this->projectUrl);
-
-            $this->redirect('/projects/' . $project->id);
-
+            try {
+                $project = $this->createProject($this->projectUrl);
+                $this->redirect('/projects/' . $project->id);
+            } catch (Exception $e) {
+                $this->createProjectError = $e->getMessage();
+            }
         } else {
             $this->redirect('/register');
         }

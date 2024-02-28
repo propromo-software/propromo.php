@@ -6,6 +6,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Str;
+use Exception;
 
 trait ProjectCreator
 {
@@ -32,7 +33,7 @@ trait ProjectCreator
             Project::where('organisation_name', '=', $organisationName)->count() > 0 &&
             Project::where('project_identification', '=', $projectIdentification)->count() > 0
         ){
-            throw new Exception("Project already exists!");
+            throw new Exception("The project already exists!");
         }
 
         $project = Project::create([
