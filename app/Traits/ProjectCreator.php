@@ -2,6 +2,7 @@
 namespace App\Traits;
 
 use App\Models\Project;
+use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Http;
@@ -29,9 +30,11 @@ trait ProjectCreator
             $projectIdentification = intval($matches[1]);
         }
 
+        $current_user_projects = User::find(Auth::user()->id)->projects()->get();
+
         if (
-            Project::where('organisation_name', '=', $organisationName)->count() > 0 &&
-            Project::where('project_identification', '=', $projectIdentification)->count() > 0
+            $current_user_projects->where('organisation_name', '=', $organisationName)->count() > 0 &&
+            $current_user_projects->where('project_identification', '=', $projectIdentification)->count() > 0
         ){
             throw new Exception("The project already exists!");
         }
