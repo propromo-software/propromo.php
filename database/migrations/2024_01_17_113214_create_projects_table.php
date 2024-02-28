@@ -17,10 +17,8 @@ return new class extends Migration {
             $table->string('readme')->nullable();
             $table->boolean('public')->nullable();
             $table->string('title')->nullable();
-            $table->string('url')->nullable();
             $table->string('short_description')->nullable();
             $table->integer('project_identification');
-            $table->integer('project_view');
             $table->string('project_hash');
             $table->timestamps();
         });

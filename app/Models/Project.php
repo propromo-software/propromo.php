@@ -61,25 +61,11 @@ class Project extends Model
         "project_hash",
         "organisation_name",
         "title",
-        "url",
         "public",
         "readme",
         "short_description",
         "project_identification",
-        "project_view"
     ];
-
-    /*
-     *  "title": "propromo",
-        "shortDescription": "Your client wants to be involved. Propromo makes it possible.",
-        "url": "https://github.com/orgs/propromo-software/projects/1",
-        "public": true,
-        "createdAt": "2023-12-19T08:34:38Z",
-        "updatedAt": "2024-02-12T22:46:24Z",
-        "closedAt": null,
-        "readme": "# Propromo\n\n## Contact\n\nwrite us: propromo.business@skiff.com / propromo.security@skiff.com"
-     *
-     * */
 
     public function users(): BelongsToMany
     {
