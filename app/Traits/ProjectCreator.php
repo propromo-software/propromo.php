@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Traits;
 
 use App\Models\Project;
@@ -35,7 +36,7 @@ trait ProjectCreator
         if (
             $current_user_projects->where('organisation_name', '=', $organisationName)->count() > 0 &&
             $current_user_projects->where('project_identification', '=', $projectIdentification)->count() > 0
-        ){
+        ) {
             throw new Exception("The project already exists!");
         }
 
@@ -46,7 +47,7 @@ trait ProjectCreator
             "project_identification" => $projectIdentification,
         ]);
 
-        $url = 'https://propromo-rest.duckdns.org/v1/github/orgs/' . $project->organisation_name . '/projects/' . $project->project_identification . '/infos';
+        $url = $_ENV['APP_SERVICE_URL'] . '/v1/github/orgs/' . $project->organisation_name . '/projects/' . $project->project_identification . '/infos';
 
         $response = Http::get($url);
 

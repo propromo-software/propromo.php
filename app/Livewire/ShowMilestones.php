@@ -20,7 +20,7 @@ class ShowMilestones extends Component
     {
         if (!Cache::has("milestones_$project->project_hash")) {
 
-            $url = 'https://propromo-rest.duckdns.org/v1/github/orgs/' . $project->organisation_name . '/projects/' . $project->project_identification . '/views/1' ;
+            $url = $_ENV['APP_SERVICE_URL'] . '/v1/github/orgs/' . $project->organisation_name . '/projects/' . $project->project_identification . '/views/1';
             $response = Http::get($url);
 
             if ($response->successful()) {
