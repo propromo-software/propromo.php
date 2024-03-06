@@ -1,9 +1,10 @@
-version: '3.8'
+version: "3.8"
 
 services:
   postgres:
-    image: postgres:latest
-    container_name: propromo-postgres
+    image: postgres:16.2
+    container_name: propromo-database
+    restart: always
     environment:
       POSTGRES_DB: propromo
       POSTGRES_USER: postgres

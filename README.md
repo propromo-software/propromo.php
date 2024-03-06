@@ -26,7 +26,7 @@ start.cmd
 
 ### Database
 ```bash
-docker-compose -f postgres.yml up -d
+docker-compose -f ./docker/postgres.yml up -d
 ```
 
 ### Website

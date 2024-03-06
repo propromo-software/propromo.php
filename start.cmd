@@ -10,10 +10,10 @@ rem generate application key
 php artisan key:generate
 
 rem start redis
-docker-compose -f redis.yml up -d
+docker-compose -f ./docker/redis.yml up -d
 
 rem start postgres
-docker-compose -f postgres.yml up -d
+docker-compose -f ./docker/postgres.yml up -d
 
 rem drop create tables
 php artisan migrate:fresh

@@ -1,0 +1,12 @@
+version: "3.8"
+
+services:
+  nginx-php:
+    image: propromo/php-website:latest
+    container_name: propromo-website
+    restart: always
+    env_file:
+      - path: ../.env.docker # .env.docker.example
+        required: true
+    ports:
+      - "80:80"
