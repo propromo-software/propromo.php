@@ -36,7 +36,7 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          tag_name: ${{ github.sha }}
+          tag_name: $(date +%s)
           name: Release ${{ github.sha }}
           body: Release for commit '${{ github.event.workflow_run.head_commit.message }}'
           draft: false
