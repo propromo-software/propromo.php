@@ -13,13 +13,7 @@ jobs:
         uses: shivammathur/setup-php@v2
         with:
           php-version: 8.1
-          tools: composer:v2
-          coverage: pcov
-
-      - name: Setup PCOV (needed for the coverage report)
-        run: |
-          composer require pcov/clobber
-          vendor/bin/pcov clobber
+          coverage: xdebug
 
       - name: Copy .env
         run: php -r "file_exists('.env') || copy('.env.workflow.tests', '.env');"
