@@ -12,6 +12,8 @@ jobs:
     if: contains(github.event.workflow_run.head_commit.message, '#build-for-review')
 
     steps:
+      - name: Info
+        run: echo "Release Workflow - Website"
       - name: Download files from ci
         uses: actions/download-artifact@v2
         with:
