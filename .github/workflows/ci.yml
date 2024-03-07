@@ -40,8 +40,28 @@ jobs:
           mkdir -p database
           touch database/database.sqlite
 
+      - name: Install Coverage Report Dependencies Needed For Pest UnitTests
+        run: |
+          sudo apt-get install php-xdebug
+          sudo apt install php-pcov
+
       - name: Execute tests
-        run: ./vendor/bin/pest
+        run: ./vendor/bin/pest --coverage --coverage-clover=clover.xml # --min=90
+
+      - name: Make code coverage badge
+        uses: timkrase/phpunit-coverage-badge@v1.2.1
+        with:
+          coverage_badge_path: output/coverage.svg
+          push_badge: false
+
+      - name: Git push to coverage branch
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          publish_dir: ./output
+          publish_branch: coverage
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          user_name: "github-actions[bot]"
+          user_email: "github-actions[bot]@users.noreply.github.com"
 
       - name: Upload files
         uses: actions/upload-artifact@v2
