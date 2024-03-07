@@ -1,7 +1,7 @@
 name: Continuous Deployment/Release - Website
 on:
   workflow_run:
-    workflows: ["ci"]
+    workflows: ["Continuous Integration - Website"]
     types:
       - completed
 
@@ -9,7 +9,7 @@ jobs:
   release:
     runs-on: ubuntu-latest
 
-    if: contains(github.event.workflow_run.head_commit.message, '#build-for-review')
+    if: ${{ github.event.workflow_run.conclusion == 'success' }} && contains(github.event.workflow_run.head_commit.message, '#build-for-review')
 
     steps:
       - name: Info
@@ -28,6 +28,6 @@ jobs:
         with:
           tag_name: auto
           release_name: Release ${{ github.sha }}
-          body: Release ${{ github.sha }}
+          body: Release for commit '${{ github.event.workflow_run.head_commit.message }}'
           draft: false
           prerelease: true
