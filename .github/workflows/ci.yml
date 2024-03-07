@@ -9,8 +9,11 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
-      # - name: Update system packages
-      #  run: sudo apt-get update && sudo apt-get upgrade
+      - name: Update system packages
+        run: sudo apt-get update && sudo apt-get upgrade
+
+      - name: Install For Faster Composer Install
+        run: sudo apt install php-curl
 
       - name: Install Coverage Report Dependencies Needed For Pest Unit-Tests
         run: |
@@ -18,6 +21,7 @@ jobs:
           sudo apt install php-pcov
           # sudo apt-get install php-dom
           sudo apt-get install php-xml
+          sudo apt-get install ext-xml
 
       - name: Setup PHP
         uses: shivammathur/setup-php@v2
