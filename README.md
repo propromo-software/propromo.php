@@ -14,8 +14,9 @@
 ## Development
 
 [![.github/workflows/ci.yml](https://github.com/propromo-software/propromo/actions/workflows/ci.yml/badge.svg)](https://github.com/propromo-software/propromo/actions/workflows/ci.yml)
+[![Continuous Deployment/Release - Website](https://github.com/propromo-software/propromo/actions/workflows/release.yml/badge.svg)](https://github.com/propromo-software/propromo/actions/workflows/release.yml)
 
-### Dependencies
+### Install Dependencies & Run
 ```bash
 start.sh
 ```
@@ -24,17 +25,27 @@ start.sh
 start.cmd
 ```
 
-### Database
+### One By One
+
+#### Database
 ```bash
 docker-compose -f ./docker/postgres.yml up -d
 ```
 
-### Website
+#### Cache
+```bash
+docker-compose -f ./docker/redis.yml up -d
+```
+
+#### Website
 ```bash
 php artisan serve --port=80
 ```
 
 ### Testing
+
+![PHP Code Coverage Badge](https://propromo-software.github.io/propromo/coverage.svg)
+
 ```bash
 php ./vendor/bin/pest
 ```
