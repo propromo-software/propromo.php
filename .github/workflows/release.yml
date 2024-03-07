@@ -30,13 +30,17 @@ jobs:
           zip -r propromo-website.zip propromo.php
           tar -czvf propromo-website.tar.gz propromo.php
 
+      - name: Set Timestamp
+        id: timestamp
+        run: echo "TIMESTAMP=$(date +"%Y%m%d%H%M%S")" >> $GITHUB_ENV
+
       - name: Create Release
         id: create_release
         uses: softprops/action-gh-release@v1
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          tag_name: ${{ steps.timestamp.outputs.timestamp }}
+          tag_name: ${{ $TIMESTAMP }}
           name: Release ${{ github.sha }}
           body: Release for commit '${{ github.event.workflow_run.head_commit.message }}'
           draft: false
