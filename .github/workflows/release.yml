@@ -15,9 +15,9 @@ jobs:
       - name: Info
         run: echo "Release Workflow - Website"
       - name: Download files from ci
-        uses: actions/download-artifact@v2
+        uses: actions/download-artifact@v4
         with:
-          run-id: "Continuous Integration - Website"
+          run-id: ${{ github.event.workflow_run.id }}
           github-token: ${{ secrets.GITHUB_TOKEN }}
           name: propromo.php
           path: ./**
