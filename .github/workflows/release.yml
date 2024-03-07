@@ -22,14 +22,22 @@ jobs:
           name: propromo.php
           path: ./**
 
+      - name: Zip artifact
+        run: |
+          zip -r propromo-website.zip propromo.php
+          tar -czvf propromo-website.tar.gz propromo.php
+
       - name: Create Release
         id: create_release
-        uses: actions/create-release@v1
+        uses: softprops/action-gh-release@v1
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          tag_name: auto
+          tag_name: ${{ github.ref }}
           release_name: Release ${{ github.sha }}
           body: Release for commit '${{ github.event.workflow_run.head_commit.message }}'
           draft: false
           prerelease: true
+          files: |
+            propromo_linux.zip
+            propromo_linux.tar.gz
