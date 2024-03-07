@@ -1,0 +1,31 @@
+name: Continuous Deployment/Release - Website
+on:
+  workflow_run:
+    workflows: ["ci"]
+    types:
+      - completed
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+
+    if: contains(github.event.head_commit.message, '#build-for-review')
+
+    steps:
+      - name: Download files from ci
+        uses: actions/download-artifact@v2
+        with:
+          name: propromo.php
+          path: ./**
+
+      - name: Create Release
+        id: create_release
+        uses: actions/create-release@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          tag_name: auto
+          release_name: Release ${{ github.sha }}
+          body: Release ${{ github.sha }}
+          draft: false
+          prerelease: true

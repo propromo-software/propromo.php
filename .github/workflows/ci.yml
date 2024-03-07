@@ -1,14 +1,14 @@
-# Continuous Integration - Website
-on: ['push', 'pull_request']
+name: Continuous Integration - Website
+on: ["push", "pull_request"]
 
 jobs:
   ci:
     runs-on: ubuntu-latest
- 
+
     steps:
       - name: Checkout
         uses: actions/checkout@v4
- 
+
       - name: Setup PHP
         uses: shivammathur/setup-php@v2
         with:
@@ -20,8 +20,8 @@ jobs:
         run: php -r "file_exists('.env') || copy('.env.workflow.tests', '.env');"
       - name: Update Composer
         run: |
-         composer self-update
-         composer update
+          composer self-update
+          composer update
       - name: Install Dependencies
         run: |
           composer install -q --no-ansi --no-interaction --no-scripts --no-progress --prefer-dist --optimize-autoloader
@@ -39,6 +39,20 @@ jobs:
         run: |
           mkdir -p database
           touch database/database.sqlite
- 
+
       - name: Execute tests
         run: ./vendor/bin/pest
+
+      - name: Upload files
+        uses: actions/upload-artifact@v2
+        with:
+          name: propromo.php
+          path: |
+            ./**
+            !.git
+            !.github
+            !.vscode
+            !.idea
+            !.phpstorm.meta.php
+            !vendor
+            !node_modules
