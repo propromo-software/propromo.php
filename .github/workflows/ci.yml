@@ -44,6 +44,8 @@ jobs:
         run: |
           sudo apt-get install php-xdebug
           sudo apt install php-pcov
+          sudo apt-get install php-dom
+          sudo apt-get install php-xml
 
       - name: Execute tests
         run: ./vendor/bin/pest --coverage --coverage-clover=clover.xml # --min=90
