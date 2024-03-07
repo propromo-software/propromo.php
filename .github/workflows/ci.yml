@@ -9,6 +9,9 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
+      - name: Update apt
+        run: sudo apt-get update && sudo apt-get upgrade
+
       - name: Setup PHP
         uses: shivammathur/setup-php@v2
         with:
