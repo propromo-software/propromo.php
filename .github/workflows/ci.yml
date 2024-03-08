@@ -1,5 +1,11 @@
 name: Continuous Integration - Website
 on: ["push", "pull_request"]
+permissions:
+  contents: write
+  pages: write
+  pull-requests: write
+  checks: write
+  deployments: write
 
 jobs:
   ci:
