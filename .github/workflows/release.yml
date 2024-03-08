@@ -4,12 +4,7 @@ on:
     workflows: ["Continuous Integration - Website"]
     types:
       - completed
-permissions:
-  contents: write
-  pages: write
-  pull-requests: write
-  checks: write
-  deployments: write
+permissions: write-all
 
 jobs:
   release:
