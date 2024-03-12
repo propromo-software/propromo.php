@@ -1,0 +1,49 @@
+= Commands-Guidelines
+1.0.0, {docdate}:
+:icons: font
+:sectnums:
+:toc: left
+
+== Commands
+=== Basic ARTISAN & COMPOSER
+* `php artisan make:model Country -m`
+** Creates model in `/app/Models` and `-m` for `/database/migrations`
+* `composer install`
+** Installs dependencies
+* `php artisan key:generate`
+** Generates app-key
+* `php artisan migrate --seed`
+** Create database-tables `--seed` -> factories will seed data in
+* `php artisan migrate:fresh --seed`
+** overrides old database tables and seeds it
+
+=== Livewire
+==== Components
+===== Create
+[source,bash]
+----
+php artisan make:livewire <component-name>
+----
+
+-> creates component in `/app/Livewire/<ComponentName>` and adds its view to `/resources/views/livewire/<component-name>.blade.php` +
+DON'T REMOVE THE `<div>` in the view, it's needed for livewire to work.
+
+==== Layouts
+===== Create
+[source,bash]
+----
+php artisan livewire:layout
+----
+
+-> creates a layout for the livewire components in `resources/views/components/layouts/app.blade.php`.
+
+=== IDE-HELPER (PHP DOCS GENERATOR)
+* Link: `https://github.com/barryvdh/laravel-ide-helper?tab=readme-ov-file`
+
+* Commands:
+** `php artisan ide-helper:generate`
+*** Generate docs for laravel-facades
+** `php artisan ide-helper:models`
+*** Generates phpdocs for model
+** `php artisan ide-helper:meta`
+*** Installs phpstorm meta file
