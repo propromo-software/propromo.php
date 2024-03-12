@@ -53,8 +53,6 @@ class Milestone extends Model
         "description",
         "progress",
         "project_id",
-        "closed_issues_count",
-        "open_issues_count"
     ];
 
     public function project(): BelongsTo

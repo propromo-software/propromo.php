@@ -30,5 +30,5 @@ new class extends Component {
             </div>
         </a>
     </div>
-    <h1>FICK DICH WOLFSBURGER</h1>
+    <livewire:milestones.list :project="$project" lazy="true"/>
 </div>
