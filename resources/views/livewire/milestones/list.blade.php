@@ -4,26 +4,24 @@ use Livewire\Volt\Component;
 use App\Models\Milestone;
 use App\Models\Project;
 use App\Traits\MilestoneCollector;
+use \App\Models\Repository;
+
 
 new class extends Component {
-    use MilestoneCollector;
 
     public $milestones = [];
 
-    public function mount(Project $project)
+
+    public function mount(Repository $repository)
     {
-        $this->collectMilestones($project);
-        $this->milestones = $project->milestones;
+        $this->milestones = Milestone::whereRepositoryId($repository->id)->get();
     }
-}; ?>
+};
+?>
 
-<div class="rounded-md border-2 border-other-grey p-5 overflow-x-auto h-full flex gap-2 items-center">
+<div class="h-full flex gap-2 items-center">
     @foreach($milestones as $milestone)
-            <livewire:milestones.card :milestone="$milestone"/>
-        <div class="bg-primary-blue border p-4 px-6 rounded-lg">
-
-        </div>
-
-
+        <livewire:milestones.card :milestone="$milestone"/>
+        <div class="bg-primary-blue rounded border p-4 px-6rounded-lg"></div>
     @endforeach
 </div>

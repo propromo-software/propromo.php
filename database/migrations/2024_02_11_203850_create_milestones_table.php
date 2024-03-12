@@ -16,12 +16,10 @@ return new class extends Migration {
             $table->string("url");
             $table->string("state");
             $table->string("description");
+            $table->integer("open_issues_count")->nullable();
+            $table->integer("closed_issues_count")->nullable();
             $table->double("progress");
-            $table->unsignedBigInteger("project_id");
-            $table->foreign("project_id")
-                ->references("id")
-                ->on("projects")
-                ->onDelete("cascade");
+            $table->foreignId("repository_id");
             $table->timestamps();
         });
     }

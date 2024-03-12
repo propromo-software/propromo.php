@@ -3,6 +3,7 @@
 use Livewire\Volt\Component;
 use App\Models\Project;
 
+
 new class extends Component {
     public Project $project;
 
@@ -10,6 +11,7 @@ new class extends Component {
     {
         $this->project = $project;
     }
+
 }; ?>
 
 
@@ -30,5 +32,5 @@ new class extends Component {
             </div>
         </a>
     </div>
-    <livewire:milestones.list :project="$project" lazy="true"/>
+    <livewire:repositories.list :project="$project" lazy="true"/>
 </div>

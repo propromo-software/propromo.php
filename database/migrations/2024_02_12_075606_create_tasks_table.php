@@ -12,7 +12,6 @@ return new class extends Migration {
     {
         Schema::create('tasks', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('milestone_id');
             $table->boolean('is_active')->nullable();
             $table->string('body_url')->nullable();
 
@@ -24,10 +23,7 @@ return new class extends Migration {
             $table->string('body')->nullable();
             $table->string('title')->nullable();
             $table->string('url')->nullable();
-            $table->foreign('milestone_id')
-                ->references('id')
-                ->on('milestones')
-                ->onDelete('cascade');
+            $table->foreignId('milestone_id');
         });
     }
 

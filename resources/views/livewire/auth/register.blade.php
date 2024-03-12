@@ -23,7 +23,6 @@ new class extends Component {
     {
         $this->validate();
 
-        try {
             $user = User::create([
                 "name" => $this->name,
                 "email" => $this->email,
@@ -33,9 +32,7 @@ new class extends Component {
             Auth::login($user);
 
             redirect('/');
-        }catch (Exception $e){
-            dd($e);
-        }
+
     }
 
 };

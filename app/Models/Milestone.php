@@ -40,6 +40,13 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
  * @property int $open_issues_count
  * @method static \Illuminate\Database\Eloquent\Builder|Milestone whereClosedIssuesCount($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Milestone whereOpenIssuesCount($value)
+ * @property int $repository_id
+ * @property-read \App\Models\Repository|null $repository
+ * @method static \Illuminate\Database\Eloquent\Builder|Milestone whereRepositoryId($value)
+ * @property int|null $open_issue_count
+ * @property int|null $closed_issue_count
+ * @method static \Illuminate\Database\Eloquent\Builder|Milestone whereClosedIssueCount($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Milestone whereOpenIssueCount($value)
  * @mixin \Eloquent
  */
 class Milestone extends Model
@@ -52,12 +59,14 @@ class Milestone extends Model
         "state",
         "description",
         "progress",
-        "project_id",
+        "open_issues_count",
+        "closed_issues_count",
+        "repository_id"
     ];
 
-    public function project(): BelongsTo
+    public function repository(): BelongsTo
     {
-        return $this->belongsTo(Milestone::class);
+        return $this->belongsTo(Repository::class);
     }
     public function tasks(): HasMany
     {

@@ -12,7 +12,6 @@ return new class extends Migration {
     {
         Schema::create('labels', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('task_id');
             $table->string('url')->nullable();
             $table->string('name')->nullable();
             $table->string('color')->nullable();
@@ -20,10 +19,7 @@ return new class extends Migration {
             $table->date('updated_at')->nullable();
             $table->string('description')->nullable();
             $table->boolean('is_default')->nullable();
-            $table->foreign('task_id')
-                ->references('id')
-                ->on('tasks')
-                ->onDelete('cascade');
+            $table->foreignId('task_id');
         });
     }
 

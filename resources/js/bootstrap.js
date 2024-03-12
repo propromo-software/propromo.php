@@ -1,6 +1,11 @@
 import '../../node_modules/@shoelace-style/shoelace/dist/components/icon/icon.js';
 import '../../node_modules/@shoelace-style/shoelace/dist/components/button/button.js';
 import '../../node_modules/@shoelace-style/shoelace/dist/components/input/input.js';
+import '../../node_modules/@shoelace-style/shoelace/dist/components/progress-bar/progress-bar.js';
+import '../../node_modules/@shoelace-style/shoelace/dist/components/select/select.js';
+import '../../node_modules/@shoelace-style/shoelace/dist/components/option/option.js';
+
+
 import { setBasePath } from '../../node_modules/@shoelace-style/shoelace/dist/utilities/base-path.js';
 setBasePath('/');
 

@@ -7,9 +7,11 @@ new class extends Component {
     public Milestone $milestone;
 
     public function mount(Milestone $milestone){
-        $this->milestone =$milestone;
+        $this->milestone = $milestone;
     }
-}; ?>
+};
+
+?>
 
 <div class="px-6 py-4 border-2 rounded-xl border-other-grey w-max max-h-full" wire:key="{{$milestone->id}}}">
 
@@ -37,19 +39,25 @@ new class extends Component {
     </div>
 
 
+    @php
+        $total_issue_count = $milestone->open_issues_count + $milestone->closed_issues_count;
+        $closed_issue_count = $milestone->closed_issues_count;
+    @endphp
+
+
     <div class="mt-5 w-full">
 
-        @if($milestone['progress'] >= 80)
+        @if($milestone->progress >= 80)
             <div class="flex justify-between">
-                <div class="text-additional-green font-sourceSansPro font-bold">7/9 Tasks</div>
+                <div class="text-additional-green font-sourceSansPro font-bold">{{$closed_issue_count}}/{{$total_issue_count}} Tasks</div>
                 <div class="text-additional-green font-sourceSansPro font-bold">{{round($milestone->progress,2)}}%</div>
             </div>
 
             <div class="h-8 bg-additional-green rounded-md"></div>
-        @elseif($milestone['progress'] >= 50)
+        @elseif($milestone->progress >= 50)
 
             <div class="flex justify-between">
-                <div class="text-additional-orange font-sourceSansPro font-bold">5/5 Tasks</div>
+                <div class="text-additional-orange font-sourceSansPro font-bold">{{$closed_issue_count}}/{{$total_issue_count}} Tasks</div>
                 <div class="text-additional-orange font-sourceSansPro font-bold">{{round($milestone->progress,2)}}%</div>
             </div>
 
@@ -58,7 +66,7 @@ new class extends Component {
         @else
 
             <div class="flex justify-between">
-                <div class="text-additional-red font-sourceSansPro font-bold">8/9 Tasks</div>
+                <div class="text-additional-red font-sourceSansPro font-bold">{{$closed_issue_count}}/{{$total_issue_count}} Tasks</div>
                 <div class="text-additional-red font-sourceSansPro font-bold">{{round($milestone->progress,2)}}%</div>
             </div>
 

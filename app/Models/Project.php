@@ -52,6 +52,8 @@ use PhpParser\Builder;
  * @method static \Illuminate\Database\Eloquent\Builder|Project whereUrl($value)
  * @property string|null $pat_token
  * @method static \Illuminate\Database\Eloquent\Builder|Project wherePatToken($value)
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Repository> $repositories
+ * @property-read int|null $repositories_count
  * @mixin \Eloquent
  */
 class Project extends Model
@@ -75,8 +77,8 @@ class Project extends Model
         return $this->belongsToMany(User::class,'project_user', 'project_id', 'user_id');
     }
 
-    public function milestones(): HasMany
+    public function repositories(): HasMany
     {
-        return $this->hasMany(Milestone::class);
+        return $this->hasMany(Repository::class);
     }
 }

@@ -12,7 +12,6 @@ return new class extends Migration {
     {
         Schema::create('assignees', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('task_id');
             $table->string("avatar_url")->nullable();
             $table->string("email")->nullable();
             $table->string("login")->nullable();
@@ -20,10 +19,7 @@ return new class extends Migration {
             $table->string("pronouns")->nullable();
             $table->string("url")->nullable();
             $table->string("website_url")->nullable();
-            $table->foreign('task_id')
-                ->references('id')
-                ->on('tasks')
-                ->onDelete('cascade');
+            $table->foreignId('task_id');
             $table->timestamps();
         });
     }

@@ -18,3 +18,6 @@ Volt::route('/projects', 'projects.index');
 Volt::route('/create-monitor', 'auth.create-monitor');
 Volt::route('/join', 'auth.join-monitor');
 Volt::route('/register', 'auth.register');
+
+
+Volt::route('/repos', 'repositories.list');

@@ -3,6 +3,13 @@
 use Livewire\Volt\Component;
 
 new class extends Component {
+    public $selectedOption = '';
+
+    public function updatedSelectedOption($value)
+    {
+        // Add any logic you need here when the selection changes
+        // For example, you can emit an event or update the database
+    }
 
 }; ?>
 
