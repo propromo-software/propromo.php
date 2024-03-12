@@ -20,5 +20,10 @@ new class extends Component {
 <div class="rounded-md border-2 border-other-grey p-5 overflow-x-auto h-full flex gap-2 items-center">
     @foreach($milestones as $milestone)
             <livewire:milestones.card :milestone="$milestone"/>
+        <div class="bg-primary-blue border p-4 px-6 rounded-lg">
+
+        </div>
+
+
     @endforeach
 </div>
