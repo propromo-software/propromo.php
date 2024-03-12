@@ -50,6 +50,8 @@ use PhpParser\Builder;
  * @method static \Illuminate\Database\Eloquent\Builder|Project whereShortDescription($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Project whereTitle($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Project whereUrl($value)
+ * @property string|null $pat_token
+ * @method static \Illuminate\Database\Eloquent\Builder|Project wherePatToken($value)
  * @mixin \Eloquent
  */
 class Project extends Model
@@ -62,6 +64,7 @@ class Project extends Model
         "organisation_name",
         "title",
         "public",
+        "pat_token",
         "readme",
         "short_description",
         "project_identification",

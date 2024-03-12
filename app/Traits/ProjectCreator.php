@@ -8,15 +8,18 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Str;
+use App\Traits\TokenCreator;
 use Exception;
 
 trait ProjectCreator
 {
+    use TokenCreator;
     /**
      * @throws Exception
      */
-    public function createProject($projectUrl)
+    public function createProject($projectUrl, $pat_token)
     {
+
         $projectHash = Hash::make($projectUrl, [
             'memory' => 516,
             'time' => 2,
@@ -43,13 +46,18 @@ trait ProjectCreator
         $project = Project::create([
             "project_url" => "https://github.com/orgs/" . $organisationName . "/projects/" . $projectIdentification,
             "project_hash" => $projectHash,
+            "pat_token" => $this->getApplicationToken($pat_token),
             "organisation_name" => $organisationName,
             "project_identification" => $projectIdentification,
         ]);
 
-        $url = $_ENV['APP_SERVICE_URL'] . '/v1/github/orgs/' . $project->organisation_name . '/projects/' . $project->project_identification . '/infos';
+        $url = $_ENV['APP_SERVICE_URL'] . '/github/orgs/' . $project->organisation_name . '/projects/' . $project->project_identification . '/infos';
 
-        $response = Http::get($url);
+        $response = Http::withHeaders([
+            'content-type' => 'application/json',
+            'Accept' => 'text/plain',
+            'Authorization' => 'Bearer '. $project->pat_token,
+        ])->get($url);
 
         if ($response->successful()) {
             $projectData = $response->json()['data']['organization']['projectV2'];
@@ -59,6 +67,8 @@ trait ProjectCreator
             $project->title = $projectData['title'];
             $project->public = $projectData['public'];
             $project->readme = $projectData['readme'];
+        }else{
+            throw new Exception("Jo oasch! Host hoid kane Tokens mehr :(!");
         }
 
         $project->save();

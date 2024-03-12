@@ -16,7 +16,7 @@ return [
     |
     */
 
-    'name' => env('APP_NAME', 'Propromo'),
+    'name' => env('APP_NAME', 'Laravel'),
 
     /*
     |--------------------------------------------------------------------------
@@ -56,8 +56,6 @@ return [
     */
 
     'url' => env('APP_URL', 'http://localhost'),
-
-    'service_url' => env('APP_SERVICE_URL', 'http://localhost'),
 
     'asset_url' => env('ASSET_URL'),
 
@@ -170,6 +168,7 @@ return [
         // App\Providers\BroadcastServiceProvider::class,
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
+        App\Providers\VoltServiceProvider::class,
     ])->toArray(),
 
     /*

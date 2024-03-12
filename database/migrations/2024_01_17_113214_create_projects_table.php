@@ -14,6 +14,7 @@ return new class extends Migration {
             $table->id();
             $table->string('project_url')->nullable();
             $table->string('organisation_name')->nullable();
+            $table->string("pat_token")->nullable();
             $table->string('readme')->nullable();
             $table->boolean('public')->nullable();
             $table->string('title')->nullable();

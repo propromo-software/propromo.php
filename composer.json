@@ -7,12 +7,12 @@
     "require": {
         "php": "^8.1",
         "guzzlehttp/guzzle": "^7.2",
-        "laravel/breeze": "^1.27",
         "laravel/framework": "^10.10",
         "laravel/sanctum": "^3.3",
         "laravel/tinker": "^2.8",
-        "livewire/livewire": "^3.3",
-        "predis/predis": "^2.2"
+        "livewire/livewire": "^3.4",
+        "livewire/volt": "^1.6",
+        "robsontenorio/mary": "^1.25"
     },
     "require-dev": {
         "barryvdh/laravel-ide-helper": "^3.0",
