@@ -1,0 +1,56 @@
+name: Continuous Deployment/Release - Website
+on:
+  workflow_run:
+    workflows: ["Continuous Integration - Website"]
+    types:
+      - completed
+permissions: write-all
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+
+    if: ${{ github.event.workflow_run.conclusion == 'success' }} && contains(github.event.workflow_run.head_commit.message, '#build-for-review')
+
+    steps:
+      - name: Info
+        run: echo "Release Workflow - Website"
+      - name: Download files from ci
+        uses: actions/download-artifact@v4
+        with:
+          run-id: ${{ github.event.workflow_run.id }}
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          name: propromo.php
+          path: ./propromo.php/**
+
+      # - name: Create Artifact Directory
+      #   run: mkdir -p propromo.php && find . -maxdepth 1 ! -name '.' ! -name 'propromo.php' -exec bash -c 'rm -rf propromo.php/{} && mv {} propromo.php/' \; # move all artifact files to propromo.php directory
+
+      - name: Zip artifact
+        run: |
+          zip -r propromo-website.zip propromo.php
+          tar -czvf propromo-website.tar.gz propromo.php
+
+      - name: Generate release tag
+        id: generate_release_tag
+        uses: amitsingh-007/next-release-tag@v5.1.0
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          tag_prefix: "v"
+          tag_template: "yyyy.mm.dd.i"
+
+      - name: Create Release
+        id: create_release
+        uses: ncipollo/release-action@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          tag: ${{ steps.generate_release_tag.outputs.next_release_tag }}
+          name: Release ${{ github.sha }}
+          body: Release for commit '${{ github.event.workflow_run.head_commit.message }}'
+          draft: false
+          prerelease: true
+          makeLatest: true
+          files: |
+            propromo-website.zip
+            propromo-website.tar.gz
