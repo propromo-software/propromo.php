@@ -4,6 +4,8 @@ import '../../node_modules/@shoelace-style/shoelace/dist/components/input/input.
 import '../../node_modules/@shoelace-style/shoelace/dist/components/progress-bar/progress-bar.js';
 import '../../node_modules/@shoelace-style/shoelace/dist/components/select/select.js';
 import '../../node_modules/@shoelace-style/shoelace/dist/components/option/option.js';
+import '../../node_modules/@shoelace-style/shoelace/dist/components/spinner/spinner.js';
+
 
 
 import { setBasePath } from '../../node_modules/@shoelace-style/shoelace/dist/utilities/base-path.js';

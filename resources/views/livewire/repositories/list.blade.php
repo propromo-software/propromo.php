@@ -26,6 +26,14 @@ new class extends Component {
         }
     }
 
+    public function placeholder()
+    {
+        return <<<'HTML'
+        <center>
+            <sl-spinner class="text-8xl" style="--track-width: 10px;"></sl-spinner>
+        </center>
+        HTML;
+    }
 
 }; ?>
 
