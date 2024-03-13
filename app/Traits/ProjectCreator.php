@@ -67,8 +67,6 @@ trait ProjectCreator
             $project->title = $projectData['title'];
             $project->public = $projectData['public'];
             $project->readme = $projectData['readme'];
-        }else{
-            throw new Exception("Jo oasch! Host hoid kane Tokens mehr :(!");
         }
 
         $project->save();

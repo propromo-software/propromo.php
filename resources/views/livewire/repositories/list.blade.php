@@ -34,19 +34,13 @@ new class extends Component {
         </center>
         HTML;
     }
-
-}; ?>
+};
+?>
 
 <div>
-    <label>
-        <select wire:model.live="selectedRepository" class="flex w-fit mb-4 font-sourceSansPro" label="Select repository">
-            @foreach ($repositories as $repository)
-                <option value="{{ $repository->id }}">{{ $repository->name }}</option>
-            @endforeach
-        </select>
-    </label>
 
-    <div class="overflow-x-auto flex items-center gap-8 ">
+
+    <div class="overflow-x-auto flex items-center gap-8">
         @foreach($repositories as $repository)
             @php
                 $milestonesCount = $repository->milestones()->count();

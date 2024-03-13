@@ -14,18 +14,18 @@ new class extends Component {
 }; ?>
 
 <div>
-    <div class="mx-8 border-other-grey border-2 rounded-2xl mt-6">
-        @php
-            $project_count = count($projects);
-        @endphp
+    @php
+        $project_count = count($projects);
+    @endphp
 
-        @if($project_count > 0)
-            @foreach($projects as $project)
+    @if($project_count > 0)
+        @foreach($projects as $project)
+            <div class="mx-8 border-other-grey border-2 rounded-2xl mt-6">
                 <livewire:projects.card :project="$project" :key="$project->id"/>
-            @endforeach
-        @else
-            <h1 class="text-primary-blue font-koulen text-2xl text-center">Currently no Project avaibale! </h1>
-        @endif
+            </div>
+        @endforeach
+    @else
+        <h1 class="text-primary-blue font-koulen text-2xl text-center">Currently no Project avaibale! </h1>
+    @endif
 
-    </div>
 </div>

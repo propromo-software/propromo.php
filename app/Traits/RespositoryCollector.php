@@ -40,26 +40,26 @@ trait RespositoryCollector
                 $get_repository = $project->repositories()->save($repository); // Save the repository
 
                 $milestones = $repositoryData["milestones"]["nodes"];
-
-                foreach ($milestones as $milestoneData) {
-                    if (count($milestoneData) > 0) {
-                        $milestone = new Milestone([
-                            'title' => $milestoneData['title'],
-                            'url' => $milestoneData['url'],
-                            'state' => $milestoneData['state'],
-                            'description' => $milestoneData['description'],
-                            'progress' => $milestoneData['progressPercentage'],
-                            'open_issues_count' => intval($milestoneData['open_issues']['totalCount']),
-                            'closed_issues_count' => intval($milestoneData['closed_issues']['totalCount']),
-                            'repository_id' => $get_repository->id
-                        ]);
-
-                        $repository->milestones()->save($milestone);
+                if (count($milestones) > 0) {
+                    foreach ($milestones as $milestoneData) {
+                        if (count($milestoneData) > 0) {
+                            $milestone = new Milestone([
+                                'title' => $milestoneData['title'],
+                                'url' => $milestoneData['url'],
+                                'state' => $milestoneData['state'],
+                                'description' => $milestoneData['description'],
+                                'progress' => $milestoneData['progressPercentage'],
+                                'open_issues_count' => intval($milestoneData['open_issues']['totalCount']),
+                                'closed_issues_count' => intval($milestoneData['closed_issues']['totalCount']),
+                                'repository_id' => $get_repository->id
+                            ]);
+                            $repository->milestones()->save($milestone);
+                        }
                     }
                 }
             }
             return Repository::where("project_id", "=", $project->id)->get();
         }
-        throw new Exception("Error while fetching repositories!");
+        return [];
     }
 }
