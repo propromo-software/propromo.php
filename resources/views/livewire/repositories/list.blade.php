@@ -8,13 +8,18 @@ use \App\Models\Repository;
 new class extends Component {
     use RespositoryCollector;
 
-    public $repositories;
+    public $repositories = [];
 
     public $selectedRepository = null;
 
     public function mount(Project $project)
     {
-        $this->repositories = $this->collectRepositories($project);
+        $repositories = Project::find($project->id)->repositories()->get();
+        if ($repositories->isNotEmpty()) {
+            $this->repositories = $repositories;
+        } else {
+            $this->repositories = $this->collectRepositories($project);
+        }
     }
 
     public function updatedSelectedRepository($value)
@@ -38,8 +43,6 @@ new class extends Component {
 ?>
 
 <div>
-
-
     <div class="overflow-x-auto flex items-center gap-8">
         @foreach($repositories as $repository)
             @php
@@ -56,5 +59,4 @@ new class extends Component {
             @endif
         @endforeach
     </div>
-
 </div>

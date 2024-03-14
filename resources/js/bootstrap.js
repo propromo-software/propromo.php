@@ -5,6 +5,8 @@ import '../../node_modules/@shoelace-style/shoelace/dist/components/progress-bar
 import '../../node_modules/@shoelace-style/shoelace/dist/components/select/select.js';
 import '../../node_modules/@shoelace-style/shoelace/dist/components/option/option.js';
 import '../../node_modules/@shoelace-style/shoelace/dist/components/spinner/spinner.js';
+import '../../node_modules/@shoelace-style/shoelace/dist/components/icon-button/icon-button.js';
+
 
 
 
