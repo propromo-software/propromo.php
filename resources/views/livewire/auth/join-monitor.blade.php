@@ -13,7 +13,7 @@ new class extends Component {
         if (Auth::check()) {
 
             $project = $this->joinProject($this->project_hash);
-            return redirect('/projects');//' . $project->id
+            return redirect('/projects/'. $project->id);
         }else{
             return redirect('/register');
         }
