@@ -6,6 +6,8 @@ import '../../node_modules/@shoelace-style/shoelace/dist/components/select/selec
 import '../../node_modules/@shoelace-style/shoelace/dist/components/option/option.js';
 import '../../node_modules/@shoelace-style/shoelace/dist/components/spinner/spinner.js';
 import '../../node_modules/@shoelace-style/shoelace/dist/components/icon-button/icon-button.js';
+import '../../node_modules/@shoelace-style/shoelace/dist/components/copy-button/copy-button.js';
+
 
 
 

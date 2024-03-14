@@ -8,6 +8,7 @@ new class extends Component {
 
     public function mount(Project $project)
     {
+        Session::put('project_hash', $project->project_hash);
         $this->project = $project;
     }
 
