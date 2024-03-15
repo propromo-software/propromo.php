@@ -6,21 +6,45 @@ use \App\Models\User;
 new class extends Component {
 
     public $projects = [];
+    public $search = '';
 
     public function mount()
     {
+        $this->load_projects();
+    }
+
+    public function load_projects()
+    {
         $this->projects = User::find(Auth::user()->id)->projects()->get();
+    }
+
+    public function get_projects(){
+        return $this->projects;
+    }
+
+    public function updatedSearch()
+    {
+        $this->load_projects();
+        $this->projects = $this->projects->filter(function ($project) {
+            return stripos($project->organisation_name, $this->search) !== false;
+        });
     }
 }; ?>
 
-<div>
+<div class="mt-4 mx-8">
+
+    <label>
+        <sl-input wire:ignore wire:model.live="search" type="search" class="font-sourceSansPro w-max" placeholder="Search for a project"/>
+    </label>
+
+
     @php
         $project_count = count($projects);
     @endphp
 
     @if($project_count > 0)
         @foreach($projects as $project)
-            <div class="mx-8 border-other-grey border-2 rounded-2xl mt-6" wire:key="{{$project->id}}">
+            <div class="border-other-grey border-2 rounded-2xl mt-4" wire:key="{{$project->id}}">
                 <livewire:projects.card lazy="true" :project="$project" :key="$project->id"/>
             </div>
         @endforeach

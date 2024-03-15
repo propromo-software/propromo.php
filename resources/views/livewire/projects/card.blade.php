@@ -30,19 +30,19 @@ new class extends Component {
         return $this->project->repositories()->get();
     }
 
-    public function placeholder()
+  /*  public function placeholder()
     {
         return <<<'HTML'
-        <div>
-            <sl-spinner style="font-size: 50px; --track-width: 10px;"></sl-spinner>
-        </div>
+        <center class="p-10">
+            <sl-spinner class="text-7xl" style="--track-width: 9px;"></sl-spinner>
+        </center>
         HTML;
-    }
+    }*/
 
 };
 ?>
 
-<div class="w-full p-5 items-center rounded-xl" wire:poll>
+<div class="w-full p-5 items-center rounded-xl">
     <div class="flex items-center justify-between mb-5">
         <a class="text-secondary-grey text-lg font-sourceSansPro font-bold rounded-md border-2 border-other-grey px-6 py-3"
            href="/projects/{{ $project->id }}" title="Show User">
@@ -59,6 +59,7 @@ new class extends Component {
                     </div>
                 </div>
             </a>
+
             <sl-icon-button class="text-3xl" name="cloud-arrow-down" label="Reload" type="submit" wire:ignore wire:click="reload_repositories"></sl-icon-button>
         </div>
     </div>
