@@ -18,7 +18,4 @@ new class extends Component {
     <div class="border-other-grey border-2 rounded-2xl">
         <livewire:projects.card lazy="true" :project="$project"/>
     </div>
-
-
-
 </div>

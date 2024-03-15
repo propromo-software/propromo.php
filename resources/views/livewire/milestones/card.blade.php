@@ -6,7 +6,8 @@ use \App\Models\Milestone;
 new class extends Component {
     public Milestone $milestone;
 
-    public function mount(Milestone $milestone){
+    public function mount(Milestone $milestone)
+    {
         $this->milestone = $milestone;
     }
 };
@@ -49,28 +50,38 @@ new class extends Component {
 
         @if($milestone->progress >= 80)
             <div class="flex justify-between">
-                <div class="text-additional-green font-sourceSansPro font-bold">{{$closed_issue_count}}/{{$total_issue_count}} Tasks</div>
+                <div class="text-additional-green font-sourceSansPro font-bold">{{$closed_issue_count}}/{{$total_issue_count}} Tasks
+                </div>
                 <div class="text-additional-green font-sourceSansPro font-bold">{{round($milestone->progress,2)}}%</div>
             </div>
 
-            <div class="h-8 bg-additional-green rounded-md"></div>
+            <sl-progress-bar class="caret-additional-green"
+                             style="--indicator-color: #229342; --track-color:#22934244; --height: 2rem;"
+                             value="{{$milestone->progress}}"></sl-progress-bar>
+
         @elseif($milestone->progress >= 50)
 
             <div class="flex justify-between">
-                <div class="text-additional-orange font-sourceSansPro font-bold">{{$closed_issue_count}}/{{$total_issue_count}} Tasks</div>
-                <div class="text-additional-orange font-sourceSansPro font-bold">{{round($milestone->progress,2)}}%</div>
+                <div class="text-additional-orange font-sourceSansPro font-bold">{{$closed_issue_count}}/{{$total_issue_count}} Tasks
+                </div>
+                <div class="text-additional-orange font-sourceSansPro font-bold">{{round($milestone->progress,2)}}%
+                </div>
             </div>
 
-            <div class="h-8 bg-additional-orange rounded-md"></div>
-
+            <sl-progress-bar class="caret-additional-green "
+                             style="--indicator-color: #FBC116; --track-color:#fbc2164f; --height: 2rem;"
+                             value="{{$milestone->progress}}"></sl-progress-bar>
         @else
 
             <div class="flex justify-between">
-                <div class="text-additional-red font-sourceSansPro font-bold">{{$closed_issue_count}}/{{$total_issue_count}} Tasks</div>
+                <div class="text-additional-red font-sourceSansPro font-bold">{{$closed_issue_count}}/{{$total_issue_count}} Tasks
+                </div>
                 <div class="text-additional-red font-sourceSansPro font-bold">{{round($milestone->progress,2)}}%</div>
             </div>
 
-            <div class="h-8 bg-additional-red rounded-md"></div>
+            <sl-progress-bar class="caret-additional-green"
+                             style="--indicator-color: #E33B2E;--track-color:#e33a2e4e; --height: 2rem;"
+                             value="{{$milestone->progress}}"></sl-progress-bar>
 
         @endif
     </div>

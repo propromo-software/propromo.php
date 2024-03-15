@@ -60,7 +60,7 @@ new class extends Component {
                 </div>
             </a>
 
-            <sl-icon-button class="text-3xl" name="cloud-arrow-down" label="Reload" type="submit" wire:ignore wire:click="reload_repositories"></sl-icon-button>
+            <sl-icon-button class="text-3xl text-secondary-grey" name="cloud-arrow-down" label="Reload" type="submit" wire:ignore wire:click="reload_repositories"></sl-icon-button>
         </div>
     </div>
     <livewire:repositories.list :project_id="$project->id"/>

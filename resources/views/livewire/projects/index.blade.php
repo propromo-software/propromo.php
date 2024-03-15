@@ -2,10 +2,12 @@
 
 use Livewire\Volt\Component;
 use \App\Models\User;
+use Livewire\With\Url;
 
 new class extends Component {
 
     public $projects = [];
+    #[Url]
     public $search = '';
 
     public function mount()
@@ -18,7 +20,8 @@ new class extends Component {
         $this->projects = User::find(Auth::user()->id)->projects()->get();
     }
 
-    public function get_projects(){
+    public function get_projects()
+    {
         return $this->projects;
     }
 
@@ -33,9 +36,10 @@ new class extends Component {
 
 <div class="mt-4 mx-8">
 
-    <sl-input wire:ignore wire:model.live="search" class="w-9" placeholder="Search for a projects" >
-        <sl-icon name="search" slot="prefix"></sl-icon>
-    </sl-input>
+        <sl-input wire:ignore wire:model.live="search" class="w-max" placeholder="Search for a projects">
+            <sl-icon name="search" slot="prefix"></sl-icon>
+        </sl-input>
+
 
 
     @php
