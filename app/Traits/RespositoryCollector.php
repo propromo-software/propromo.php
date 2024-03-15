@@ -33,6 +33,7 @@ trait RespositoryCollector
             $project->repositories()->delete();
 
             foreach ($repositories as $repositoryData) {
+
                 $repository = new Repository();
 
                 $repository->name = $repositoryData["name"];

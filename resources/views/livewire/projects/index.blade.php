@@ -20,8 +20,8 @@ new class extends Component {
 
     @if($project_count > 0)
         @foreach($projects as $project)
-            <div class="mx-8 border-other-grey border-2 rounded-2xl mt-6">
-                <livewire:projects.card :project="$project" :key="$project->id"/>
+            <div class="mx-8 border-other-grey border-2 rounded-2xl mt-6" wire:key="{{$project->id}}">
+                <livewire:projects.card lazy="true" :project="$project" :key="$project->id"/>
             </div>
         @endforeach
     @else

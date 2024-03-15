@@ -13,7 +13,7 @@ new class extends Component {
 
 ?>
 
-<div class="px-6 py-4 border-2 rounded-xl border-other-grey w-max max-h-full" wire:key="{{$milestone->id}}}">
+<div class="px-6 py-4 border-2 rounded-xl border-other-grey w-max max-h-full">
 
     <div class="flex justify-between gap-20">
 

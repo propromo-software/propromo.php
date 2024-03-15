@@ -3,13 +3,8 @@
 use Livewire\Volt\Component;
 
 new class extends Component {
-    public $selectedOption = '';
 
-    public function updatedSelectedOption($value)
-    {
-        // Add any logic you need here when the selection changes
-        // For example, you can emit an event or update the database
-    }
+
 
 }; ?>
 
@@ -25,12 +20,14 @@ new class extends Component {
                 <p class="flex-initial font-koulen text-2xl text-other-grey mt-5">WORKS WITH:</p>
                 <div>
                     <a href="https://github.com/" target="_blank">
-                        <sl-icon name="github" class="text-4xl mt-0.5"></sl-icon>
+                        <sl-icon wire:ignore name="github" class="text-4xl mt-0.5"></sl-icon>
                     </a>
                     <!-- <sl-icon name="github"></sl-icon> -->
                 </div>
             </div>
         </div>
+
+
 
         <livewire:home.join-project-form class="mt-20"/>
 

@@ -11,7 +11,6 @@ new class extends Component {
 
     public $milestones = [];
 
-
     public function mount(Repository $repository)
     {
         $this->milestones = Milestone::whereRepositoryId($repository->id)->get();
@@ -21,7 +20,7 @@ new class extends Component {
 
 <div class="h-full flex gap-2 items-center">
     @foreach($milestones as $milestone)
-        <livewire:milestones.card :milestone="$milestone"/>
+        <livewire:milestones.card :milestone="$milestone" :key="$milestone->id"/>
         <div class="bg-primary-blue rounded border p-4 px-6rounded-lg"></div>
     @endforeach
 </div>

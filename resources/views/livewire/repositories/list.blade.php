@@ -1,6 +1,7 @@
 <?php
 
 use Livewire\Volt\Component;
+use Livewire\Attributes\On;
 use \App\Traits\RespositoryCollector;
 use \App\Models\Project;
 use \App\Models\Repository;
@@ -8,37 +9,23 @@ use \App\Models\Repository;
 new class extends Component {
     use RespositoryCollector;
 
-    public $repositories = [];
+    public $project_id;
+    public $repositories;
 
-    public $selectedRepository = null;
-
-    public function mount(Project $project)
+    public function mount($project_id)
     {
-        $repositories = Project::find($project->id)->repositories()->get();
-        if ($repositories->isNotEmpty()) {
-            $this->repositories = $repositories;
-        } else {
-            $this->repositories = $this->collectRepositories($project);
+        $this->repositories = Repository::whereProjectId($project_id)->get();
+        $this->project_id = $project_id;
+    }
+
+    #[On('repositories-updated')]
+    public function repositories_updated($project_id)
+    {
+        if ($this->project_id === $project_id) {
+            $this->mount($project_id);
         }
     }
 
-    public function updatedSelectedRepository($value)
-    {
-        if ($value) {
-            $this->repositories = Repository::whereId($value)->first()->get();
-        } else {
-            $this->selectedRepository = null;
-        }
-    }
-
-    public function placeholder()
-    {
-        return <<<'HTML'
-        <center>
-            <sl-spinner class="text-8xl" style="--track-width: 10px;"></sl-spinner>
-        </center>
-        HTML;
-    }
 };
 ?>
 
@@ -50,10 +37,10 @@ new class extends Component {
             @endphp
 
             @if($milestonesCount > 0)
-                <div>
+                <div wire:key="{{ $repository->id }}">
                     <h2 class="m-2 font-koulen text-3xl text-primary-blue">{{$repository->name}}</h2>
                     <div class="border-other-grey border-2 rounded-2xl p-8 m-2">
-                        <livewire:milestones.list :repository="$repository"/>
+                        <livewire:milestones.list :repository="$repository" :key="$repository->id"/>
                     </div>
                 </div>
             @endif
