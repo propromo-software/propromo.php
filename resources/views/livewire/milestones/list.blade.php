@@ -19,8 +19,12 @@ new class extends Component {
 ?>
 
 <div class="h-full flex gap-2 items-center">
-    @foreach($milestones as $milestone)
-        <livewire:milestones.card :milestone="$milestone" :key="$milestone->id"/>
-        <div class="bg-primary-blue rounded border p-4 px-6rounded-lg"></div>
+    @foreach($milestones as $key => $milestone)
+        @if ($loop->last)
+            <livewire:milestones.card :milestone="$milestone" :key="$milestone->id"/>
+        @else
+            <livewire:milestones.card :milestone="$milestone" :key="$milestone->id"/>
+            <div class="bg-primary-blue rounded-md border p-4 px-6"></div>
+        @endif
     @endforeach
 </div>
