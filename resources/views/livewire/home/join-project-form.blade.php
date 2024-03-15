@@ -37,6 +37,7 @@ new class extends Component {
                       wire:ignore
                       class="w-full"
             >
+                <sl-icon name="search" slot="prefix"></sl-icon>
             </sl-input>
 
 

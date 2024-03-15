@@ -14,6 +14,11 @@ new class extends Component {
 
 }; ?>
 
-<div class="mx-8 border-other-grey border-2 rounded-2xl mt-6">
-    <livewire:projects.card lazy="true" :project="$project"/>
+<div class="mx-8 mt-6">
+    <div class="border-other-grey border-2 rounded-2xl">
+        <livewire:projects.card lazy="true" :project="$project"/>
+    </div>
+
+
+
 </div>

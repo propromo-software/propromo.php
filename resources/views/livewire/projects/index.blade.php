@@ -33,9 +33,9 @@ new class extends Component {
 
 <div class="mt-4 mx-8">
 
-    <label>
-        <sl-input wire:ignore wire:model.live="search" type="search" class="font-sourceSansPro w-max" placeholder="Search for a project"/>
-    </label>
+    <sl-input wire:ignore wire:model.live="search" class="w-9" placeholder="Search for a projects" >
+        <sl-icon name="search" slot="prefix"></sl-icon>
+    </sl-input>
 
 
     @php

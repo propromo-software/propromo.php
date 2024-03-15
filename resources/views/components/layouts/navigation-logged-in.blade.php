@@ -9,7 +9,7 @@
 
         <div class="flex gap-2 items-center">
             <sl-input wire:ignore id="project_hash" type="text" value="{{$project_hash}}" disabled></sl-input>
-            <sl-copy-button wire:ignore class="text-2xl text-primary-blue" from="project_hash"></sl-copy-button>
+            <sl-copy-button wire:ignore wire:click class="text-2xl text-primary-blue" from="project_hash"></sl-copy-button>
         </div>
 
         <div class="flex items-center gap-2">
