@@ -9,11 +9,15 @@
 .gitattributes
 .gitignore
 
-.env*.example
+default.nginx.cfg
+nginx.cfg
+
+.env**
 !.env.docker.example
 Dockerfile
 Procfile
 
+_ide_helper.php
 .phpstorm.meta.php
 
 node_modules
