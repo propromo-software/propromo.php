@@ -20,11 +20,11 @@ new class extends Component {
     public function create()
     {
         if (Auth::check()) {
-            try{
+            try {
                 $this->validate();
                 $project = $this->createProject($this->project_url, $this->pat_token);
                 return redirect('/projects/' . $project->id);
-            }catch (Exception $e){
+            } catch (Exception $e) {
                 $this->create_monitor_error = $e->getMessage();
                 $this->error_head = "Seems like something went wrong...";
             }
@@ -36,14 +36,8 @@ new class extends Component {
 
 
 <div class="mt-4 flex flex-col sm:justify-center items-center sm:pt-0 bg-gray-100 dark:bg-gray-900">
-    <div>
-        <a href="/">
-            HOME
-        </a>
-    </div>
-
     <div
-            class="w-full sm:max-w-md mt-6 p-12 bg-white dark:bg-gray-800 border-[1px] border-border-color overflow-hidden sm:rounded-lg">
+        class="w-full sm:max-w-md mt-6 p-12 bg-white dark:bg-gray-800 border-[1px] border-border-color overflow-hidden sm:rounded-lg">
 
         <div class="flex justify-center">
             <div class="w-full max-w-md">
@@ -51,7 +45,8 @@ new class extends Component {
 
                 <form wire:submit="create">
 
-                    <sl-input required wire:ignore wire:model="pat_token" placeholder="Your PAT-Token" type="text"></sl-input>
+                    <sl-input required wire:ignore wire:model="pat_token" placeholder="Your PAT-Token"
+                              type="text"></sl-input>
                     <br>
                     <sl-input required wire:ignore wire:model="project_url" placeholder="Your Project-URL"
                               type="text"></sl-input>

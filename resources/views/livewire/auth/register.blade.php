@@ -46,14 +46,8 @@ new class extends Component {
 
 ?>
 <div class="mt-4 flex flex-col sm:justify-center items-center sm:pt-0 bg-gray-100 dark:bg-gray-900">
-    <div>
-        <a href="/">
-            HOME
-        </a>
-    </div>
-
     <div
-            class="w-full sm:max-w-md mt-6 p-12 bg-white dark:bg-gray-800 border-[1px] border-border-color overflow-hidden sm:rounded-lg">
+        class="w-full sm:max-w-md mt-6 p-12 bg-white dark:bg-gray-800 border-[1px] border-border-color overflow-hidden sm:rounded-lg">
 
         <div class="flex justify-center">
             <div class="w-full max-w-md"> <!-- Adjust max width as needed -->

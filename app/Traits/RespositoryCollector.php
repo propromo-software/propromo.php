@@ -19,11 +19,15 @@ trait RespositoryCollector
         // milestones
         $url = $_ENV['APP_SERVICE_URL'] . '/v0/github/orgs/' . $project->organisation_name . '/projects/' . $project->project_identification . '/repositories/scoped?scope=' . 'issues';
 
-        $response = Http::withHeaders([
-            'content-type' => 'application/json',
-            'Accept' => 'text/plain',
-            'Authorization' => 'Bearer ' . $project->pat_token
-        ])->get($url);
+        try{
+            $response = Http::withHeaders([
+                'content-type' => 'application/json',
+                'Accept' => 'text/plain',
+                'Authorization' => 'Bearer ' . $project->pat_token
+            ])->get($url);
+        } catch (Exception $e){
+            throw new Exception("Seems like you have no internet connection!");
+        }
 
         // delete existing milestones
         if ($response->successful()) {
@@ -62,7 +66,7 @@ trait RespositoryCollector
             }
             return Repository::where("project_id", "=", $project->id)->get();
         } else {
-            dd($response->body());
+            throw new Exception("Looks like you ran out of tokens!");
         }
     }
 }

@@ -7,14 +7,22 @@ use \App\Traits\RespositoryCollector;
 new class extends Component {
     use RespositoryCollector;
 
+    public $collect_repos_error;
+    public $error_head;
+
     public Project $project;
 
     public function mount(Project $project): void
     {
-        if ($project->repositories()->get()->isEmpty()) {
-            $this->collectRepositories($project);
+        try{
+            if ($project->repositories()->get()->isEmpty()) {
+                $this->collectRepositories($project);
+            }
+            $this->project = $project;
+        }catch (Exception $e){
+            $this->collect_repos_error = $e->getMessage();
+            $this->error_head = "Seems like something went wrong...";
         }
-        $this->project = $project;
     }
 
     public function reload_repositories()
@@ -30,7 +38,7 @@ new class extends Component {
         return $this->project->repositories()->get();
     }
 
-  /*  public function placeholder()
+    /*public function placeholder()
     {
         return <<<'HTML'
         <center class="p-10">
@@ -64,4 +72,13 @@ new class extends Component {
         </div>
     </div>
     <livewire:repositories.list :project_id="$project->id"/>
+
+    @if($collect_repos_error)
+        <sl-alert variant="danger" open closable>
+            <sl-icon wire:ignore slot="icon" name="patch-exclamation"></sl-icon>
+            <strong>{{$error_head}}</strong><br/>
+            {{$collect_repos_error}}
+        </sl-alert>
+    @endif
+
 </div>
