@@ -48,6 +48,7 @@ trait RespositoryCollector
                                 'title' => $milestoneData['title'],
                                 'url' => $milestoneData['url'],
                                 'state' => $milestoneData['state'],
+                                'due_on' => ($timestamp = strtotime($milestoneData['dueOn'])) !== false ? date('Y-m-d H:i:s', $timestamp) : null,
                                 'description' => $milestoneData['description'],
                                 'progress' => $milestoneData['progressPercentage'],
                                 'open_issues_count' => intval($milestoneData['open_issues']['totalCount']),

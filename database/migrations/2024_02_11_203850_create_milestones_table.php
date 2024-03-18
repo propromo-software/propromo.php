@@ -15,7 +15,8 @@ return new class extends Migration {
             $table->string("title");
             $table->string("url");
             $table->string("state");
-            $table->string("description");
+            $table->string("description")->nullable();
+            $table->dateTime("due_on")->nullable();
             $table->integer("open_issues_count")->nullable();
             $table->integer("closed_issues_count")->nullable();
             $table->double("progress");

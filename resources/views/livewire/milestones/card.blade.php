@@ -30,7 +30,7 @@ new class extends Component {
 
             <div class="flex gap-2 items-center">
                 <sl-icon class="text-secondary-grey text-xl font-sourceSansPro font-bold" name="clock"></sl-icon>
-                <p class="text-secondary-grey text-xl font-sourceSansPro font-bold">{{date('d.m.y',strtotime($milestone->created_at))}}</p>
+                <p class="text-secondary-grey text-xl font-sourceSansPro font-bold">{{!is_null($milestone->due_on) ? date('d.m.y',strtotime($milestone->due_on)): "no date"}}</p>
             </div>
 
             <div class="flex gap-2 mt-8">
