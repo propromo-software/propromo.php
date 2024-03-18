@@ -7,6 +7,9 @@ use Livewire\Attributes\Validate;
 
 new class extends Component {
 
+    public $account_creation_message;
+    public $error_head;
+
     #[Validate(['name' => 'required'])]
     public $name;
 
@@ -21,7 +24,8 @@ new class extends Component {
 
     public function save()
     {
-        $this->validate();
+        try {
+            $this->validate();
 
             $user = User::create([
                 "name" => $this->name,
@@ -32,7 +36,10 @@ new class extends Component {
             Auth::login($user);
 
             redirect('/');
-
+        } catch (Exception $e) {
+            $this->account_creation_message = $e->getMessage();
+            $this->error_head = "Seems like something went wrong...";
+        }
     }
 
 };
@@ -46,7 +53,7 @@ new class extends Component {
     </div>
 
     <div
-        class="w-full sm:max-w-md mt-6 p-12 bg-white dark:bg-gray-800 border-[1px] border-border-color overflow-hidden sm:rounded-lg">
+            class="w-full sm:max-w-md mt-6 p-12 bg-white dark:bg-gray-800 border-[1px] border-border-color overflow-hidden sm:rounded-lg">
 
         <div class="flex justify-center">
             <div class="w-full max-w-md"> <!-- Adjust max width as needed -->
@@ -78,4 +85,12 @@ new class extends Component {
             </div>
         </div>
     </div>
+
+    @if($account_creation_message)
+        <sl-alert variant="danger" open closable>
+            <sl-icon wire:ignore slot="icon" name="patch-exclamation"></sl-icon>
+            <strong>{{$error_head}}</strong><br/>
+            {{$account_creation_message}}
+        </sl-alert>
+    @endif
 </div>

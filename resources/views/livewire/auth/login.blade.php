@@ -6,6 +6,10 @@ use Illuminate\Support\Facades\Auth;
 use Livewire\Attributes\Validate;
 
 new class extends Component {
+
+    public $account_login_message;
+    public $error_head;
+
     #[Validate(['email' => 'required|email'])]
     public $email;
 
@@ -14,17 +18,22 @@ new class extends Component {
 
     public function sumbit()
     {
-        $this->validate();
+        try{
+            $this->validate();
 
-        $credentials = [
-            'email' => $this->email,
-            'password' => $this->password,
-        ];
+            $credentials = [
+                'email' => $this->email,
+                'password' => $this->password,
+            ];
 
-        if (Auth::attempt($credentials)) {
-            return redirect('/projects');
-        } else {
-            $this->addError('email', 'Invalid email or password.');
+            if (Auth::attempt($credentials)) {
+                return redirect('/projects');
+            } else {
+                throw new Exception("Cannot find user!");
+            }
+        }catch (Exception $e){
+            $this->account_login_message = $e->getMessage();
+            $this->error_head = "Seems like something went wrong...";
         }
     }
 };
@@ -63,4 +72,13 @@ new class extends Component {
             </div>
         </div>
     </div>
+
+    @if($account_login_message)
+        <sl-alert variant="danger" open closable>
+            <sl-icon wire:ignore slot="icon" name="patch-exclamation"></sl-icon>
+            <strong>{{$error_head}}</strong><br/>
+            {{$account_login_message}}
+        </sl-alert>
+    @endif
+
 </div>
