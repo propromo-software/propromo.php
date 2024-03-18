@@ -17,7 +17,7 @@ trait RespositoryCollector
     public function collectRepositories(Project $project)
     {
         // milestones
-        $url = $_ENV['APP_SERVICE_URL'] . '/v1/github/orgs/' . $project->organisation_name . '/projects/' . $project->project_identification . '/repositories/scoped?scope=' . 'issues';
+        $url = $_ENV['APP_SERVICE_URL'] . '/v0/github/orgs/' . $project->organisation_name . '/projects/' . $project->project_identification . '/repositories/scoped?scope=' . 'issues';
 
         $response = Http::withHeaders([
             'content-type' => 'application/json',

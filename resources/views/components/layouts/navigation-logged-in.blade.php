@@ -7,9 +7,29 @@
             $project_hash = Session::has("project_hash") ? Session::get("project_hash") : 'no projects available';
         @endphp
 
+            <!-- Blade file (e.g., your-component.blade.php) -->
         <div class="flex gap-2 items-center">
             <sl-input wire:ignore id="project_hash" type="text" value="{{$project_hash}}" disabled></sl-input>
-            <sl-copy-button wire:ignore wire:click class="text-2xl text-primary-blue" from="project_hash"></sl-copy-button>
+            <sl-icon wire:ignore onclick="copyToClipboard('{{ $project_hash }}')" id="copyIcon" name="copy" class="text-2xl text-primary-blue cursor-pointer" from="project_hash"></sl-icon>
+            <script>
+                function copyToClipboard(text) {
+                    let copyIcon = document.getElementById("copyIcon");
+                    let originalIconName = copyIcon.getAttribute("name");
+
+                    let projectHash = document.createElement("textarea");
+                    projectHash.textContent = text;
+                    document.body.appendChild(projectHash);
+                    projectHash.select();
+                    document.execCommand("copy");
+                    document.body.removeChild(projectHash);
+
+                    copyIcon.setAttribute("name", "check");
+
+                    setTimeout(function() {
+                        copyIcon.setAttribute("name", originalIconName);
+                    }, 500);
+                }
+            </script>
         </div>
 
         <div class="flex items-center gap-2">

@@ -11,7 +11,7 @@ trait TokenCreator {
      * @throws Exception
      */
     public function getApplicationToken($pat){
-        $url = $_ENV['APP_SERVICE_URL'] . '/v1/github/auth/token';
+        $url = $_ENV['APP_SERVICE_URL'] . '/v0/github/auth/token';
 
         $response = Http::withHeaders([
             'content-type' => 'application/json',

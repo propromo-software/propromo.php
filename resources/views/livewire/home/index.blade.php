@@ -27,8 +27,6 @@ new class extends Component {
             </div>
         </div>
 
-
-
         <livewire:home.join-project-form class="mt-20"/>
 
         <h1 class="font-koulen text-4xl text-secondary-grey text-center mt-20">PROJECT PREVIEW</h1>

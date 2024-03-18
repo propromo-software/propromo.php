@@ -11,18 +11,15 @@
 </head>
 <body class="min-h-screen font-sans antialiased bg-base-200/50 dark:bg-base-200">
 
-
 @if(request()->path() !== '/' && request()->path() !== 'create-monitor' && request()->path() !== 'register' && request()->path() !== 'login' && request()->path() !== 'join')
     @include('components.layouts.navigation-logged-in')
 @else
     @include('components.layouts.navigation-logged-out')
 @endif
 
-
 <main>
     {{ $slot }}
 </main>
-
 
 </body>
 </html>

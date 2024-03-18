@@ -51,7 +51,7 @@ trait ProjectCreator
             "project_identification" => $projectIdentification,
         ]);
 
-        $url = $_ENV['APP_SERVICE_URL'] . '/v1/github/orgs/' . $project->organisation_name . '/projects/' . $project->project_identification . '/infos';
+        $url = $_ENV['APP_SERVICE_URL'] . '/v0/github/orgs/' . $project->organisation_name . '/projects/' . $project->project_identification . '/infos';
 
         $response = Http::withHeaders([
             'content-type' => 'application/json',
