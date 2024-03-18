@@ -7,7 +7,8 @@ import '../../node_modules/@shoelace-style/shoelace/dist/components/option/optio
 import '../../node_modules/@shoelace-style/shoelace/dist/components/spinner/spinner.js';
 import '../../node_modules/@shoelace-style/shoelace/dist/components/icon-button/icon-button.js';
 import '../../node_modules/@shoelace-style/shoelace/dist/components/copy-button/copy-button.js';
-
+import '../../node_modules/@shoelace-style/shoelace/dist/components/alert/alert.js';
+import '../../node_modules/@shoelace-style/shoelace/dist/components/dialog/dialog.js';
 
 
 

@@ -13,12 +13,21 @@ sl-input, sl-button { /* colors are applied via css-vars in the themes files (us
     all: revert; /*!important*/ /* purge tailwind classes for all sl components */
 }
 
+.sl-toast-stack {
+    left: 0;
+    right: auto;
+}
+
 #url {
     @apply w-full
 }
 
 sl-input::part(base){
     @apply font-sourceSansPro
+}
+
+sl-alert::part(base) {
+    @apply z-40 absolute bottom-0 right-0 mr-4 mb-4; /* Positioning */
 }
 
 /* Input */

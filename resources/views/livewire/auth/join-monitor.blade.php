@@ -6,14 +6,22 @@ use App\Traits\ProjectJoiner;
 new class extends Component {
     use ProjectJoiner;
 
+    public $join_monitor_error;
+    public $error_head;
+
+
     public $project_hash;
 
     public function join()
     {
         if (Auth::check()) {
-
-            $project = $this->joinProject($this->project_hash);
-            return redirect('/projects/'. $project->id);
+            try{
+                $project = $this->joinProject($this->project_hash);
+                return redirect('/projects/' . $project->id);
+            }catch (Exception $e){
+                $this->join_monitor_error = $e->getMessage();
+                $this->error_head = "Seems like something went wrong...";
+            }
         }else{
             return redirect('/register');
         }
@@ -57,4 +65,14 @@ new class extends Component {
             </div>
         </div>
     </div>
+
+
+    @if($join_monitor_error)
+        <sl-alert variant="danger" open closable>
+            <sl-icon wire:ignore slot="icon" name="patch-exclamation"></sl-icon>
+            <strong>{{$error_head}}</strong><br/>
+            {{$join_monitor_error}}
+        </sl-alert>
+    @endif
+
 </div>

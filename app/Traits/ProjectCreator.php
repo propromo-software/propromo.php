@@ -40,7 +40,7 @@ trait ProjectCreator
             $current_user_projects->where('organisation_name', '=', $organisationName)->count() > 0 &&
             $current_user_projects->where('project_identification', '=', $projectIdentification)->count() > 0
         ) {
-            throw new Exception("The project already exists!");
+            throw new Exception("You have already joined the monitor!");
         }
 
         $project = Project::create([
@@ -67,6 +67,8 @@ trait ProjectCreator
             $project->title = $projectData['title'];
             $project->public = $projectData['public'];
             $project->readme = $projectData['readme'];
+        }else{
+            throw new Exception("Error occurred while requeting your project!");
         }
 
         $project->save();

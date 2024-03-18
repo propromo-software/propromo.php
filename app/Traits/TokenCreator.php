@@ -23,7 +23,7 @@ trait TokenCreator {
         {
             return $response->body();
         }else{
-            throw new Exception("Error while fetching: " . $response);
+            throw new Exception("Error while requesting the monitor token!");
         }
 
     }

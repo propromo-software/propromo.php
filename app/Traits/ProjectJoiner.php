@@ -17,7 +17,7 @@ trait ProjectJoiner
             $project->users()->attach(Auth::user()->id);
             return $project;
         }
-        throw new Exception("Jo host hoid ka soiches Projekt! Find di damit ob, OASCHLOCH!");
+        throw new Exception("No monitor with that ID found!");
     }
 
 }

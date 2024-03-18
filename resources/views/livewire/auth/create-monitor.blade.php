@@ -6,6 +6,9 @@ use App\Traits\ProjectCreator;
 new class extends Component {
     use ProjectCreator;
 
+    public $create_monitor_error;
+    public $error_head;
+
     public $project_url;
 
     public $pat_token;
@@ -17,9 +20,14 @@ new class extends Component {
     public function create()
     {
         if (Auth::check()) {
-            $this->validate();
-            $project = $this->createProject($this->project_url, $this->pat_token);
-            return redirect('/projects/' . $project->id);
+            try{
+                $this->validate();
+                $project = $this->createProject($this->project_url, $this->pat_token);
+                return redirect('/projects/' . $project->id);
+            }catch (Exception $e){
+                $this->create_monitor_error = $e->getMessage();
+                $this->error_head = "Seems like something went wrong...";
+            }
         } else {
             return redirect('/register');
         }
@@ -43,9 +51,9 @@ new class extends Component {
 
                 <form wire:submit="create">
 
-                    <sl-input wire:ignore wire:model="pat_token" placeholder="Your PAT-Token" type="text"></sl-input>
+                    <sl-input required wire:ignore wire:model="pat_token" placeholder="Your PAT-Token" type="text"></sl-input>
                     <br>
-                    <sl-input wire:ignore wire:model="project_url" placeholder="Your Project-URL"
+                    <sl-input required wire:ignore wire:model="project_url" placeholder="Your Project-URL"
                               type="text"></sl-input>
                     <br>
 
@@ -65,5 +73,14 @@ new class extends Component {
             </div>
         </div>
     </div>
+
+    @if($create_monitor_error)
+        <sl-alert variant="danger" open closable>
+            <sl-icon wire:ignore slot="icon" name="patch-exclamation"></sl-icon>
+            <strong>{{$error_head}}</strong><br/>
+            {{$create_monitor_error}}
+        </sl-alert>
+    @endif
+
 </div>
 
