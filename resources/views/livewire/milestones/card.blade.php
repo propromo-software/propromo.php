@@ -18,9 +18,14 @@ new class extends Component {
 
     <div class="flex justify-between gap-20">
 
+        @php
+            $shortenedTitle = strlen($milestone->title) > 15 ? substr($milestone->title, 0, 15) . '...' : $milestone->title;
+        @endphp
+
+
         <div>
             <h1 class="text-primary-blue text-4xl font-koulen">
-                {{$milestone->title}}
+                {{$shortenedTitle}}
             </h1>
 
             <div class="flex gap-2 items-center">
