@@ -30,6 +30,7 @@ new class extends Component {
             $user = User::create([
                 "name" => $this->name,
                 "email" => $this->email,
+                "auth_type"=> "PROPROMO",
                 "password" => $this->password
             ]);
 

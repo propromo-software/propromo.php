@@ -69,11 +69,12 @@ new class extends Component {
                 </div>
             </a>
 
-            <sl-icon-button class="text-3xl text-secondary-grey" name="cloud-arrow-down" label="Reload" type="submit"
+            <sl-icon-button class="text-3xl text-secondary-grey" name="arrow-repeat" label="Reload" type="submit"
                             wire:ignore wire:click="reload_repositories"></sl-icon-button>
         </div>
     </div>
     <livewire:repositories.list :monitor_id="$monitor->id"/>
+
 
     @if($collect_repos_error)
         <sl-alert variant="danger" open closable>

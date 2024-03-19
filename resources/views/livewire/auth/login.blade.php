@@ -55,17 +55,22 @@ new class extends Component {
                     <br>
                     <sl-input wire:ignore wire:model="password" placeholder="Your password" type="password"></sl-input>
 
-                    <div class="flex items-center justify-between mt-5">
+                <div class="flex gap-2 mt-4">
+                    <a href="{{route('github.login')}}" target="_blank">
+                        <sl-icon wire:ignore name="github" class="text-4xl mt-0.5"></sl-icon>
+                    </a>
+                </div>
+                    <div class="flex items-center justify-between mt-2">
                         <a class="underline text-sm text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 dark:focus:ring-offset-gray-800"
                            href="{{ url('register') }}">
                             No Account yet?
                         </a>
-
                         <sl-button wire:ignore type="submit">Login</sl-button>
                     </div>
                 </form>
             </div>
         </div>
+
     </div>
 
     @if($account_login_message)

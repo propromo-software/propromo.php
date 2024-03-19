@@ -1,11 +1,12 @@
 <?php
 
+use App\Http\Controllers\GithubController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Redirect;
 use Livewire\Volt\Volt;
 use Illuminate\Support\Facades\Route;
 
-Volt::route('/', '/home/index');
+Volt::route('/', '/home/index')->name('home.index');
 
 Volt::route('/login', 'auth.login');
 
@@ -13,6 +14,10 @@ Route::get('/logout', function(){
     Auth::logout();
     return Redirect::to('login');
 });
+
+Route::get('/auth/github', [GithubController::class,'redirect'])->name('github.login');
+Route::get('/auth/github/callback', [GithubController::class,'callback']);
+
 
 Volt::route('/monitors', 'monitors.index');
 Volt::route('/monitors/{monitor}', 'monitors.show');

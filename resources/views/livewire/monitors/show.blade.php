@@ -18,4 +18,6 @@ new class extends Component {
     <div class="border-other-grey border-2 rounded-2xl">
         <livewire:monitors.card lazy="true" :monitor="$monitor"/>
     </div>
+
+    <livewire:monitors.read-me-view :markdown="$monitor->readme"/>
 </div>
