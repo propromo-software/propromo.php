@@ -6,7 +6,7 @@
 
         <div class="flex gap-2">
             <sl-button>
-                <a href="{{ url('/projects') }}">PROJECTS</a>
+                <a href="{{ url('/monitors') }}">PROJECTS</a>
             </sl-button>
             <sl-button>
                 <a href="{{ url('/logout') }}">LOG OUT</a>
@@ -14,7 +14,7 @@
         </div>
     </div>
 @else
-    <div class="flex justify-between mt-5 mx-8 items-centerçç">
+    <div class="flex justify-between mt-5 mx-8 items-center">
         <div>
             <a class="font-koulen text-primary-blue text-3xl" href="{{ url('/') }}">PROPROMO</a>
         </div>

@@ -1,7 +1,7 @@
 <?php
 
 use Livewire\Volt\Component;
-use App\Models\Project;
+use App\Models\Monitor;
 use \App\Traits\RespositoryCollector;
 
 new class extends Component {
@@ -10,16 +10,16 @@ new class extends Component {
     public $collect_repos_error;
     public $error_head;
 
-    public Project $project;
+    public Monitor $monitor;
 
-    public function mount(Project $project): void
+    public function mount(Monitor $monitor): void
     {
-        try{
-            if ($project->repositories()->get()->isEmpty()) {
-                $this->collectRepositories($project);
+        try {
+            if ($monitor->repositories()->get()->isEmpty()) {
+                $this->collect_repositories($monitor);
             }
-            $this->project = $project;
-        }catch (Exception $e){
+            $this->monitor = $monitor;
+        } catch (Exception $e) {
             $this->collect_repos_error = $e->getMessage();
             $this->error_head = "Seems like something went wrong...";
         }
@@ -27,15 +27,15 @@ new class extends Component {
 
     public function reload_repositories()
     {
-        $this->project->repositories()->delete();
-        $this->collectRepositories($this->project);
+        $this->monitor->repositories()->delete();
+        $this->collect_repositories($this->monitor);
 
-        $this->dispatch("repositories-updated", project_id: $this->project->id);
+        $this->dispatch("repositories-updated", monitor_id: $this->monitor->id);
     }
 
     public function get_repositories()
     {
-        return $this->project->repositories()->get();
+        return $this->monitor->repositories()->get();
     }
 
     /*public function placeholder()
@@ -53,14 +53,15 @@ new class extends Component {
 <div class="w-full p-5 items-center rounded-xl">
     <div class="flex items-center justify-between mb-5">
         <a class="text-secondary-grey text-lg font-sourceSansPro font-bold rounded-md border-2 border-other-grey px-6 py-3"
-           href="/projects/{{ $project->id }}" title="Show User">
-            {{strtoupper($project->organisation_name)}}
+           href="/monitors/{{ $monitor->id }}" title="Show User">
+            {{strtoupper($monitor->organisation_name)}}
         </a>
 
         <div class="flex items-center gap-2">
             <a class="flex items-center gap-1 rounded-md border-2 border-other-grey px-6 py-3"
-               href="/projects/{{ $project->id }}" title="Show User">
-                <sl-icon wire:ignore class="text-secondary-grey font-sourceSansPro text-xl font-bold" name="chat"></sl-icon>
+               href="/monitors/{{ $monitor->id }}" title="Show User">
+                <sl-icon wire:ignore class="text-secondary-grey font-sourceSansPro text-xl font-bold"
+                         name="chat"></sl-icon>
                 <div>
                     <div class="text-secondary-grey font-sourceSansPro text-lg font-bold">
                         CONTACT
@@ -68,10 +69,11 @@ new class extends Component {
                 </div>
             </a>
 
-            <sl-icon-button class="text-3xl text-secondary-grey" name="cloud-arrow-down" label="Reload" type="submit" wire:ignore wire:click="reload_repositories"></sl-icon-button>
+            <sl-icon-button class="text-3xl text-secondary-grey" name="cloud-arrow-down" label="Reload" type="submit"
+                            wire:ignore wire:click="reload_repositories"></sl-icon-button>
         </div>
     </div>
-    <livewire:repositories.list :project_id="$project->id"/>
+    <livewire:repositories.list :monitor_id="$monitor->id"/>
 
     @if($collect_repos_error)
         <sl-alert variant="danger" open closable>

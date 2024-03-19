@@ -1,29 +1,29 @@
 <?php
 
 use Livewire\Volt\Component;
-use App\Models\Project;
+use App\Models\Monitor;
 use Illuminate\Support\Facades\Auth;
-use App\Traits\ProjectJoiner;
+use App\Traits\MonitorJoiner;
 
 new class extends Component {
-    use ProjectJoiner;
+    use MonitorJoiner;
 
     public $join_monitor_error;
     public $error_head;
 
 
     protected $rules = [
-        'project_hash' => 'required|min:10|max:2048'
+        'monitor_hash' => 'required|min:10|max:2048'
     ];
-    public $project_hash;
+    public $monitor_hash;
 
     public function submit()
     {
         if (Auth::check()) {
 
             try {
-                $project = $this->joinProject($this->project_hash);
-                return redirect('/projects/' . $project->id);
+                $monitor = $this->join_monitor($this->monitor_hash);
+                return redirect('/monitors/' . $monitor->id);
 
             } catch (Exception $e) {
                 $this->join_monitor_error = $e->getMessage();
@@ -44,8 +44,8 @@ new class extends Component {
         <br>
         <div class="flex gap-5">
             <sl-input type="text" id="url"
-                      placeholder="Here goes the project-id"
-                      wire:model="project_hash"
+                      placeholder="Here goes the monitor-id"
+                      wire:model="monitor_hash"
                       wire:ignore
                       class="w-full"
             >

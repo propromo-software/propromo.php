@@ -3,26 +3,26 @@
 use Livewire\Volt\Component;
 use Livewire\Attributes\On;
 use \App\Traits\RespositoryCollector;
-use \App\Models\Project;
+use \App\Models\Monitor;
 use \App\Models\Repository;
 
 new class extends Component {
     use RespositoryCollector;
 
-    public $project_id;
+    public $monitor_id;
     public $repositories;
 
-    public function mount($project_id)
+    public function mount($monitor_id)
     {
-        $this->repositories = Repository::whereProjectId($project_id)->get();
-        $this->project_id = $project_id;
+        $this->repositories = Repository::whereMonitorId($monitor_id)->get();
+        $this->monitor_id = $monitor_id;
     }
 
     #[On('repositories-updated')]
-    public function repositories_updated($project_id)
+    public function repositories_updated($monitor_id)
     {
-        if ($this->project_id === $project_id) {
-            $this->mount($project_id);
+        if ($this->monitor_id === $monitor_id) {
+            $this->mount($monitor_id);
         }
     }
 

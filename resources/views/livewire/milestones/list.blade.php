@@ -2,7 +2,7 @@
 
 use Livewire\Volt\Component;
 use App\Models\Milestone;
-use App\Models\Project;
+use App\Models\Monitor;
 use App\Traits\MilestoneCollector;
 use \App\Models\Repository;
 

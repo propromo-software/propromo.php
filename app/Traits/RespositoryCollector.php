@@ -3,7 +3,7 @@
 namespace App\Traits;
 
 use App\Models\Milestone;
-use App\Models\Project;
+use App\Models\Monitor;
 use App\Models\Repository;
 use Exception;
 use Illuminate\Support\Facades\Http;
@@ -14,16 +14,16 @@ trait RespositoryCollector
     /**
      * @throws Exception
      */
-    public function collectRepositories(Project $project)
+    public function collect_repositories(Monitor $monitor)
     {
         // milestones
-        $url = $_ENV['APP_SERVICE_URL'] . '/v0/github/orgs/' . $project->organisation_name . '/projects/' . $project->project_identification . '/repositories/scoped?scope=' . 'issues';
+        $url = $_ENV['APP_SERVICE_URL'] . '/v0/github/orgs/' . $monitor->organisation_name . '/projects/' . $monitor->project_identification . '/repositories/scoped?scope=' . 'issues';
 
         try{
             $response = Http::withHeaders([
                 'content-type' => 'application/json',
                 'Accept' => 'text/plain',
-                'Authorization' => 'Bearer ' . $project->pat_token
+                'Authorization' => 'Bearer ' . $monitor->pat_token
             ])->get($url);
         } catch (Exception $e){
             throw new Exception("Seems like you have no internet connection!");
@@ -34,7 +34,7 @@ trait RespositoryCollector
 
             $repositories = $response->json()['data']['organization']['projectV2']['repositories']['nodes'];
 
-            $project->repositories()->delete();
+            $monitor->repositories()->delete();
 
             foreach ($repositories as $repositoryData) {
 
@@ -42,7 +42,7 @@ trait RespositoryCollector
 
                 $repository->name = $repositoryData["name"];
 
-                $get_repository = $project->repositories()->save($repository); // Save the repository
+                $get_repository = $monitor->repositories()->save($repository); // Save the repository
 
                 $milestones = $repositoryData["milestones"]["nodes"];
                 if (count($milestones) > 0) {
@@ -64,9 +64,9 @@ trait RespositoryCollector
                     }
                 }
             }
-            return Repository::where("project_id", "=", $project->id)->get();
+            return Repository::where("monitor_id", "=", $monitor->id)->get();
         } else {
-            throw new Exception("Looks like you ran out of tokens!");
+            throw new Exception("Looks like you ran out of tokens!" );
         }
     }
 }

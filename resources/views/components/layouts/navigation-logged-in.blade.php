@@ -4,24 +4,24 @@
     <div class="flex gap-x-5">
 
         @php
-            $project_hash = Session::has("project_hash") ? Session::get("project_hash") : 'no projects available';
+            $monitor_hash = Session::has("monitor_hash") ? Session::get("monitor_hash") : 'no monitors available';
         @endphp
 
             <!-- Blade file (e.g., your-component.blade.php) -->
         <div class="flex gap-3 items-center">
-            <sl-input wire:ignore id="project_hash" type="text" value="{{$project_hash}}" disabled></sl-input>
-            <sl-icon wire:ignore onclick="copyToClipboard('{{ $project_hash }}')" id="copyIcon" name="copy" class="text-2xl text-primary-blue cursor-pointer" from="project_hash"></sl-icon>
+            <sl-input wire:ignore id="monitor_hash" type="text" value="{{$monitor_hash}}" disabled></sl-input>
+            <sl-icon wire:ignore onclick="copyToClipboard('{{ $monitor_hash }}')" id="copyIcon" name="copy" class="text-2xl text-primary-blue cursor-pointer" from="monitor_hash"></sl-icon>
             <script>
                 function copyToClipboard(text) {
                     let copyIcon = document.getElementById("copyIcon");
                     let originalIconName = copyIcon.getAttribute("name");
 
-                    let projectHash = document.createElement("textarea");
-                    projectHash.textContent = text;
-                    document.body.appendChild(projectHash);
-                    projectHash.select();
+                    let monitorHash = document.createElement("textarea");
+                    monitorHash.textContent = text;
+                    document.body.appendChild(monitorHash);
+                    monitorHash.select();
                     document.execCommand("copy");
-                    document.body.removeChild(projectHash);
+                    document.body.removeChild(monitorHash);
 
                     copyIcon.setAttribute("name", "check-lg");
 

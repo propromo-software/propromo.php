@@ -2,32 +2,32 @@
 
 namespace App\Traits;
 
-use App\Models\Project;
+use App\Models\Monitor;
 use App\Models\User;
 use Exception;
 use Illuminate\Support\Facades\Auth;
 
-trait ProjectJoiner
+trait MonitorJoiner
 {
     /**
      * @throws Exception
      */
-    public function joinProject($project_hash)
+    public function join_monitor($monitor_hash)
     {
-        $project = Project::whereProjectHash($project_hash)->first();
+        $monitor = Monitor::whereMonitorHash($monitor_hash)->first();
 
-        if (!is_null($project)) {
+        if (!is_null($monitor)) {
 
             $current_user_projects = User::find(Auth::user()->id)
-                ->projects()
-                ->where("project_hash", "=", $project_hash)
+                ->monitors()
+                ->where("monitor_hash", "=", $monitor_hash)
                 ->get();
 
             if ($current_user_projects->count() > 0) {
                 throw new Exception("You have already joined the monitor!");
             } else {
-                $project->users()->attach(Auth::user()->id);
-                return $project;
+                $monitor->users()->attach(Auth::user()->id);
+                return $monitor;
             }
         } else {
             throw new Exception("No monitor with that ID found!");

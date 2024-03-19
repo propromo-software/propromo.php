@@ -1,28 +1,27 @@
 <?php
 
 use Livewire\Volt\Component;
-use App\Traits\ProjectJoiner;
+use App\Traits\MonitorJoiner;
 
 new class extends Component {
-    use ProjectJoiner;
+    use MonitorJoiner;
 
     public $join_monitor_error;
     public $error_head;
 
-
-    public $project_hash;
+    public $monitor_hash;
 
     public function join()
     {
         if (Auth::check()) {
-            try{
-                $project = $this->joinProject($this->project_hash);
-                return redirect('/projects/' . $project->id);
-            }catch (Exception $e){
+            try {
+                $monitor = $this->join_monitor($this->monitor_hash);
+                return redirect('/monitors/' . $monitor->id);
+            } catch (Exception $e) {
                 $this->join_monitor_error = $e->getMessage();
                 $this->error_head = "Seems like something went wrong...";
             }
-        }else{
+        } else {
             return redirect('/register');
         }
     }
@@ -41,7 +40,7 @@ new class extends Component {
 
                 <form wire:submit="join">
 
-                    <sl-input wire:ignore wire:model="project_hash" placeholder="Project-Id" type="text"></sl-input>
+                    <sl-input wire:ignore wire:model="monitor_hash" placeholder="Project-Id" type="text"></sl-input>
                     <br>
                     <iframe class="mt-2" width="100%" height="100"
                             src="https://youtu.be/SXmJH72-O5g?autoplay=1">

@@ -10,13 +10,13 @@ trait TokenCreator {
     /**
      * @throws Exception
      */
-    public function getApplicationToken($pat){
+    public function get_application_token($pat_token){
         $url = $_ENV['APP_SERVICE_URL'] . '/v0/github/auth/token';
 
         $response = Http::withHeaders([
             'content-type' => 'application/json',
             'Accept' => 'text/plain',
-            'Authorization' => 'Bearer '.$pat,
+            'Authorization' => 'Bearer '.$pat_token,
         ])->post($url);
 
         if($response->successful())

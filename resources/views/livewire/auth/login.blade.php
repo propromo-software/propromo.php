@@ -8,6 +8,7 @@ use Livewire\Attributes\Validate;
 new class extends Component {
 
     public $account_login_message;
+
     public $error_head;
 
     #[Validate(['email' => 'required|email'])]

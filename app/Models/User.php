@@ -22,7 +22,7 @@ use Laravel\Sanctum\HasApiTokens;
  * @property \Illuminate\Support\Carbon|null $updated_at
  * @property-read \Illuminate\Notifications\DatabaseNotificationCollection<int, \Illuminate\Notifications\DatabaseNotification> $notifications
  * @property-read int|null $notifications_count
- * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Project> $projects
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Monitor> $projects
  * @property-read int|null $projects_count
  * @property-read \Illuminate\Database\Eloquent\Collection<int, \Laravel\Sanctum\PersonalAccessToken> $tokens
  * @property-read int|null $tokens_count
@@ -40,6 +40,8 @@ use Laravel\Sanctum\HasApiTokens;
  * @method static \Illuminate\Database\Eloquent\Builder|User whereUpdatedAt($value)
  * @property string $pat_token
  * @method static \Illuminate\Database\Eloquent\Builder|User wherePatToken($value)
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Monitor> $monitors
+ * @property-read int|null $monitors_count
  * @mixin \Eloquent
  */
 class User extends Authenticatable
@@ -77,8 +79,8 @@ class User extends Authenticatable
         'password' => 'hashed',
     ];
 
-    public function projects(): BelongsToMany
+    public function monitors(): BelongsToMany
     {
-        return $this->belongsToMany(Project::class,'project_user', 'user_id', 'project_id');
+        return $this->belongsToMany(Monitor::class,'monitor_user', 'user_id', 'monitor_id');
     }
 }

@@ -14,8 +14,8 @@ Route::get('/logout', function(){
     return Redirect::to('login');
 });
 
-Volt::route('/projects', 'projects.index');
-Volt::route('/projects/{project}', 'projects.show');
+Volt::route('/monitors', 'monitors.index');
+Volt::route('/monitors/{monitor}', 'monitors.show');
 
 
 Volt::route('/create-monitor', 'auth.create-monitor');

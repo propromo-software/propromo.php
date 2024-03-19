@@ -10,17 +10,17 @@ return new class extends Migration {
      */
     public function up(): void
     {
-        Schema::create('projects', function (Blueprint $table) {
+        Schema::create('monitors', function (Blueprint $table) {
             $table->id();
             $table->string('project_url')->nullable();
             $table->string('organisation_name')->nullable();
-            $table->string("pat_token")->nullable();
+            $table->string('pat_token')->nullable();
             $table->string('readme')->nullable();
             $table->boolean('public')->nullable();
             $table->string('title')->nullable();
             $table->string('short_description')->nullable();
             $table->integer('project_identification');
-            $table->string('project_hash');
+            $table->string('monitor_hash');
             $table->timestamps();
         });
     }
@@ -29,6 +29,6 @@ return new class extends Migration {
      */
     public function down(): void
     {
-        Schema::dropIfExists('projects');
+        Schema::dropIfExists('monitors');
     }
 };

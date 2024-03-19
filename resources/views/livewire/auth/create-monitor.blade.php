@@ -1,12 +1,13 @@
 <?php
 
 use Livewire\Volt\Component;
-use App\Traits\ProjectCreator;
+use App\Traits\MonitorCreator;
 
 new class extends Component {
-    use ProjectCreator;
+    use MonitorCreator;
 
     public $create_monitor_error;
+
     public $error_head;
 
     public $project_url;
@@ -22,8 +23,8 @@ new class extends Component {
         if (Auth::check()) {
             try {
                 $this->validate();
-                $project = $this->createProject($this->project_url, $this->pat_token);
-                return redirect('/projects/' . $project->id);
+                $project = $this->create_monitor($this->project_url, $this->pat_token);
+                return redirect('/monitors/' . $project->id);
             } catch (Exception $e) {
                 $this->create_monitor_error = $e->getMessage();
                 $this->error_head = "Seems like something went wrong...";
