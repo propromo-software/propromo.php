@@ -54,7 +54,7 @@ new class extends Component {
     <div class="flex items-center justify-between mb-5">
         <a class="text-secondary-grey text-lg font-sourceSansPro font-bold rounded-md border-2 border-other-grey px-6 py-3"
            href="/monitors/{{ $monitor->id }}" title="Show User">
-            {{strtoupper($monitor->organisation_name)}}
+            {{strtoupper($monitor->organisation_name)}} / {{strtoupper($monitor->title)}}
         </a>
 
         <div class="flex items-center gap-2">

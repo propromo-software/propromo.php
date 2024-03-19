@@ -6,7 +6,7 @@
 
         <div class="flex gap-2">
             <sl-button>
-                <a href="{{ url('/monitors') }}">PROJECTS</a>
+                <a href="{{ url('/monitors') }}">MONITORS</a>
             </sl-button>
             <sl-button>
                 <a href="{{ url('/logout') }}">LOG OUT</a>
