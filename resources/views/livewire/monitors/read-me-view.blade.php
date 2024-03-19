@@ -10,7 +10,7 @@ new class extends Component {
 
     public function mount($monitor)
     {
-        $this->markdown_content = Str::markdown($monitor->readme);
+        $this->markdown_content = is_null($monitor->readme) ? null : Str::markdown($monitor->readme);
         $this->project_url = $monitor->project_url;
     }
 
@@ -19,7 +19,10 @@ new class extends Component {
     <div class="border-other-grey border-2 rounded-2xl p-6">
         <sl-icon name="info-circle" class="text-6xl font-bold text-primary-blue"></sl-icon>
         <div class="prose mt-4">
-            {!! $markdown_content !!}
+            @php
+                $markdown_content_html = is_null($markdown_content) ? "<h2 class='text-2xl font-koulen text-secondary-grey'>No content available!</h2>" : $markdown_content;
+            @endphp
+            {!! $markdown_content_html !!}
         </div>
         <div class="w-min mt-12">
             <sl-button>
