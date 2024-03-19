@@ -14,8 +14,7 @@
         "livewire/livewire": "^3.4",
         "livewire/volt": "^1.6",
         "robsontenorio/mary": "^1.25",
-        "spatie/laravel-markdown": "^2.5",
-        "ueberdosis/pandoc": "^0.9.0"
+        "spatie/laravel-markdown": "^2.5"
     },
     "require-dev": {
         "barryvdh/laravel-ide-helper": "^3.0",

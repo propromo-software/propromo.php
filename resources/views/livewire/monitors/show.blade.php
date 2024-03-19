@@ -14,10 +14,17 @@ new class extends Component {
 
 }; ?>
 
-<div class="mx-8 mt-6">
-    <div class="border-other-grey border-2 rounded-2xl">
-        <livewire:monitors.card lazy="true" :monitor="$monitor"/>
-    </div>
+<div>
+    <div class="mx-8 mt-6">
+        <div class="border-other-grey border-2 rounded-2xl">
+            <livewire:monitors.card lazy="true" :monitor="$monitor"/>
+        </div>
 
-    <livewire:monitors.read-me-view :markdown="$monitor->readme"/>
+        <div class="mt-8 grid grid-cols-3 gap-8">
+            <div class="col-span-2">
+                <livewire:monitors.read-me-view :monitor="$monitor"/>
+            </div>
+            <div class="border-other-grey border-2 rounded-2xl p-5">Deployments</div>
+        </div>
+    </div>
 </div>

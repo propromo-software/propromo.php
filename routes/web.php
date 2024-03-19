@@ -26,3 +26,5 @@ Volt::route('/join', 'auth.join-monitor');
 Volt::route('/register', 'auth.register');
 
 Volt::route('/repos', 'repositories.list');
+
+

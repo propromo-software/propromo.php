@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "42bce6178ac4f64abfcf2902ed34b412",
+    "content-hash": "2de07cf64c4e881ae370ba37942c58dc",
     "packages": [
         {
             "name": "blade-ui-kit/blade-heroicons",
@@ -6495,62 +6495,6 @@
                 "source": "https://github.com/tijsverkoyen/CssToInlineStyles/tree/v2.2.7"
             },
             "time": "2023-12-08T13:03:43+00:00"
-        },
-        {
-            "name": "ueberdosis/pandoc",
-            "version": "0.9.0",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/ueberdosis/pandoc.git",
-                "reference": "c5f16d52170e0622d6d3ef8350e08d0799809049"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/ueberdosis/pandoc/zipball/c5f16d52170e0622d6d3ef8350e08d0799809049",
-                "reference": "c5f16d52170e0622d6d3ef8350e08d0799809049",
-                "shasum": ""
-            },
-            "require": {
-                "php": "^7.1|^8.0",
-                "symfony/process": ">4.0"
-            },
-            "require-dev": {
-                "phpunit/phpunit": "^8.0 || ^9.0"
-            },
-            "type": "library",
-            "autoload": {
-                "psr-4": {
-                    "Pandoc\\": "src"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Hans Pagel",
-                    "email": "hans.pagel@ueber.io",
-                    "role": "Developer"
-                }
-            ],
-            "description": "Pandoc PHP Package",
-            "homepage": "https://github.com/ueberdosis/pandoc",
-            "keywords": [
-                "pandoc",
-                "ueberdosis"
-            ],
-            "support": {
-                "issues": "https://github.com/ueberdosis/pandoc/issues",
-                "source": "https://github.com/ueberdosis/pandoc/tree/0.9.0"
-            },
-            "funding": [
-                {
-                    "url": "https://github.com/sponsors/ueberdosis/",
-                    "type": "github"
-                }
-            ],
-            "time": "2023-02-28T08:00:44+00:00"
         },
         {
             "name": "vlucas/phpdotenv",
