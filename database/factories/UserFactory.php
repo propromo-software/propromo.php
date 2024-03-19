@@ -23,11 +23,15 @@ class UserFactory extends Factory
      */
     public function definition(): array
     {
+        $auth_type = $this->faker->randomElement(["GITHUB", "PROPROMO"]);
+
         return [
             'name' => fake()->name(),
             'email' => fake()->unique()->safeEmail(),
             'email_verified_at' => now(),
             'password' => static::$password ??= Hash::make('password'),
+            'auth_type' => $auth_type,
+            'github_id' => $auth_type == 'GITHUB' ? $this->faker->randomAscii() : null,
             'remember_token' => Str::random(10),
         ];
     }

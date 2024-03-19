@@ -24,7 +24,6 @@ new class extends Component {
             try {
                 $monitor = $this->join_monitor($this->monitor_hash);
                 return redirect('/monitors/' . $monitor->id);
-
             } catch (Exception $e) {
                 $this->join_monitor_error = $e->getMessage();
                 $this->error_head = "Seems like something went wrong...";
