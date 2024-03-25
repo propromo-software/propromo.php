@@ -6,25 +6,25 @@ use Exception;
 use Illuminate\Support\Facades\Http;
 
 
-trait TokenCreator {
+trait TokenCreator
+{
     /**
      * @throws Exception
      */
-    public function get_application_token($pat_token){
-        $url = $_ENV['APP_SERVICE_URL'] . '/v0/github/auth/token';
+    public function get_application_token($pat_token)
+    {
+        $url = $_ENV['APP_SERVICE_URL'] . '/v1/github/auth/token';
 
         $response = Http::withHeaders([
             'content-type' => 'application/json',
             'Accept' => 'text/plain',
-            'Authorization' => 'Bearer '.$pat_token,
+            'Authorization' => 'Bearer ' . $pat_token,
         ])->post($url);
 
-        if($response->successful())
-        {
+        if ($response->successful()) {
             return $response->body();
-        }else{
+        } else {
             throw new Exception("Error while requesting the monitor token!");
         }
-
     }
 }

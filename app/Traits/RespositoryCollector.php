@@ -9,7 +9,7 @@ use Exception;
 use Illuminate\Support\Facades\Http;
 
 
-trait RespositoryCollector
+trait RepositoryCollector
 {
     /**
      * @throws Exception
@@ -17,15 +17,15 @@ trait RespositoryCollector
     public function collect_repositories(Monitor $monitor)
     {
         // milestones
-        $url = $_ENV['APP_SERVICE_URL'] . '/v0/github/orgs/' . $monitor->organisation_name . '/projects/' . $monitor->project_identification . '/repositories/scoped?scope=' . 'issues';
+        $url = $_ENV['APP_SERVICE_URL'] . '/v1/github/orgs/' . $monitor->organization_name . '/projects/' . $monitor->project_identification . '/repositories/milestones/issues' . "?rootPageSize=10&milestonesPageSize=100&issuesPageSize=100&issues_states=open,closed";
 
-        try{
+        try {
             $response = Http::withHeaders([
                 'content-type' => 'application/json',
                 'Accept' => 'text/plain',
                 'Authorization' => 'Bearer ' . $monitor->pat_token
             ])->get($url);
-        } catch (Exception $e){
+        } catch (Exception $e) {
             throw new Exception("Seems like you have no internet connection!");
         }
 
@@ -66,7 +66,7 @@ trait RespositoryCollector
             }
             return Repository::where("monitor_id", "=", $monitor->id)->get();
         } else {
-            throw new Exception("Looks like you ran out of tokens!" );
+            throw new Exception("Looks like you ran out of tokens!");
         }
     }
 }

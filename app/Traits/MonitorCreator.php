@@ -26,7 +26,7 @@ trait MonitorCreator
             'threads' => 2,
         ]);
 
-        $organisation_name = Str::between($project_url, '/orgs/', '/projects/');
+        $organization_name = Str::between($project_url, '/orgs/', '/projects/');
         preg_match('/\/projects\/(\d+)/', $project_url, $matches);
         $project_identification = null;
 
@@ -37,26 +37,26 @@ trait MonitorCreator
         $current_user_projects = User::find(Auth::user()->id)->monitors()->get();
 
         if (
-            $current_user_projects->where('organisation_name', '=', $organisation_name)->count() > 0 &&
+            $current_user_projects->where('organization_name', '=', $organization_name)->count() > 0 &&
             $current_user_projects->where('project_identification', '=', $project_identification)->count() > 0
         ) {
             throw new Exception("You have already joined the monitor!");
         }
 
         $monitor = Monitor::create([
-            "project_url" => "https://github.com/orgs/" . $organisation_name . "/projects/" . $project_identification,
+            "project_url" => "https://github.com/orgs/" . $organization_name . "/projects/" . $project_identification,
             "monitor_hash" => $monitor_hash,
             "pat_token" => $this->get_application_token($pat_token),
-            "organisation_name" => $organisation_name,
+            "organization_name" => $organization_name,
             "project_identification" => $project_identification,
         ]);
 
-        $url = $_ENV['APP_SERVICE_URL'] . '/v0/github/orgs/' . $monitor->organisation_name . '/projects/' . $monitor->project_identification . '/infos';
+        $url = $_ENV['APP_SERVICE_URL'] . '/v1/github/orgs/' . $monitor->organization_name . '/projects/' . $monitor->project_identification . '/info';
 
         $response = Http::withHeaders([
             'content-type' => 'application/json',
             'Accept' => 'text/plain',
-            'Authorization' => 'Bearer '. $monitor->pat_token,
+            'Authorization' => 'Bearer ' . $monitor->pat_token,
         ])->get($url);
 
         if ($response->successful()) {
@@ -66,8 +66,8 @@ trait MonitorCreator
             $monitor->title = $monitor_data['title'];
             $monitor->public = $monitor_data['public'];
             $monitor->readme = $monitor_data['readme'];
-        }else{
-            throw new Exception("Error occurred while requeting your project!");
+        } else {
+            throw new Exception("Error occurred while requesting your project!");
         }
 
         $monitor->save();

@@ -4,7 +4,8 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-return new class extends Migration {
+return new class extends Migration
+{
     /**
      * Run the migrations.
      */
@@ -13,7 +14,7 @@ return new class extends Migration {
         Schema::create('monitors', function (Blueprint $table) {
             $table->id();
             $table->string('project_url')->nullable();
-            $table->string('organisation_name')->nullable();
+            $table->string('organization_name')->nullable();
             $table->string('pat_token')->nullable();
             $table->string('readme')->nullable();
             $table->boolean('public')->nullable();

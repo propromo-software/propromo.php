@@ -28,7 +28,7 @@ use PhpParser\Builder;
  * @method static \Illuminate\Database\Eloquent\Builder|Monitor whereProjectUrl($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Monitor whereUpdatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Monitor whereUserId($value)
- * @property string $organisation_name
+ * @property string $organization_name
  * @property int $project_id
  * @property int $project_view
  * @property string $project_hash
@@ -65,7 +65,7 @@ class Monitor extends Model
     protected $fillable = [
         "project_url",
         "monitor_hash",
-        "organisation_name",
+        "organization_name",
         "title",
         "public",
         "pat_token",
@@ -76,7 +76,7 @@ class Monitor extends Model
 
     public function users(): BelongsToMany
     {
-        return $this->belongsToMany(User::class,'monitor_user', 'monitor_id', 'user_id');
+        return $this->belongsToMany(User::class, 'monitor_user', 'monitor_id', 'user_id');
     }
 
     public function repositories(): HasMany

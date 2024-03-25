@@ -3,7 +3,8 @@
 use Livewire\Volt\Component;
 use \App\Models\User;
 
-new class extends Component {
+new class extends Component
+{
 
     public $monitors = [];
     public $search = '';
@@ -27,7 +28,7 @@ new class extends Component {
     {
         $this->load_monitors();
         $this->monitors = $this->monitors->filter(function ($monitor) {
-            return stripos($monitor->organisation_name, $this->search) !== false;
+            return stripos($monitor->organization_name, $this->search) !== false;
         });
     }
 }; ?>
@@ -39,17 +40,17 @@ new class extends Component {
     </sl-input>
 
     @php
-        $monitor_count = count($monitors);
+    $monitor_count = count($monitors);
     @endphp
 
     @if($monitor_count > 0)
-        @foreach($monitors as $monitor)
-            <div class="border-other-grey border-2 rounded-2xl mt-4" wire:key="{{$monitor->id}}">
-                <livewire:monitors.card lazy="true" :monitor="$monitor" :key="$monitor->id"/>
-            </div>
-        @endforeach
+    @foreach($monitors as $monitor)
+    <div class="border-other-grey border-2 rounded-2xl mt-4" wire:key="{{$monitor->id}}">
+        <livewire:monitors.card lazy="true" :monitor="$monitor" :key="$monitor->id" />
+    </div>
+    @endforeach
     @else
-        <h1 class="text-primary-blue font-koulen text-2xl text-center">Currently no Monitors avaibale! </h1>
+    <h1 class="text-primary-blue font-koulen text-2xl text-center">Currently no Monitors avaibale! </h1>
     @endif
 
 </div>
