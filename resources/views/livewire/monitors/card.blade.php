@@ -2,7 +2,7 @@
 
 use Livewire\Volt\Component;
 use App\Models\Monitor;
-use \App\Traits\RepositoryCollector;
+use App\Traits\RepositoryCollector;
 
 new class extends Component
 {
