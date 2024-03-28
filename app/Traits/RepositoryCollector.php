@@ -66,7 +66,7 @@ trait RepositoryCollector
             }
             return Repository::where("monitor_id", "=", $monitor->id)->get();
         } else {
-            throw new Exception("Looks like you ran out of tokens!");
+            throw new Exception("Looks like you ran out of tokens for " . $monitor->title . "!");
         }
     }
 }
