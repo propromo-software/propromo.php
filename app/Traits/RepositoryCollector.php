@@ -17,7 +17,7 @@ trait RepositoryCollector
     public function collect_repositories(Monitor $monitor)
     {
         // milestones
-        $url = $_ENV['APP_SERVICE_URL'] . '/v1/github/orgs/' . $monitor->organization_name . '/projects/' . $monitor->project_identification . '/repositories/milestones/issues' . "?rootPageSize=10&milestonesPageSize=100&issuesPageSize=100&issues_states=open,closed";
+        $url = $_ENV['APP_SERVICE_URL'] . '/v1/github/orgs/' . $monitor->organization_name . '/projects/' . $monitor->project_identification . '/repositories/milestones/issues' . "?rootPageSize=10&milestonesPageSize=10&issuesPageSize=100&issues_states=open,closed";
 
         try {
             $response = Http::withHeaders([
@@ -33,14 +33,13 @@ trait RepositoryCollector
         if ($response->successful()) {
 
             $repositories = $response->json()['data']['organization']['projectV2']['repositories']['nodes'];
-
             $monitor->repositories()->delete();
 
             foreach ($repositories as $repositoryData) {
 
                 $repository = new Repository();
 
-                $repository->name = $repositoryData["name"];
+                $repository->name = "";
 
                 $get_repository = $monitor->repositories()->save($repository); // Save the repository
 
@@ -66,7 +65,7 @@ trait RepositoryCollector
             }
             return Repository::where("monitor_id", "=", $monitor->id)->get();
         } else {
-            throw new Exception("Looks like you ran out of tokens for " . $monitor->title . "!");
+            throw new Exception("Looks like you ran out of tokens for " . $monitor->title . "! " . $response->body() );
         }
     }
 }
