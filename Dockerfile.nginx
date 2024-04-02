@@ -2,46 +2,36 @@
 FROM node:20.11.1-alpine3.18 as install-and-build
 
 # Environment variables
-# npm ERR! Tracker "idealTree" already exists => npm i ERRORs, if there is not WORKDIR...
 WORKDIR /app
 ENV NODE_ENV=production
 
 # Build assets (context needed, that is why we don't copy packag.json and package-lock.json alone)
-COPY . /app
-COPY .env.docker.example /app/.env
-RUN npm install --frozen-lockfile --omit=dev --include=dev
+COPY . .
+COPY .env.docker.example .env
+RUN npm install --frozen-lockfile --production --include=dev
 RUN npm run build --optimize
 
 # --------------------------------------------------------------------------------------------
 # Install Laravel framework system requirements (https://laravel.com/docs/10.x/deployment)
-FROM dunglas/frankenphp:1.1.0-php8.2.16-alpine as base
+FROM webdevops/php-nginx:8.3-alpine as base
 
-ARG USER=www-data
-
-RUN \
-	# Use "adduser -D ${USER}" for alpine based distros
-	useradd -D ${USER}; \
-	# Add additional capability to bind to port 80 and 443
-	setcap CAP_NET_BIND_SERVICE=+eip /usr/local/bin/frankenphp; \
-	# Give write access to /data/caddy and /config/caddy
-	chown -R ${USER}:${USER} /data/caddy && chown -R ${USER}:${USER} /config/caddy;
-
-USER ${USER}
-
+# Environment variables
+# ENV COMPOSER_ALLOW_SUPERUSER=1
+ENV WEB_DOCUMENT_ROOT=/app/public/
+# ENV WEB_DOCUMENT_INDEX=app/public/index.php
+ENV WEB_PHP_SOCKET=127.0.0.1:80
 ENV APP_ENV=production
+WORKDIR /app
 
 # Add Build Assets (js, css, json, etc.)
-COPY --from=install-and-build /app /app
+COPY --from=install-and-build /app .
 
-# Install PHP and required extensions
-RUN apk update
-RUN apk add --no-cache php82-session
-RUN install-php-extensions \
-	zip \
-    tokenizer
+# Copy Configuration files
+COPY nginx.conf /opt/docker/etc/nginx/conf.d
+COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
+# COPY php.ini /opt/docker/etc/php/php.ini
 
 # Install PHP dependencies
-RUN apk add --no-cache composer
 RUN composer install --no-interaction --optimize-autoloader --no-dev
 
 # Optimizing Configuration loading
@@ -58,6 +48,7 @@ RUN php artisan view:cache
 
 RUN chmod -R 755 /app/public
 RUN chmod 644 /app/public/index.php
+RUN chown -R application:application .
 
 RUN php artisan optimize
 
