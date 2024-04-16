@@ -28,7 +28,7 @@ new class extends Component
     {
         $this->load_monitors();
         $this->monitors = $this->monitors->filter(function ($monitor) {
-            return stripos($monitor->organization_name, $this->search) !== false;
+            return stripos($monitor->title, $this->search) !== false;
         });
     }
 }; ?>
