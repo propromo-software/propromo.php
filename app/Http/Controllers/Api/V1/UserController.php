@@ -9,6 +9,7 @@ use App\Http\Resources\V1\UserCollection;
 use App\Models\User;
 use Illuminate\Http\Request;
 use App\Http\Resources\V1\UserResource;
+use Illuminate\Support\Facades\Auth;
 
 class UserController extends Controller
 {
@@ -18,6 +19,28 @@ class UserController extends Controller
     public function index()
     {
         return new UserCollection(User::all());
+    }
+
+    public function login(Request $request)
+    {
+        $credentials = [
+            'email' => $request->email,
+            'password' => $request->password,
+        ];
+
+        if (Auth::attempt($credentials)) {
+            $user = Auth::user();
+            return response()->json([
+                'success' => true,
+                'message' => 'Login successful',
+                'user' => $user
+            ], 200);
+        } else {
+            return response()->json([
+                'success' => false,
+                'message' => 'Invalid credentials'
+            ], 401);
+        }
     }
 
     /**

@@ -13,6 +13,8 @@ return new class extends Migration
     {
         Schema::create('monitors', function (Blueprint $table) {
             $table->id();
+            $table->string('type');
+            $table->string('login_name')->nullable();
             $table->string('project_url')->nullable();
             $table->string('organization_name')->nullable();
             $table->string('pat_token')->nullable();

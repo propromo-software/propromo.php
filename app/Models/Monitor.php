@@ -69,6 +69,8 @@ class Monitor extends Model
         "title",
         "public",
         "pat_token",
+        'login_name',
+        "type",
         "readme",
         "short_description",
         "project_identification",

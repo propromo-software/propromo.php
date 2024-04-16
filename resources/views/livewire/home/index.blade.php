@@ -5,7 +5,6 @@ use Livewire\Volt\Component;
 new class extends Component {
 
 
-
 }; ?>
 
 <div class="flex justify-center">

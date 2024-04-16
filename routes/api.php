@@ -22,4 +22,5 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 // api/v1/
 Route::group(['prefix' => 'v1', 'namespace' => 'App\Http\Controllers\Api\V1'], function (){
     Route::apiResource('users', UserController::class);
+    Route::post('users/login', [UserController::class,'login']);
 });

@@ -17,7 +17,8 @@ trait RepositoryCollector
     public function collect_repositories(Monitor $monitor)
     {
         // milestones
-        $url = $_ENV['APP_SERVICE_URL'] . '/v1/github/orgs/' . $monitor->organization_name . '/projects/' . $monitor->project_identification . '/repositories/milestones/issues' . "?rootPageSize=10&milestonesPageSize=10&issuesPageSize=100&issues_states=open,closed";
+        $url = $monitor->type == 'ORGANIZATION' ?  $_ENV['APP_SERVICE_URL'] . '/v1/github/orgs/' . $monitor->organization_name . '/projects/' . $monitor->project_identification . '/repositories/milestones/issues' . "?rootPageSize=10&milestonesPageSize=10&issuesPageSize=100&issues_states=open,closed"
+        :  $_ENV['APP_SERVICE_URL'] . '/v1/github/users/' . $monitor->login_name . '/projects/' . $monitor->project_identification . '/repositories/milestones/issues' . "?rootPageSize=10&milestonesPageSize=10&issuesPageSize=100&issues_states=open,closed";
 
         try {
             $response = Http::withHeaders([
@@ -32,7 +33,7 @@ trait RepositoryCollector
         // delete existing milestones
         if ($response->successful()) {
 
-            $repositories = $response->json()['data']['organization']['projectV2']['repositories']['nodes'];
+            $repositories = $response->json()['data'][$monitor->type == 'ORGANIZATION' ? 'organization' : 'user']['projectV2']['repositories']['nodes'];
             $monitor->repositories()->delete();
 
             foreach ($repositories as $repositoryData) {
