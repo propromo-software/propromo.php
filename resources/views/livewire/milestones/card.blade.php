@@ -39,9 +39,12 @@ new class extends Component {
             </div>
         </div>
 
-        <a class="text-primary-blue font-bold flex flex-row-reverse text-xl cursor-pointer">
-            <sl-icon name="arrows-angle-expand"></sl-icon>
+        <a class="text-primary-blue font-bold flex flex-row-reverse text-xl cursor-pointer"
+           href="/monitors/{{ $milestone->repository->monitor->id }}/milestones/{{ $milestone->id }}"
+        >
+                <sl-icon name="arrows-angle-expand"></sl-icon>
         </a>
+
     </div>
 
 
