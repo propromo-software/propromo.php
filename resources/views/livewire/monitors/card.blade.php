@@ -39,7 +39,7 @@ new class extends Component
         return $this->monitor->repositories()->get();
     }
 
-    /*public function placeholder()
+   /*public function placeholder()
     {
         return <<<'HTML'
         <center class="p-10">

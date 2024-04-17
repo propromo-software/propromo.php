@@ -5,7 +5,12 @@ use \App\Models\Milestone;
 
 
 new class extends Component {
+
     public Milestone $milestone;
+
+    public $scope;
+    protected $queryString = ['scope'];
+
 
     public function mount(Milestone $milestone)
     {
