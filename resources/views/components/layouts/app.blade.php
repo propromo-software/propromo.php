@@ -21,5 +21,8 @@
     {{ $slot }}
 </main>
 
+
+<livewire:base.api-changed-toast></livewire:base.api-changed-toast>
+
 </body>
 </html>

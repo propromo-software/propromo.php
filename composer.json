@@ -13,6 +13,7 @@
         "laravel/tinker": "^2.8",
         "livewire/livewire": "^3.4",
         "livewire/volt": "^1.6",
+        "pusher/pusher-php-server": "^7.2",
         "spatie/laravel-markdown": "^2.5"
     },
     "require-dev": {
