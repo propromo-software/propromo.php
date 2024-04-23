@@ -40,7 +40,7 @@ trait RepositoryCollector
 
                 $repository = new Repository();
 
-                $repository->name = "";
+                $repository->name = $repositoryData["name"];
 
                 $get_repository = $monitor->repositories()->save($repository); // Save the repository
 
