@@ -30,7 +30,12 @@ new class extends Component {
 
         <h1 class="mt-20 text-4xl text-center font-koulen text-secondary-grey">PROJECT PREVIEW</h1>
 
-        <iframe width="100%" height="315" src="https://www.youtube-nocookie.com/embed/SXmJH72-O5g?si=if48WPOjUBCZZyi4&amp;controls=0&amp;autoplay=1&amp;loop=1&amp;mute=1&amp;showinfo=0" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+        <div class="responsive-iframe-container">
+            <iframe class="responsive-iframe" src="https://player.vimeo.com/video/938289327?badge=0&amp;autopause=0&amp;player_id=0&amp;app_id=58479&background=1&responsive=1" frameborder="0" allow="autoplay; fullscreen; picture-in-picture; clipboard-write" title="Video Missing."></iframe>
+        </div>
+
+        <br>
+
     </div>
 </div>
 
