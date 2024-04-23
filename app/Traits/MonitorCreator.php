@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Str;
 use App\Traits\TokenCreator;
 use Exception;
+use Session;
 
 trait MonitorCreator
 {
@@ -93,7 +94,6 @@ trait MonitorCreator
             $monitor->public = $monitor_data['public'];
             $monitor->readme = $monitor_data['readme'];
         } else {
-            dd($response->body());
             throw new Exception("Error occurred while requesting your project!");
         }
 

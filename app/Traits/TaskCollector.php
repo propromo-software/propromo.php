@@ -1,5 +1,6 @@
 <?php
 
+
 namespace App\Traits;
 
 use App\Models\Milestone;
@@ -9,16 +10,16 @@ use Exception;
 use Illuminate\Support\Facades\Http;
 
 
-trait RepositoryCollector
+trait TaskCollector
 {
     /**
      * @throws Exception
      */
-    public function collect_repositories(Monitor $monitor)
+    public function collect_tasks(Monitor $monitor)
     {
         // milestones
-        $url = $monitor->type == 'ORGANIZATION' ?  $_ENV['APP_SERVICE_URL'] . '/v1/github/orgs/' . $monitor->organization_name . '/projects/' . $monitor->project_identification . '/repositories/milestones/issues' . "?rootPageSize=10&milestonesPageSize=10&issuesPageSize=100&issues_states=open,closed"
-        :  $_ENV['APP_SERVICE_URL'] . '/v1/github/users/' . $monitor->login_name . '/projects/' . $monitor->project_identification . '/repositories/milestones/issues' . "?rootPageSize=10&milestonesPageSize=10&issuesPageSize=100&issues_states=open,closed";
+        $url = $monitor->type == 'ORGANIZATION' ? $_ENV['APP_SERVICE_URL'] . '/v1/github/orgs/' . $monitor->organization_name . '/projects/' . $monitor->project_identification . '/repositories/milestones/issues' . "?rootPageSize=10&milestonesPageSize=10&issuesPageSize=100&issues_states=open,closed"
+            : $_ENV['APP_SERVICE_URL'] . '/v1/github/users/' . $monitor->login_name . '/projects/' . $monitor->project_identification . '/repositories/milestones/issues' . "?rootPageSize=10&milestonesPageSize=10&issuesPageSize=100&issues_states=open,closed";
 
         try {
             $response = Http::withHeaders([
@@ -54,7 +55,6 @@ trait RepositoryCollector
                                 'state' => $milestoneData['state'],
                                 'due_on' => ($timestamp = strtotime($milestoneData['dueOn'])) !== false ? date('Y-m-d H:i:s', $timestamp) : null,
                                 'description' => $milestoneData['description'],
-                                'milestone_id' => $milestoneData['number'],
                                 'progress' => $milestoneData['progressPercentage'],
                                 'open_issues_count' => intval($milestoneData['open_issues']['totalCount']),
                                 'closed_issues_count' => intval($milestoneData['closed_issues']['totalCount']),
@@ -67,7 +67,7 @@ trait RepositoryCollector
             }
             return Repository::where("monitor_id", "=", $monitor->id)->get();
         } else {
-            throw new Exception("Looks like you ran out of tokens for " . $monitor->title . "! " . $response->body() );
+            throw new Exception("Looks like you ran out of tokens for " . $monitor->title . "! " . $response->body());
         }
     }
 }

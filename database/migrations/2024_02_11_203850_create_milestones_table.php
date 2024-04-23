@@ -17,6 +17,7 @@ return new class extends Migration {
             $table->string("state");
             $table->string("description")->nullable();
             $table->dateTime("due_on")->nullable();
+            $table->integer("milestone_id");
             $table->integer("open_issues_count")->nullable();
             $table->integer("closed_issues_count")->nullable();
             $table->double("progress");

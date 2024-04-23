@@ -62,6 +62,7 @@ class Milestone extends Model
         "description",
         "progress",
         "due_on",
+        "milestone_id",
         "open_issues_count",
         "closed_issues_count",
         "repository_id"
