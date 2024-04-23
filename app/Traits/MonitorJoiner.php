@@ -7,6 +7,7 @@ use App\Models\User;
 use Exception;
 use Illuminate\Support\Facades\Auth;
 
+
 trait MonitorJoiner
 {
     /**
@@ -17,7 +18,6 @@ trait MonitorJoiner
         $monitor = Monitor::whereMonitorHash($monitor_hash)->first();
 
         if (!is_null($monitor)) {
-
             $current_user_projects = User::find(Auth::user()->id)
                 ->monitors()
                 ->where("monitor_hash", "=", $monitor_hash)

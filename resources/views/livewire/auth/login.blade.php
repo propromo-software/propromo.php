@@ -26,9 +26,8 @@ new class extends Component {
                 'email' => $this->email,
                 'password' => $this->password,
             ];
-
             if (Auth::attempt($credentials)) {
-                return redirect('/projects');
+                return redirect('/monitors');
             } else {
                 throw new Exception("Cannot find user!");
             }

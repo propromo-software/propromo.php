@@ -10,7 +10,7 @@
             <!-- Blade file (e.g., your-component.blade.php) -->
         <div class="flex gap-3 items-center">
             <sl-input wire:ignore id="monitor_hash" type="text" value="{{$monitor_hash}}" disabled></sl-input>
-            <sl-icon wire:ignore onclick="copyToClipboard('{{ $monitor_hash }}')" id="copyIcon" name="copy" class="text-2xl text-primary-blue cursor-pointer" from="monitor_hash"></sl-icon>
+            <sl-icon wire:ignore onclick="copyToClipboard('http://propromo.test/monitors/join/{{ $monitor_hash }}')" id="copyIcon" name="copy" class="text-2xl text-primary-blue cursor-pointer" from="monitor_hash"></sl-icon>
             <script>
                 function copyToClipboard(text) {
                     let copyIcon = document.getElementById("copyIcon");

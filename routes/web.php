@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Auth\GithubController;
+use \App\Http\Controllers\MonitorController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Route;
@@ -28,5 +29,7 @@ Volt::route('/join', 'auth.join-monitor');
 Volt::route('/register', 'auth.register');
 
 Volt::route('/repos', 'repositories.list');
+
+Route::get('/monitors/join/{monitor_hash}', [MonitorController::class, 'join']);
 
 
