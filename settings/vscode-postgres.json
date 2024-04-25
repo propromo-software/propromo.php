@@ -1,0 +1,9 @@
+{
+    "label": "propromo-postgres-dev",
+    "host": "127.0.0.1",
+    "user": "postgres",
+    "port": 5432,
+    "ssl": false,
+    "database": "propromo",
+    "password": "propromo"
+}
