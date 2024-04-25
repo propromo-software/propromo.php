@@ -39,21 +39,24 @@ new class extends Component
         return $this->monitor->repositories()->get();
     }
 
-   /*public function placeholder()
+
+    public function placeholder()
     {
         return <<<'HTML'
-        <center class="p-10">
+        <center class="p-10" wire:key="{{ $monitor->id }}">
             <sl-spinner class="text-7xl" style="--track-width: 9px;"></sl-spinner>
         </center>
         HTML;
-    }*/
+    }
+
+
 };
 ?>
 
 <div class="w-full p-5 items-center rounded-xl">
     <div class="flex items-center justify-between mb-5">
         <a class="text-secondary-grey text-lg font-sourceSansPro font-bold rounded-md border-2 border-other-grey px-6 py-3" href="/monitors/{{ $monitor->id }}" title="Show Monitor">
-            {{strtoupper($monitor->type == 'USER' ? $monitor->login_name : $monitor->organization_name)}} / {{strtoupper($monitor->title)}}
+            {{ strtoupper($monitor->type == 'USER' ? $monitor->login_name : $monitor->organization_name) }} / {{ strtoupper($monitor->title) }}
         </a>
 
         <div class="flex items-center gap-2">

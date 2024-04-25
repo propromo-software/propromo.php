@@ -33,7 +33,7 @@ trait RepositoryCollector
         // delete existing milestones
         if ($response->successful()) {
 
-            $repositories = $response->json()['data'][$monitor->type == 'ORGANIZATION' ? 'organization' : 'user']['projectV2']['repositories']['nodes'];
+            $repositories = $response->json();
             $monitor->repositories()->delete();
 
             foreach ($repositories as $repositoryData) {

@@ -1,7 +1,7 @@
 <?php
 
+use App\Http\Controllers\Api\V1\MonitorController;
 use App\Http\Controllers\Auth\GithubController;
-use \App\Http\Controllers\MonitorController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Route;

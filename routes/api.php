@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Api\V1\MonitorController;
 use App\Http\Controllers\Api\V1\UserController;
 use App\Http\Controllers\Api\V1\ChangeDetectionController;
 
@@ -26,6 +27,9 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 Route::group(['prefix' => 'v1', 'namespace' => 'App\Http\Controllers\Api\V1'], function (){
     Route::apiResource('users', UserController::class);
     Route::post('users/login', [UserController::class,'login']);
-    Route::post('/on-api-change',[ChangeDetectionController::class, 'detected']);
+    Route::post('/on-api-change', [ChangeDetectionController::class, 'detected']);
+    Route::post('/join-monitor', [MonitorController::class, 'join_api']);
+    Route::get('/monitors/{email}', [MonitorController::class, 'show']);
+
 });
 

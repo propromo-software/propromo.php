@@ -11,7 +11,6 @@ new class extends Component {
     public $scope;
     protected $queryString = ['scope'];
 
-
     public function mount(Milestone $milestone)
     {
         $this->milestone = $milestone;
@@ -21,5 +20,4 @@ new class extends Component {
 }; ?>
 
 <div>
-
 </div>

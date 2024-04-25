@@ -8,7 +8,6 @@ new class extends Component {
 
     public function mount(Monitor $monitor)
     {
-        Session::put('monitor_hash', $monitor->monitor_hash);
         $this->monitor = $monitor;
     }
 

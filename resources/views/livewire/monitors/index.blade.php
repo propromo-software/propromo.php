@@ -40,13 +40,13 @@ new class extends Component
     </sl-input>
 
     @php
-    $monitor_count = count($monitors);
+        $monitor_count = count($monitors);
     @endphp
 
     @if($monitor_count > 0)
     @foreach($monitors as $monitor)
-    <div class="border-other-grey border-2 rounded-2xl mt-4" wire:key="{{$monitor->id}}">
-        <livewire:monitors.card lazy="true" :monitor="$monitor" :key="$monitor->id" />
+    <div class="border-other-grey border-2 rounded-2xl mt-4" wire:key="{{ $monitor->id }}">
+        <livewire:monitors.card lazy="true" :monitor="$monitor"/>
     </div>
     @endforeach
     @else
