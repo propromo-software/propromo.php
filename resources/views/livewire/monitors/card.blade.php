@@ -20,6 +20,7 @@ new class extends Component
                 $this->collect_repositories($monitor);
             }
             $this->monitor = $monitor;
+            $this->dispatch('monitor-hash-changed', $this->monitor->monitor_hash);
         } catch (Exception $e) {
             $this->collect_repos_error = $e->getMessage();
             $this->error_head = "Seems like something went wrong...";
@@ -39,29 +40,28 @@ new class extends Component
         return $this->monitor->repositories()->get();
     }
 
-/*
-    public function placeholder()
-    {
-        return <<<'HTML'
-        <center class="p-10" wire:key="{{ $monitor->id }}">
-            <sl-spinner class="text-7xl" style="--track-width: 9px;"></sl-spinner>
-        </center>
-        HTML;
-    }
-*/
-
+    /*
+        public function placeholder()
+        {
+            return <<<'HTML'
+            <center class="p-10" wire:key="{{ $monitor->id }}">
+                <sl-spinner class="text-7xl" style="--track-width: 9px;"></sl-spinner>
+            </center>
+            HTML;
+        }
+    */
 
 };
 ?>
 
 <div class="w-full p-5 items-center rounded-xl">
     <div class="flex items-center justify-between mb-5">
-        <a class="text-secondary-grey text-lg font-sourceSansPro font-bold rounded-md border-2 border-other-grey px-6 py-3" href="/monitors/{{ $monitor->id }}" title="Show Monitor">
+        <a  class="text-secondary-grey text-lg font-sourceSansPro font-bold rounded-md border-2 border-other-grey px-6 py-3" href="/monitors/{{ $monitor->id }}" title="Show Monitor">
             {{ strtoupper($monitor->type == 'USER' ? $monitor->login_name : $monitor->organization_name) }} / {{ strtoupper($monitor->title) }}
         </a>
 
         <div class="flex items-center gap-2">
-            <a class="flex items-center gap-1 rounded-md border-2 border-other-grey px-6 py-3" href="/monitors/{{ $monitor->id }}" title="Show User">
+            <a class="flex items-center gap-1 rounded-md border-2 border-other-grey px-6 py-3" wire:click="fireMonitorHashChangedEvent" href="/monitors/{{ $monitor->id }}" title="Show User">
                 <sl-icon wire:ignore class="text-secondary-grey font-sourceSansPro text-xl font-bold" name="chat"></sl-icon>
                 <div>
                     <div class="text-secondary-grey font-sourceSansPro text-lg font-bold">
