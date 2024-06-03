@@ -3,19 +3,17 @@
 use Livewire\Volt\Component;
 use Livewire\Attributes\On;
 
-
 new class extends Component {
 
-    public $monitor_hash;
+    public $monitor_hash = null;
 
-    public function mount($monitor_hash=null)
+    public function mount($monitor_hash = null)
     {
-        $this->monitor_hash = $monitor_hash;
-
+        $this->$monitor_hash = $monitor_hash;
     }
 
     #[On('monitor-hash-changed')]
-    public function updateMonitorHash($monitor_hash = null)
+    public function updateMonitorHash($monitor_hash)
     {
         $this->monitor_hash = $monitor_hash;
         $this->mount($monitor_hash);
@@ -23,19 +21,26 @@ new class extends Component {
 
 }; ?>
 
-<div class="flex gap-3 items-center">
-    <sl-input wire:ignore id="monitor_hash"
-              type="text" value="{{$monitor_hash}}"
-              disabled></sl-input>
-    <sl-icon wire:ignore onclick="copyToClipboard('http://propromo.test/monitors/join/{{ $monitor_hash }}')"
-             id="copyIcon"
-             name="copy"
-             class="text-2xl text-primary-blue cursor-pointer"
-             from="monitor_hash"></sl-icon>
+<div class="flex gap-4 items-center">
+    <label for="monitor_hash"></label><input id="monitor_hash"
+                                             type="text"
+                                             value="{{$monitor_hash}}"
+                                             disabled
+                                             class="px-4 py-2 border border-secondary-grey rounded-md shadow-sm cursor-pointer"/>
+
+    <x-bi-copy onclick="copyToClipboard('http://propromo.test/monitors/join/{{ $monitor_hash }}')"
+               id="copyIcon"
+               name="copy"
+               class="w-7 h-7 text-primary-blue cursor-pointer"
+               from="monitor_hash"/>
+
+    <x-bi-check id="checkIcon"
+                class="w-7 h-7 text-primary-blue cursor-pointer hidden"/>
+
     <script>
         function copyToClipboard(text) {
             let copyIcon = document.getElementById("copyIcon");
-            let originalIconName = copyIcon.getAttribute("name");
+            let checkIcon = document.getElementById("checkIcon");
 
             let monitorHash = document.createElement("textarea");
             monitorHash.textContent = text;
@@ -44,10 +49,14 @@ new class extends Component {
             document.execCommand("copy");
             document.body.removeChild(monitorHash);
 
-            copyIcon.setAttribute("name", "check-lg");
+            // Hide the copy icon and show the check icon
+            copyIcon.classList.add('hidden');
+            checkIcon.classList.remove('hidden');
 
+            // Revert back to the original icon after a delay
             setTimeout(function() {
-                copyIcon.setAttribute("name", originalIconName);
+                checkIcon.classList.add('hidden');
+                copyIcon.classList.remove('hidden');
             }, 500);
         }
     </script>

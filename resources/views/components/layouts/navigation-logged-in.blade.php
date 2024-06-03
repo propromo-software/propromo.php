@@ -18,12 +18,9 @@ new class extends Component {
 
     <div class="flex gap-x-5">
 
-        @php
-            $monitor_hash = Session::has("monitor_hash") ? Session::get("monitor_hash") : 'no monitors available';
-        @endphp
 
         @if(Route::current()->parameter('monitor'))
-            <livewire:base.copy-monitor-id :monitor_hash="$monitor_hash">
+            <livewire:base.copy-monitor-id>
         @endif
 
         <div class="flex items-center gap-2">

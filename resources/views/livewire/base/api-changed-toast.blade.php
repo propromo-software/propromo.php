@@ -12,7 +12,6 @@ new class extends Component {
     {
       $this->show_reload_toast = true;
     }
-
 }; ?>
 
 <div>
