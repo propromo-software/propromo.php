@@ -4,6 +4,7 @@ namespace App\Traits;
 
 use App\Models\Monitor;
 use App\Models\User;
+use Illuminate\Support\Str;
 use Exception;
 use Illuminate\Support\Facades\Auth;
 
@@ -13,8 +14,12 @@ trait MonitorJoiner
     /**
      * @throws Exception
      */
-    public function join_monitor($monitor_hash)
+    public function join_monitor($monitor_input)
     {
+        $monitor_hash = $monitor_input;
+        if(Str::contains($monitor_input, 'join')){
+            $monitor_hash = Str::after($monitor_hash,'join');
+        }
         $monitor = Monitor::whereMonitorHash($monitor_hash)->first();
 
         if (!is_null($monitor)) {

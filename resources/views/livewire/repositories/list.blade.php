@@ -32,9 +32,9 @@ new class extends Component
 <div>
     <div class="overflow-x-auto flex items-center gap-8">
         @foreach($repositories as $repository)
-        @php
-        $milestonesCount = $repository->milestones()->count();
-        @endphp
+            @php
+            $milestonesCount = $repository->milestones()->count();
+            @endphp
 
         @if($milestonesCount > 0)
         <div wire:key="{{ $repository->id }}">

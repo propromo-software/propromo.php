@@ -18,8 +18,7 @@ new class extends Component {
 
     <div class="flex gap-x-5">
 
-
-        @if(Route::current()->parameter('monitor'))
+        @if(count(request()->segments()) == 2 && request()->segment(1) == 'monitors')
             <livewire:base.copy-monitor-id>
         @endif
 

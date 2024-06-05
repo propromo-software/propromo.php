@@ -26,7 +26,7 @@ new class extends Component {
                                              type="text"
                                              value="{{$monitor_hash}}"
                                              disabled
-                                             class="px-4 py-2 border border-secondary-grey rounded-md shadow-sm cursor-pointer"/>
+                                             class="px-4 py-2 opacity-75 rounded-md cursor-pointer"/>
 
     <x-bi-copy onclick="copyToClipboard('http://propromo.test/monitors/join/{{ $monitor_hash }}')"
                id="copyIcon"

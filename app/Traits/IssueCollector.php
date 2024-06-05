@@ -10,7 +10,7 @@ use Exception;
 use Illuminate\Support\Facades\Http;
 
 
-trait TaskCollector
+trait IssueCollector
 {
     /**
      * @throws Exception

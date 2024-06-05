@@ -35,7 +35,6 @@ new class extends Component {
         </div>
 
         <br>
-
     </div>
 </div>
 

@@ -9,42 +9,104 @@ new class extends Component {
     public Task $task;
 
     public function mount(Task $task){
-        $this->$task = $task
+        $this->task = $task;
     }
-}
-
 
     //
 }; ?>
 
-<div class="w-full p-5 items-center rounded-xl">
-    <div class="flex items-center justify-between mb-5">
-        <a class="text-secondary-grey text-lg font-sourceSansPro font-bold rounded-md border-2 border-other-grey px-6 py-3" href="/monitors/{{ $monitor->id }}" title="Show Monitor">
-            {{strtoupper($monitor->type == 'USER' ? $monitor->login_name : $monitor->organization_name)}} / {{strtoupper($monitor->title)}}
-        </a>
+<div class="w-full items-center rounded-xl">
+    <div class="px-6 py-4 border-2 rounded-xl border-other-grey w-max max-h-full">
 
-        <div class="flex items-center gap-2">
-            <a class="flex items-center gap-1 rounded-md border-2 border-other-grey px-6 py-3" href="/monitors/{{ $monitor->id }}" title="Show User">
-                <sl-icon wire:ignore class="text-secondary-grey font-sourceSansPro text-xl font-bold" name="chat"></sl-icon>
-                <div>
-                    <div class="text-secondary-grey font-sourceSansPro text-lg font-bold">
-                        CONTACT
-                    </div>
+        <div class="flex justify-between gap-20">
+
+            @php
+                $shortenedTitle = strlen($milestone->title) > 15 ? substr($milestone->title, 0, 15) . '...' : $milestone->title;
+            @endphp
+
+
+            <div>
+                <h1 class="text-primary-blue text-4xl font-koulen">
+                    {{$shortenedTitle}}
+                </h1>
+
+                <div class="flex gap-2 items-center">
+                    <sl-icon class="text-secondary-grey text-xl font-sourceSansPro font-bold" name="clock"></sl-icon>
+                    <p class="text-secondary-grey text-xl font-sourceSansPro font-bold">{{!is_null($milestone->due_on) ? date('d.m.y',strtotime($milestone->due_on)): "no date"}}</p>
                 </div>
+
+                <div class="flex gap-2 mt-8">
+                    <sl-button>
+                        <a href="/monitors/{{ $milestone->repository->monitor->id }}/milestones/{{ $milestone->id }}?scope=sprints">
+                            View Sprints
+                        </a>
+                    </sl-button>
+                    <sl-button>
+                        <a href="/monitors/{{ $milestone->repository->monitor->id }}/milestones/{{ $milestone->id }}?scope=tasks">
+                            View Tasks
+                        </a>
+                    </sl-button>
+                </div>
+            </div>
+
+            <a class="text-primary-blue font-bold flex flex-row-reverse text-xl cursor-pointer"
+               href="/monitors/{{ $milestone->repository->monitor->id }}/milestones/{{ $milestone->id }}?scope=issues"
+            >
+                <sl-icon name="arrows-angle-expand"></sl-icon>
             </a>
 
-            <sl-icon-button class="text-3xl text-secondary-grey" name="arrow-repeat" label="Reload" type="submit" wire:ignore wire:click="reload_repositories"></sl-icon-button>
+        </div>
+
+
+        @php
+            $total_issue_count = $milestone->open_issues_count + $milestone->closed_issues_count;
+            $closed_issue_count = $milestone->closed_issues_count;
+        @endphp
+
+
+        <div class="mt-5 w-full">
+
+            @if($milestone->progress >= 80)
+                <div class="flex justify-between">
+                    <div class="text-additional-green font-sourceSansPro font-bold">{{$closed_issue_count}}/{{$total_issue_count}} Tasks
+                    </div>
+                    <div class="text-additional-green font-sourceSansPro font-bold">{{round($milestone->progress,2)}}%</div>
+                </div>
+
+                <sl-progress-bar class="caret-additional-green"
+                                 style="--indicator-color: #229342; --track-color:#22934244; --height: 2rem;"
+                                 value="{{$milestone->progress}}">
+
+                </sl-progress-bar>
+
+            @elseif($milestone->progress >= 50)
+
+                <div class="flex justify-between">
+                    <div class="text-additional-orange font-sourceSansPro font-bold">{{$closed_issue_count}}/{{$total_issue_count}} Tasks
+                    </div>
+                    <div class="text-additional-orange font-sourceSansPro font-bold">{{round($milestone->progress,2)}}%
+                    </div>
+                </div>
+
+                <sl-progress-bar class="caret-additional-green "
+                                 style="--indicator-color: #FBC116; --track-color:#fbc2164f; --height: 2rem;"
+                                 value="{{$milestone->progress}}">
+                </sl-progress-bar>
+            @else
+
+                <div class="flex justify-between">
+                    <div class="text-additional-red font-sourceSansPro font-bold">{{$closed_issue_count}}/{{$total_issue_count}} Tasks
+                    </div>
+                    <div class="text-additional-red font-sourceSansPro font-bold">{{round($milestone->progress,2)}}%</div>
+                </div>
+
+                <sl-progress-bar
+                    class="caret-additional-green"
+                    style="--indicator-color: #E33B2E;--track-color:#e33a2e4e; --height: 2rem;"
+                    value="{{$milestone->progress}}">
+                </sl-progress-bar>
+
+            @endif
         </div>
     </div>
-    <livewire:repositories.list :monitor_id="$monitor->id" />
-
-
-    @if($collect_repos_error)
-        <sl-alert variant="danger" open closable>
-            <sl-icon wire:ignore slot="icon" name="patch-exclamation"></sl-icon>
-            <strong>{{$error_head}}</strong><br />
-            {{$collect_repos_error}}
-        </sl-alert>
-    @endif
-
 </div>

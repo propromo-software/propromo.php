@@ -44,11 +44,11 @@ new class extends Component
     @endphp
 
     @if($monitor_count > 0)
-    @foreach($monitors as $monitor)
-    <div class="border-other-grey border-2 rounded-2xl mt-4" wire:key="{{ $monitor->id }}">
-        <livewire:monitors.card lazy="true" :monitor="$monitor"/>
-    </div>
-    @endforeach
+        @foreach($monitors as $monitor)
+        <div class="border-other-grey border-2 rounded-2xl mt-4" wire:key="{{ $monitor->id }}">
+            <livewire:monitors.card lazy="true" :monitor="$monitor"/>
+        </div>
+        @endforeach
     @else
     <h1 class="text-primary-blue font-koulen text-2xl text-center">Currently no Monitors avaibale! </h1>
     @endif
