@@ -77,11 +77,11 @@ new class extends Component
 
 
     @if($collect_repos_error)
-    <sl-alert variant="danger" open closable>
-        <sl-icon wire:ignore slot="icon" name="patch-exclamation"></sl-icon>
-        <strong>{{$error_head}}</strong><br />
-        {{$collect_repos_error}}
-    </sl-alert>
+        <sl-alert variant="danger" open closable>
+            <sl-icon wire:ignore slot="icon" name="patch-exclamation"></sl-icon>
+            <strong>{{$error_head}}</strong><br />
+            {{$collect_repos_error}}
+        </sl-alert>
     @endif
 
 </div>
