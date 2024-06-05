@@ -18,7 +18,7 @@ trait MonitorJoiner
     {
         $monitor_hash = $monitor_input;
         if(Str::contains($monitor_input, 'join')){
-            $monitor_hash = Str::after($monitor_hash,'join');
+            $monitor_hash = Str::after($monitor_hash,'join/');
         }
         $monitor = Monitor::whereMonitorHash($monitor_hash)->first();
 

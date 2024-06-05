@@ -3,9 +3,7 @@
 use Livewire\Volt\Component;
 
 new class extends Component {
-
     public $monitor_hash;
-
 
 
 }
