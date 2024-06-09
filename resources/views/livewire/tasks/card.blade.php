@@ -15,7 +15,7 @@ new class extends Component {
     //
 }; ?>
 
-<div class="w-full items-center rounded-xl">
+<div class="items-center rounded-xl">
     <div class="px-6 py-4 border-2 rounded-xl border-other-grey w-max max-h-full">
 
         <div class="flex justify-between gap-20">
@@ -43,13 +43,6 @@ new class extends Component {
                     </sl-button>
                 </div>
             </div>
-
-            <a class="text-primary-blue font-bold flex flex-row-reverse text-xl cursor-pointer"
-               href="/monitors//milestones/?scope=issues"
-            >
-                <sl-icon name="arrows-angle-expand"></sl-icon>
-            </a>
-
         </div>
     </div>
 </div>

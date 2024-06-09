@@ -10,9 +10,76 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use App\Http\Resources\V1\UserResource;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 
 class UserController extends Controller
 {
+    public function updateEmail(Request $request)
+    {
+        $request->validate([
+            'email' => 'required|email',
+            'newEmail' => 'required|email|unique:users,email'
+        ]);
+
+        $user = User::where('email', '=', $request->email)->first();
+
+        if ($user->email !== $request->email) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Current email does not match'
+            ], 401);
+        }
+
+        try {
+            $user->email = $request->newEmail;
+            $user->save();
+
+            return response()->json([
+                'success' => true,
+                'message' => 'Email updated successfully'
+            ], 200);
+        } catch (QueryException $e) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Failed to update email',
+                'error' => $e->getMessage()
+            ], 500);
+        }
+    }
+
+    public function updatePassword(Request $request)
+    {
+        $request->validate([
+            'email' => 'required|email',
+            'newPassword' => 'required|string|min:6',
+        ]);
+
+       $user = User::where('email', '=', $request->email)->first();
+
+
+        if ($user->email !== $request->email) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Current email does not match'
+            ], 401);
+        }
+
+        try {
+            $user->password = Hash::make($request->newPassword);
+            $user->save();
+
+            return response()->json([
+                'success' => true,
+                'message' => 'Password updated successfully'
+            ], 200);
+        } catch (QueryException $e) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Failed to update password',
+                'error' => $e->getMessage()
+            ], 500);
+        }
+    }
     /**
      * Display a listing of the resource.
      */

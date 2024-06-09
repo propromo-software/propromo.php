@@ -18,7 +18,7 @@ new class extends Component {
 };
 ?>
 
-<div class="h-full flex gap-2 items-center">
+<div class="h-full flex gap-2 items-center ">
     @foreach($milestones as $key => $milestone)
         @if ($loop->last)
             <livewire:milestones.card :milestone="$milestone" :key="$milestone->id"/>

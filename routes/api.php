@@ -31,6 +31,8 @@ Route::group(['prefix' => 'v1', 'namespace' => 'App\Http\Controllers\Api\V1'], f
     Route::post('/on-api-change', [ChangeDetectionController::class, 'detected']);
     Route::post('/join-monitor', [MonitorController::class, 'join_api']);
     Route::get('/monitors/{email}', [MonitorController::class, 'show']);
+    Route::put('/users/update/email', [UserController::class, 'updateEmail']);
+    Route::put('/users/update/password', [UserController::class, 'updatePassword']);
     Route::get('/repositories/{id}', [RepositoryController::class, 'get_repository_by_monitor_id']);
     Route::get('/milestones/{repository_id}', [MilestoneController::class, 'get_by_repository_id']);
     Route::get('/repositories/{monitor_hash}', [RepositoryController::class, 'get_repository_by_monitor_hash']);

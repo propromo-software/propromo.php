@@ -17,6 +17,10 @@ trait IssueCollector
      */
     public function collect_tasks(Monitor $monitor)
     {
+        //https://rest-microservice.onrender.com/v1/github/orgs
+        ///{login_name}/projects/{project_id_or_name}
+        /// /repositories/milestones/{milestone_id}/issues
+
         // milestones
         $url = $monitor->type == 'ORGANIZATION' ? $_ENV['APP_SERVICE_URL'] . '/v1/github/orgs/' . $monitor->organization_name . '/projects/' . $monitor->project_identification . '/repositories/milestones/issues' . "?rootPageSize=10&milestonesPageSize=10&issuesPageSize=100&issues_states=open,closed"
             : $_ENV['APP_SERVICE_URL'] . '/v1/github/users/' . $monitor->login_name . '/projects/' . $monitor->project_identification . '/repositories/milestones/issues' . "?rootPageSize=10&milestonesPageSize=10&issuesPageSize=100&issues_states=open,closed";

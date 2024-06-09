@@ -40,7 +40,7 @@ new class extends Component {
 }; ?>
 
 <div>
-    <div class="overflow-x-auto flex items-center">
+    <div class="overflow-x-auto flex items-center gap-5">
         @foreach($tasks as $task)
             <livewire:tasks.card :task="$task"></livewire:tasks.card>
         @endforeach

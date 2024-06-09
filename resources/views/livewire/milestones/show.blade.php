@@ -16,6 +16,11 @@ new class extends Component {
         $this->milestone = $milestone;
     }
 
+    function reload_issues()
+    {
+        dd("cool works!");
+    }
+
 
 }; ?>
 
@@ -28,18 +33,29 @@ new class extends Component {
             <a href="/monitors/{{$milestone->repository->monitor->id}}" title="Show Monitor" class="flex items-center">
                 <sl-icon class="cursor-pointer text-primary-blue text-4xl rounded-md border-2 p-2 border-other-grey" name="arrow-left-short" wire:ignore></sl-icon>
             </a>
-            <a class="flex items-center gap-1 rounded-md border-2 border-other-grey px-6 py-3" wire:click="fireMonitorHashChangedEvent" title="Show User">
-                <sl-icon wire:ignore class="text-secondary-grey font-sourceSansPro text-xl font-bold" name="chat"></sl-icon>
-                <div>
-                    <div class="text-secondary-grey font-sourceSansPro text-lg font-bold">
+            <div class="flex items-center gap-1 rounded-md border-2 border-other-grey px-6 py-3"  title="Show User">
+
+                @if($milestone->progress >= 100.00)
+                    <sl-icon wire:ignore class="text-additional-green font-sourceSansPro text-xl font-bold" name="check-circle"></sl-icon>
+                    <div class="text-additional-green font-sourceSansPro text-lg font-bold">
                         {{strtoupper($milestone->title)}}
                     </div>
-                </div>
-            </a>
+                @else
+                    <sl-icon wire:ignore class="text-additional-orange font-sourceSansPro text-xl font-bold" name="hammer"></sl-icon>
+                    <div class="text-additional-orange font-sourceSansPro text-lg font-bold">
+                        {{strtoupper($milestone->title)}}
+                    </div>
+                @endif
+
+
+
+            </div>
         </div>
 
-
-        <sl-icon class="cursor-pointer text-primary-blue text-3xl rounded-md border-2 p-2 border-other-grey" name="filter" wire:ignore></sl-icon>
+        <div class="flex gap-2 align-items-center">
+            <sl-icon class="cursor-pointer text-primary-blue text-3xl rounded-md border-2 p-2 border-other-grey" name="filter" wire:ignore></sl-icon>
+            <sl-icon-button class="text-3xl text-secondary-grey" name="arrow-repeat" label="Reload" type="submit" wire:ignore wire:click="reload_issues"></sl-icon-button>
+        </div>
 
     </div>
 
