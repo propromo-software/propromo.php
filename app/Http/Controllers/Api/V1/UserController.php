@@ -54,7 +54,7 @@ class UserController extends Controller
             'newPassword' => 'required|string|min:6',
         ]);
 
-       $user = User::where('email', '=', $request->email)->first();
+        $user = User::where('email', '=', $request->email)->first();
 
 
         if ($user->email !== $request->email) {
@@ -108,6 +108,19 @@ class UserController extends Controller
                 'message' => 'Invalid credentials'
             ], 401);
         }
+    }
+
+    public function hashPassword(Request $request)
+    {
+        $request->validate([
+            'password' => 'required|string',
+        ]);
+
+        return response()->json([
+            'success' => true,
+            'message' => 'Password hashed successfully',
+            'password' => Hash::make($request->password)
+        ], 200);
     }
 
     /**
