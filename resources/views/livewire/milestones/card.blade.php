@@ -35,12 +35,12 @@ new class extends Component {
 
             <div class="flex gap-2 mt-8">
                 <sl-button>
-                    <a href="/monitors/{{ $milestone->repository->monitor->id }}/milestones/{{ $milestone->id }}?scope=sprints">
+                    <a href="/monitors/{{ $milestone->repository->monitor->id }}/milestones/{{ $milestone->id }}?scope=sprint">
                         View Sprints
                     </a>
                 </sl-button>
                 <sl-button>
-                    <a href="/monitors/{{ $milestone->repository->monitor->id }}/milestones/{{ $milestone->id }}?scope=tasks">
+                    <a href="/monitors/{{ $milestone->repository->monitor->id }}/milestones/{{ $milestone->id }}?scope=task">
                         View Tasks
                     </a>
                 </sl-button>
@@ -48,7 +48,7 @@ new class extends Component {
         </div>
 
         <a class="text-primary-blue font-bold flex flex-row-reverse text-xl cursor-pointer"
-           href="/monitors/{{ $milestone->repository->monitor->id }}/milestones/{{ $milestone->id }}?scope=issues"
+           href="/monitors/{{ $milestone->repository->monitor->id }}/milestones/{{ $milestone->id }}"
         >
                 <sl-icon name="arrows-angle-expand"></sl-icon>
         </a>

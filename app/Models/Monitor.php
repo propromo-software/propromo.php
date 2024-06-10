@@ -56,6 +56,11 @@ use PhpParser\Builder;
  * @property-read int|null $repositories_count
  * @property string $monitor_hash
  * @method static \Illuminate\Database\Eloquent\Builder|Monitor whereMonitorHash($value)
+ * @property string $type
+ * @property string|null $login_name
+ * @method static \Illuminate\Database\Eloquent\Builder|Monitor whereLoginName($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Monitor whereOrganizationName($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Monitor whereType($value)
  * @mixin \Eloquent
  */
 class Monitor extends Model

@@ -42,6 +42,12 @@ use Laravel\Sanctum\HasApiTokens;
  * @method static \Illuminate\Database\Eloquent\Builder|User wherePatToken($value)
  * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Monitor> $monitors
  * @property-read int|null $monitors_count
+ * @property string|null $nickname
+ * @property string|null $github_id
+ * @property string $auth_type
+ * @method static \Illuminate\Database\Eloquent\Builder|User whereAuthType($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|User whereGithubId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|User whereNickname($value)
  * @mixin \Eloquent
  */
 class User extends Authenticatable

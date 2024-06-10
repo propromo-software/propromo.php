@@ -49,6 +49,8 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
  * @method static \Illuminate\Database\Eloquent\Builder|Milestone whereOpenIssueCount($value)
  * @property string|null $due_on
  * @method static \Illuminate\Database\Eloquent\Builder|Milestone whereDueOn($value)
+ * @property int $milestone_id
+ * @method static \Illuminate\Database\Eloquent\Builder|Milestone whereMilestoneId($value)
  * @mixin \Eloquent
  */
 class Milestone extends Model

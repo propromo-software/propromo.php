@@ -56,7 +56,6 @@ class UserController extends Controller
 
        $user = User::where('email', '=', $request->email)->first();
 
-
         if ($user->email !== $request->email) {
             return response()->json([
                 'success' => false,
