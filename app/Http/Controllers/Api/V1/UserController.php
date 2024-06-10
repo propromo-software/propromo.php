@@ -100,7 +100,8 @@ class UserController extends Controller
             return response()->json([
                 'success' => true,
                 'message' => 'Login successful',
-                'user' => $user
+                'user' => $user,
+                'hashedPassword' => Hash::make($request->password)
             ], 200);
         } else {
             return response()->json([
