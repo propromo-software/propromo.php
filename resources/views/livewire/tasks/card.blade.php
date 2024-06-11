@@ -60,7 +60,7 @@ new class extends Component {
             <div class="flex flex-wrap gap-2 mt-4">
                 @if($task->labels()->exists())
                     @foreach($task->labels as $label)
-                        <a href="http://propromo.test/monitors/1/milestones/23?scope={{$label->name}}" class="py-1.5 px-4 text-white rounded-xl text-sm border-primary-blue font-bold font-sourceSansPro cursor-pointer bg-primary-blue text-center">
+                        <a href="http://propromo.test/monitors/1/milestones/{{$task->milestone->id}}?scope={{$label->name}}" class="py-1.5 px-4 text-white rounded-xl text-sm border-primary-blue font-bold font-sourceSansPro cursor-pointer bg-primary-blue text-center">
                             {{$label->name}}
                         </a>
                     @endforeach
