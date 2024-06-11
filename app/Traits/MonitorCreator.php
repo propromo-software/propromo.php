@@ -22,11 +22,11 @@ trait MonitorCreator
     {
 
         // https://github.com/users/Stevan06v/projects/1
-        $monitor_hash = Hash::make($project_url, [
+        $monitor_hash = str_replace('/', '_', base64_encode(Hash::make($project_url, [
             'memory' => 516,
             'time' => 2,
             'threads' => 2,
-        ]);
+        ])));;
 
         $type = null;
         $organization_name = null;
