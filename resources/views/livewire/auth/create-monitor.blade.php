@@ -51,7 +51,7 @@ new class extends Component
                     <br>
                     <sl-input required wire:model="project_url" placeholder="Your Project-URL" type="text"></sl-input>
                     <br>
-                    <sl-switch wire:click="switchTo()">OPEN SOURCE</sl-switch>
+                    <sl-switch wire:click="switchTo()">Open Source</sl-switch>
 
                     <div class="responsive-iframe-container mt-4">
                         <iframe

@@ -49,7 +49,7 @@ new class extends Component
                 <form wire:submit.prevent="create">
                     <sl-input required wire:model="project_url" placeholder="Your Project-URL" type="text"></sl-input>
                     <br>
-                    <sl-switch wire:click="switchTo()">REGULAR</sl-switch>
+                    <sl-switch checked wire:click="switchTo()">Open Source</sl-switch>
 
                     <div class="responsive-iframe-container mt-4">
                         <iframe
