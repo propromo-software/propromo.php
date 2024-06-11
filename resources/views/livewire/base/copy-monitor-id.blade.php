@@ -28,7 +28,7 @@ new class extends Component {
                                              disabled
                                              class="px-4 py-2 opacity-75 rounded-md cursor-pointer"/>
 
-    <x-bi-copy onclick="copyToClipboard('{{$_ENV['APP_URL']}}/monitors/join/{{ $monitor_hash }}')"
+    <x-bi-copy onclick="copyToClipboard('{{url('/')}}/monitors/join/{{ $monitor_hash }}')"
                id="copyIcon"
                name="copy"
                class="w-7 h-7 text-primary-blue cursor-pointer"
