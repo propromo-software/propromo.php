@@ -8,12 +8,10 @@ new class extends Component
     use MonitorCreator;
 
     public $create_monitor_error;
-
     public $error_head;
-
     public $project_url;
-
     public $pat_token;
+    public $disable_pat_token = true; // New property to manage the checkbox state
 
     protected $rules = [
         'project_url' => 'required|min:10|max:2048'
@@ -34,25 +32,35 @@ new class extends Component
             return redirect('/register');
         }
     }
+
+    function switchTo()
+    {
+        return $this->redirect('create-open-source-monitor');
+    }
 }; ?>
 
 
 <div class="flex flex-col items-center mt-4 bg-gray-100 sm:justify-center sm:pt-0 dark:bg-gray-900">
     <div class="w-full sm:max-w-md mt-6 p-12 bg-white dark:bg-gray-800 border-[1px] border-border-color overflow-hidden sm:rounded-lg">
-
         <div class="flex justify-center">
             <div class="w-full max-w-md">
                 <h1 class="text-6xl font-koulen text-primary-blue mb-9">CREATE MONITOR</h1>
 
-                <form wire:submit="create">
-
-                    <sl-input required wire:ignore wire:model="pat_token" placeholder="Your PAT-Token" type="text"></sl-input>
+                <form wire:submit.prevent="create">
+                    <sl-input required wire:model="pat_token" placeholder="Your PAT-Token" type="text"></sl-input>
                     <br>
-                    <sl-input required wire:ignore wire:model="project_url" placeholder="Your Project-URL" type="text"></sl-input>
+                    <sl-input required wire:model="project_url" placeholder="Your Project-URL" type="text"></sl-input>
                     <br>
+                    <sl-switch wire:click="switchTo()">OPEN SOURCE</sl-switch>
 
-                    <div class="responsive-iframe-container">
-                        <iframe class="responsive-iframe" src="https://player.vimeo.com/video/953693369?badge=0&amp;autopause=0&amp;player_id=0&amp;app_id=58479&background=1&responsive=1" frameborder="0" allow="autoplay; fullscreen; picture-in-picture; clipboard-write" title="Video Missing."></iframe>
+                    <div class="responsive-iframe-container mt-4">
+                        <iframe
+                            class="responsive-iframe"
+                            src="https://player.vimeo.com/video/953693369?badge=0&amp;autopause=0&amp;player_id=0&amp;app_id=58479&background=1&responsive=1"
+                            frameborder="0"
+                            allow="autoplay; fullscreen; picture-in-picture; clipboard-write"
+                            title="Video Missing."
+                        ></iframe>
                     </div>
 
                     <div class="flex items-center justify-between mt-5">
@@ -60,7 +68,7 @@ new class extends Component
                             Already existing monitor?
                         </a>
 
-                        <sl-button wire:loading.attr="disabled" wire:ignore type="submit">Create</sl-button>
+                        <sl-button wire:loading.attr="disabled" type="submit">Create</sl-button>
                     </div>
                 </form>
             </div>
@@ -68,11 +76,11 @@ new class extends Component
     </div>
 
     @if($create_monitor_error)
-    <sl-alert variant="danger" open closable>
-        <sl-icon wire:ignore slot="icon" name="patch-exclamation"></sl-icon>
-        <strong>{{$error_head}}</strong><br />
-        {{$create_monitor_error}}
-    </sl-alert>
+        <sl-alert variant="danger" open closable>
+            <sl-icon wire:ignore slot="icon" name="patch-exclamation"></sl-icon>
+            <strong>{{$error_head}}</strong><br />
+            {{$create_monitor_error}}
+        </sl-alert>
     @endif
 
 </div>
