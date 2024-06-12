@@ -45,7 +45,6 @@ new class extends Component
         <div class="flex justify-center">
             <div class="w-full max-w-md">
                 <h1 class="text-6xl font-koulen text-primary-blue mb-9">CREATE MONITOR</h1>
-
                 <form wire:submit.prevent="create">
                     <sl-input required wire:model="project_url" placeholder="Your Project-URL" type="text"></sl-input>
                     <br>
