@@ -19,6 +19,10 @@ new class extends Component {
             <livewire:monitors.card lazy="true" :monitor="$monitor"/>
         </div>
 
+        <div class="border-other-grey border-2 rounded-2xl mt-8">
+            <livewire:monitors.monitor-dashboard :monitor="$monitor" lazy="true"/>
+        </div>
+
         <div class="mt-8 grid grid-cols-3 gap-8">
             <div class="col-span-2">
                 <livewire:monitors.read-me-view :monitor="$monitor"/>
