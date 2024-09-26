@@ -52,7 +52,12 @@ php ./vendor/bin/pest
 
 ## Production
 
-**Deployment URL:** https://propromo-d08144c627d3.herokuapp.com
+**Deployment URL:**
+
+* https://propromo.duckdns.org
+* https://propromo.dnset.com
+* https://propromo.simulatan.me
+* https://propromo-d08144c627d3.herokuapp.com
 
 [![Better Stack Badge](https://uptime.betterstack.com/status-badges/v1/monitor/zuzz.svg)](https://dub.sh/propromo-status)
 
