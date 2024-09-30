@@ -22,10 +22,10 @@ new class extends Component {
 
         <div class="flex items-center gap-2">
 
-            <a href="/settings">
+            <a href="/settings/profile">
                 <sl-icon name="gear-wide-connected" class="text-3xl font-bold text-primary-blue"></sl-icon>
             </a>
-            <a href="/settings">
+            <a href="/settings/profile">
                 <sl-icon name="person-circle" class="text-3xl font-bold text-primary-blue"></sl-icon>
             </a>
         </div>
