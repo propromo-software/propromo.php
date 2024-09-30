@@ -32,6 +32,9 @@ Volt::route('/register', 'auth.register');
 
 Volt::route('/repos', 'repositories.list');
 
+
+Volt::route('/settings', 'settings.index');
+
 Route::get('/monitors/join/{monitor_hash}', [MonitorController::class, 'join']);
 
 
