@@ -2,7 +2,9 @@
 
 use App\Models\User;
 use Livewire\Attributes\Validate;
+use Illuminate\Support\Facades\Auth;
 use Livewire\Volt\Component;
+use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Hash;
 
 new class extends Component {
@@ -34,6 +36,27 @@ new class extends Component {
             $this->account_edit_error_message = $e->getMessage();
             $this->error_head = "Seems like something went wrong...";
         }
+
+    }
+    public function delte_account()
+    {
+        try{
+            $user = User::whereId(Auth::user()->id)->first();
+            $user->monitors()->delete();
+            $user->delete();
+
+            Auth::logout();
+            return Redirect::to('login');
+        }catch (Exception $e){
+            $this->account_edit_error_message = $e->getMessage();
+            $this->error_head = "Seems like something went wrong...";
+        }
+    }
+
+    public function logout()
+    {
+        Auth::logout();
+        return Redirect::to('login');
     }
 }; ?>
 
@@ -50,6 +73,11 @@ new class extends Component {
         <br>
         <sl-button wire:ignore type="submit" wire:loading.attr="disabled" wire:ignore>Save</sl-button>
     </form>
+
+    <div class="flex justify-end gap-2 p-3.5">
+        <button wire:click="logout" class="text-white text-sm font-bold border-primary-blue bg-primary-blue border-2 rounded-md p-2">LOGOUT</button>
+        <button wire:click="delte_account" class="text-white text-sm font-bold border-additional-red bg-additional-red border-2 rounded-md p-2">DELTE</button>
+    </div>
 
     @if($account_edit_error_message)
         <sl-alert variant="danger" open closable>
