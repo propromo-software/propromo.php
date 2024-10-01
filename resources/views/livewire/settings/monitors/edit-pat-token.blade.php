@@ -28,8 +28,8 @@ new class extends Component {
         try {
             $this->validate();
             $monitor = Monitor::whereId($this->monitor_id)->first();
+            dd($this->monitor_id);
             $monitor->pat_token = $this->pat_token;
-
 
             $monitor->save();
             $this->pat_token_edit_success_message = "Successfully updated the PAT-TOKEN.";
@@ -46,7 +46,7 @@ new class extends Component {
         <br>
         <select id="customSelect" wire:model="monitor_id" class="block appearance-none w-full bg-white p-3 rounded-md border-other-grey border-2 text-gray-700">
             @foreach($monitors as $iterator)
-                <option value="{{ $iterator['id'] }}">{{ $iterator['organization_name'] }}</option>
+                <option value="{{ $iterator->id }}">{{ $iterator->organization_name }}</option>
             @endforeach
         </select>
 
