@@ -1,9 +1,7 @@
 <?php
 
-
 use Livewire\Volt\Component;
 use Livewire\Attributes\On;
-
 
 new class extends Component {
     public string $section = 'profile';
@@ -22,5 +20,7 @@ new class extends Component {
         <livewire:settings.profile.index></livewire:settings.profile.index>
     @elseif($section == 'monitors')
         <livewire:settings.monitors.index></livewire:settings.monitors.index>
+    @elseif($section == 'ui')
+        <livewire:settings.ui.index></livewire:settings.ui.index>
     @endif
 </div>
