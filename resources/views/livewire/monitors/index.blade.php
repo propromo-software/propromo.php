@@ -39,6 +39,7 @@ new class extends Component
         <sl-icon name="search" slot="prefix"></sl-icon>
     </sl-input>
 
+
     @php
         $monitor_count = count($monitors);
     @endphp

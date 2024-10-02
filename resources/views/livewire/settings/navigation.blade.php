@@ -20,6 +20,9 @@ new class extends Component {
         <button wire:click="switch_section('monitors')" class="{{ $current_section == 'monitors' ? 'bg-primary-blue text-white border-primary-blue' : '' }} w-full py-2 border-2 border-other-grey rounded-md font-koulen text-2xl h-min">
             MONITORS
         </button>
+        <button wire:click="switch_section('ui')" class="{{ $current_section == 'ui' ? 'bg-primary-blue text-white border-primary-blue' : '' }} w-full py-2 border-2 border-other-grey rounded-md font-koulen text-2xl h-min">
+            UI
+        </button>
 
     </div>
 </div>
