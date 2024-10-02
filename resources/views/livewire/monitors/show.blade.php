@@ -15,6 +15,9 @@ new class extends Component {
 
 <div>
     <div class="mx-8 mt-6">
+        <a href="/monitors" title="Show Monitor" class="flex items-center mb-2">
+            <sl-icon class="cursor-pointer text-primary-blue text-4xl rounded-md border-2 p-2 border-other-grey" name="arrow-left-short" wire:ignore></sl-icon>
+        </a>
         <div class="border-other-grey border-2 rounded-2xl">
             <livewire:monitors.card lazy="true" :monitor="$monitor"/>
         </div>

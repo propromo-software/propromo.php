@@ -56,6 +56,7 @@ new class extends Component
 
 <div class="w-full p-5 items-center rounded-xl">
     <div class="flex items-center justify-between mb-5">
+
         <a  class="text-secondary-grey text-lg font-sourceSansPro font-bold rounded-md border-2 border-other-grey px-6 py-3" href="/monitors/{{ $monitor->id }}" title="Show Monitor">
             {{ strtoupper($monitor->type == 'USER' ? $monitor->login_name : $monitor->organization_name) }} / {{ strtoupper($monitor->title) }}
         </a>

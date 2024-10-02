@@ -5,6 +5,7 @@ use Livewire\Volt\Component;
 
 new class extends Component {
     public Monitor $monitor;
+
     public function mount(Monitor $monitor)
     {
         $this->monitor = $monitor;

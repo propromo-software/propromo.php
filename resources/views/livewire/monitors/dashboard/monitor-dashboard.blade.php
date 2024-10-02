@@ -19,6 +19,8 @@ new class extends Component {
     public Monitor $monitor;
     public $dataFetched = false;
 
+    public $tasks = [];
+
 
     public function mount(Monitor $monitor)
     {
@@ -47,15 +49,14 @@ new class extends Component {
         $allMilestonesEmpty = true;
 
         foreach ($this->monitor->repositories as $repository) {
-            foreach ($repository->milestones as $milestone) {
-                if (!$milestone->tasks()->get()->isEmpty()) {
-                    $allMilestonesEmpty = false;
-                    break 2;
-                }
-            }
+            $repositoryTasks = $repository->milestones->flatMap(function ($milestone) {
+                return $milestone->tasks;
+            });
+
+            $this->tasks = array_merge($this->tasks, $repositoryTasks->all());
         }
 
-        if ($allMilestonesEmpty) {
+        if (empty($this->tasks)) {
             $this->reload_issues();
         }
 
