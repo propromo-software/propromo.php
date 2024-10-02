@@ -27,7 +27,7 @@ new class extends Component {
 };
 ?>
 
-<div>
+<div class="w-full lg:w-1/2">
     <h2 class="m-2 text-2xl font-koulen text-primary-blue">Milestones</h2>
     <div class="m-2 overflow-auto h-40 border border-other-grey rounded-md p-2.5">
         <div class="grid grid-cols-1 gap-2 xs:grid-cols-2">

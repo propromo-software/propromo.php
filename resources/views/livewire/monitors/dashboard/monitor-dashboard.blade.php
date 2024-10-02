@@ -114,7 +114,7 @@ new class extends Component {
     }
 }; ?>
 
-<div>
+<div class="w-full lg:w-auto lg:flex-shrink-0">
     <h2 class="m-2 text-2xl font-koulen text-primary-blue">Overview</h2>
     <div class="mb-5">
         <div class="w-full m-2">
