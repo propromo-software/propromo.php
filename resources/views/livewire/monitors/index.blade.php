@@ -35,6 +35,8 @@ new class extends Component
 
 <div class="mt-4 mx-8">
 
+
+
     <sl-input wire:ignore wire:model.live="search" class="w-max" placeholder="Search for a monitor...">
         <sl-icon name="search" slot="prefix"></sl-icon>
     </sl-input>
