@@ -28,10 +28,9 @@ new class extends Component {
 ?>
 
 <div>
-    <h2 class="m-2 font-koulen text-2xl text-primary-blue">Milestones</h2>
+    <h2 class="m-2 text-2xl font-koulen text-primary-blue">Milestones</h2>
     <div class="m-2 overflow-auto h-40 border border-other-grey rounded-md p-2.5">
-        <div class="grid grid-cols-2 gap-2">
-
+        <div class="grid grid-cols-1 gap-2 xs:grid-cols-2">
             @foreach($milestones as $milestone)
                 @php
                     $maxLength = 12;
@@ -41,11 +40,9 @@ new class extends Component {
                 <a href="/monitors/{{ $milestone->repository->monitor->id }}/milestones/{{ $milestone->id }}" wire:key="{{$milestone->id}}"
                    class="cursor-pointer flex border-other-grey border-2 rounded-md p-2.5 justify-start gap-2 items-center mb-2">
                     <sl-icon wire:ignore class="text-2xl text-primary-blue" name="flag"></sl-icon>
-                    <h1 class="text-primary-blue font-koulen text-xl">{{$shortTitle}}</h1>
+                    <h1 class="text-xl text-primary-blue font-koulen">{{$shortTitle}}</h1>
                 </a>
             @endforeach
-
         </div>
     </div>
 </div>
-

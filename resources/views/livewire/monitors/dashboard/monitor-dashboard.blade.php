@@ -114,46 +114,43 @@ new class extends Component {
     }
 }; ?>
 
-
 <div>
-    <h2 class="m-2 font-koulen text-2xl text-primary-blue">Overview</h2>
-    <div class="flex items-center justify-between mb-5">
-        <div class="m-2">
-            <div class="grid grid-cols-2 gap-5">
+    <h2 class="m-2 text-2xl font-koulen text-primary-blue">Overview</h2>
+    <div class="mb-5">
+        <div class="w-full m-2">
+            <div class="grid grid-cols-1 gap-3 sm:grid-cols-2 sm:gap-5">
                 <div>
                     <sl-badge class="mb-1" variant="neutral">Open Issues</sl-badge>
-                    <div class="text-white bg-additional-orange border-2 rounded-md p-2 flex justify-between gap-2 items-center" style="min-width: 150px; max-width: 300px; width: 100%;">
-                        <sl-icon wire:ignore name="calendar2-week" class="text-white font-sourceSansPro text-xl font-bold"></sl-icon>
-                        <div class="text-white text-xl font-sourceSansPro font-bold">{{$total_issues_open}}</div>
+                    <div class="flex items-center justify-between gap-2 p-2 text-white border-2 rounded-md bg-additional-orange" style="min-width: 150px; max-width: 300px; width: 100%;">
+                        <sl-icon wire:ignore name="calendar2-week" class="text-xl font-bold text-white font-sourceSansPro"></sl-icon>
+                        <div class="text-xl font-bold text-white font-sourceSansPro">{{$total_issues_open}}</div>
                     </div>
                 </div>
 
                 <div>
                     <sl-badge class="mb-1" variant="neutral">Closed Issues</sl-badge>
-                    <div class="border-additional-green bg-additional-green border-2 rounded-md p-2 flex justify-between gap-2 items-center" style="min-width: 150px; max-width: 300px; width: 100%;">
-                        <sl-icon wire:ignore name="calendar2-x" class="text-white font-sourceSansPro text-xl font-bold"></sl-icon>
-                        <div class="text-white text-xl font-sourceSansPro font-bold">{{$total_issues_closed}}</div>
+                    <div class="flex items-center justify-between gap-2 p-2 border-2 rounded-md border-additional-green bg-additional-green" style="min-width: 150px; max-width: 300px; width: 100%;">
+                        <sl-icon wire:ignore name="calendar2-x" class="text-xl font-bold text-white font-sourceSansPro"></sl-icon>
+                        <div class="text-xl font-bold text-white font-sourceSansPro">{{$total_issues_closed}}</div>
                     </div>
                 </div>
 
                 <div>
                     <sl-badge class="mb-1" variant="neutral">Total Repos</sl-badge>
-                    <div class="border-other-grey border-2 rounded-md p-2 flex justify-between gap-2 items-center" style="min-width: 150px; max-width: 300px; width: 100%;">
-                        <sl-icon wire:ignore name="collection" class="text-secondary-grey font-sourceSansPro text-xl font-bold"></sl-icon>
-                        <div class="text-secondary-grey text-xl font-sourceSansPro font-bold">{{$total_repos}}</div>
+                    <div class="flex items-center justify-between gap-2 p-2 border-2 rounded-md border-other-grey" style="min-width: 150px; max-width: 300px; width: 100%;">
+                        <sl-icon wire:ignore name="collection" class="text-xl font-bold text-secondary-grey font-sourceSansPro"></sl-icon>
+                        <div class="text-xl font-bold text-secondary-grey font-sourceSansPro">{{$total_repos}}</div>
                     </div>
                 </div>
 
                 <div>
                     <sl-badge class="mb-1" variant="neutral">Total Progess</sl-badge>
-                    <div class="border-other-grey border-2 rounded-md p-2 flex justify-between gap-2 items-center" style="min-width: 150px; max-width: 300px; width: 100%;">
-                        <sl-icon wire:ignore name="percent" class="text-secondary-grey font-sourceSansPro text-xl font-bold"></sl-icon>
-                        <div class="text-secondary-grey text-xl font-sourceSansPro font-bold">{{round($total_percentage,2)}}</div>
+                    <div class="flex items-center justify-between gap-2 p-2 border-2 rounded-md border-other-grey" style="min-width: 150px; max-width: 300px; width: 100%;">
+                        <sl-icon wire:ignore name="percent" class="text-xl font-bold text-secondary-grey font-sourceSansPro"></sl-icon>
+                        <div class="text-xl font-bold text-secondary-grey font-sourceSansPro">{{round($total_percentage,2)}}</div>
                     </div>
                 </div>
-
             </div>
         </div>
-
     </div>
-    </div>
+</div>
