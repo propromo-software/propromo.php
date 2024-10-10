@@ -45,9 +45,9 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          commit: ${{ github.event.workflow_run.head_commit.sha }}
+          commit: ${{ github.event.workflow_run.head_sha }}
           tag: ${{ steps.generate_release_tag.outputs.next_release_tag }}
-          name: Release ${{ github.event.workflow_run.head_commit.sha }}
+          name: Release ${{ github.event.workflow_run.head_sha }}
           body: Release for commit '${{ github.event.workflow_run.head_commit.message }}'
           draft: false
           prerelease: true
