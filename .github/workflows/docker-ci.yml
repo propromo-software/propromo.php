@@ -1,6 +1,9 @@
 name: Docker CI
 
-on: tag
+on:
+  push:
+    tags:
+      - '*'
 
 jobs:
   build:
