@@ -1,5 +1,8 @@
 name: Continuous Integration - Website
-on: push
+on:
+  push:
+    tags-ignore:
+      - 'v**'
 permissions: write-all
 
 jobs:
