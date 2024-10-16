@@ -40,6 +40,7 @@ RUN php artisan view:cache
 RUN php artisan optimize
 
 USER root
+RUN apk add --no-cache php82-pdo_pgsql
 RUN chown -R nobody:nobody /var/www
 USER nobody
 
