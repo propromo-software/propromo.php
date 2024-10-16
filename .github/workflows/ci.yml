@@ -1,6 +1,8 @@
 name: Continuous Integration - Website
 on:
   push:
+    branches:
+      - '**'
     tags-ignore:
       - 'v**'
 permissions: write-all
