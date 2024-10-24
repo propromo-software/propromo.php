@@ -1,14 +1,18 @@
 # About Propromo
 
 <div align="center">
-    <img style="margin-bottom: 0.25rem;" src="https://raw.githubusercontent.com/propromo-software/propromo/f97d458f31e2d54c47c01fa6a325930f41762bd2/public/favicon.png" alt="favicon" width="200" />
+    <img src="https://raw.githubusercontent.com/propromo-software/propromo/f97d458f31e2d54c47c01fa6a325930f41762bd2/public/favicon.png" alt="favicon" width="200" />
 </div>
 
-<div align="center" style="margin-bottom: 1rem;">
+<br>
+
+<div align="center">
     <span style="font-size: 1.5rem;">
       <b><strong>Pro|pro|mo</strong></b> - Project Progress Monitoring
     </span>
 </div>
+
+<p></p>
 
 <div align="center" >
   <a href="https://propromo-docs.vercel.app/guides/join-monitor" target="_blank">
