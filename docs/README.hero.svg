@@ -1,6 +1,6 @@
-<svg fill="none" xmlns="http://www.w3.org/2000/svg">
+<svg fill="none" xmlns="http://www.w3.org/2000/svg" width="200" height="40" viewBox="0 0 200 40">
   <foreignObject width="100%" height="100%">
-    <div xmlns="http://www.w3.org/1999/xhtml">
+    <div xmlns="http://www.w3.org/1999/xhtml" style="display: flex; justify-content: center; align-items: center; height: 100%; padding: 0; margin: 0;">
       <style>
       .cta-button {
         appearance: none;
@@ -85,7 +85,6 @@
       </style>
 
       <div style="display: flex; flex-direction: column; align-items: center; gap: 1rem; text-align: center; margin-bottom: 1rem;">
-        <span style="font-size: 1.25rem"><b><strong>Pro|pro|mo</strong></b> - Project Progress Monitoring</span>
         <div style="margin-bottom: 0.5rem;">
           <a href="https://propromo-docs.vercel.app/guides/join-monitor" target="_blank">
             <button class="cta-button" role="button">Get Started Now</button>
