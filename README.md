@@ -1,22 +1,96 @@
-# **Propromo** - Project Progress Monitoring
+# About Propromo
 
-![Laravel](https://img.shields.io/badge/laravel-%23FF2D20.svg?style=for-the-badge&logo=laravel&logoColor=white)
-![PostgreSQL](https://img.shields.io/badge/postgres-%23316192.svg?style=for-the-badge&logo=postgresql&logoColor=white)
-![Redis](https://img.shields.io/badge/redis-%23DD0031.svg?style=for-the-badge&logo=redis&logoColor=white)
-![Vite](https://img.shields.io/badge/vite-%23646CFF.svg?style=for-the-badge&logo=vite&logoColor=white)
-![TailwindCSS](https://img.shields.io/badge/tailwindcss-%2338B2AC.svg?style=for-the-badge&logo=tailwind-css&logoColor=white)
-![GitHub Actions](https://img.shields.io/badge/github%20actions-%232671E5.svg?style=for-the-badge&logo=githubactions&logoColor=white)
-![Heroku](https://img.shields.io/badge/heroku-%23430098.svg?style=for-the-badge&logo=heroku&logoColor=white)
-![AWS](https://img.shields.io/badge/AWS-%23FF9900.svg?style=for-the-badge&logo=amazon-aws&logoColor=white)
+<div style="display: flex; flex-direction: column; align-items: center; gap: 1rem; text-align: center; margin-bottom: 1rem;">
+  <img src="https://raw.githubusercontent.com/propromo-software/propromo/f97d458f31e2d54c47c01fa6a325930f41762bd2/public/favicon.png" alt="favicon" width="175">
+  <span style="font-size: 1.25rem"><b><strong>Pro|pro|mo</strong></b> - Project Progress Monitoring</span>
+  <div style="margin-bottom: 0.5rem;">
+    <a href="https://propromo-docs.vercel.app/guides/join-monitor" target="_blank">
+      <button class="cta-button" role="button">Get Started Now</button>
+    </a>
+  </div>
+</div>
 
-> Your client wants to be involved. [Propromo](https://propromo.duckdns.org) makes it possible.
+---
+
+> Your client wants to know what's up. [Propromo](https://it200250.cloud.htl-leonding.ac.at) makes it possible.
+
+## The Project
+
+### Why?
+
+#### Introduction - Initial Situation
+
+As a customer, I want to know how far along the project I commissioned has progressed. As a seller, I want to fulfill this request with minimal effort.
+
+> [!NOTE]  
+> **Example: Client**  
+> I commissioned a project and haven't heard anything about it for two months
+> Therefore, I write an email to arrange a meeting.
+
+#### Problem and Target Audience
+
+At some point, as a client, the whole process becomes too frustrating, both in terms of cost and time. The contractor (freelancer, student, small to medium-sized agile software company) then invites me into the internal SCRUM system. This costs them more time because they need to grant me different permissions and possibly repeatedly invite an employee from my company who also needs access. Additionally, every SCRUM system is more complex than the next, and I have no desire to familiarize myself with new software.
+
+> [!TIP]
+> Limited insight into a project often leads to dissatisfaction on the part of the
+> client and/or the contractor.
+
+### How?
+
+#### Solution - What Propromo Does
+
+> Propromo consolidates all common SCRUM systems into a single UI.
+
+-   When clients can see what they are getting, they are willing to pay more for it.
+-   The customer has free access to the project status, and no additional meetings are necessary. This saves both time and money.
+-   The quality of the project can be improved since the customer has direct access to the team's SCRUM master.
+-   ONLY the SCRUM master communicates with the client, allowing other team members to focus on their specific tasks.
+
+[Read about Propromos KPIs](https://propromo-docs.vercel.app/reference/kpis)
+
+#### Propromo's Features
+
+> Propromo creates transparency, and transparency builds trust and enhances credibility.
+
+-   View basic project information
+-   View milestones, tasks, and sprints of a project
+-   Checkout Deployments and Releases
+-   Chat with the SCRUM master
+
+## Statistics
+
+[![GitHub license](https://img.shields.io/github/license/propromo-software/propromo.svg)](https://github.com/propromo-software/propromo/blob/main/LICENSE)
+[![GitHub contributors](https://img.shields.io/github/contributors/propromo-software/propromo.svg)](https://github.com/propromo-software/propromo/graphs/contributors)
+![GitHub watchers](https://img.shields.io/github/watchers/propromo-software/propromo?style=flat)
+[![GitHub stars](https://badgen.net/github/stars/propromo-software/propromo)](https://GitHub.com/propromo-software/propromo/stargazers/)
+[![GitHub forks](https://badgen.net/github/forks/propromo-software/propromo/)](https://GitHub.com/propromo-software/propromo/network/)
+
+[![GitHub issues](https://img.shields.io/github/issues/propromo-software/propromo.svg)](https://github.com/propromo-software/propromo/issues/)
+[![GitHub issues-closed](https://img.shields.io/github/issues-closed/propromo-software/propromo.svg?color=success)](https://GitHub.com/propromo-software/propromo/issues?q=is%3Aissue+is%3Aclosed)
+![GitHub Total Releases](https://badgen.net/github/releases/propromo-software/propromo)
+![GitHub release](https://img.shields.io/github/release/propromo-software/propromo?include_prereleases)
+[![Github all releases](https://img.shields.io/github/downloads/propromo-software/propromo/total.svg?include_prereleases)](https://GitHub.com/propromo-software/propromo/releases/)
+[![GitHub commits](https://badgen.net/github/commits/propromo-software/propromo)](https://GitHub.com/propromo-software/propromo/commit/)
+[![Commit Activity](https://img.shields.io/github/commit-activity/m/propromo-software/propromo)](https://github.com/propromo-software/propromo/commits/)
+[![GitHub latest commit](https://badgen.net/github/last-commit/propromo-software/propromo)](https://GitHub.com/propromo-software/propromo/commit/)
 
 ## Development
+
+![Laravel](https://img.shields.io/badge/laravel-%23FF2D20.svg?style=for-the-badge&logo=laravel&logoColor=white)
+![PHP](https://img.shields.io/badge/PHP-777BB4?style=for-the-badge&logo=php&logoColor=white)
+![Vite](https://img.shields.io/badge/vite-%23646CFF.svg?style=for-the-badge&logo=vite&logoColor=white)
+![NodeJS](https://img.shields.io/badge/Node%20js-339933?style=for-the-badge&logo=nodedotjs&logoColor=white)
+![PostgreSQL](https://img.shields.io/badge/postgres-%23316192.svg?style=for-the-badge&logo=postgresql&logoColor=white)
+![Redis](https://img.shields.io/badge/redis-%23DD0031.svg?style=for-the-badge&logo=redis&logoColor=white)
+![TailwindCSS](https://img.shields.io/badge/tailwindcss-%2338B2AC.svg?style=for-the-badge&logo=tailwind-css&logoColor=white)
+![GitHub Actions](https://img.shields.io/badge/github%20actions-%232671E5.svg?style=for-the-badge&logo=githubactions&logoColor=white)
+![Kubernetes](https://img.shields.io/badge/Kubernetes-3069DE?style=for-the-badge&logo=kubernetes&logoColor=white)
 
 [![.github/workflows/ci.yml](https://github.com/propromo-software/propromo/actions/workflows/ci.yml/badge.svg)](https://github.com/propromo-software/propromo/actions/workflows/ci.yml)
 [![Continuous Deployment/Release - Website](https://github.com/propromo-software/propromo/actions/workflows/release.yml/badge.svg)](https://github.com/propromo-software/propromo/actions/workflows/release.yml)
 
 ### Install Dependencies & Run
+
 ```bash
 start.sh
 ```
@@ -28,16 +102,19 @@ start.cmd
 ### One By One
 
 #### Database
+
 ```bash
 docker-compose -f ./docker/postgres.yml up -d
 ```
 
 #### Cache
+
 ```bash
 docker-compose -f ./docker/redis.yml up -d
 ```
 
 #### Website
+
 ```bash
 php artisan serve --port=80
 ```
@@ -52,15 +129,106 @@ php ./vendor/bin/pest
 
 ## Production
 
-**Deployment URL:**
-
-* https://propromo.duckdns.org
-* https://propromo.dnset.com
-* https://propromo.simulatan.me
-* https://propromo-d08144c627d3.herokuapp.com
-
 [![Better Stack Badge](https://uptime.betterstack.com/status-badges/v1/monitor/zuzz.svg)](https://dub.sh/propromo-status)
+
+**Deployment URLs:**
+
+-   https://propromo.duckdns.org (points to heroku)
+-   https://propromo.dnset.com (points to heroku)
+-   https://propromo.simulatan.me (points to heroku)
+-   https://propromo-d08144c627d3.herokuapp.com (main after stable release, inactive)
+-   https://it200250.cloud.htl-leonding.ac.at (main right now)
 
 ## Design
 
-**Wireframes:** [figma.com/propromo](https://dub.sh/propromo-wireframes)
+-   Core wire-frames: [figma.com/propromo](https://dub.sh/propromo-wireframes)
+-   Documentation: [propromo-docs](https://propromo-docs.vercel.app/reference/design)
+
+## Team
+
+<a href="https://github.com/propromo-software/propromo/graphs/contributors">
+  <img src="https://contrib.rocks/image?repo=propromo-software/propromo" />
+</a>
+
+<style>
+.cta-button {
+  appearance: none;
+  background-color: #FAFBFC;
+  border: 1px solid rgba(27, 31, 35, 0.15);
+  border-radius: 6px;
+  box-shadow: rgba(27, 31, 35, 0.04) 0 1px 0, rgba(255, 255, 255, 0.25) 0 1px 0 inset;
+  box-sizing: border-box;
+  color: #24292E;
+  cursor: pointer;
+  display: inline-block;
+  font-family: -apple-system, system-ui, "Segoe UI", Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji";
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 20px;
+  list-style: none;
+  padding: 6px 16px;
+  position: relative;
+  transition: background-color 0.2s cubic-bezier(0.3, 0, 0.5, 1);
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: manipulation;
+  vertical-align: middle;
+  white-space: nowrap;
+  word-wrap: break-word;
+}
+
+.cta-button:hover {
+  background-color: #F3F4F6;
+  text-decoration: none;
+  transition-duration: 0.1s;
+}
+
+.cta-button:disabled {
+  background-color: #FAFBFC;
+  border-color: rgba(27, 31, 35, 0.15);
+  color: #959DA5;
+  cursor: default;
+}
+
+.cta-button:active {
+  background-color: #EDEFF2;
+  box-shadow: rgba(225, 228, 232, 0.2) 0 1px 0 inset;
+  transition: none 0s;
+}
+
+.cta-button:focus {
+  outline: 1px transparent;
+}
+
+.cta-button:before {
+  display: none;
+}
+
+.cta-button:-webkit-details-marker {
+  display: none;
+}
+
+@media (prefers-color-scheme: dark) {
+  .cta-button {
+    background-color: #2D333B;
+    border: 1px solid rgba(240, 246, 252, 0.1);
+    color: #C9D1D9;
+    box-shadow: rgba(240, 246, 252, 0.1) 0 1px 0, rgba(27, 31, 35, 0.25) 0 1px 0 inset;
+  }
+
+  .cta-button:hover {
+    background-color: #3A3F44;
+  }
+
+  .cta-button:disabled {
+    background-color: #2D333B;
+    border-color: rgba(240, 246, 252, 0.1);
+    color: #6E7681;
+  }
+
+  .cta-button:active {
+    background-color: #3A3F44;
+    box-shadow: rgba(240, 246, 252, 0.2) 0 1px 0 inset;
+  }
+}
+</style>
