@@ -1,6 +1,12 @@
 # About Propromo
 
-<img src="./docs/README.hero.svg" alt="Project Progress Monitoring Hero Section">
+<center>
+    <img src="https://raw.githubusercontent.com/propromo-software/propromo/f97d458f31e2d54c47c01fa6a325930f41762bd2/public/favicon.png" alt="favicon" width="175" />
+</center>
+
+<center>
+    <img src="./docs/README.hero.svg" alt="Project Progress Monitoring Hero Section">
+</center>
 
 ---
 
