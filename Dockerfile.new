@@ -1,0 +1,61 @@
+# Using the LTS version of Node.js ~45MB
+FROM node:20.11.1-alpine3.18 AS install-and-build
+
+# Environment variables
+WORKDIR /app
+ENV NODE_ENV=production
+
+# Build assets (context needed, that is why we don't copy package.json and package-lock.json alone)
+COPY . .
+COPY .env.docker.example .env
+RUN npm install --frozen-lockfile --production --include=dev
+RUN npm run build --optimize
+
+FROM trafex/php-nginx:3.4.0
+
+# Install composer from the official image
+COPY --from=composer /usr/bin/composer /usr/bin/composer
+
+# USER nginx
+
+WORKDIR /app
+
+COPY --from=install-and-build --chown=nobody /app .
+
+# Run composer install to install the dependencies - ignore-platform required to *actually* exclude dev deps
+RUN composer install --optimize-autoloader --no-interaction --no-dev --ignore-platform-req=ext-simplexml
+
+# Optimizing Configuration loading
+RUN php artisan config:cache
+
+# Optimizing Event loading
+RUN php artisan event:cache
+
+# Optimizing Route loading
+RUN php artisan route:cache
+
+# Optimizing View loading
+RUN php artisan view:cache
+
+RUN php artisan optimize
+
+USER root
+RUN apk add --no-cache php82-pdo_pgsql
+RUN chown -R nobody:nobody /var/www
+USER nobody
+
+RUN <<EOF
+rm -rf /var/www/html
+ln -s /app/public/ /var/www/html
+ln -s /var/www/html /var/www/public
+ln -s /app/bootstrap /var/www
+ln -s /app/vendor /var/www
+ln -s /app/app /var/www
+ln -s /app/routes /var/www
+
+ln -s /var/www/vendor/livewire/livewire/dist/ /var/www/html/livewire
+EOF
+
+COPY ./docker/entrypoint.sh .
+
+ENTRYPOINT [ "/app/entrypoint.sh" ]

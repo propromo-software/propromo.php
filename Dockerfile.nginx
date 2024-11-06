@@ -13,7 +13,7 @@ RUN npm run build --optimize
 
 # --------------------------------------------------------------------------------------------
 # Install Laravel framework system requirements (https://laravel.com/docs/10.x/deployment)
-FROM webdevops/php-nginx:8.3-alpine as base
+FROM webdevops/php-nginx:8.2-alpine as base
 
 # Environment variables
 # ENV COMPOSER_ALLOW_SUPERUSER=1

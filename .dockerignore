@@ -25,6 +25,7 @@ vendor
 composer.lock
 
 docker
+!docker/entrypoint.sh
 docs
 
 start.cmd

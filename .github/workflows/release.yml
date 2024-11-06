@@ -35,18 +35,18 @@ jobs:
         id: generate_release_tag
         uses: amitsingh-007/next-release-tag@v6.0.0
         with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
+          github_token: ${{ secrets.GH_BOT_TOKEN }}
           tag_prefix: "v"
           tag_template: "yyyy.mm.dd.i"
 
       - name: Create Release
         id: create_release
         uses: ncipollo/release-action@v1
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
+          token: ${{ secrets.GH_BOT_TOKEN }}
+          commit: ${{ github.event.workflow_run.head_sha }}
           tag: ${{ steps.generate_release_tag.outputs.next_release_tag }}
-          name: Release ${{ github.sha }}
+          name: Release ${{ github.event.workflow_run.head_sha }}
           body: Release for commit '${{ github.event.workflow_run.head_commit.message }}'
           draft: false
           prerelease: true
