@@ -23,6 +23,9 @@ Volt::route('/monitors', 'monitors.index');
 Volt::route('/monitors/{monitor}', 'monitors.show');
 
 Volt::route('/monitors/{monitor}/milestones/{milestone}', 'milestones.show');
+Volt::route('/monitors/{monitor}/pdf', 'pdf.index');
+
+
 
 Volt::route('/create-monitor', 'auth.create-monitor');
 Volt::route('/create-open-source-monitor', 'auth.create-open-source-monitor');
