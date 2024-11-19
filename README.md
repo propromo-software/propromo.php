@@ -1,7 +1,7 @@
 # About Propromo
 
 <div align="center">
-    <img src="https://raw.githubusercontent.com/propromo-software/propromo/f97d458f31e2d54c47c01fa6a325930f41762bd2/public/favicon.png" alt="favicon" width="200" />
+    <img src="https://github.com/propromo-software/propromo.php/blob/7a06b7bca13f1663a2652c17235b99f10bb490e8/public/favicon.png" alt="favicon" width="200" />
 </div>
 
 <br>
