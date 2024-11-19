@@ -69,20 +69,20 @@ At some point, as a client, the whole process becomes too frustrating, both in t
 
 ## Statistics
 
-[![GitHub license](https://img.shields.io/github/license/propromo-software/propromo.svg)](https://github.com/propromo-software/propromo/blob/main/LICENSE)
-[![GitHub contributors](https://img.shields.io/github/contributors/propromo-software/propromo.svg)](https://github.com/propromo-software/propromo/graphs/contributors)
-![GitHub watchers](https://img.shields.io/github/watchers/propromo-software/propromo?style=flat)
-[![GitHub stars](https://badgen.net/github/stars/propromo-software/propromo)](https://GitHub.com/propromo-software/propromo/stargazers/)
-[![GitHub forks](https://badgen.net/github/forks/propromo-software/propromo/)](https://GitHub.com/propromo-software/propromo/network/)
+[![GitHub license](https://img.shields.io/github/license/propromo-software/propromo.php.svg)](https://github.com/propromo-software/propromo.php/blob/main/LICENSE)
+[![GitHub contributors](https://img.shields.io/github/contributors/propromo-software/propromo.php.svg)](https://github.com/propromo-software/propromo.php/graphs/contributors)
+![GitHub watchers](https://img.shields.io/github/watchers/propromo-software/propromo.php?style=flat)
+[![GitHub stars](https://badgen.net/github/stars/propromo-software/propromo.php)](https://GitHub.com/propromo-software/propromo.php/stargazers/)
+[![GitHub forks](https://badgen.net/github/forks/propromo-software/propromo.php/)](https://GitHub.com/propromo-software/propromo.php/network/)
 
-[![GitHub issues](https://img.shields.io/github/issues/propromo-software/propromo.svg)](https://github.com/propromo-software/propromo/issues/)
-[![GitHub issues-closed](https://img.shields.io/github/issues-closed/propromo-software/propromo.svg?color=success)](https://GitHub.com/propromo-software/propromo/issues?q=is%3Aissue+is%3Aclosed)
-![GitHub Total Releases](https://badgen.net/github/releases/propromo-software/propromo)
-![GitHub release](https://img.shields.io/github/release/propromo-software/propromo?include_prereleases)
-[![Github all releases](https://img.shields.io/github/downloads/propromo-software/propromo/total.svg?include_prereleases)](https://GitHub.com/propromo-software/propromo/releases/)
-[![GitHub commits](https://badgen.net/github/commits/propromo-software/propromo)](https://GitHub.com/propromo-software/propromo/commit/)
-[![Commit Activity](https://img.shields.io/github/commit-activity/m/propromo-software/propromo)](https://github.com/propromo-software/propromo/commits/)
-[![GitHub latest commit](https://badgen.net/github/last-commit/propromo-software/propromo)](https://GitHub.com/propromo-software/propromo/commit/)
+[![GitHub issues](https://img.shields.io/github/issues/propromo-software/propromo.php.svg)](https://github.com/propromo-software/propromo.php/issues/)
+[![GitHub issues-closed](https://img.shields.io/github/issues-closed/propromo-software/propromo.php.svg?color=success)](https://GitHub.com/propromo-software/propromo.php/issues?q=is%3Aissue+is%3Aclosed)
+![GitHub Total Releases](https://badgen.net/github/releases/propromo-software/propromo.php)
+![GitHub release](https://img.shields.io/github/release/propromo-software/propromo.php?include_prereleases)
+[![Github all releases](https://img.shields.io/github/downloads/propromo-software/propromo.php/total.svg?include_prereleases)](https://GitHub.com/propromo-software/propromo.php/releases/)
+[![GitHub commits](https://badgen.net/github/commits/propromo-software/propromo.php)](https://GitHub.com/propromo-software/propromo.php/commit/)
+[![Commit Activity](https://img.shields.io/github/commit-activity/m/propromo-software/propromo.php)](https://github.com/propromo-software/propromo.php/commits/)
+[![GitHub latest commit](https://badgen.net/github/last-commit/propromo-software/propromo.php)](https://GitHub.com/propromo-software/propromo.php/commit/)
 
 ## Development
 
@@ -96,8 +96,8 @@ At some point, as a client, the whole process becomes too frustrating, both in t
 ![GitHub Actions](https://img.shields.io/badge/github%20actions-%232671E5.svg?style=for-the-badge&logo=githubactions&logoColor=white)
 ![Kubernetes](https://img.shields.io/badge/Kubernetes-3069DE?style=for-the-badge&logo=kubernetes&logoColor=white)
 
-[![.github/workflows/ci.yml](https://github.com/propromo-software/propromo/actions/workflows/ci.yml/badge.svg)](https://github.com/propromo-software/propromo/actions/workflows/ci.yml)
-[![Continuous Deployment/Release - Website](https://github.com/propromo-software/propromo/actions/workflows/release.yml/badge.svg)](https://github.com/propromo-software/propromo/actions/workflows/release.yml)
+[![.github/workflows/ci.yml](https://github.com/propromo-software/propromo.php/actions/workflows/ci.yml/badge.svg)](https://github.com/propromo-software/propromo.php/actions/workflows/ci.yml)
+[![Continuous Deployment/Release - Website](https://github.com/propromo-software/propromo.php/actions/workflows/release.yml/badge.svg)](https://github.com/propromo-software/propromo.php/actions/workflows/release.yml)
 
 ### Install Dependencies & Run
 
@@ -131,7 +131,7 @@ php artisan serve --port=80
 
 ### Testing
 
-![PHP Code Coverage Badge](https://propromo-software.github.io/propromo/coverage.svg)
+![PHP Code Coverage Badge](https://propromo-software.github.io/propromo.php/coverage.svg)
 
 ```bash
 php ./vendor/bin/pest
@@ -156,6 +156,6 @@ php ./vendor/bin/pest
 
 ## Team
 
-<a href="https://github.com/propromo-software/propromo/graphs/contributors">
-  <img src="https://contrib.rocks/image?repo=propromo-software/propromo" />
+<a href="https://github.com/propromo-software/propromo.php/graphs/contributors">
+  <img src="https://contrib.rocks/image?repo=propromo-software/propromo.php" />
 </a>
