@@ -39,18 +39,19 @@ new class extends Component
         <sl-icon name="search" slot="prefix"></sl-icon>
     </sl-input>
 
+
     @php
         $monitor_count = count($monitors);
     @endphp
 
     @if($monitor_count > 0)
         @foreach($monitors as $monitor)
-        <div class="border-other-grey border-2 rounded-2xl mt-4" wire:key="{{ $monitor->id }}">
-            <livewire:monitors.card lazy="true" :monitor="$monitor"/>
+        <div class="border-other-grey border-2 rounded-2xl mt-4 flex" wire:key="{{ $monitor->id }}">
+            <livewire:monitors.card class="flex-1" lazy="true" :monitor="$monitor"/>
         </div>
         @endforeach
     @else
-    <h1 class="text-primary-blue font-koulen text-2xl text-center">Currently no Monitors avaibale! </h1>
+        <h1 class="text-primary-blue font-koulen text-2xl text-center">Currently no Monitors avaibale! </h1>
     @endif
 
 </div>

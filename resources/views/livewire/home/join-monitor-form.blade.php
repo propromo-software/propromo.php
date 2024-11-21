@@ -11,7 +11,6 @@ new class extends Component {
     public $join_monitor_error;
     public $error_head;
 
-
     protected $rules = [
         'monitor_hash' => 'required|min:10|max:2048'
     ];
