@@ -39,8 +39,10 @@ RUN php artisan view:cache
 
 RUN php artisan optimize
 
+# Install necessary PHP extensions (https://github.com/propromo-software/propromo.php/actions/runs/12100789103/job/33739859041?pr=278)
 USER root
-RUN apk add --no-cache php82-pdo_pgsql
+RUN apk update && \
+    apk add --no-cache php82-iconv php82-pdo_pgsql php82-zip php82-session
 RUN chown -R nobody:nobody /var/www
 USER nobody
 

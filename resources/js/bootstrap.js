@@ -10,6 +10,9 @@ import '../../node_modules/@shoelace-style/shoelace/dist/components/copy-button/
 import '../../node_modules/@shoelace-style/shoelace/dist/components/alert/alert.js';
 import '../../node_modules/@shoelace-style/shoelace/dist/components/dialog/dialog.js';
 import '../../node_modules/@shoelace-style/shoelace/dist/components/switch/switch.js';
+import '../../node_modules/@shoelace-style/shoelace/dist/components/details/details.js';
+import '../../node_modules/@shoelace-style/shoelace/dist/components/badge/badge.js';
+
 
 
 

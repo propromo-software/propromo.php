@@ -90,4 +90,9 @@ class Monitor extends Model
     {
         return $this->hasMany(Repository::class);
     }
+
+    public function deployments(): HasMany
+    {
+        return $this->hasMany(Deployment::class);
+    }
 }
