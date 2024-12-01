@@ -26,16 +26,16 @@ new class extends Component {
 ?>
 
 <div>
-    <div class="mx-8 mt-6">
+    <div class="mx-8 mt-6 mb-4">
         <a href="/monitors" title="Show Monitor" class="flex items-center mb-2">
-            <sl-icon class="cursor-pointer text-primary-blue text-4xl rounded-md border-2 p-2 border-other-grey" name="arrow-left-short" wire:ignore></sl-icon>
+            <sl-icon class="p-2 text-4xl border-2 rounded-md cursor-pointer text-primary-blue border-other-grey" name="arrow-left-short" wire:ignore></sl-icon>
         </a>
-        <div class="border-other-grey border-2 rounded-2xl">
+        <div class="border-2 border-other-grey rounded-2xl">
             <livewire:monitors.card lazy="true" :monitor="$monitor"/>
-            <div class="flex justify-between items-center m-8">
-                <div class="flex gap-8 items-center">
+            <div class="flex items-center justify-between m-8">
+                <div class="flex items-center gap-8">
                     <div>
-                        <sl-icon name="info-circle" class="text-7xl font-bold text-primary-blue"></sl-icon>
+                        <sl-icon name="info-circle" class="font-bold text-7xl text-primary-blue"></sl-icon>
                     </div>
                     <div>
                         <h1 class="text-4xl font-koulen text-primary-blue">
@@ -59,13 +59,13 @@ new class extends Component {
             </div>
         </div>
 
-        <div class="border-other-grey border-2 rounded-2xl mt-8">
+        <div class="mt-8 border-2 border-other-grey rounded-2xl">
             <livewire:monitors.dashboard.index :monitor="$monitor" lazy="true"/>
         </div>
 
         <!-- Shoelace Input Field for PDF name or other data -->
         <div class="mt-8">
-            <div class="border-other-grey border-2 rounded-2xl p-5">
+            <div class="p-5 border-2 border-other-grey rounded-2xl">
                 <form wire:submit.prevent="submit_form">
                     <div class="mb-4">
                         <sl-input label="PDF Name" placeholder="Enter PDF name" size="large" filled
@@ -85,11 +85,14 @@ new class extends Component {
             </div>
         </div>
 
-        <div class="mt-8 grid grid-cols-3 gap-8">
+        <div class="grid grid-cols-3 gap-8 mt-8">
             <div class="col-span-2">
                 <livewire:monitors.read-me-view :monitor="$monitor"/>
             </div>
-            <div class="border-other-grey border-2 rounded-2xl p-5">Deployments</div>
+            <div class="p-5 border-2 border-other-grey rounded-2xl">
+                <h2 class="mb-4 text-lg font-semibold">Deployments</h2>
+                <livewire:monitors.deployments-view :monitor="$monitor"/>
+            </div>
         </div>
     </div>
 </div>
