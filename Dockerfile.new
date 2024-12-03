@@ -39,11 +39,15 @@ RUN php artisan view:cache
 
 RUN php artisan optimize
 
-# Install necessary PHP extensions (https://github.com/propromo-software/propromo.php/actions/runs/12100789103/job/33739859041?pr=278)
+# Install necessary PHP extensions
 USER root
 RUN apk update && \
-    apk add --no-cache php82-iconv php82-pdo_pgsql php82-zip php82-session
-RUN docker-php-ext-install iconv
+    apk add --no-cache php82-iconv php82-pdo_pgsql php82-zip php82-session php82-mbstring php82-xml php82-curl php82-bcmath php82-json && \
+    docker-php-ext-install iconv
+
+# Clear Composer cache
+RUN composer clear-cache
+
 RUN chown -R nobody:nobody /var/www
 USER nobody
 
