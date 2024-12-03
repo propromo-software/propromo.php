@@ -22,6 +22,14 @@ WORKDIR /app
 
 COPY --from=install-and-build --chown=nobody /app .
 
+# Install necessary PHP extensions
+USER root
+RUN apk update && \
+    apk add --no-cache php82-iconv php82-pdo_pgsql
+
+# Clear Composer cache
+RUN composer clear-cache
+
 # Run composer install to install the dependencies - ignore-platform required to *actually* exclude dev deps
 RUN composer install --optimize-autoloader --no-interaction --no-dev --ignore-platform-req=ext-simplexml
 
@@ -38,15 +46,6 @@ RUN php artisan route:cache
 RUN php artisan view:cache
 
 RUN php artisan optimize
-
-# Install necessary PHP extensions
-USER root
-RUN apk update && \
-    apk add --no-cache php82-iconv php82-pdo_pgsql php82-zip php82-session php82-mbstring php82-xml php82-curl php82-bcmath php82-json && \
-    docker-php-ext-install iconv
-
-# Clear Composer cache
-RUN composer clear-cache
 
 RUN chown -R nobody:nobody /var/www
 USER nobody
