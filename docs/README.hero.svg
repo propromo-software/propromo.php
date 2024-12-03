@@ -1,0 +1,96 @@
+<svg fill="none" xmlns="http://www.w3.org/2000/svg" width="200" viewBox="0 0 200 40">
+  <foreignObject width="100%" height="100%">
+    <div xmlns="http://www.w3.org/1999/xhtml">
+      <style>
+      .cta-button {
+        appearance: none;
+        background-color: #FAFBFC;
+        border: 1px solid rgba(27, 31, 35, 0.15);
+        border-radius: 6px;
+        box-shadow: rgba(27, 31, 35, 0.04) 0 1px 0, rgba(255, 255, 255, 0.25) 0 1px 0 inset;
+        box-sizing: border-box;
+        color: #24292E;
+        cursor: pointer;
+        display: inline-block;
+        font-family: -apple-system, system-ui, "Segoe UI", Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji";
+        font-size: 14px;
+        font-weight: 500;
+        line-height: 20px;
+        list-style: none;
+        padding: 6px 16px;
+        position: relative;
+        transition: background-color 0.2s cubic-bezier(0.3, 0, 0.5, 1);
+        user-select: none;
+        -webkit-user-select: none;
+        touch-action: manipulation;
+        vertical-align: middle;
+        white-space: nowrap;
+        word-wrap: break-word;
+      }
+
+      .cta-button:hover {
+        background-color: #F3F4F6;
+        text-decoration: none;
+        transition-duration: 0.1s;
+      }
+
+      .cta-button:disabled {
+        background-color: #FAFBFC;
+        border-color: rgba(27, 31, 35, 0.15);
+        color: #959DA5;
+        cursor: default;
+      }
+
+      .cta-button:active {
+        background-color: #EDEFF2;
+        box-shadow: rgba(225, 228, 232, 0.2) 0 1px 0 inset;
+        transition: none 0s;
+      }
+
+      .cta-button:focus {
+        outline: 1px transparent;
+      }
+
+      .cta-button:before {
+        display: none;
+      }
+
+      .cta-button:-webkit-details-marker {
+        display: none;
+      }
+
+      @media (prefers-color-scheme: dark) {
+        .cta-button {
+        background-color: #2D333B;
+        border: 1px solid rgba(240, 246, 252, 0.1);
+        color: #C9D1D9;
+        box-shadow: rgba(240, 246, 252, 0.1) 0 1px 0, rgba(27, 31, 35, 0.25) 0 1px 0 inset;
+      }
+
+      .cta-button:hover {
+        background-color: #3A3F44;
+      }
+
+      .cta-button:disabled {
+        background-color: #2D333B;
+        border-color: rgba(240, 246, 252, 0.1);
+        color: #6E7681;
+      }
+
+      .cta-button:active {
+          background-color: #3A3F44;
+          box-shadow: rgba(240, 246, 252, 0.2) 0 1px 0 inset;
+        }
+      }
+      </style>
+
+      <div style="display: flex; flex-direction: column; align-items: center; gap: 1rem; text-align: center; margin-bottom: 1rem;">
+        <div style="margin-bottom: 0.5rem;">
+          <a href="https://propromo-docs.vercel.app/guides/join-monitor" target="_blank">
+            <button class="cta-button" role="button">Get Started Now</button>
+          </a>
+        </div>
+      </div>
+    </div>
+  </foreignObject>
+</svg>

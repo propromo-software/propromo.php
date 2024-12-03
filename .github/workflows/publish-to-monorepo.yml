@@ -1,0 +1,11 @@
+name: Mirror to Monorepo
+
+on:
+  push:
+    branches: [main]
+
+jobs:
+  publish:
+    uses: propromo-software/propromo.actions/.github/workflows/publish-to-monorepo.yml@main
+    secrets:
+      MONOREPO_SSH_DEPLOY_KEY: ${{ secrets.MONOREPO_SSH_DEPLOY_KEY }}
