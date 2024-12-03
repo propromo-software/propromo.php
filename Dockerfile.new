@@ -43,6 +43,7 @@ RUN php artisan optimize
 USER root
 RUN apk update && \
     apk add --no-cache php82-iconv php82-pdo_pgsql php82-zip php82-session
+RUN docker-php-ext-install iconv
 RUN chown -R nobody:nobody /var/www
 USER nobody
 
