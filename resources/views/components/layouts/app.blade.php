@@ -18,6 +18,7 @@
 @endif
 
 <main>
+    @yield('content')
     {{ $slot }}
 </main>
 

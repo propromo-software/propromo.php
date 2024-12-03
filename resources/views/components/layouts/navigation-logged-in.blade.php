@@ -21,8 +21,13 @@ new class extends Component {
         @endif
 
         <div class="flex items-center gap-2">
-            <sl-icon name="gear-wide-connected" class="text-3xl font-bold text-primary-blue"></sl-icon>
-            <sl-icon name="person-circle" class="text-3xl font-bold text-primary-blue"></sl-icon>
+
+            <a href="/settings/profile">
+                <sl-icon name="gear-wide-connected" class="text-3xl font-bold text-primary-blue"></sl-icon>
+            </a>
+            <a href="/settings/profile">
+                <sl-icon name="person-circle" class="text-3xl font-bold text-primary-blue"></sl-icon>
+            </a>
         </div>
     </div>
 </div>
