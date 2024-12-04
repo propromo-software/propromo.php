@@ -35,24 +35,22 @@ trait ContributionCollector
 
             if ($response->successful()) {
                 $repositories = $response->json()['data']['organization']['projectV2']['repositories']['nodes'] ?? [];
+                $contributions = [];
 
                 foreach ($repositories as $repo) {
                     $commits = $repo['defaultBranchRef']['target']['history']['edges'] ?? [];
 
                     foreach ($commits as $commitData) {
-                        $commitNode = $commitData['node'];
-                        $authors = $commitNode['authors']['nodes'] ?? [];
+                        $commitNode = $commitData['node'] ?? null;
+                        if ($commitNode) {
+                            $authors = $commitNode['authors']['nodes'] ?? [];
 
-                        foreach ($authors as $authorData) {
-                            $author = Author::updateOrCreate(
-                                ['email' => $authorData['email']],
-                                [
-                                    'name' => $authorData['name'],
-                                    'avatar_url' => $authorData['avatarUrl'],
-                                ]
-                            );
+                            \Log::debug('Authors for commit:', [
+                                'commit_url' => $commitNode['commitUrl'],
+                                'authors' => $authors
+                            ]);
 
-                            Contribution::create([
+                            $contribution = Contribution::create([
                                 'commit_url' => $commitNode['commitUrl'],
                                 'message_headline' => strip_tags($commitNode['messageHeadlineHTML']),
                                 'message_body' => strip_tags($commitNode['messageBodyHTML']),
@@ -60,13 +58,16 @@ trait ContributionCollector
                                 'deletions' => $commitNode['deletions'],
                                 'changed_files' => $commitNode['changedFilesIfAvailable'],
                                 'committed_date' => $commitNode['committedDate'],
-                                'author_id' => $author->id,
+                                'author_id' => $authors ? $this->getOrCreateAuthor($authors[0]) : null,
                             ]);
+
+                            $contribution->authors = $authors;
+                            $contributions[] = $contribution;
                         }
                     }
                 }
 
-                return Contribution::all();
+                return $contributions;
             } else {
                 \Log::error('Error fetching contributions:', [
                     'status' => $response->status(),
@@ -81,5 +82,16 @@ trait ContributionCollector
             ]);
             throw $e;
         }
+    }
+
+    private function getOrCreateAuthor(array $authorData)
+    {
+        return Author::firstOrCreate(
+            ['email' => $authorData['email']],
+            [
+                'name' => $authorData['name'],
+                'avatar_url' => $authorData['avatarUrl'],
+            ]
+        )->id;
     }
 }
