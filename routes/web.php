@@ -1,5 +1,6 @@
 <?php
 
+use App\Livewire\Monitors\ContributionsView;
 use App\Http\Controllers\Api\V1\MonitorController;
 use App\Http\Controllers\Auth\GithubController;
 use Illuminate\Support\Facades\Auth;
@@ -25,7 +26,7 @@ Volt::route('/monitors/{monitor}', 'monitors.show');
 Volt::route('/monitors/{monitor}/milestones/{milestone}', 'milestones.show');
 Volt::route('/monitors/{monitor}/pdf', 'pdf.index');
 
-
+Route::get('/monitors/{monitor}/contributions/{contribution?}', ContributionsView::class);
 
 Volt::route('/create-monitor', 'auth.create-monitor');
 Volt::route('/create-open-source-monitor', 'auth.create-open-source-monitor');
@@ -40,5 +41,3 @@ Volt::route('/settings/profile', 'settings.index');
 Volt::route('/settings/monitors', 'settings.monitors.index');
 
 Route::get('/monitors/join/{monitor_hash}', [MonitorController::class, 'join']);
-
-

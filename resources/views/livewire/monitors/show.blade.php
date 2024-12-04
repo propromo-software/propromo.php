@@ -52,8 +52,10 @@ new class extends Component {
 
                 <div>
                     <sl-button variant="default" size="large">
-                        <sl-icon slot="suffix" name="people-fill"></sl-icon>
-                        COMMITS
+                        <a href="/monitors/{{ $monitor->id }}/contributions" class="flex items-center sl-button variant-default size-large">
+                            <sl-icon slot="suffix" name="people-fill"></sl-icon>
+                            COMMITS
+                        </a>
                     </sl-button>
                 </div>
             </div>
