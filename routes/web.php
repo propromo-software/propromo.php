@@ -20,7 +20,7 @@ Route::get('/logout', function(){
 Route::get('/auth/github', [GithubController::class,'redirect'])->name('github.login');
 Route::get('/auth/github/callback', [GithubController::class,'callback']);
 
-Volt::route('/monitors', 'monitors.index');
+Volt::route('/monitors', 'monitors.index')->name('monitors.index');
 Volt::route('/monitors/{monitor}', 'monitors.show');
 
 Volt::route('/monitors/{monitor}/milestones/{milestone}', 'milestones.show');
