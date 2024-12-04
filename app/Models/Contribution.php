@@ -18,6 +18,10 @@ class Contribution extends Model
         'author_id',
     ];
 
+    protected $casts = [
+        'committed_date' => 'datetime',
+    ];
+
     public function author(): BelongsTo
     {
         return $this->belongsTo(Author::class);
