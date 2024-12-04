@@ -16,8 +16,8 @@ trait ContributionCollector
     public function collect_contributions(Monitor $monitor)
     {
         $url = $monitor->type == 'ORGANIZATION'
-            ? $_ENV['APP_SERVICE_URL'] . '/v1/github/orgs/' . $monitor->organization_name . '/projects/' . $monitor->project_identification . '/repositories/contributions?rootPageSize=10'
-            : $_ENV['APP_SERVICE_URL'] . '/v1/github/users/' . $monitor->login_name . '/projects/' . $monitor->project_identification . '/repositories/contributions?rootPageSize=10';
+            ? $_ENV['APP_SERVICE_URL'] . '/v1/github/orgs/' . $monitor->organization_name . '/projects/' . $monitor->project_identification . '/repositories/contributions?rootPageSize=25&pageSize=50'
+            : $_ENV['APP_SERVICE_URL'] . '/v1/github/users/' . $monitor->login_name . '/projects/' . $monitor->project_identification . '/repositories/contributions?rootPageSize=25&pageSize=50';
 
         \Log::info('Fetching contributions from URL:', ['url' => $url]);
 
