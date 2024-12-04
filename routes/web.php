@@ -24,7 +24,7 @@ Volt::route('/monitors', 'monitors.index')->name('monitors.index');
 Volt::route('/monitors/{monitor}', 'monitors.show')->name('monitors.show');
 
 Volt::route('/monitors/{monitor}/milestones/{milestone}', 'milestones.show');
-Volt::route('/monitors/{monitor}/pdf', 'pdf.index');
+Volt::route('/monitors/{monitor}/pdf', 'pdf.index')->name('pdf.index');
 
 Route::get('/monitors/{monitor}/contributions/{contribution?}', ContributionsView::class);
 

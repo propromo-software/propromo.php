@@ -20,6 +20,10 @@ Breadcrumbs::for('monitors', function (BreadcrumbTrail $trail) {
 Breadcrumbs::for('monitor', function (BreadcrumbTrail $trail, $monitor) {
     $trail->parent('monitors');
     $trail->push($monitor->title, route('monitors.show', $monitor));
+
 });
 
-
+Breadcrumbs::for('pdf', function (BreadcrumbTrail $trail, $monitor) {
+    $trail->parent('monitor', $monitor);
+    $trail->push('PDF', route('pdf.index', $monitor));
+});

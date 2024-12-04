@@ -113,6 +113,7 @@ new class extends Component {
 
 }; ?>
 
+<div>
 <div class="flex gap-8 p-8 bg-gray-100 min-h-screen">
     <!-- Configurator Section -->
     <div class="w-1/2 bg-white p-6 rounded-md border-2 border-other-grey px-6 py-6">
@@ -214,4 +215,8 @@ new class extends Component {
         </div>
 
     </div>
+
+</div>
+
+{{ Breadcrumbs::render('pdf', $monitor) }}
 </div>
