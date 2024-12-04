@@ -16,7 +16,7 @@ new class extends Component {
     #[Validate(['email' => 'required|email|unique:users'])]
     public $email;
 
-    #[Validate(['password' => 'required|confirmed'])]
+    #[Validate(['password' => 'required|confirmed|max:20'])]
     public $password;
 
     #[Validate(['password_confirmation' => 'required'])]
