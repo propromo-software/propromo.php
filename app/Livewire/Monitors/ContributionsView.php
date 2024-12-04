@@ -4,6 +4,7 @@ namespace App\Livewire\Monitors;
 
 use App\Models\Monitor;
 use App\Traits\ContributionCollector;
+use Exception;
 use Livewire\Component;
 
 class ContributionsView extends Component
@@ -25,7 +26,7 @@ class ContributionsView extends Component
     {
         try {
             $this->contributions = $this->collect_contributions($this->monitor);
-        } catch (\Exception $e) {
+        } catch (Exception $e) {
             $this->addError('contributions', $e->getMessage());
         }
     }

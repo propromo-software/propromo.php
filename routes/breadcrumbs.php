@@ -11,14 +11,15 @@ Breadcrumbs::for('home', function (BreadcrumbTrail $trail) {
     $trail->push('Home', route('home.index'));
 });
 
-// Home > Blog
+// Home > Monitors
 Breadcrumbs::for('monitors', function (BreadcrumbTrail $trail) {
     $trail->parent('home');
     $trail->push('Monitors', route('monitors.index'));
 });
 
-// Home > Blog > [Category]
-Breadcrumbs::for('category', function (BreadcrumbTrail $trail, $category) {
-    $trail->parent('blog');
-    $trail->push($category->title, route('category', $category));
+Breadcrumbs::for('monitor', function (BreadcrumbTrail $trail, $monitor) {
+    $trail->parent('monitors');
+    $trail->push($monitor->title, route('monitors.show', $monitor));
 });
+
+

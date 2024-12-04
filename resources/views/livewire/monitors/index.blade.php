@@ -53,7 +53,7 @@ new class extends Component
     @else
         <h1 class="text-primary-blue font-koulen text-2xl text-center">Currently no Monitors avaibale! </h1>
     @endif
+
     {{ Breadcrumbs::render('monitors') }}
-
-
 </div>
+

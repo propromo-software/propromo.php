@@ -1,3 +1,7 @@
+
+
+
+
 <div class="p-8">
     <div class="mb-4">
         <a href="/monitors/{{ $monitor->id }}" title="Zurück zum Monitor" class="flex items-center p-3 text-lg font-bold border-2 rounded-md text-secondary-grey font-sourceSansPro border-other-grey">

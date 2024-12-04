@@ -97,4 +97,6 @@ new class extends Component {
             </div>
         </div>
     </div>
+
+    {{ Breadcrumbs::render('monitor', $monitor) }}
 </div>

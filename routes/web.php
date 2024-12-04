@@ -21,7 +21,7 @@ Route::get('/auth/github', [GithubController::class,'redirect'])->name('github.l
 Route::get('/auth/github/callback', [GithubController::class,'callback']);
 
 Volt::route('/monitors', 'monitors.index')->name('monitors.index');
-Volt::route('/monitors/{monitor}', 'monitors.show');
+Volt::route('/monitors/{monitor}', 'monitors.show')->name('monitors.show');
 
 Volt::route('/monitors/{monitor}/milestones/{milestone}', 'milestones.show');
 Volt::route('/monitors/{monitor}/pdf', 'pdf.index');
