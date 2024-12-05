@@ -6,6 +6,7 @@ use App\Models\Deployment;
 use App\Models\Monitor;
 use Exception;
 use Illuminate\Support\Facades\Http;
+use Log;
 
 trait DeploymentCollector
 {
@@ -25,7 +26,7 @@ trait DeploymentCollector
                 'Authorization' => 'Bearer ' . $monitor->pat_token
             ])->get($url);
 
-            \Log::debug('Raw API Response:', [
+            Log::debug('Raw API Response:', [
                 'status' => $response->status(),
                 'body' => $response->body()
             ]);
@@ -63,7 +64,7 @@ trait DeploymentCollector
                 }
             }
         } catch (Exception $e) {
-            \Log::error('Deployment collection error:', [
+            Log::error('Deployment collection error:', [
                 'message' => $e->getMessage(),
                 'trace' => $e->getTraceAsString()
             ]);

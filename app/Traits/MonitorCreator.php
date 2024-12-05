@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Str;
 use App\Traits\TokenCreator;
 use Exception;
+use Log;
 
 trait MonitorCreator
 {
@@ -112,8 +113,8 @@ trait MonitorCreator
             $monitor->users()->attach(Auth::user()->id);
 
             return $monitor;
-        } catch (\Exception $e) {
-            \Log::error('Monitor Creation Error:', [
+        } catch (Exception $e) {
+            Log::error('Monitor Creation Error:', [
                 'message' => $e->getMessage(),
                 'trace' => $e->getTraceAsString()
             ]);

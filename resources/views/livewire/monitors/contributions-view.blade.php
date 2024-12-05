@@ -1,8 +1,7 @@
-
-
-
-
 <div class="p-8">
+    sdafadsf
+    {{$commit}}
+
     <div class="mb-4">
         <a href="/monitors/{{ $monitor->id }}" title="Zurück zum Monitor" class="flex items-center p-3 text-lg font-bold border-2 rounded-md text-secondary-grey font-sourceSansPro border-other-grey">
             <sl-icon class="p-2 text-4xl border-2 rounded-md cursor-pointer text-primary-blue border-other-grey" name="arrow-left-short" wire:ignore></sl-icon>
@@ -10,15 +9,16 @@
         </a>
     </div>
 
-    <div class="space-y-4" lazy>
+    <!-- Contribution List Section -->
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
         @forelse($contributions as $contribution)
-            <div class="p-4 pb-4 border border-gray-200 rounded-md">
+            <div class="border-other-grey border-2 rounded-2xl p-8 m-2 shadow-lg flex flex-col h-full">
                 <h3 class="text-lg font-semibold">
                     <a href="{{ $contribution->commit_url }}" target="_blank" class="text-blue-600 hover:text-blue-800">
                         {{ $contribution->message_headline }}
                     </a>
                 </h3>
-                <p class="text-sm text-gray-500">{{ $contribution->message_body }}</p>
+                <p class="text-sm text-gray-500 flex-grow">{{ $contribution->message_body }}</p>
                 <div class="mt-1 text-xs text-gray-400">
                     <span>
                         {{ is_string($contribution->committed_date) ? \Carbon\Carbon::parse($contribution->committed_date)->format('M d, Y H:i') : $contribution->committed_date->format('M d, Y H:i') }}
@@ -46,7 +46,7 @@
                 </div>
             </div>
         @empty
-            <div class="py-4 text-center text-gray-500">
+            <div class="py-4 text-center text-gray-500 col-span-3">
                 Keine Beiträge gefunden
             </div>
         @endforelse

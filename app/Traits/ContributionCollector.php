@@ -7,6 +7,7 @@ use App\Models\Author;
 use App\Models\Contribution;
 use Exception;
 use Illuminate\Support\Facades\Http;
+use Log;
 
 trait ContributionCollector
 {
@@ -19,16 +20,19 @@ trait ContributionCollector
             ? $_ENV['APP_SERVICE_URL'] . '/v1/github/orgs/' . $monitor->organization_name . '/projects/' . $monitor->project_identification . '/repositories/contributions?rootPageSize=25&pageSize=50'
             : $_ENV['APP_SERVICE_URL'] . '/v1/github/users/' . $monitor->login_name . '/projects/' . $monitor->project_identification . '/repositories/contributions?rootPageSize=25&pageSize=50';
 
-        \Log::info('Fetching contributions from URL:', ['url' => $url]);
+        Log::info('Fetching contributions from URL:', ['url' => $url]);
 
         try {
+            // reset commits -> prevent duplicates
+            Contribution::truncate();
+
             $response = Http::withHeaders([
                 'content-type' => 'application/json',
                 'Accept' => 'text/plain',
                 'Authorization' => 'Bearer ' . $monitor->pat_token
             ])->get($url);
 
-            \Log::debug('API Response:', [
+            Log::debug('API Response:', [
                 'status' => $response->status(),
                 'body' => $response->body()
             ]);
@@ -45,7 +49,7 @@ trait ContributionCollector
                         if ($commitNode) {
                             $authors = $commitNode['authors']['nodes'] ?? [];
 
-                            \Log::debug('Authors for commit:', [
+                            Log::debug('Authors for commit:', [
                                 'commit_url' => $commitNode['commitUrl'],
                                 'authors' => $authors
                             ]);
@@ -69,14 +73,14 @@ trait ContributionCollector
 
                 return $contributions;
             } else {
-                \Log::error('Error fetching contributions:', [
+                Log::error('Error fetching contributions:', [
                     'status' => $response->status(),
                     'body' => $response->body()
                 ]);
                 throw new Exception("Fehler beim Abrufen der Beiträge: " . $response->body());
             }
         } catch (Exception $e) {
-            \Log::error('Exception in collect_contributions:', [
+            Log::error('Exception in collect_contributions:', [
                 'message' => $e->getMessage(),
                 'trace' => $e->getTraceAsString()
             ]);
