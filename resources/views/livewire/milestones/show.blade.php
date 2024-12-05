@@ -98,4 +98,6 @@ new class extends Component {
             <livewire:tasks.list :tasks="$this->reload_tasks()"/>
         </div>
     </div>
+
+    {{ Breadcrumbs::render('milestone', $milestone->repository->monitor, $milestone) }}
 </div>
