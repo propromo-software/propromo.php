@@ -142,7 +142,7 @@ new class extends Component {
     }
 }; ?>
 <div>
-    <div class="flex gap-8 p-8 bg-gray-100 min-h-screen">
+    <div class="flex gap-8 p-8 bg-gray-100 h-min">
 
         <div class="w-1/2 bg-white p-6 rounded-md border-2 border-other-grey px-6 py-6">
             <h2 class="text-4xl font-koulen text-primary-blue">Configurator</h2>
@@ -223,7 +223,7 @@ new class extends Component {
                 </div>
 
 
-                <h2 class="text-xl text-primary-blue font-semibold mt-4">Users & Commits</h2>
+                <h2 class="text-xl text-center text-primary-blue font-semibold mt-4">Users & Commits</h2>
                 <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mt-4">
                     @foreach($commitUsers as $user)
                         <div class="flex flex-col items-center bg-white p-4 rounded-md border border-other-grey">

@@ -16,8 +16,8 @@ trait DeploymentCollector
     public function collect_deployments(Monitor $monitor)
     {
         $url = $monitor->type == 'ORGANIZATION'
-            ? $_ENV['APP_SERVICE_URL'] . '/v1/github/orgs/' . $monitor->organization_name . '/projects/' . $monitor->project_identification . '/repositories/deployments?rootPageSize=10'
-            : $_ENV['APP_SERVICE_URL'] . '/v1/github/users/' . $monitor->login_name . '/projects/' . $monitor->project_identification . '/repositories/deployments?rootPageSize=10';
+            ? $_ENV['APP_SERVICE_URL'] . '/v1/github/orgs/' . $monitor->organization_name . '/projects/' . $monitor->project_identification . '/repositories/deployments?rootPageSize=25'
+            : $_ENV['APP_SERVICE_URL'] . '/v1/github/users/' . $monitor->login_name . '/projects/' . $monitor->project_identification . '/repositories/deployments?rootPageSize=25';
 
         try {
             $response = Http::withHeaders([

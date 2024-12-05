@@ -22,7 +22,6 @@ Breadcrumbs::for('monitor', function (BreadcrumbTrail $trail, $monitor) {
     $trail->push($monitor->title, route('monitors.show', $monitor));
 });
 
-
 Breadcrumbs::for('milestone', function (BreadcrumbTrail $trail, $monitor, $milestone) {
     $trail->parent('monitor', $monitor);
     $trail->push($milestone->title, route('milestone.show', [
@@ -30,7 +29,6 @@ Breadcrumbs::for('milestone', function (BreadcrumbTrail $trail, $monitor, $miles
         "milestone" => $milestone
     ]));
 });
-
 
 Breadcrumbs::for('pdf', function (BreadcrumbTrail $trail, $monitor) {
     $trail->parent('monitor', $monitor);

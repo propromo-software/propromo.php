@@ -181,7 +181,7 @@
     <div class="content">
         @foreach ($commitUsers as $user)
             <div class="user-commit">
-                <strong>{{ $user-> }}</strong>: {{ $user->commit_count }} commits
+                <strong>{{ $user->name }}</strong>: {{ $user->commit_count }} commits
             </div>
         @endforeach
     </div>
