@@ -10,7 +10,7 @@
         </a>
     </div>
 
-    <div class="space-y-4">
+    <div class="space-y-4" lazy>
         @forelse($contributions as $contribution)
             <div class="p-4 pb-4 border border-gray-200 rounded-md">
                 <h3 class="text-lg font-semibold">

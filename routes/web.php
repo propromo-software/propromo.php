@@ -26,7 +26,7 @@ Volt::route('/monitors/{monitor}', 'monitors.show')->name('monitors.show');
 Volt::route('/monitors/{monitor}/milestones/{milestone}', 'milestones.show');
 Volt::route('/monitors/{monitor}/pdf', 'pdf.index')->name('pdf.index');
 
-Route::get('/monitors/{monitor}/contributions/{contribution?}', ContributionsView::class);
+Route::get('/monitors/{monitor}/contributions/{contribution?}', ContributionsView::class)->lazy();
 
 Volt::route('/create-monitor', 'auth.create-monitor');
 Volt::route('/create-open-source-monitor', 'auth.create-open-source-monitor');
