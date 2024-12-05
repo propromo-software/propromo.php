@@ -1,9 +1,10 @@
 <?php
 
+use App\Models\Contribution;
 use App\Models\Monitor;
+use Carbon\Carbon;
 use Livewire\Volt\Component;
 use Barryvdh\DomPDF\Facade\Pdf;
-
 
 new class extends Component {
     public Monitor $monitor;
@@ -16,35 +17,30 @@ new class extends Component {
     public $total_milestones = 0;
     public $top_milestones = [];
     public $tasks = [];
+    public $commitUsers = [];
+
+    public $sprint_duration_weeks = 2;
+    public $from_date = null;
 
     public $data = [];
+    public $showData = false;
 
     public function mount(Monitor $monitor)
     {
         $this->monitor = $monitor;
         $this->calculate_statistics();
-
-        $this->data = [
-            'organization_name' => $this->monitor->organization_name,
-            'organization_description' => $this->monitor->short_description,
-            'total_issues' => $this->total_issues,
-            'total_issues_open' => $this->total_issues_open,
-            'total_issues_closed' => $this->total_issues_closed,
-            'total_milestones' => $this->total_milestones,
-            'total_percentage' => $this->total_percentage,
-            'top_milestones' => $this->top_milestones,
-            'generated_date' => now()->format('d-m-Y')
-        ];
+        $this->generate_data();
     }
 
-
-
+    public function updated($property)
+    {
+        if ($property == 'sprint_duration_weeks' || $property == 'from_date') {
+            $this->filter_commits();
+        }
+    }
 
     protected function calculate_statistics(): void
     {
-
-        #$this->reload_issues();
-        $allMilestonesEmpty = true;
 
         foreach ($this->monitor->repositories as $repository) {
             $repositoryTasks = $repository->milestones->flatMap(function ($milestone) {
@@ -101,122 +97,148 @@ new class extends Component {
             $this->total_percentage = 0;
         }
     }
+
+    public function generate_data()
+    {
+        $this->data = [
+            'organization_name' => $this->monitor->organization_name,
+            'organization_description' => $this->monitor->short_description,
+            'total_issues' => $this->total_issues,
+            'total_issues_open' => $this->total_issues_open,
+            'total_issues_closed' => $this->total_issues_closed,
+            'total_milestones' => $this->total_milestones,
+            'total_percentage' => $this->total_percentage,
+            'top_milestones' => $this->top_milestones,
+            'generated_date' => now()->format('d-m-Y'),
+            'commitUsers' => $this->commitUsers
+        ];
+
+        $this->showData = true;
+
+    }
+
+    public function filter_commits()
+    {
+        $startDate = Carbon::parse($this->from_date ?: Carbon::now()->subWeeks($this->sprint_duration_weeks));
+        $endDate = $startDate->copy()->addWeeks($this->sprint_duration_weeks);
+
+        $commits = Contribution::selectRaw('authors.name, authors.avatar_url, COUNT(contributions.id) as commit_count')
+            ->leftJoin('authors', 'contributions.author_id', '=', 'authors.id')
+            ->whereBetween('contributions.committed_date', [$startDate, $endDate])
+            ->groupBy('authors.name', 'authors.avatar_url')
+            ->get();
+
+        $this->commitUsers = $commits;
+    }
+
     public function generate_pdf()
     {
-
+        $this->generate_data();
         $pdf = Pdf::loadView('report-pdf', $this->data);
 
-        return response()->streamDownload(function () use ($pdf){
+        return response()->streamDownload(function () use ($pdf) {
             echo $pdf->stream();
         }, 'report-pdf.pdf');
     }
-
 }; ?>
-
 <div>
-<div class="flex gap-8 p-8 bg-gray-100 min-h-screen">
-    <!-- Configurator Section -->
-    <div class="w-1/2 bg-white p-6 rounded-md border-2 border-other-grey px-6 py-6">
-        <h2 class="text-4xl font-koulen text-primary-blue">Configurator</h2>
-        <br>
-        <sl-input wire:ignore placeholder="Organization-Name" value="{{$monitor->organization_name}}"></sl-input>
-        <br>
-        <sl-input wire:ignore placeholder="Organization-Description" value="{{$monitor->short_description}}"></sl-input>
-        <br>
+    <div class="flex gap-8 p-8 bg-gray-100 min-h-screen">
 
-        <div class="flex flex-col space-y-4">
-            <div class="flex-1">
-                <label for="organization-name">Total Issues</label>
-                <sl-input wire:ignore id="organization-name" class="w-full" placeholder="Organization Name"
-                          value="{{$total_issues}}"></sl-input>
+        <div class="w-1/2 bg-white p-6 rounded-md border-2 border-other-grey px-6 py-6">
+            <h2 class="text-4xl font-koulen text-primary-blue">Configurator</h2>
+            <br>
+            <sl-input wire:ignore placeholder="Organization-Name" value="{{$monitor->organization_name}}"></sl-input>
+            <br>
+            <sl-input wire:ignore placeholder="Organization-Description" value="{{$monitor->short_description}}"></sl-input>
+            <br>
 
-            </div>
-            <div class="flex-1">
-                <label for="organization-name">Open Issues</label>
-                <sl-input wire:ignore id="organization-name" class="w-full" placeholder="Organization Name"
-                          value="{{$total_issues_open}}"></sl-input>
-
-            </div>
-            <div class="flex-1">
-                <label for="organization-name">Closed Issues</label>
-                <sl-input wire:ignore id="organization-name" class="w-full" placeholder="Organization Name"
-                          value="{{$total_issues_closed}}"></sl-input>
-
-            </div>
-
-            <div class="flex-1">
-                <label for="organization-description">Total Milestones</label>
-                <sl-input wire:ignore id="organization-description" class="w-full" placeholder="Organization Description"
-                          value="{{$total_milestones}}"></sl-input>
-            </div>
-
-            <div class="flex-1">
-                <label for="organization-description">Total Progess</label>
-                <sl-input wire:ignore id="organization-description" class="w-full" placeholder=""
-                          value="{{$total_percentage}} %"></sl-input>
-            </div>
-
-
-            <sl-button wire:ignore wire:click="generate_pdf()">Generate</sl-button>
-        </div>
-    </div>
-
-    <!-- PDF Preview Section -->
-    <div class="w-1/2 bg-white p-6 rounded-md border-2 border-other-grey px-6 py-6">
-        <div class="p-8 bg-white text-gray-900">
-            <!-- Header Section -->
-            <div class="header text-center border-b-2 border-primary-blue pb-4 mb-8">
-                <h1 class="text-2xl text-primary-blue font-semibold">Project Report</h1>
-                <p class="text-lg text-gray-600">Organization: {{ $monitor->organization_name }}</p>
-                <p class="text-lg text-gray-600">Description: {{ $monitor->organization_description }}</p>
-            </div>
-
-            <!-- Statistics Section -->
-            <div class="section mb-8">
-                <h2 class="text-xl text-primary-blue font-semibold mb-4">Statistics</h2>
-                <div class="content p-4 border border-other-grey rounded-md bg-gray-50">
-                    <p class="text-gray-700"><strong>Total Issues:</strong> {{ $total_issues }}</p>
-                    <p class="text-gray-700"><strong>Open Issues:</strong> {{ $total_issues_open }}</p>
-                    <p class="text-gray-700"><strong>Closed Issues:</strong> {{ $total_issues_closed }}</p>
-                    <p class="text-gray-700"><strong>Total Milestones:</strong> {{ $total_milestones }}</p>
-                    <p class="text-gray-700"><strong>Progress Percentage:</strong> {{ $total_percentage }}%</p>
+            <div class="flex flex-col space-y-4">
+                <div class="flex-1">
+                    <label for="sprint-duration">Sprint Duration (weeks)</label>
+                    <sl-input wire:model="sprint_duration_weeks" class="w-full" type="number" placeholder="Sprint Duration in Weeks"></sl-input>
                 </div>
-            </div>
 
-            <!-- Top Milestones Section -->
-            <div class="section mb-8">
-                <h2 class="text-xl text-primary-blue font-semibold mb-4">Top Milestones</h2>
-                <div class="content p-4 border border-other-grey rounded-md bg-gray-50">
-                    <div class="milestones space-y-4">
+                <div class="flex-1">
+                    <label for="from_date">From Date</label>
+                    <sl-input wire:model="from_date" class="w-full" type="date"></sl-input>
+                </div>
+
+                <sl-button wire:click="generate_data()">Generate</sl-button>
+
+                @if($showData)
+                    <sl-button wire:click="generate_pdf()">Download PDF</sl-button>
+                @endif
+            </div>
+        </div>
+
+        <div class="w-1/2 bg-white p-6 rounded-md border-2 border-other-grey px-6 py-6">
+            @if($showData)
+                <h2 class="text-xl text-center font-semibold text-primary-blue mb-4">Statistics</h2>
+
+                    <div class="space-y-4">
+                    <div class="flex justify-between items-center">
+                        <p class="text-lg font-medium text-gray-700"><strong>Total Issues:</strong></p>
+                        <p class="text-lg text-gray-800">{{ $total_issues }}</p>
+                    </div>
+
+                    <div class="flex justify-between items-center">
+                        <p class="text-lg font-medium text-gray-700"><strong>Open Issues:</strong></p>
+                        <p class="text-lg text-gray-800">{{ $total_issues_open }}</p>
+                    </div>
+
+                    <div class="flex justify-between items-center">
+                        <p class="text-lg font-medium text-gray-700"><strong>Closed Issues:</strong></p>
+                        <p class="text-lg text-gray-800">{{ $total_issues_closed }}</p>
+                    </div>
+
+                    <div class="flex justify-between items-center">
+                        <p class="text-lg font-medium text-gray-700"><strong>Total Milestones:</strong></p>
+                        <p class="text-lg text-gray-800">{{ $total_milestones }}</p>
+                    </div>
+
+                    <div class="flex justify-between items-center">
+                        <p class="text-lg font-medium text-gray-700"><strong>Progress Percentage:</strong></p>
+                        <p class="text-lg text-gray-800">{{ $total_percentage }}%</p>
+                    </div>
+                </div>
+
+                <div class="w-full bg-white p-6 rounded-lg mt-6">
+                    <h2 class="text-xl text-center font-semibold text-primary-blue mb-6">Top Milestones</h2>
+
+                    <div class="space-y-6">
                         @foreach ($top_milestones as $milestone)
-                            <div class="milestone flex justify-between items-center border-b border-other-grey pb-2">
-                                <span class="text-gray-700">{{ $milestone->name }}</span>
-                                <div class="milestone-progress w-1/2 bg-other-grey rounded-full h-1 relative mx-4">
-                                    <div class="progress-bar rounded-full h-1"
-                                         style="width: {{ $milestone->progress }}%;
-                                        background-color:
-                                        @if($milestone->progress >= 75) #229342
-                                        @elseif($milestone->progress >= 50) #FBC116
-                                        @else #E33B2E
-                                        @endif;">
-                                    </div>
+                            <span class="text-lg font-medium text-gray-700">{{ $milestone->title }}</span>
+                            <div class="flex justify-between items-center  hover:bg-gray-100 transition duration-300">
+
+                                <div class="w-full bg-gray-200 rounded-full h-2 overflow-hidden">
+                                    <div class="bg-primary-blue h-full" style="width: {{ min($milestone->progress, 100) }}%;"></div>
                                 </div>
-                                <span class="text-gray-700">{{ round($milestone->progress,2) }}%</span>
+
+                                <div class="ml-2">
+                                    <span class="text-lg font-semibold text-gray-800">{{ number_format($milestone->progress, 2) }}%</span>
+                                </div>
                             </div>
                         @endforeach
                     </div>
                 </div>
-            </div>
 
-            <!-- Footer Section -->
-            <div class="footer text-center text-sm text-secondary-grey border-t border-other-grey pt-4 mt-8">
-                <p>@Propromo  2024</p>
-            </div>
+
+                <h2 class="text-xl text-primary-blue font-semibold mt-4">Users & Commits</h2>
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mt-4">
+                    @foreach($commitUsers as $user)
+                        <div class="flex flex-col items-center bg-white p-4 rounded-md border border-other-grey">
+                            <img src="{{ $user->avatar_url }}" alt="{{ $user->name }}" class="w-24 h-24 rounded-full mb-4 border-2 border-other-grey">
+
+                            <div class="text-center">
+                                <h3 class="text-lg font-semibold text-primary-blue">{{ $user->name }}</h3>
+                                <p class="text-sm text-gray-600">{{ $user->commit_count }} commits</p>
+                            </div>
+                        </div>
+                    @endforeach
+                </div>
+            @endif
         </div>
-
     </div>
 
-</div>
-
-{{ Breadcrumbs::render('pdf', $monitor) }}
+    {{ Breadcrumbs::render('pdf', $monitor) }}
 </div>
