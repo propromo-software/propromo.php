@@ -70,7 +70,6 @@ new class extends Component {
                 <livewire:monitors.read-me-view :monitor="$monitor"/>
             </div>
             <div class="p-5 border-2 border-other-grey rounded-2xl">
-                <h2 class="mb-4 text-lg font-semibold">Deployments</h2>
                 <livewire:monitors.deployments-view :monitor="$monitor"/>
             </div>
         </div>

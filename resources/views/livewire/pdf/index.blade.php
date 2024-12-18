@@ -114,7 +114,6 @@ new class extends Component {
         ];
 
         $this->showData = true;
-
     }
 
     public function filter_commits()

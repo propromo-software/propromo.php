@@ -1,42 +1,29 @@
-<div>
+<div class="rounded-lg">
+    <h2 class="text-primary-blue text-xl font-bold mb-4 border-b pb-2">DEPLOYMENTS:</h2>
+
     @error('deployments')
-        <div class="mb-4 text-sm text-red-500">{{ $message }}</div>
+    <div class="mb-4 text-sm text-red-500">{{ $message }}</div>
     @enderror
 
     <div class="space-y-4">
         @forelse($deployments as $deployment)
-            <div class="pb-4 border-b border-gray-200">
-                <div class="flex items-center justify-between">
-                    <div class="flex items-center space-x-2">
-                        <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium
-                            @if($deployment->state === 'SUCCESS') bg-green-100 text-green-800
-                            @elseif($deployment->state === 'INACTIVE') bg-gray-100 text-gray-800
-                            @else bg-yellow-100 text-yellow-800
-                            @endif">
-                            {{ $deployment->state }}
-                        </span>
-                        <span class="text-sm text-gray-500">
-                            {{ \Carbon\Carbon::parse($deployment->created_at)->diffForHumans() }}
-                        </span>
-                    </div>
-                    <div class="flex space-x-2">
-                        @if($deployment->log_url)
-                            <a href="{{ $deployment->log_url }}" target="_blank" class="text-sm text-blue-600 hover:text-blue-800">
-                                Logs
-                            </a>
-                        @endif
-                        @if($deployment->environment_url)
-                            <a href="{{ $deployment->environment_url }}" target="_blank" class="text-sm text-blue-600 hover:text-blue-800">
-                                Deployment
-                            </a>
-                        @endif
-                    </div>
+            <div class="flex justify-between items-center bg-gray-50 px-4 py-3 border-2 border-other-grey rounded-2xl">
+                <div class="flex items-center space-x-4">
+                    <span class="text-gray-400 text-xs uppercase tracking-wide font-semibold">
+                        {{ $deployment->description ?? 'FIRST DEPLOYMENT' }}
+                    </span>
+                    <span class="text-gray-500 text-sm">
+                        {{ \Carbon\Carbon::parse($deployment->created_at)->format('d.m.Y') }}
+                    </span>
                 </div>
-                @if($deployment->description)
-                    <p class="mt-2 text-sm text-gray-600">
-                        {{ $deployment->description }}
-                    </p>
-                @endif
+                <div>
+                    @if($deployment->environment_url)
+                        <a href="{{ $deployment->environment_url }}" target="_blank"
+                           class="bg-primary-blue text-white px-4 py-2 text-sm rounded-md hover:bg-blue-800 transition duration-200">
+                            Visit
+                        </a>
+                    @endif
+                </div>
             </div>
         @empty
             <div class="py-4 text-center text-gray-500">

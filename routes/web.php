@@ -43,3 +43,5 @@ Volt::route('/settings/profile', 'settings.index');
 Volt::route('/settings/monitors', 'settings.monitors.index');
 
 Route::get('/monitors/join/{monitor_hash}', [MonitorController::class, 'join']);
+
+Volt::route('/custom', 'custom.index')->name('custom.index')->lazy();
