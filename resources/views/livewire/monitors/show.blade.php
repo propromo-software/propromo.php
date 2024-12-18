@@ -65,28 +65,6 @@ new class extends Component {
             <livewire:monitors.dashboard.index :monitor="$monitor" lazy="true"/>
         </div>
 
-        <!-- Shoelace Input Field for PDF name or other data -->
-        <div class="mt-8">
-            <div class="p-5 border-2 border-other-grey rounded-2xl">
-                <form wire:submit.prevent="submit_form">
-                    <div class="mb-4">
-                        <sl-input label="PDF Name" placeholder="Enter PDF name" size="large" filled
-                                  wire:model.defer="pdfName"></sl-input>
-                    </div>
-                    <div class="mb-4">
-                        <sl-select label="Status" placeholder="Select status" size="large" filled wire:model.defer="status">
-                            <sl-menu-item value="draft">Draft</sl-menu-item>
-                            <sl-menu-item value="final">Final</sl-menu-item>
-                        </sl-select>
-                    </div>
-                    <sl-button type="submit" variant="primary" size="large">
-                        <sl-icon slot="suffix" name="save"></sl-icon>
-                        Save PDF
-                    </sl-button>
-                </form>
-            </div>
-        </div>
-
         <div class="grid grid-cols-3 gap-8 mt-8">
             <div class="col-span-2">
                 <livewire:monitors.read-me-view :monitor="$monitor"/>
