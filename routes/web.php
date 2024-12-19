@@ -23,6 +23,10 @@ Route::get('/auth/github/callback', [GithubController::class,'callback']);
 Volt::route('/monitors', 'monitors.index')->name('monitors.index');
 Volt::route('/monitors/{monitor}', 'monitors.show')->name('monitors.show');
 
+Volt::route('/custom', "monitors.custom.index")->name('monitors.custom.index');
+Volt::route('/custom/{monitor}', "monitors.custom.show")->name('monitors.custom.show');
+
+
 Volt::route('/monitors/{monitor}/milestones/{milestone}', 'milestones.show')->name('milestone.show');
 
 
@@ -44,4 +48,4 @@ Volt::route('/settings/monitors', 'settings.monitors.index');
 
 Route::get('/monitors/join/{monitor_hash}', [MonitorController::class, 'join']);
 
-Volt::route('/custom', 'custom.index')->name('custom.index')->lazy();
+

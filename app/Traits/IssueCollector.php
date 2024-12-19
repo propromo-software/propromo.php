@@ -21,7 +21,6 @@ trait IssueCollector
         $url = $monitor->type == 'ORGANIZATION'
             ? $_ENV['APP_SERVICE_URL'] . '/v1/github/orgs/' . $monitor->organization_name . '/projects/' . $monitor->project_identification . '/repositories/milestones/' . $milestone->milestone_id . '/issues?rootPageSize=10&issuesPageSize=100'
             : $_ENV['APP_SERVICE_URL'] . '/v1/github/users/' . $monitor->login_name . '/projects/' . $monitor->project_identification . '/repositories/milestones/' . $milestone->milestone_id . '/issues?rootPageSize=10&issuesPageSize=100';
-
         try {
             $response = Http::withHeaders([
                 'content-type' => 'application/json',

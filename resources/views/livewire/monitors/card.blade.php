@@ -67,9 +67,6 @@ new class extends Component
     </div>
     <livewire:repositories.list :monitor_id="$monitor->id" />
 
-
-
-
     @if($collect_repos_error)
         <sl-alert variant="danger" open closable>
             <sl-icon wire:ignore slot="icon" name="patch-exclamation"></sl-icon>

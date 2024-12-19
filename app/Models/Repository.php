@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
 /**
- * 
+ *
  *
  * @property int $id
  * @property string $name
@@ -32,7 +32,10 @@ class Repository extends Model
 {
 
     protected $fillable =[
-        'name'
+        'name',
+        'monitor_id',
+        'is_custom',
+        'custom_repository_id'
     ];
 
     public function monitor(): BelongsTo

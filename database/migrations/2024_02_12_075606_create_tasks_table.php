@@ -19,7 +19,7 @@ return new class extends Migration {
             $table->date('updated_at')->nullable();
             $table->date('last_edited_at')->nullable();
             $table->date('closed_at')->nullable();
-
+            $table->integer('custom_repository_id')->nullable();
             $table->string('body')->nullable();
             $table->string('title')->nullable();
             $table->string('url')->nullable();

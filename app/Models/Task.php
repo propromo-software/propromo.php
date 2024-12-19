@@ -48,16 +48,14 @@ class Task extends Model
 
     protected $fillable = [
         "milestone_id",
-        "is_active",
-        "body_url",
-        "url",
-        "created_at",
-        "updated_at",
-        "closed_at",
-        "last_edited_at",
-        "body",
-        "title",
-        "url"
+        'title',
+        'url',
+        'body_url',
+        'closed_at',
+        'last_edited_at',
+        'body',
+        'custom_repository_id',
+        'is_active',
     ];
 
     public function milestone(): BelongsTo
