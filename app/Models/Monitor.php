@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Traits\ContributionCollector;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
@@ -66,6 +67,7 @@ use PhpParser\Builder;
 class Monitor extends Model
 {
     use HasFactory;
+    use ContributionCollector;
 
     protected $fillable = [
         "project_url",

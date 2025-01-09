@@ -9,19 +9,21 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('contributions', function (Blueprint $table) {
-            $table->id();
-            $table->foreignId('author_id')->constrained()->cascadeOnDelete();
+            $table->string('id')->primary(); // GitHub commit hash
             $table->string('commit_url');
-            $table->text('message_headline');
+            $table->string('message_headline');
             $table->text('message_body')->nullable();
-            $table->integer('additions')->default(0);
-            $table->integer('deletions')->default(0);
-            $table->integer('changed_files')->default(0);
-            $table->timestamp('committed_date')->nullable();
+            $table->integer('additions');
+            $table->integer('deletions');
+            $table->integer('changed_files');
+            $table->timestamp('committed_date');
             $table->timestamps();
         });
     }
 
+    /**
+     * Reverse the migrations.
+     */
     public function down(): void
     {
         Schema::dropIfExists('contributions');

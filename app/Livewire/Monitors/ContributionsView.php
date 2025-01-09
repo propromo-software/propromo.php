@@ -2,61 +2,94 @@
 
 namespace App\Livewire\Monitors;
 
-use App\Models\Contribution;
 use App\Models\Monitor;
-use App\Traits\ContributionCollector;
-use Carbon\Carbon;
-use Exception;
+use App\Models\Contribution;
+use App\Models\Author;
 use Livewire\Component;
+use Log;
+use Exception;
+use Livewire\Attributes\On;
 
 class ContributionsView extends Component
 {
-    use ContributionCollector;
-
     public Monitor $monitor;
     public $contributions = [];
-    public $contributionId;
+    public $nextRootCursor = null;
+    public $nextCursor = null;
+    public bool $hasMoreRepositories = false;
+    public bool $hasMoreCommits = false;
+    public bool $loading = false;
+    public ?string $currentRepositoryName = null;
+    public ?string $error = null;
 
-    public $commit;
-    public function mount(Monitor $monitor, $contributionId = null)
+    public function mount(Monitor $monitor)
     {
         $this->monitor = $monitor;
-        $this->contributionId = $contributionId;
-        $this->loadContributions();
-        $this-> commit = $this->calculateContributions();
+        $this->loadNext();
     }
 
-    public function loadContributions()
+    public function loadNext()
     {
         try {
-            $this->contributions = $this->collect_contributions($this->monitor);
+            $this->loading = true;
+            $this->error = null;
+            
+            $result = $this->monitor->collect_contributions($this->nextRootCursor, $this->nextCursor);
+            
+            if (!$result) {
+                throw new Exception('No response from API server');
+            }
+
+            Log::info('API Response:', [
+                'hasMoreCommits' => $result['has_more_commits'] ?? false,
+                'hasMoreRepositories' => $result['has_more_repositories'] ?? false,
+                'nextRootCursor' => $result['next_root_cursor'] ?? null,
+                'nextCursor' => $result['next_cursor'] ?? null,
+                'currentRepo' => $result['current_repository_name'] ?? 'unknown',
+                'contributionsCount' => count($result['contributions'] ?? [])
+            ]);
+            
+            if (!empty($result['contributions'])) {
+                $contributionIds = collect($result['contributions'])->pluck('id');
+                $loadedContributions = Contribution::with('authors')
+                    ->whereIn('id', $contributionIds)
+                    ->orderBy('committed_date', 'desc')
+                    ->get();
+                
+                $this->contributions = array_merge($this->contributions, $loadedContributions->all());
+            }
+            
+            $this->nextRootCursor = $result['next_root_cursor'];
+            $this->nextCursor = $result['next_cursor'];
+            $this->hasMoreRepositories = $result['has_more_repositories'] ?? false;
+            $this->hasMoreCommits = $result['has_more_commits'] ?? false;
+            $this->currentRepositoryName = $result['current_repository_name'];
+            
         } catch (Exception $e) {
-            $this->addError('contributions', $e->getMessage());
+            $this->error = "Error loading contributions. Please try again.";
+            $this->hasMoreCommits = false;
+            $this->hasMoreRepositories = false;
+        } finally {
+            $this->loading = false;
         }
     }
 
-
-    public function calculateContributions()
+    public function loadMore()
     {
-        $commits = Contribution::selectRaw('authors.name, COUNT(contributions.id) as commit_count')
-            ->leftJoin('authors', 'contributions.author_id', '=', 'authors.id')
-            ->where('committed_date', '>=', Carbon::now()->subDays(14))
-            ->where('committed_date', '<', Carbon::now())
-            ->groupBy('authors.name')
-            ->get();
-
-        return $commits;
+        if (!$this->loading) {
+            if ($this->hasMoreCommits) {
+                $this->loadNext();
+            } else if ($this->hasMoreRepositories) {
+                $this->nextCursor = null;
+                $this->loadNext();
+            }
+        }
     }
 
-    public function placeholder()
+    public function retry()
     {
-        return <<<'HTML'
-        <div class="flex justify-center mt-64">
-           <div class="loader"></div>
-        </div>
-        HTML;
+        $this->loadNext();
     }
-
 
     public function render()
     {
