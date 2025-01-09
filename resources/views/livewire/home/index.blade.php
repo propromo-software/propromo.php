@@ -29,8 +29,16 @@ new class extends Component
 
         <h1 class="mt-20 text-4xl text-center font-koulen text-secondary-grey">PROJECT PREVIEW</h1>
 
-        <div class="responsive-iframe-container">
-            <iframe class="responsive-iframe" src="https://player.vimeo.com/video/953693432?badge=0&amp;autopause=0&amp;player_id=0&amp;app_id=58479&background=1&responsive=1" frameborder="0" allow="autoplay; fullscreen; picture-in-picture; clipboard-write" title="Video Missing."></iframe>
+        <div class="mt-8">
+            <div class="relative w-full aspect-video">
+                <iframe 
+                    class="absolute top-0 left-0 w-full h-full rounded-lg"
+                    src="https://player.vimeo.com/video/953693432?badge=0&amp;autopause=0&amp;player_id=0&amp;app_id=58479&background=1&responsive=1" 
+                    frameborder="0" 
+                    allow="autoplay; fullscreen; picture-in-picture; clipboard-write" 
+                    title="Propromo Preview">
+                </iframe>
+            </div>
         </div>
 
         <br>
