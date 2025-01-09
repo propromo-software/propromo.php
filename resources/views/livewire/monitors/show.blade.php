@@ -69,8 +69,13 @@ new class extends Component {
             <div class="col-span-2">
                 <livewire:monitors.read-me-view :monitor="$monitor"/>
             </div>
-            <div class="p-5 border-2 border-other-grey rounded-2xl">
-                <livewire:monitors.deployments-view :monitor="$monitor"/>
+            <div class="space-y-8">
+                <div class="p-5 border-2 border-other-grey rounded-2xl">
+                    <livewire:monitors.deployments-view :monitor="$monitor"/>
+                </div>
+                <div class="p-5 border-2 border-other-grey rounded-2xl">
+                    <livewire:monitors.vulnerabilities-view :monitor="$monitor"/>
+                </div>
             </div>
         </div>
     </div>
