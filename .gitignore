@@ -18,6 +18,7 @@ yarn-error.log
 /.idea
 /.vscode
 package-lock.json
+**/*.log
 
 # Created by https://www.toptal.com/developers/gitignore/api/macos
 # Edit at https://www.toptal.com/developers/gitignore?templates=macos
