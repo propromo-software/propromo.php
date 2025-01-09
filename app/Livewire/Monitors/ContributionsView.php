@@ -95,4 +95,13 @@ class ContributionsView extends Component
     {
         return view('livewire.monitors.contributions-view');
     }
+
+    public function placeholder() 
+    {
+        return <<<'HTML'
+        <div class="flex justify-center mt-64">
+           <div class="loader"></div>
+        </div>
+        HTML;
+    }
 }

@@ -17,25 +17,6 @@
         </div>
     @endif
 
-    <!-- Loading Indicator -->
-    <div 
-        x-data="{ loading: false }" 
-        x-on:livewire-loading.window="loading = true" 
-        x-on:livewire-loading-finish.window="loading = false"
-        x-show="loading"
-        class="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50"
-        style="display: none;"
-    >
-        <div class="p-6 bg-white rounded-lg shadow-xl">
-            <div class="flex items-center space-x-4">
-                <div class="w-10 h-10 border-4 border-blue-500 rounded-full animate-spin"></div>
-                <span class="text-lg text-gray-700">
-                    Loading {{ $currentRepositoryName ? 'commits from ' . $currentRepositoryName : 'repositories' }}...
-                </span>
-            </div>
-        </div>
-    </div>
-
     <!-- Contribution List Section -->
     <div class="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3" wire:loading.class="opacity-50">
         @forelse($contributions as $contribution)
