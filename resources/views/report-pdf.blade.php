@@ -156,8 +156,8 @@
     <!-- Header Section -->
     <div class="header">
         <h1>Project Blood-Report</h1>
-        <p><strong>Organization:</strong> {{ $organization_name }}</p>
-        <p><strong>Description:</strong> {{ $organization_description }}</p>
+        <p><strong>Organization:</strong> {{ \Illuminate\Support\Str::limit($organization_name, 50, '...') }}</p>
+        <p><strong>Description:</strong> {{ \Illuminate\Support\Str::limit($organization_description, 100, '...') }}</p>
     </div>
 
     <!-- Statistics Section -->
@@ -173,15 +173,12 @@
                     <div class="statistics-value">{{ $total_milestones }}</div>
                     <div class="statistics-description">Total Milestones</div>
                 </td>
-
                 <td class="statistics-cell">
                     <div class="statistics-value">{{ $total_percentage }}%</div>
                     <div class="statistics-description">Progress Percentage</div>
                 </td>
-
             </tr>
             <tr>
-
                 <td class="statistics-cell">
                     <div class="statistics-value">{{ $total_issues }}</div>
                     <div class="statistics-description">Total Issues</div>
@@ -204,7 +201,7 @@
         <div class="content">
             @foreach ($top_milestones as $milestone)
                 <div class="milestone">
-                    <span class="milestone-title">{{ $milestone->title }}</span>
+                    <span class="milestone-title">{{ \Illuminate\Support\Str::limit($milestone->title, 50, '...') }}</span>
                     <div class="progress-bar-container">
                         <div class="progress-bar" style="width: {{ min($milestone->progress, 100) }}%;"></div>
                     </div>
@@ -213,6 +210,41 @@
             @endforeach
         </div>
     </div>
+
+
+    <!-- Sprint Statistics Section -->
+    <div class="section">
+        <h2>Sprint Statistics</h2>
+        <p><strong>Sprint Duration:</strong> {{ $sprint_duration_weeks }} week(s)</p>
+        <p><strong>From:</strong> {{ $from_date ? \Carbon\Carbon::parse($from_date)->format('d-m-Y') : \Carbon\Carbon::now()->subWeeks($sprint_duration_weeks)->format('d-m-Y') }}</p>
+        <p><strong>To:</strong> {{ $from_date ? \Carbon\Carbon::parse($from_date)->addWeeks($sprint_duration_weeks)->format('d-m-Y') : \Carbon\Carbon::now()->format('d-m-Y') }}</p>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mt-6">
+            @if(count($commitUsers) > 0)
+                @foreach ($commitUsers as $user)
+                    <div class="flex flex-col items-center bg-white p-4 rounded-md border border-other-grey">
+                        <img src="{{ $user->avatar_url }}" alt="{{ $user->name }}" class="w-24 h-24 rounded-full mb-4 border-2 border-gray-200">
+                        <div class="text-center">
+                            <h3 class="text-lg font-semibold text-primary-blue">{{ $user->name }}</h3>
+                            <p class="text-sm text-gray-600"><strong>{{ $user->commit_count }}</strong> commits</p>
+                        </div>
+                    </div>
+                @endforeach
+            @else
+                <p class="text-center text-gray-600">No commit data available for the selected sprint duration.</p>
+            @endif
+        </div>
+
+        <div class="mt-6">
+            <h3 class="text-xl font-semibold text-primary-blue mb-4">Insights</h3>
+            <ul class="list-disc list-inside text-gray-700">
+                <li><strong>Total Commits:</strong> {{ $commitUsers->sum('commit_count') }}</li>
+                <li><strong>Top Committer:</strong> {{ $commitUsers->sortByDesc('commit_count')->first()?->name ?? 'N/A' }}</li>
+                <li><strong>Average Commits per User:</strong> {{ $commitUsers->avg('commit_count') ? number_format($commitUsers->avg('commit_count'), 2) : 'N/A' }}</li>
+            </ul>
+        </div>
+    </div>
+
 
     <!-- Commits and Users Section -->
     <div class="section">
@@ -230,12 +262,14 @@
             <tbody>
             @foreach ($commits_and_users as $commit)
                 <tr>
-                    <td style="border: 1px solid #ddd; padding: 8px;">{{ $commit['commit_message'] }}</td>
+                    <td style="border: 1px solid #ddd; padding: 8px;">{{ \Illuminate\Support\Str::limit($commit['commit_message'], 20, '...') }}</td>
                     <td style="border: 1px solid #ddd; padding: 8px;">{{ $commit['author_name'] }}</td>
                     <td style="border: 1px solid #ddd; padding: 8px;">{{ $commit['author_id'] }}</td>
                     <td style="border: 1px solid #ddd; padding: 8px;">{{ $commit['committed_date'] }}</td>
                     <td style="border: 1px solid #ddd; padding: 8px;">
-                        <a href="{{ $commit['commit_url'] }}" target="_blank" class="text-blue-600 hover:text-blue-800">View Commit</a>
+                        <a href="{{ $commit['commit_url'] }}" target="_blank" class="text-blue-600 hover:text-blue-800">
+                            View Commit
+                        </a>
                     </td>
                 </tr>
             @endforeach
@@ -243,10 +277,9 @@
         </table>
     </div>
 
-
     <!-- Combined Issues Table -->
-    <div style="margin-top: 10px; background-color: #fff; border-radius: 10px; padding: 20px; margin-bottom: 20px; box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);">
-        <h2 style="font-size: 22px; color: #0D3269; margin-bottom: 15px; border-bottom: 2px solid #0D3269; padding-bottom: 5px;">All Repository Issues</h2>
+    <div class="section">
+        <h2>All Repository Issues</h2>
         <table style="width: 100%; border-collapse: collapse; margin-top: 10px;">
             <thead>
             <tr>
@@ -261,9 +294,9 @@
                 @foreach ($repository->milestones as $milestone)
                     @foreach ($milestone->tasks->sortByDesc('closed_at') as $task)
                         <tr>
-                            <td style="border: 1px solid #ddd; padding: 8px;">{{ $repository->name }}</td>
-                            <td style="border: 1px solid #ddd; padding: 8px;">{{ $milestone->title }}</td>
-                            <td style="border: 1px solid #ddd; padding: 8px;">{{ $task->title }}</td>
+                            <td style="border: 1px solid #ddd; padding: 8px;">{{ \Illuminate\Support\Str::limit($repository->name, 30, '...') }}</td>
+                            <td style="border: 1px solid #ddd; padding: 8px;">{{ \Illuminate\Support\Str::limit($milestone->title, 50, '...') }}</td>
+                            <td style="border: 1px solid #ddd; padding: 8px;">{{ \Illuminate\Support\Str::limit($task->title, 50, '...') }}</td>
                             <td style="border: 1px solid #ddd; padding: 8px;">{{ $task->closed_at ? 'Closed' : 'Open' }}</td>
                         </tr>
                     @endforeach
@@ -272,9 +305,6 @@
             </tbody>
         </table>
     </div>
-
-
-
 
     <!-- Footer Section -->
     <div class="footer">

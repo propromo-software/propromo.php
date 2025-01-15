@@ -17,7 +17,7 @@ trait ContributionCollector
                 ? $_ENV['APP_SERVICE_URL'] . '/v1/github/orgs/' . $this->organization_name . '/projects/' . $this->project_identification . '/repositories/contributions'
                 : $_ENV['APP_SERVICE_URL'] . '/v1/github/users/' . $this->login_name . '/projects/' . $this->project_identification . '/repositories/contributions';
 
-            $url = $baseUrl . '?rootPageSize=1&pageSize=50';
+            $url = $baseUrl . '?rootPageSize=10&pageSize=50';
             if ($rootContinueAfter) {
                 $url .= '&rootContinueAfter=' . $rootContinueAfter;
             }
