@@ -27,15 +27,18 @@ new class extends Component {
 
 <div>
     <div class="mx-8 mt-6 mb-4">
-        <a href="/monitors" title="Show Monitor" class="flex items-center mb-2">
-            <sl-icon class="p-2 text-4xl border-2 rounded-md cursor-pointer text-primary-blue border-other-grey" name="arrow-left-short" wire:ignore></sl-icon>
-        </a>
-        <div class="border-2 border-other-grey rounded-2xl">
+        <div class="flex gap-4 items-center mb-2">
+            <a href="/monitors" title="Show Monitor" class="flex items-center">
+                <sl-icon class="p-2 text-4xl rounded-md border-2 cursor-pointer text-primary-blue border-other-grey" name="arrow-left-short" wire:ignore></sl-icon>
+            </a>
+            <x-breadcrumbs :breadcrumbs="Breadcrumbs::generate('monitor', $monitor)" location="top" />
+        </div>
+        <div class="rounded-2xl border-2 border-other-grey">
             <livewire:monitors.card lazy="true" :monitor="$monitor"/>
-            <div class="flex items-center justify-between m-8">
-                <div class="flex items-center gap-8">
+            <div class="flex justify-between items-center m-8">
+                <div class="flex gap-8 items-center">
                     <div>
-                        <sl-icon name="info-circle" class="font-bold text-7xl text-primary-blue"></sl-icon>
+                        <sl-icon name="info-circle" class="text-7xl font-bold text-primary-blue"></sl-icon>
                     </div>
                     <div>
                         <h1 class="text-4xl font-koulen text-primary-blue">
@@ -61,24 +64,22 @@ new class extends Component {
             </div>
         </div>
 
-        <div class="mt-8 border-2 border-other-grey rounded-2xl">
+        <div class="mt-8 rounded-2xl border-2 border-other-grey">
             <livewire:monitors.dashboard.index :monitor="$monitor" lazy="true"/>
         </div>
 
-        <div class="grid grid-cols-3 gap-8 mt-8">
-            <div class="col-span-2">
+        <div class="grid grid-cols-1 gap-8 mt-8 md:grid-cols-2 2xl:grid-cols-3">
+            <div class="md:col-span-2 2xl:col-span-1">
                 <livewire:monitors.read-me-view :monitor="$monitor"/>
             </div>
-            <div class="space-y-8">
-                <div class="p-5 border-2 border-other-grey rounded-2xl">
-                    <livewire:monitors.deployments-view :monitor="$monitor"/>
-                </div>
-                <div class="p-5 border-2 border-other-grey rounded-2xl">
-                    <livewire:monitors.vulnerabilities-view :monitor="$monitor"/>
-                </div>
+            <div class="p-5 rounded-2xl border-2 border-other-grey">
+                <livewire:monitors.deployments-view :monitor="$monitor"/>
+            </div>
+            <div class="p-5 rounded-2xl border-2 border-other-grey">
+                <livewire:monitors.vulnerabilities-view :monitor="$monitor"/>
             </div>
         </div>
     </div>
 
-    {{ Breadcrumbs::render('monitor', $monitor) }}
+    <x-footer :breadcrumbs="Breadcrumbs::generate('monitor', $monitor)" />
 </div>

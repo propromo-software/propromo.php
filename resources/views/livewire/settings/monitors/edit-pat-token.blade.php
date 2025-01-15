@@ -41,9 +41,9 @@ new class extends Component {
 
 <div>
     <form wire:submit="save" class="p-3.5">
-        <h1 class="text-primary-blue text-2xl font-koulen text-left">UPDATE PAT-TOKEN</h1>
+        <h1 class="text-2xl text-left text-primary-blue font-koulen">UPDATE PAT-TOKEN</h1>
         <br>
-        <select id="customSelect" wire:model="monitor_id" class="block appearance-none w-full bg-white p-3 rounded-md border-other-grey border-2 text-gray-700">
+        <select id="customSelect" wire:model="monitor_id" class="block p-3 w-full text-gray-700 bg-white rounded-md border-2 appearance-none border-other-grey">
             <option value="">Select an Organization</option> <!-- Default Option -->
             @foreach($monitors as $iterator)
                 <option value="{{ $iterator->id }}">{{ $iterator->organization_name }}</option>
@@ -53,7 +53,12 @@ new class extends Component {
         <br>
         <sl-input wire:ignore wire:model="pat_token" type="text" placeholder="PAT-TOKEN"></sl-input>
         <br/>
-        <sl-button wire:ignore type="submit" wire:loading.attr="disabled" wire:ignore>Save</sl-button>
+        <div class="[&_sl-button::part(base)]:w-full">
+            <sl-button wire:ignore type="submit" variant="default" wire:loading.attr="disabled">
+                <sl-icon slot="prefix" name="check-lg" class="text-base"></sl-icon>
+                Save Changes
+            </sl-button>
+        </div>
     </form>
 
     @if($pat_token_edit_error_message)

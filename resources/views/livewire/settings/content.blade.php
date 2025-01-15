@@ -15,7 +15,7 @@ new class extends Component {
 
 }; ?>
 
-<div>
+<div class="p-6 bg-white rounded-lg border-2 border-other-grey">
     @if($section == 'profile')
         <livewire:settings.profile.index></livewire:settings.profile.index>
     @elseif($section == 'monitors')
