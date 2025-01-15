@@ -223,7 +223,6 @@
             @if(isset($sprintStatistics['commits_by_author']) && count($sprintStatistics['commits_by_author']) > 0)
                 @foreach ($sprintStatistics['commits_by_author'] as $user)
                     <div class="flex flex-col items-center bg-white p-4 rounded-md border border-other-grey">
-                        <img src="{{ $user['author']->avatar_url }}" alt="{{ $user['author']->name }}" class="w-24 h-24 rounded-full mb-4 border-2 border-gray-200">
                         <div class="text-center">
                             <h3 class="text-lg font-semibold text-primary-blue">{{ $user['author']->name }}</h3>
                             <p class="text-sm text-gray-600"><strong>{{ $user['commit_count'] }}</strong> commits</p>
