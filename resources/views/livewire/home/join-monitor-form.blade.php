@@ -31,16 +31,13 @@ new class extends Component {
             return redirect('/register');
         }
     }
-
-
 }; ?>
-
 
 <div>
     <form wire:submit="submit">
-        <label class="text-primary-blue font-koulen text-2xl" for="url">JOIN A PROJECT: </label>
+        <label class="text-2xl text-primary-blue font-koulen text-uppercase" for="url">Join a project: </label>
         <br>
-        <div class="flex gap-5">
+        <div class="flex gap-2">
             <sl-input type="text" id="url"
                       placeholder="Here goes the monitor-id"
                       wire:model="monitor_hash"
@@ -50,9 +47,9 @@ new class extends Component {
                 <sl-icon name="search" slot="prefix"></sl-icon>
             </sl-input>
 
-            <sl-button type="submit" wire:loading.attr="disabled" wire:ignore>JOIN</sl-button>
+            <sl-button type="submit" wire:loading.attr="disabled" wire:ignore class="uppercase">Join</sl-button>
         </div>
-        <a class="underline text-sm text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 dark:focus:ring-offset-gray-800"
+        <a class="text-sm text-gray-600 underline rounded-md dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 dark:focus:ring-offset-gray-800"
            href="{{ url('create-monitor') }}">
             No monitor yet?
         </a>
@@ -65,6 +62,4 @@ new class extends Component {
             {{$join_monitor_error}}
         </sl-alert>
     @endif
-
-
 </div>

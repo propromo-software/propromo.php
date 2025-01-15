@@ -7,7 +7,7 @@ new class extends Component {
 }; ?>
 
 <div>
-    <div class="border-other-grey border-2 rounded-md grid grid-cols-1 justify-center p-3 gap-2.5 text-center w-full">
+    <div class="grid grid-cols-1 gap-1.5 justify-center w-full text-center">
         <livewire:settings.profile.edit></livewire:settings.profile.edit>
     </div>
 </div>

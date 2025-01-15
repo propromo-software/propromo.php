@@ -1,48 +1,43 @@
 <?php
 
-use App\Models\Monitor;
-use App\Models\User;
 use Livewire\Volt\Component;
-use Illuminate\Support\Facades\Auth;
 
 new class extends Component {
-    public $monitors = [];
+    public $monitors;
 
     public function mount()
     {
-        $this->monitors = User::find(Auth::user()->id)->monitors()->get();
+        $this->monitors = auth()->user()->monitors;
     }
 
     public function leave($monitor_id)
     {
-        try {
-            $user = Auth::user();
-            $user->monitors()->detach($monitor_id);
-
-            $this->monitors = $user->monitors()->get();
-            $this->mount();
-        } catch (Exception $e) {
-
+        $monitor = auth()->user()->monitors()->find($monitor_id);
+        if ($monitor) {
+            $monitor->users()->detach(auth()->id());
+            $this->monitors = auth()->user()->monitors;
         }
     }
 }; ?>
 
 <div>
-    <div class="grid-cols-1 p-3.5 gap-2">
-        <h1 class="text-primary-blue text-2xl font-koulen text-left mb-3">EDIT MONITORS</h1>
+    <div class="grid-cols-1 gap-2 p-3.5">
+        <h1 class="mb-6 text-3xl text-left text-primary-blue font-koulen">Edit Monitors</h1>
 
-        <div class="overflow-auto max-h-24">
-            @if(count($monitors) > 0)
+        @if(count($monitors) > 0)
+            <div class="flex flex-col gap-3">
                 @foreach($monitors as $monitor)
-                    <div class="flex justify-between items-center p-3.5 rounded-md border-other-grey border-2 mb-2">
+                    <div class="flex justify-between items-center p-3.5 rounded-md border-2 border-other-grey">
                         <h1 class="text-2xl font-koulen text-primary-blue">{{$monitor->organization_name}}</h1>
-                        <sl-icon class="text-2xl text-additional-red cursor-pointer" name="door-open" wire:ignore wire:click="leave({{$monitor->id}})"></sl-icon>
+                        <sl-button variant="danger" size="small" wire:click="leave({{$monitor->id}})">
+                            <sl-icon slot="prefix" name="door-open"></sl-icon>
+                            Leave
+                        </sl-button>
                     </div>
                 @endforeach
-            @else
-                <h1 class="text-xl font-bold text-primary-blue">No Monitors available.</h1>
-
-            @endif
-        </div>
+            </div>
+        @else
+            <x-info-box variant="info">Currently no Monitors available!</x-info-box>
+        @endif
     </div>
 </div>

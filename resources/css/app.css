@@ -1,15 +1,16 @@
-@import './light-theme.css';
-@import './dark-theme.css';
-@import url('https://api.fonts.coollabs.io/css2?family=Koulen');
-@import url('https://api.fonts.coollabs.io/css2?family=Source+Sans+3:wght@700;400&display=swap');
+@import "./light-theme.css";
+@import "./dark-theme.css";
+@import url("https://api.fonts.coollabs.io/css2?family=Koulen");
+@import url("https://api.fonts.coollabs.io/css2?family=Source+Sans+3:wght@700;400&display=swap");
 
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
-
 /* Overwriting Custom Component Styles */
-sl-input, sl-button { /* colors are applied via css-vars in the themes files (using tailwind colors for primary and neutral) */
+sl-input,
+sl-button {
+    /* colors are applied via css-vars in the themes files (using tailwind colors for primary and neutral) */
     all: revert; /*!important*/ /* purge tailwind classes for all sl components */
 }
 
@@ -19,11 +20,11 @@ sl-input, sl-button { /* colors are applied via css-vars in the themes files (us
 }
 
 #url {
-    @apply w-full
+    @apply w-full;
 }
 
-sl-input::part(base){
-    @apply font-sourceSansPro
+sl-input::part(base) {
+    @apply font-sourceSansPro;
 }
 
 sl-alert::part(base) {
@@ -32,7 +33,11 @@ sl-alert::part(base) {
 
 /* Input */
 sl-button::part(base) {
-    @apply cursor-pointer bg-primary-blue text-white rounded-md font-sourceSansPro font-bold; /* add tailwind classes */
+    @apply cursor-pointer rounded-md font-sourceSansPro font-bold; /* add tailwind classes */
+}
+
+sl-button[variant="default"]::part(base) {
+    @apply bg-primary-blue text-white; /* add tailwind classes */
 }
 
 .loader {
@@ -47,11 +52,19 @@ sl-button::part(base) {
 
 /* Safari */
 @-webkit-keyframes spin {
-    0% { -webkit-transform: rotate(0deg); }
-    100% { -webkit-transform: rotate(360deg); }
+    0% {
+        -webkit-transform: rotate(0deg);
+    }
+    100% {
+        -webkit-transform: rotate(360deg);
+    }
 }
 
 @keyframes spin {
-    0% { transform: rotate(0deg); }
-    100% { transform: rotate(360deg); }
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
 }

@@ -40,17 +40,17 @@ new class extends Component
 
 
 <div class="flex flex-col items-center mt-4 bg-gray-100 sm:justify-center sm:pt-0 dark:bg-gray-900">
-    <div class="w-full sm:max-w-md mt-6 p-12 bg-white dark:bg-gray-800 border-[1px] border-border-color overflow-hidden sm:rounded-lg">
+    <div class="w-full sm:max-w-md mt-6 p-12 bg-white dark:bg-gray-800 border-[1px] border-border-color sm:rounded-lg">
 
         <div class="flex justify-center">
             <div class="w-full max-w-md">
-                <h1 class="text-6xl font-koulen text-primary-blue mb-9">CREATE MONITOR</h1>
+                <h1 class="mb-9 text-6xl font-koulen text-primary-blue">CREATE MONITOR</h1>
                 <form wire:submit.prevent="create">
                     <sl-input required wire:model="project_url" placeholder="Your Project-URL" type="text"></sl-input>
                     <br>
                     <sl-switch checked wire:click="switchTo()">Open Source</sl-switch>
 
-                    <div class="relative w-full mt-2 aspect-video">
+                    <div class="relative mt-2 w-full aspect-video">
                         <iframe 
                             class="absolute top-0 left-0 w-full h-full rounded-lg"
                             src="https://player.vimeo.com/video/953693369?badge=0&amp;autopause=0&amp;player_id=0&amp;app_id=58479&background=1&responsive=1" 
@@ -60,7 +60,7 @@ new class extends Component
                         </iframe>
                     </div>
 
-                    <div class="flex items-center justify-between mt-5">
+                    <div class="flex justify-between items-center mt-5">
                         <a class="text-sm text-gray-600 underline rounded-md dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 dark:focus:ring-offset-gray-800" href="{{ url('join') }}">
                             Already existing monitor?
                         </a>

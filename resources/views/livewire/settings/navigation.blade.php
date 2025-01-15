@@ -12,17 +12,17 @@ new class extends Component {
     }
 }; ?>
 
-<div>
-    <div class="border-other-grey border-2 rounded-md grid grid-cols-1 justify-center p-3 gap-2.5 text-center">
-        <button wire:click="switch_section('profile')" class="{{ $current_section == 'profile' ? 'bg-primary-blue text-white border-primary-blue' : '' }} w-full py-2 border-other-grey border-2 rounded-md font-koulen text-2xl h-min">
-            PROFILE
-        </button>
-        <button wire:click="switch_section('monitors')" class="{{ $current_section == 'monitors' ? 'bg-primary-blue text-white border-primary-blue' : '' }} w-full py-2 border-2 border-other-grey rounded-md font-koulen text-2xl h-min">
-            MONITORS
-        </button>
-        <button wire:click="switch_section('ui')" class="{{ $current_section == 'ui' ? 'bg-primary-blue text-white border-primary-blue' : '' }} w-full py-2 border-2 border-other-grey rounded-md font-koulen text-2xl h-min">
-            UI
-        </button>
-
-    </div>
+<div class="flex flex-col gap-1 p-4 text-center bg-white rounded-lg border-2 border-other-grey">
+    <button 
+        wire:click="switch_section('profile')" 
+        class="{{ $current_section == 'profile' ? 'bg-primary-blue text-white' : 'bg-[#F5F5F5] text-gray-500 hover:bg-gray-200' }} w-full py-2 rounded-md font-koulen text-xl transition-colors duration-200"
+    >
+        PROFILE
+    </button>
+    <button 
+        wire:click="switch_section('monitors')" 
+        class="{{ $current_section == 'monitors' ? 'bg-primary-blue text-white' : 'bg-[#F5F5F5] text-gray-500 hover:bg-gray-200' }} w-full py-2 rounded-md font-koulen text-xl transition-colors duration-200"
+    >
+        MONITORS
+    </button>
 </div>

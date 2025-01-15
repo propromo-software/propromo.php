@@ -26,9 +26,7 @@ Volt::route('/monitors/{monitor}', 'monitors.show')->name('monitors.show');
 Volt::route('/custom', "monitors.custom.index")->name('monitors.custom.index');
 Volt::route('/custom/{monitor}', "monitors.custom.show")->name('monitors.custom.show');
 
-
 Volt::route('/monitors/{monitor}/milestones/{milestone}', 'milestones.show')->name('milestone.show');
-
 
 Volt::route('/monitors/{monitor}/pdf', 'pdf.index')->name('pdf.index');
 
@@ -40,10 +38,9 @@ Volt::route('/create-open-source-monitor', 'auth.create-open-source-monitor');
 Volt::route('/join', 'auth.join-monitor');
 Volt::route('/register', 'auth.register');
 
-Volt::route('/repos', 'repositories.list');
+Volt::route('/repos', 'repositories.list')->name('repositories.list');
 
-
-Volt::route('/settings/profile', 'settings.index');
-Volt::route('/settings/monitors', 'settings.monitors.index');
+Volt::route('/settings/profile', 'settings.index')->name('settings.index');
+Volt::route('/settings/monitors', 'settings.monitors.index')->name('settings.monitors.index');
 
 Route::get('/monitors/join/{monitor_hash}', [MonitorController::class, 'join']);
