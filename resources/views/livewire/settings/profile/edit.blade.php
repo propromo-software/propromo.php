@@ -36,9 +36,9 @@ new class extends Component {
             $this->account_edit_error_message = $e->getMessage();
             $this->error_head = "Seems like something went wrong...";
         }
-
     }
-    public function delte_account()
+
+    public function delete_account()
     {
         try{
             $user = User::whereId(Auth::user()->id)->first();
@@ -62,21 +62,31 @@ new class extends Component {
 
 <div>
     <form wire:submit="save" class="p-3.5">
-        <h1 class="text-primary-blue text-2xl font-koulen text-left">Edit Profile</h1>
-        <br>
-        <sl-input wire:ignore wire:model="email" type="email" placeholder="Email"></sl-input>
-        <br/>
-        <sl-input wire:ignore wire:model="password" type="password" placeholder="Password" password-toggle></sl-input>
-        <br>
-        <sl-input wire:ignore wire:model="password_confirmation" type="password" placeholder="Retype Password"
-                  password-toggle></sl-input>
-        <br>
-        <sl-button wire:ignore type="submit" wire:loading.attr="disabled" wire:ignore>Save</sl-button>
+        <h1 class="mb-6 text-3xl text-left text-primary-blue font-koulen">Edit Profile</h1>
+        
+        <div class="flex flex-col gap-4">
+            <sl-input wire:ignore wire:model="email" type="email" placeholder="Email"></sl-input>
+            <sl-input wire:ignore wire:model="password" type="password" placeholder="Password" password-toggle></sl-input>
+            <sl-input wire:ignore wire:model="password_confirmation" type="password" placeholder="Retype Password" password-toggle></sl-input>
+        
+            <div class="[&_sl-button::part(base)]:w-full">
+                <sl-button wire:ignore type="submit" variant="default" wire:loading.attr="disabled">
+                    <sl-icon slot="prefix" name="check-lg" class="text-base"></sl-icon>
+                    Save Changes
+                </sl-button>
+            </div>
+        </div>
     </form>
 
-    <div class="flex justify-end gap-2 p-3.5">
-        <button wire:click="logout" class="text-white text-sm font-bold border-primary-blue bg-primary-blue border-2 rounded-md p-2">LOGOUT</button>
-        <button wire:click="delte_account" class="text-white text-sm font-bold border-additional-red bg-additional-red border-2 rounded-md p-2">DELTE</button>
+    <div class="flex gap-3 justify-end p-3.5">
+        <sl-button wire:click="logout" variant="default" size="small" class="[&_sl-icon]:-mt-0.5">
+            <sl-icon slot="prefix" name="box-arrow-right" class="text-base"></sl-icon>
+            Logout
+        </sl-button>
+        <sl-button wire:click="delete_account" variant="danger" size="small" class="[&_sl-icon]:-mt-0.5 [&_sl-button]:bg-additional-red">
+            <sl-icon slot="prefix" name="trash" class="text-base"></sl-icon>
+            Delete Account
+        </sl-button>
     </div>
 
     @if($account_edit_error_message)

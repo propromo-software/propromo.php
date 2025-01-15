@@ -17,7 +17,7 @@ new class extends Component {
     #[Validate(['password' => 'required'])]
     public $password;
 
-    public function sumbit()
+    public function submit()
     {
         try{
             $this->validate();
@@ -40,27 +40,26 @@ new class extends Component {
 ?>
 
 
-<div class="mt-4 flex flex-col sm:justify-center items-center sm:pt-0 bg-gray-100 dark:bg-gray-900">
+<div class="flex flex-col items-center mt-4 bg-gray-100 sm:justify-center sm:pt-0 dark:bg-gray-900">
     <div
-        class="w-full sm:max-w-md mt-6 p-12 bg-white dark:bg-gray-800 border-[1px] border-border-color overflow-hidden sm:rounded-lg">
+        class="w-full sm:max-w-md mt-6 p-12 bg-white dark:bg-gray-800 border-[1px] border-border-color sm:rounded-lg">
 
         <div class="flex justify-center">
             <div class="w-full max-w-md">
-                <h1 class="font-koulen text-6xl text-primary-blue mb-9">LOGIN</h1>
+                <h1 class="mb-9 text-6xl font-koulen text-primary-blue">LOGIN</h1>
 
-                <form wire:submit="sumbit">
-
+                <form wire:submit="submit">
                     <sl-input wire:ignore wire:model="email" placeholder="Your email" type="email"></sl-input>
                     <br>
                     <sl-input wire:ignore wire:model="password" placeholder="Your password" type="password"></sl-input>
 
                 <div class="flex gap-2 mt-4">
                     <a href="{{route('github.login')}}" target="_blank">
-                        <sl-icon wire:ignore name="github" class="text-4xl mt-0.5"></sl-icon>
+                        <sl-icon wire:ignore name="github" class="mt-0.5 text-4xl"></sl-icon>
                     </a>
                 </div>
-                    <div class="flex items-center justify-between mt-2">
-                        <a class="underline text-sm text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 dark:focus:ring-offset-gray-800"
+                    <div class="flex justify-between items-center mt-2">
+                        <a class="text-sm text-gray-600 underline rounded-md dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 dark:focus:ring-offset-gray-800"
                            href="{{ url('register') }}">
                             No Account yet?
                         </a>

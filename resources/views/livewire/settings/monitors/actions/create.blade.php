@@ -43,7 +43,12 @@ new class extends Component {
         <br>
         <sl-input wire:ignore required wire:model="project_url" placeholder="Your Project-URL" type="text"></sl-input>
         <br>
-        <sl-button wire:ignore wire:loading.attr="disabled" type="submit">CREATE</sl-button>
+        <div class="[&_sl-button::part(base)]:w-full">
+            <sl-button wire:ignore type="submit" variant="default" wire:loading.attr="disabled">
+                <sl-icon slot="prefix" name="plus-lg" class="text-base"></sl-icon>
+                Create Monitor
+            </sl-button>
+        </div>
     </form>
 
     @if($create_monitor_error)

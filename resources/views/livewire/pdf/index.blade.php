@@ -176,7 +176,7 @@ new class extends Component {
 <div>
     <div class="flex gap-8 p-8 bg-gray-100 h-min">
 
-        <div class="w-1/2 bg-white p-6 rounded-md border-2 border-other-grey px-6 py-6">
+        <div class="p-6 px-6 py-6 w-1/2 bg-white rounded-md border-2 border-other-grey">
             <h2 class="text-4xl font-koulen text-primary-blue">Configurator</h2>
             <br>
             <sl-input wire:ignore placeholder="Organization-Name" value="{{$monitor->organization_name}}"></sl-input>
@@ -203,9 +203,9 @@ new class extends Component {
             </div>
         </div>
 
-        <div class="w-1/2 bg-white p-6 rounded-md border-2 border-other-grey px-6 py-6">
+        <div class="p-6 px-6 py-6 w-1/2 bg-white rounded-md border-2 border-other-grey">
             @if($showData)
-                <h2 class="text-xl text-center font-semibold text-primary-blue mb-4">Statistics</h2>
+                <h2 class="mb-4 text-xl font-semibold text-center text-primary-blue">Statistics</h2>
 
                     <div class="space-y-4">
                     <div class="flex justify-between items-center">
@@ -234,16 +234,16 @@ new class extends Component {
                     </div>
                 </div>
 
-                <div class="w-full bg-white p-6 rounded-lg mt-6">
-                    <h2 class="text-xl text-center font-semibold text-primary-blue mb-6">Top Milestones</h2>
+                <div class="p-6 mt-6 w-full bg-white rounded-lg">
+                    <h2 class="mb-6 text-xl font-semibold text-center text-primary-blue">Top Milestones</h2>
 
                     <div class="space-y-6">
                         @foreach ($top_milestones as $milestone)
                             <span class="text-lg font-medium text-gray-700">{{ $milestone->title }}</span>
-                            <div class="flex justify-between items-center  hover:bg-gray-100 transition duration-300">
+                            <div class="flex justify-between items-center transition duration-300 hover:bg-gray-100">
 
-                                <div class="w-full bg-gray-200 rounded-full h-2 overflow-hidden">
-                                    <div class="bg-primary-blue h-full" style="width: {{ min($milestone->progress, 100) }}%;"></div>
+                                <div class="w-full h-2 bg-gray-200 rounded-full">
+                                    <div class="h-full bg-primary-blue" style="width: {{ min($milestone->progress, 100) }}%;"></div>
                                 </div>
 
                                 <div class="ml-2">
@@ -255,11 +255,11 @@ new class extends Component {
                 </div>
 
 
-                <h2 class="text-xl text-center text-primary-blue font-semibold mt-4">Users & Commits</h2>
-                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mt-4">
+                <h2 class="mt-4 text-xl font-semibold text-center text-primary-blue">Users & Commits</h2>
+                <div class="grid grid-cols-1 gap-6 mt-4 sm:grid-cols-2 lg:grid-cols-3">
                     @foreach($commitUsers as $user)
-                        <div class="flex flex-col items-center bg-white p-4 rounded-md border border-other-grey">
-                            <img src="{{ $user->avatar_url }}" alt="{{ $user->name }}" class="w-24 h-24 rounded-full mb-4 border-2 border-other-grey">
+                        <div class="flex flex-col items-center p-4 bg-white rounded-md border border-other-grey">
+                            <img src="{{ $user->avatar_url }}" alt="{{ $user->name }}" class="mb-4 w-24 h-24 rounded-full border-2 border-other-grey">
 
                             <div class="text-center">
                                 <h3 class="text-lg font-semibold text-primary-blue">{{ $user->name }}</h3>
