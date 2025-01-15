@@ -214,54 +214,35 @@
         </div>
     </div>
 
-    <!-- Milestones Section -->
+    <!-- Combined Issues Table -->
     <div style="margin-top: 10px; background-color: #fff; border-radius: 10px; padding: 20px; margin-bottom: 20px; box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);">
-        <h2 style="font-size: 22px; color: #0D3269; margin-bottom: 15px; border-bottom: 2px solid #0D3269; padding-bottom: 5px;">Milestones and Tasks</h2>
-        @foreach ($repositories as $repository)
-            @if($repository->milestones->isNotEmpty())
-                <div style="font-size: 18px; font-weight: bold; margin-top: 20px; color: #0D3269;">Repository: {{ $repository->name }}</div>
+        <h2 style="font-size: 22px; color: #0D3269; margin-bottom: 15px; border-bottom: 2px solid #0D3269; padding-bottom: 5px;">All Repository Issues</h2>
+        <table style="width: 100%; border-collapse: collapse; margin-top: 10px;">
+            <thead>
+            <tr>
+                <th style="border: 1px solid #ddd; padding: 8px; background-color: #0D3269; color: white; text-align: left;">Repository</th>
+                <th style="border: 1px solid #ddd; padding: 8px; background-color: #0D3269; color: white; text-align: left;">Milestone</th>
+                <th style="border: 1px solid #ddd; padding: 8px; background-color: #0D3269; color: white; text-align: left;">Task</th>
+                <th style="border: 1px solid #ddd; padding: 8px; background-color: #0D3269; color: white; text-align: left;">Status</th>
+            </tr>
+            </thead>
+            <tbody>
+            @foreach ($repositories as $repository)
                 @foreach ($repository->milestones as $milestone)
-                    <div style="font-size: 16px; font-weight: bold; margin-top: 10px; color: #555;">Milestone: {{ $milestone->title }}</div>
-
-                    <h3 style="color: #0D3269; margin-top: 10px;">Open Tasks</h3>
-                    <table style="width: 100%; border-collapse: collapse; margin-top: 10px; margin-bottom: 20px;">
-                        <thead>
+                    @foreach ($milestone->tasks->sortByDesc('closed_at') as $task)
                         <tr>
-                            <th style="border: 1px solid #ddd; padding: 8px; background-color: #0D3269; color: white; text-align: left;">Task</th>
-                            <th style="border: 1px solid #ddd; padding: 8px; background-color: #0D3269; color: white; text-align: left;">Status</th>
+                            <td style="border: 1px solid #ddd; padding: 8px;">{{ $repository->name }}</td>
+                            <td style="border: 1px solid #ddd; padding: 8px;">{{ $milestone->title }}</td>
+                            <td style="border: 1px solid #ddd; padding: 8px;">{{ $task->title }}</td>
+                            <td style="border: 1px solid #ddd; padding: 8px;">{{ $task->closed_at ? 'Closed' : 'Open' }}</td>
                         </tr>
-                        </thead>
-                        <tbody>
-                        @foreach ($milestone->tasks->where('closed_at', null) as $task)
-                            <tr>
-                                <td style="border: 1px solid #ddd; padding: 8px;">{{ $task->title }}</td>
-                                <td style="border: 1px solid #ddd; padding: 8px;">Open</td>
-                            </tr>
-                        @endforeach
-                        </tbody>
-                    </table>
-
-                    <h3 style="color: #0D3269; margin-top: 10px;">Closed Tasks</h3>
-                    <table style="width: 100%; border-collapse: collapse; margin-top: 10px; margin-bottom: 20px;">
-                        <thead>
-                        <tr>
-                            <th style="border: 1px solid #ddd; padding: 8px; background-color: #0D3269; color: white; text-align: left;">Task</th>
-                            <th style="border: 1px solid #ddd; padding: 8px; background-color: #0D3269; color: white; text-align: left;">Status</th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                        @foreach ($milestone->tasks->where('closed_at', '!=', null) as $task)
-                            <tr>
-                                <td style="border: 1px solid #ddd; padding: 8px;">{{ $task->title }}</td>
-                                <td style="border: 1px solid #ddd; padding: 8px;">Closed</td>
-                            </tr>
-                        @endforeach
-                        </tbody>
-                    </table>
+                    @endforeach
                 @endforeach
-            @endif
-        @endforeach
+            @endforeach
+            </tbody>
+        </table>
     </div>
+
 
     <!-- Users and Commit Counts Section -->
     <div class="section">
