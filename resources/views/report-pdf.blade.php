@@ -6,191 +6,189 @@
     <title>Project Report</title>
     <style>
         body {
-            font-family: Arial, sans-serif;
+            font-family: 'Arial', sans-serif;
             color: #333;
             margin: 0;
+            padding: 0;
+            background-color: #f5f7fa;
+        }
+
+        /* Global Container */
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
             padding: 20px;
         }
 
-        /* Header styling */
+        /* Header Styling */
         .header {
             text-align: center;
-            border-bottom: 2px solid #4a90e2;
-            padding-bottom: 10px;
-            margin-bottom: 20px;
+            background-color: #007BFF;
+            color: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 30px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
         }
 
         .header h1 {
-            font-size: 24px;
-            color: #4a90e2;
+            font-size: 28px;
+            margin: 0;
+            font-weight: bold;
         }
 
         .header p {
             font-size: 16px;
-            color: #555;
+            margin-top: 10px;
         }
 
-        /* Section styling */
+        /* Section Styling */
         .section {
+            background-color: #fff;
+            border-radius: 10px;
+            padding: 20px;
             margin-bottom: 20px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
         }
 
         .section h2 {
-            font-size: 20px;
-            color: #4a90e2;
-            margin-bottom: 10px;
-            text-align: center;
+            font-size: 22px;
+            color: #007BFF;
+            margin-bottom: 15px;
+            border-bottom: 2px solid #007BFF;
+            padding-bottom: 5px;
         }
 
         .section p {
             font-size: 14px;
             color: #555;
-            margin: 5px 0;
         }
 
-        .section .content {
-            padding: 10px;
-            border: 1px solid #ddd;
-            border-radius: 5px;
+        /* Content Styling */
+        .content {
+            line-height: 1.6;
         }
 
-        .milestones {
-            margin: 10px 0;
-        }
-
+        /* Milestone Styling */
         .milestone {
-            padding: 5px 0;
-            border-bottom: 1px solid #ddd;
+            padding: 10px 0;
+            border-bottom: 1px solid #e5e5e5;
             display: flex;
-            justify-content: space-between;
+            flex-direction: column;
+            gap: 5px;
+        }
+
+        .milestone-title {
+            font-size: 16px;
+            font-weight: bold;
+            color: #333;
         }
 
         .milestone:last-child {
             border-bottom: none;
         }
 
-        /* Progress bar styling */
-        .milestone-progress {
-            width: 50%;
-            height: 6px;
-            background-color: #eee;
-            margin-top: 5px;
-            border-radius: 3px;
-            position: relative;
-        }
-
-        .milestone-progress .progress-bar {
-            height: 6px;
-            background-color: #4a90e2;
-            border-radius: 3px;
-        }
-
-        /* Footer styling */
-        .footer {
-            text-align: center;
-            font-size: 12px;
-            color: #aaa;
-            border-top: 1px solid #ddd;
-            padding-top: 10px;
-            margin-top: 20px;
-        }
-
-        /* Users and Commit Counts section */
-        .users-commits {
-            margin-top: 20px;
-        }
-
-        .user-commit {
-            margin-bottom: 5px;
-        }
-
-        .user-commit strong {
-            color: #4a90e2;
-        }
-
-        /* Milestones progress bar */
         .progress-bar-container {
             width: 100%;
-            background-color: #f0f0f0;
-            border-radius: 10px;
+            background-color: #e0e0e0;
+            border-radius: 5px;
             overflow: hidden;
+            height: 12px;
             margin-top: 5px;
         }
 
         .progress-bar {
-            height: 10px;
-            border-radius: 10px;
-            background-color: #4a90e2;
+            height: 100%;
+            background-color: #007BFF;
         }
 
-        .milestone-title {
+        .progress-percentage {
             font-size: 14px;
-            font-weight: 500;
+            font-weight: bold;
             color: #555;
+            margin-top: 5px;
         }
 
-        .milestone-progress-container {
-            margin-top: 10px;
+        /* User Commit Styling */
+        .user-commit {
+            padding: 10px 0;
+            border-bottom: 1px solid #e5e5e5;
         }
 
+        .user-commit:last-child {
+            border-bottom: none;
+        }
+
+        .user-commit strong {
+            color: #007BFF;
+        }
+
+        /* Footer Styling */
+        .footer {
+            text-align: center;
+            font-size: 12px;
+            color: #aaa;
+            margin-top: 30px;
+            padding: 10px;
+            background-color: #f5f7fa;
+            border-top: 1px solid #e5e5e5;
+            border-radius: 10px;
+        }
     </style>
 </head>
 <body>
-
-<!-- Header Section -->
-<div class="header">
-    <h1>Project Report</h1>
-    <p><strong>Organization:</strong> {{ $organization_name }}</p>
-    <p><strong>Description:</strong> {{ $organization_description }}</p>
-</div>
-
-<!-- Statistics Section -->
-<div class="section">
-    <h2>Statistics</h2>
-    <div class="content">
-        <p><strong>Total Issues:</strong> {{ $total_issues }}</p>
-        <p><strong>Open Issues:</strong> {{ $total_issues_open }}</p>
-        <p><strong>Closed Issues:</strong> {{ $total_issues_closed }}</p>
-        <p><strong>Total Milestones:</strong> {{ $total_milestones }}</p>
-        <p><strong>Progress Percentage:</strong> {{ $total_percentage }}%</p>
+<div class="container">
+    <!-- Header Section -->
+    <div class="header">
+        <h1>Project Report</h1>
+        <p><strong>Organization:</strong> {{ $organization_name }}</p>
+        <p><strong>Description:</strong> {{ $organization_description }}</p>
     </div>
-</div>
 
-<!-- Top Milestones Section -->
-<div class="section">
-    <h2>Top Milestones</h2>
-    <div class="content">
-        <div class="milestones">
+    <!-- Statistics Section -->
+    <div class="section">
+        <h2>Statistics</h2>
+        <div class="content">
+            <p><strong>Total Issues:</strong> {{ $total_issues }}</p>
+            <p><strong>Open Issues:</strong> {{ $total_issues_open }}</p>
+            <p><strong>Closed Issues:</strong> {{ $total_issues_closed }}</p>
+            <p><strong>Total Milestones:</strong> {{ $total_milestones }}</p>
+            <p><strong>Progress Percentage:</strong> {{ $total_percentage }}%</p>
+        </div>
+    </div>
+
+    <!-- Top Milestones Section -->
+    <div class="section">
+        <h2>Top Milestones</h2>
+        <div class="content">
             @foreach ($top_milestones as $milestone)
                 <div class="milestone">
                     <span class="milestone-title">{{ $milestone->title }}</span>
-                    <div class="milestone-progress-container">
-                        <div class="progress-bar-container">
-                            <div class="progress-bar" style="width: {{ min($milestone->progress, 100) }}%;"></div>
-                        </div>
+                    <div class="progress-bar-container">
+                        <div class="progress-bar" style="width: {{ min($milestone->progress, 100) }}%;"></div>
                     </div>
-                    <span>{{ number_format($milestone->progress, 2) }}%</span>
+                    <span class="progress-percentage">{{ number_format($milestone->progress, 2) }}%</span>
                 </div>
             @endforeach
         </div>
     </div>
-</div>
 
-<div class="section users-commits">
-    <h2>Users and Sprint-Commit Counts</h2>
-    <div class="content">
-        @foreach ($commitUsers as $user)
-            <div class="user-commit">
-                <strong>{{ $user->name }}</strong>: {{ $user->commit_count }} commits
-            </div>
-        @endforeach
+    <!-- Users and Commit Counts Section -->
+    <div class="section">
+        <h2>Users and Sprint-Commit Counts</h2>
+        <div class="content">
+            @foreach ($commitUsers as $user)
+                <div class="user-commit">
+                    <strong>{{ $user->name }}</strong>: {{ $user->commit_count }} commits
+                </div>
+            @endforeach
+        </div>
+    </div>
+
+    <!-- Footer Section -->
+    <div class="footer">
+        <p>Generated on {{ $generated_date }}</p>
     </div>
 </div>
-
-
-<div class="footer">
-    <p>Generated on {{ $generated_date }}</p>
-</div>
-
 </body>
 </html>
