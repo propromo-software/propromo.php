@@ -28,7 +28,6 @@ new class extends Component {
     public function mount(Monitor $monitor)
     {
         $this->monitor = $monitor;
-        $this->calculate_statistics();
         $this->generate_data();
     }
 
@@ -69,69 +68,61 @@ new class extends Component {
         }
     }
 
-
-    protected function calculate_statistics(): void
+    public function calculateSprintStatistics($fromDate = null, $sprintDurationWeeks = 2)
     {
+        // Calculate the sprint's start and end dates
+        $startDate = Carbon::parse($fromDate ?: Carbon::now()->subWeeks($sprintDurationWeeks));
+        $endDate = $startDate->copy()->addWeeks($sprintDurationWeeks);
 
-        foreach ($this->monitor->repositories as $repository) {
-            $repositoryTasks = $repository->milestones->flatMap(function ($milestone) {
-                return $milestone->tasks;
-            });
+        // Fetch contributions within the sprint's time frame
+        $contributions = Contribution::with('author')
+            ->whereBetween('committed_date', [$startDate, $endDate])
+            ->get();
 
-            $this->tasks = array_merge($this->tasks, $repositoryTasks->all());
-        }
+        // Calculate total commits
+        $totalCommits = $contributions->count();
 
-        if (empty($this->tasks)) {
-            $this->reload_issues();
-        }
+        // Group contributions by authors and calculate commit counts
+        $commitsByAuthor = $contributions->groupBy('author_id')->map(function ($commits) {
+            return [
+                'author' => $commits->first()->author,
+                'commit_count' => $commits->count(),
+            ];
+        });
 
+        // Find the top committer
+        $topCommitter = $commitsByAuthor->sortByDesc('commit_count')->first();
 
-        $this->total_repos = $this->monitor->repositories()->count();
+        // Calculate average commits per user
+        $averageCommitsPerUser = $commitsByAuthor->pluck('commit_count')->avg() ?: 0;
 
-        $this->total_issues_open = $this->monitor->repositories->flatMap(function ($repo) {
-            return $repo->milestones->flatMap(function ($milestone) {
-                return $milestone->tasks->whereNull('closed_at');
-            });
-        })->count();
+        // Calculate total additions, deletions, and changed files
+        $totalAdditions = $contributions->sum('additions');
+        $totalDeletions = $contributions->sum('deletions');
+        $totalChangedFiles = $contributions->sum('changed_files');
 
-        $this->total_issues_closed = $this->monitor->repositories->flatMap(function ($repo) {
-            return $repo->milestones->flatMap(function ($milestone) {
-                return $milestone->tasks->whereNotNull('closed_at');
-            });
-        })->count();
-
-        $this->total_issues = $this->total_issues_open + $this->total_issues_closed;
-
-        $this->top_milestones = $this->monitor->repositories->flatMap(function ($repo) {
-            return $repo->milestones;
-        })->sortByDesc('progress')->take(5);
-
-        $totalMilestones = $this->monitor->repositories->flatMap(function ($repo) {
-            return $repo->milestones;
-        })->count();
-
-        $this->total_milestones = $totalMilestones;
-
-        if ($totalMilestones > 0) {
-            $totalProgress = $this->monitor->repositories->flatMap(function ($repo) {
-                return $repo->milestones->pluck('progress');
-            })->sum();
-
-            $this->total_percentage = round($totalProgress / $totalMilestones, 2);
-        } else {
-            $this->total_percentage = 0;
-        }
-
-        if ($this->total_issues > 0) {
-            $this->total_percentage = round(($this->total_issues_closed / $this->total_issues) * 100, 2);
-        } else {
-            $this->total_percentage = 0;
-        }
+        return [
+            'sprint_duration_weeks' => $sprintDurationWeeks,
+            'sprint_start_date' => $startDate->format('d-m-Y'),
+            'sprint_end_date' => $endDate->format('d-m-Y'),
+            'total_commits' => $totalCommits,
+            'top_committer' => $topCommitter ? $topCommitter['author']->name : 'N/A',
+            'top_committer_commits' => $topCommitter['commit_count'] ?? 0,
+            'average_commits_per_user' => number_format($averageCommitsPerUser, 2),
+            'total_additions' => $totalAdditions,
+            'total_deletions' => $totalDeletions,
+            'total_changed_files' => $totalChangedFiles,
+            'commits_by_author' => $commitsByAuthor->values(), // Collection of authors with commit counts
+        ];
     }
 
     public function generate_data()
     {
-        $this->data = [
+        // Calculate sprint-specific statistics
+        $sprintStatistics = $this->calculateSprintStatistics($this->from_date, $this->sprint_duration_weeks);
+
+        // Merge sprint statistics and other data into $this->data
+        $this->data = array_merge($sprintStatistics, [
             'organization_name' => $this->monitor->organization_name,
             'organization_description' => $this->monitor->short_description,
             'total_issues' => $this->total_issues,
@@ -142,9 +133,8 @@ new class extends Component {
             'total_percentage' => $this->total_percentage,
             'top_milestones' => $this->top_milestones,
             'generated_date' => now()->format('d-m-Y'),
-            'commits_and_users' => $this->showCommitsAndUsers(),
-            'commitUsers' => $this->commitUsers
-        ];
+            'sprintStatistics' => $sprintStatistics
+        ]);
 
         $this->showData = true;
     }

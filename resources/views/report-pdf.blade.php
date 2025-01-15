@@ -215,18 +215,18 @@
     <!-- Sprint Statistics Section -->
     <div class="section">
         <h2>Sprint Statistics</h2>
-        <p><strong>Sprint Duration:</strong> {{ $sprint_duration_weeks }} week(s)</p>
-        <p><strong>From:</strong> {{ $from_date ? \Carbon\Carbon::parse($from_date)->format('d-m-Y') : \Carbon\Carbon::now()->subWeeks($sprint_duration_weeks)->format('d-m-Y') }}</p>
-        <p><strong>To:</strong> {{ $from_date ? \Carbon\Carbon::parse($from_date)->addWeeks($sprint_duration_weeks)->format('d-m-Y') : \Carbon\Carbon::now()->format('d-m-Y') }}</p>
+        <p><strong>Sprint Duration:</strong> {{ $sprintStatistics['sprint_duration_weeks'] }} week(s)</p>
+        <p><strong>From:</strong> {{ $sprintStatistics['sprint_start_date'] }}</p>
+        <p><strong>To:</strong> {{ $sprintStatistics['sprint_end_date'] }}</p>
 
         <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mt-6">
-            @if(count($commitUsers) > 0)
-                @foreach ($commitUsers as $user)
+            @if(isset($sprintStatistics['commits_by_author']) && count($sprintStatistics['commits_by_author']) > 0)
+                @foreach ($sprintStatistics['commits_by_author'] as $user)
                     <div class="flex flex-col items-center bg-white p-4 rounded-md border border-other-grey">
-                        <img src="{{ $user->avatar_url }}" alt="{{ $user->name }}" class="w-24 h-24 rounded-full mb-4 border-2 border-gray-200">
+                        <img src="{{ $user['author']->avatar_url }}" alt="{{ $user['author']->name }}" class="w-24 h-24 rounded-full mb-4 border-2 border-gray-200">
                         <div class="text-center">
-                            <h3 class="text-lg font-semibold text-primary-blue">{{ $user->name }}</h3>
-                            <p class="text-sm text-gray-600"><strong>{{ $user->commit_count }}</strong> commits</p>
+                            <h3 class="text-lg font-semibold text-primary-blue">{{ $user['author']->name }}</h3>
+                            <p class="text-sm text-gray-600"><strong>{{ $user['commit_count'] }}</strong> commits</p>
                         </div>
                     </div>
                 @endforeach
@@ -238,15 +238,17 @@
         <div class="mt-6">
             <h3 class="text-xl font-semibold text-primary-blue mb-4">Insights</h3>
             <ul class="list-disc list-inside text-gray-700">
-                <li><strong>Total Commits:</strong> {{ $commitUsers->sum('commit_count') }}</li>
-                <li><strong>Top Committer:</strong> {{ $commitUsers->sortByDesc('commit_count')->first()?->name ?? 'N/A' }}</li>
-                <li><strong>Average Commits per User:</strong> {{ $commitUsers->avg('commit_count') ? number_format($commitUsers->avg('commit_count'), 2) : 'N/A' }}</li>
+                <li><strong>Total Commits:</strong> {{ $sprintStatistics['total_commits'] }}</li>
+                <li><strong>Top Committer:</strong> {{ $sprintStatistics['top_committer'] }} ({{ $sprintStatistics['top_committer_commits'] }} commits)</li>
+                <li><strong>Average Commits per User:</strong> {{ $sprintStatistics['average_commits_per_user'] }}</li>
+                <li><strong>Total Additions:</strong> {{ $sprintStatistics['total_additions'] }}</li>
+                <li><strong>Total Deletions:</strong> {{ $sprintStatistics['total_deletions'] }}</li>
+                <li><strong>Total Changed Files:</strong> {{ $sprintStatistics['total_changed_files'] }}</li>
             </ul>
         </div>
     </div>
 
 
-    <!-- Commits and Users Section -->
     <div class="section">
         <h2>Commits and Authors</h2>
         <table style="width: 100%; border-collapse: collapse; margin-top: 10px;">
@@ -260,24 +262,29 @@
             </tr>
             </thead>
             <tbody>
-            @foreach ($commits_and_users as $commit)
+            @if(isset($commits_and_users) && count($commits_and_users) > 0)
+                @foreach ($commits_and_users as $commit)
+                    <tr>
+                        <td style="border: 1px solid #ddd; padding: 8px;">{{ \Illuminate\Support\Str::limit($commit['commit_message'], 20, '...') }}</td>
+                        <td style="border: 1px solid #ddd; padding: 8px;">{{ $commit['author_name'] }}</td>
+                        <td style="border: 1px solid #ddd; padding: 8px;">{{ $commit['author_id'] }}</td>
+                        <td style="border: 1px solid #ddd; padding: 8px;">{{ \Carbon\Carbon::parse($commit['committed_date'])->format('d-m-Y H:i') }}</td>
+                        <td style="border: 1px solid #ddd; padding: 8px;">
+                            <a href="{{ $commit['commit_url'] }}" target="_blank" class="text-blue-600 hover:text-blue-800">
+                                View Commit
+                            </a>
+                        </td>
+                    </tr>
+                @endforeach
+            @else
                 <tr>
-                    <td style="border: 1px solid #ddd; padding: 8px;">{{ \Illuminate\Support\Str::limit($commit['commit_message'], 20, '...') }}</td>
-                    <td style="border: 1px solid #ddd; padding: 8px;">{{ $commit['author_name'] }}</td>
-                    <td style="border: 1px solid #ddd; padding: 8px;">{{ $commit['author_id'] }}</td>
-                    <td style="border: 1px solid #ddd; padding: 8px;">{{ $commit['committed_date'] }}</td>
-                    <td style="border: 1px solid #ddd; padding: 8px;">
-                        <a href="{{ $commit['commit_url'] }}" target="_blank" class="text-blue-600 hover:text-blue-800">
-                            View Commit
-                        </a>
-                    </td>
+                    <td colspan="5" style="text-align: center; padding: 8px;">No commit data available.</td>
                 </tr>
-            @endforeach
+            @endif
             </tbody>
         </table>
     </div>
 
-    <!-- Combined Issues Table -->
     <div class="section">
         <h2>All Repository Issues</h2>
         <table style="width: 100%; border-collapse: collapse; margin-top: 10px;">
@@ -290,18 +297,24 @@
             </tr>
             </thead>
             <tbody>
-            @foreach ($repositories as $repository)
-                @foreach ($repository->milestones as $milestone)
-                    @foreach ($milestone->tasks->sortByDesc('closed_at') as $task)
-                        <tr>
-                            <td style="border: 1px solid #ddd; padding: 8px;">{{ \Illuminate\Support\Str::limit($repository->name, 30, '...') }}</td>
-                            <td style="border: 1px solid #ddd; padding: 8px;">{{ \Illuminate\Support\Str::limit($milestone->title, 50, '...') }}</td>
-                            <td style="border: 1px solid #ddd; padding: 8px;">{{ \Illuminate\Support\Str::limit($task->title, 50, '...') }}</td>
-                            <td style="border: 1px solid #ddd; padding: 8px;">{{ $task->closed_at ? 'Closed' : 'Open' }}</td>
-                        </tr>
+            @if(isset($repositories) && count($repositories) > 0)
+                @foreach ($repositories as $repository)
+                    @foreach ($repository->milestones as $milestone)
+                        @foreach ($milestone->tasks->sortByDesc('closed_at') as $task)
+                            <tr>
+                                <td style="border: 1px solid #ddd; padding: 8px;">{{ \Illuminate\Support\Str::limit($repository->name, 30, '...') }}</td>
+                                <td style="border: 1px solid #ddd; padding: 8px;">{{ \Illuminate\Support\Str::limit($milestone->title, 50, '...') }}</td>
+                                <td style="border: 1px solid #ddd; padding: 8px;">{{ \Illuminate\Support\Str::limit($task->title, 50, '...') }}</td>
+                                <td style="border: 1px solid #ddd; padding: 8px;">{{ $task->closed_at ? 'Closed' : 'Open' }}</td>
+                            </tr>
+                        @endforeach
                     @endforeach
                 @endforeach
-            @endforeach
+            @else
+                <tr>
+                    <td colspan="4" style="text-align: center; padding: 8px;">No issues available for the repositories.</td>
+                </tr>
+            @endif
             </tbody>
         </table>
     </div>
