@@ -115,9 +115,69 @@ new class extends Component {
             'commits_by_author' => $commitsByAuthor->values(), // Collection of authors with commit counts
         ];
     }
+    protected function calculate_statistics(): void
+    {
+
+        foreach ($this->monitor->repositories as $repository) {
+            $repositoryTasks = $repository->milestones->flatMap(function ($milestone) {
+                return $milestone->tasks;
+            });
+
+            $this->tasks = array_merge($this->tasks, $repositoryTasks->all());
+        }
+
+        if (empty($this->tasks)) {
+            $this->reload_issues();
+        }
+
+
+        $this->total_repos = $this->monitor->repositories()->count();
+
+        $this->total_issues_open = $this->monitor->repositories->flatMap(function ($repo) {
+            return $repo->milestones->flatMap(function ($milestone) {
+                return $milestone->tasks->whereNull('closed_at');
+            });
+        })->count();
+
+        $this->total_issues_closed = $this->monitor->repositories->flatMap(function ($repo) {
+            return $repo->milestones->flatMap(function ($milestone) {
+                return $milestone->tasks->whereNotNull('closed_at');
+            });
+        })->count();
+
+        $this->total_issues = $this->total_issues_open + $this->total_issues_closed;
+
+        $this->top_milestones = $this->monitor->repositories->flatMap(function ($repo) {
+            return $repo->milestones;
+        })->sortByDesc('progress')->take(5);
+
+        $totalMilestones = $this->monitor->repositories->flatMap(function ($repo) {
+            return $repo->milestones;
+        })->count();
+
+        $this->total_milestones = $totalMilestones;
+
+        if ($totalMilestones > 0) {
+            $totalProgress = $this->monitor->repositories->flatMap(function ($repo) {
+                return $repo->milestones->pluck('progress');
+            })->sum();
+
+            $this->total_percentage = round($totalProgress / $totalMilestones, 2);
+        } else {
+            $this->total_percentage = 0;
+        }
+
+        if ($this->total_issues > 0) {
+            $this->total_percentage = round(($this->total_issues_closed / $this->total_issues) * 100, 2);
+        } else {
+            $this->total_percentage = 0;
+        }
+    }
+
 
     public function generate_data()
     {
+        $this->calculate_statistics();
         // Calculate sprint-specific statistics
         $sprintStatistics = $this->calculateSprintStatistics($this->from_date, $this->sprint_duration_weeks);
 
