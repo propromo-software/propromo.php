@@ -44,6 +44,7 @@
 
         /* Section Styling */
         .section {
+            margin-top: 10px;
             background-color: #fff;
             border-radius: 10px;
             padding: 20px;
@@ -214,26 +215,48 @@
     <div class="section">
         <h2>Milestones and Tasks</h2>
         @foreach ($repositories as $repository)
-            <h2>Milestones and Tasks</h2>
-            @foreach ($repository->milestones as $milestone)
-                <h4>{{ $milestone->title }}</h4>
-                <table>
-                    <thead>
-                    <tr>
-                        <th>Task</th>
-                        <th>Status</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    @foreach ($milestone->tasks as $task)
+            @if($repository->milestones->isNotEmpty())
+                <div class="repository-title">Repository: {{ $repository->name }}</div>
+                @foreach ($repository->milestones as $milestone)
+                    <div class="milestone-title">Milestone: {{ $milestone->title }}</div>
+
+                    <h3 style="color: #0D3269; margin-top: 10px;">Open Tasks</h3>
+                    <table class="task-table">
+                        <thead>
                         <tr>
-                            <td>{{ $task->title }}</td>
-                            <td>{{ $task->closed_at ? 'Closed' : 'Open' }}</td>
+                            <th>Task</th>
+                            <th>Status</th>
                         </tr>
-                    @endforeach
-                    </tbody>
-                </table>
-            @endforeach
+                        </thead>
+                        <tbody>
+                        @foreach ($milestone->tasks->where('closed_at', null) as $task)
+                            <tr>
+                                <td>{{ $task->title }}</td>
+                                <td>Open</td>
+                            </tr>
+                        @endforeach
+                        </tbody>
+                    </table>
+
+                    <h3 style="color: #0D3269; margin-top: 10px;">Closed Tasks</h3>
+                    <table class="task-table">
+                        <thead>
+                        <tr>
+                            <th>Task</th>
+                            <th>Status</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        @foreach ($milestone->tasks->where('closed_at', '!=', null) as $task)
+                            <tr>
+                                <td>{{ $task->title }}</td>
+                                <td>Closed</td>
+                            </tr>
+                        @endforeach
+                        </tbody>
+                    </table>
+                @endforeach
+            @endif
         @endforeach
     </div>
 
