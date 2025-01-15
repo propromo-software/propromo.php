@@ -39,6 +39,37 @@ new class extends Component {
         }
     }
 
+    public function showCommitsAndUsers()
+    {
+        try {
+
+            $commitsWithAuthors = Contribution::with('author')
+                ->orderBy('committed_date', 'desc')
+                ->get();
+
+            $commitsData = $commitsWithAuthors->map(function ($contribution) {
+                return [
+                    'commit_message' => $contribution->message_headline,
+                    'commit_url' => $contribution->commit_url,
+                    'author_name' => $contribution->author->name ?? 'Unknown',
+                    'author_id' => $contribution->author->id ?? 'N/A',
+                    'committed_date' => $contribution->committed_date->format('Y-m-d H:i'),
+                ];
+            });
+
+            return $commitsData;
+
+        } catch (\Exception $e) {
+            Log::error('Error fetching commits and user IDs:', [
+                'message' => $e->getMessage(),
+                'trace' => $e->getTraceAsString(),
+            ]);
+
+            return collect([]);
+        }
+    }
+
+
     protected function calculate_statistics(): void
     {
 
@@ -111,6 +142,7 @@ new class extends Component {
             'total_percentage' => $this->total_percentage,
             'top_milestones' => $this->top_milestones,
             'generated_date' => now()->format('d-m-Y'),
+            'commits_and_users' => $this->showCommitsAndUsers(),
             'commitUsers' => $this->commitUsers
         ];
 

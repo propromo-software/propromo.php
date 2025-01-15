@@ -13,7 +13,6 @@ class Author extends Model
         'email',
         'avatar_url',
     ];
-
     public function contributions(): HasMany
     {
         return $this->hasMany(Contribution::class);

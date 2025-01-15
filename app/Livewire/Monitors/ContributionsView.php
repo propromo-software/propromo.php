@@ -4,11 +4,9 @@ namespace App\Livewire\Monitors;
 
 use App\Models\Monitor;
 use App\Models\Contribution;
-use App\Models\Author;
 use Livewire\Component;
 use Log;
 use Exception;
-use Livewire\Attributes\On;
 
 class ContributionsView extends Component
 {
@@ -33,9 +31,9 @@ class ContributionsView extends Component
         try {
             $this->loading = true;
             $this->error = null;
-            
+
             $result = $this->monitor->collect_contributions($this->nextRootCursor, $this->nextCursor);
-            
+
             if (!$result) {
                 throw new Exception('No response from API server');
             }
@@ -48,27 +46,31 @@ class ContributionsView extends Component
                 'currentRepo' => $result['current_repository_name'] ?? 'unknown',
                 'contributionsCount' => count($result['contributions'] ?? [])
             ]);
-            
+
             if (!empty($result['contributions'])) {
                 $contributionIds = collect($result['contributions'])->pluck('id');
-                $loadedContributions = Contribution::with('authors')
+                $loadedContributions = Contribution::with('author')
                     ->whereIn('id', $contributionIds)
                     ->orderBy('committed_date', 'desc')
                     ->get();
-                
-                $this->contributions = array_merge($this->contributions, $loadedContributions->all());
+
+                $this->contributions = array_merge($this->contributions, $loadedContributions->toArray());
             }
-            
+
             $this->nextRootCursor = $result['next_root_cursor'];
             $this->nextCursor = $result['next_cursor'];
             $this->hasMoreRepositories = $result['has_more_repositories'] ?? false;
             $this->hasMoreCommits = $result['has_more_commits'] ?? false;
             $this->currentRepositoryName = $result['current_repository_name'];
-            
+
         } catch (Exception $e) {
             $this->error = "Error loading contributions. Please try again.";
             $this->hasMoreCommits = false;
             $this->hasMoreRepositories = false;
+            Log::error('Error in loadNext:', [
+                'message' => $e->getMessage(),
+                'trace' => $e->getTraceAsString()
+            ]);
         } finally {
             $this->loading = false;
         }
@@ -79,7 +81,7 @@ class ContributionsView extends Component
         if (!$this->loading) {
             if ($this->hasMoreCommits) {
                 $this->loadNext();
-            } else if ($this->hasMoreRepositories) {
+            } elseif ($this->hasMoreRepositories) {
                 $this->nextCursor = null;
                 $this->loadNext();
             }
@@ -93,10 +95,12 @@ class ContributionsView extends Component
 
     public function render()
     {
-        return view('livewire.monitors.contributions-view');
+        return view('livewire.monitors.contributions-view', [
+            'contributions' => $this->contributions
+        ]);
     }
 
-    public function placeholder() 
+    public function placeholder()
     {
         return <<<'HTML'
         <div class="flex justify-center mt-64">

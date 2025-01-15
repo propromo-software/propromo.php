@@ -10,6 +10,8 @@ return new class extends Migration
     {
         Schema::create('contributions', function (Blueprint $table) {
             $table->string('id')->primary(); // GitHub commit hash
+            $table->unsignedBigInteger('author_id');
+            $table->foreign('author_id')->references('id')->on('authors')->onDelete('cascade');
             $table->string('commit_url');
             $table->string('message_headline');
             $table->text('message_body')->nullable();

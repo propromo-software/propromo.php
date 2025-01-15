@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 class Contribution extends Model
@@ -12,6 +13,7 @@ class Contribution extends Model
 
     protected $fillable = [
         'id',
+        'author_id',
         'commit_url',
         'message_headline',
         'message_body',
@@ -25,9 +27,9 @@ class Contribution extends Model
         'committed_date' => 'datetime'
     ];
 
-    public function authors(): BelongsToMany
+    public function author(): BelongsTo
     {
-        return $this->belongsToMany(Author::class, 'contribution_author');
+        return $this->belongsTo(Author::class);
     }
 
     protected static function booted()

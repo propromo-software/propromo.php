@@ -214,6 +214,36 @@
         </div>
     </div>
 
+    <!-- Commits and Users Section -->
+    <div class="section">
+        <h2>Commits and Authors</h2>
+        <table style="width: 100%; border-collapse: collapse; margin-top: 10px;">
+            <thead>
+            <tr>
+                <th style="border: 1px solid #ddd; padding: 8px; background-color: #0D3269; color: white; text-align: left;">Commit Message</th>
+                <th style="border: 1px solid #ddd; padding: 8px; background-color: #0D3269; color: white; text-align: left;">Author</th>
+                <th style="border: 1px solid #ddd; padding: 8px; background-color: #0D3269; color: white; text-align: left;">Author ID</th>
+                <th style="border: 1px solid #ddd; padding: 8px; background-color: #0D3269; color: white; text-align: left;">Committed Date</th>
+                <th style="border: 1px solid #ddd; padding: 8px; background-color: #0D3269; color: white; text-align: left;">Commit URL</th>
+            </tr>
+            </thead>
+            <tbody>
+            @foreach ($commits_and_users as $commit)
+                <tr>
+                    <td style="border: 1px solid #ddd; padding: 8px;">{{ $commit['commit_message'] }}</td>
+                    <td style="border: 1px solid #ddd; padding: 8px;">{{ $commit['author_name'] }}</td>
+                    <td style="border: 1px solid #ddd; padding: 8px;">{{ $commit['author_id'] }}</td>
+                    <td style="border: 1px solid #ddd; padding: 8px;">{{ $commit['committed_date'] }}</td>
+                    <td style="border: 1px solid #ddd; padding: 8px;">
+                        <a href="{{ $commit['commit_url'] }}" target="_blank" class="text-blue-600 hover:text-blue-800">View Commit</a>
+                    </td>
+                </tr>
+            @endforeach
+            </tbody>
+        </table>
+    </div>
+
+
     <!-- Combined Issues Table -->
     <div style="margin-top: 10px; background-color: #fff; border-radius: 10px; padding: 20px; margin-bottom: 20px; box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);">
         <h2 style="font-size: 22px; color: #0D3269; margin-bottom: 15px; border-bottom: 2px solid #0D3269; padding-bottom: 5px;">All Repository Issues</h2>
@@ -244,17 +274,7 @@
     </div>
 
 
-    <!-- Users and Commit Counts Section -->
-    <div class="section">
-        <h2>Users and Sprint-Commit Counts</h2>
-        <div class="content">
-            @foreach ($commitUsers as $user)
-                <div class="user-commit">
-                    <strong>{{ $user->name }}</strong>: {{ $user->commit_count }} commits
-                </div>
-            @endforeach
-        </div>
-    </div>
+
 
     <!-- Footer Section -->
     <div class="footer">
