@@ -10,9 +10,9 @@ return new class extends Migration
     {
         Schema::create('authors', function (Blueprint $table) {
             $table->unsignedBigInteger('id')->primary(); // GitHub user ID
-            $table->string('name');
-            $table->string('email')->unique();
-            $table->string('avatar_url');
+            $table->string('name')->nullable();
+            $table->string('email')->unique()->nullable();
+            $table->string('avatar_url')->nullable();
             $table->timestamps();
         });
     }

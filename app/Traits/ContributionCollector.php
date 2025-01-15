@@ -60,9 +60,9 @@ trait ContributionCollector
             Log::info('Raw API Response:', [
                 'response' => $responseData
             ]);
-            
+
             $data = $responseData['data'] ?? null;
-            
+
             if (!$data) {
                 Log::error('No data in response:', [
                     'response' => $responseData
@@ -79,7 +79,7 @@ trait ContributionCollector
 
             $repositories = $data['organization']['projectV2']['repositories']['nodes'] ?? [];
             $repoPageInfo = $data['organization']['projectV2']['repositories']['pageInfo'] ?? null;
-            
+
             if (empty($repositories)) {
                 return [
                     'contributions' => [],
@@ -94,7 +94,7 @@ trait ContributionCollector
             $repo = $repositories[0];
             $currentRepoName = $repo['name'] ?? 'unknown';
             $contributions = [];
-            
+
             if (!isset($repo['defaultBranchRef']) || !isset($repo['defaultBranchRef']['target']['history']['edges'])) {
                 // If repository has no commits, move to next repository
                 return [
@@ -179,7 +179,7 @@ trait ContributionCollector
                                     'avatar_url' => $authorData['avatarUrl']
                                 ]
                             );
-                            
+
                             $contribution->authors()->syncWithoutDetaching([$githubUserId]);
                         }
                     }
@@ -225,7 +225,7 @@ trait ContributionCollector
                 'error' => $e->getMessage(),
                 'trace' => $e->getTraceAsString()
             ]);
-            
+
             throw $e;
         }
     }

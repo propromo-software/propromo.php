@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 class Author extends Model
 {
     protected $fillable = [
+        'id',
         'name',
         'email',
         'avatar_url',
