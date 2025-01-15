@@ -166,6 +166,23 @@
         <table class="statistics-table">
             <tr>
                 <td class="statistics-cell">
+                    <div class="statistics-value">{{ $repositories->count() }}</div>
+                    <div class="statistics-description">Total Repositories</div>
+                </td>
+                <td class="statistics-cell">
+                    <div class="statistics-value">{{ $total_milestones }}</div>
+                    <div class="statistics-description">Total Milestones</div>
+                </td>
+
+                <td class="statistics-cell">
+                    <div class="statistics-value">{{ $total_percentage }}%</div>
+                    <div class="statistics-description">Progress Percentage</div>
+                </td>
+
+            </tr>
+            <tr>
+
+                <td class="statistics-cell">
                     <div class="statistics-value">{{ $total_issues }}</div>
                     <div class="statistics-description">Total Issues</div>
                 </td>
@@ -176,19 +193,6 @@
                 <td class="statistics-cell">
                     <div class="statistics-value">{{ $total_issues_closed }}</div>
                     <div class="statistics-description">Closed Issues</div>
-                </td>
-            </tr>
-            <tr>
-                <td class="statistics-cell">
-                    <div class="statistics-value">{{ $total_milestones }}</div>
-                    <div class="statistics-description">Total Milestones</div>
-                </td>
-                <td class="statistics-cell">
-                    <div class="statistics-value">{{ $total_percentage }}%</div>
-                    <div class="statistics-description">Progress Percentage</div>
-                </td>
-                <td class="statistics-cell">
-                    <!-- Empty Cell -->
                 </td>
             </tr>
         </table>
