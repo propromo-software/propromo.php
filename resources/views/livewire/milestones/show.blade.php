@@ -59,23 +59,23 @@ new class extends Component {
 
 
 <div>
-    <div class="border-other-grey border-2 rounded-2xl p-8 mt-4 mx-8">
-        <div class="flex items-center justify-between mb-5">
+    <div class="p-8 mx-8 mt-4 rounded-2xl border-2 border-other-grey">
+        <div class="flex justify-between items-center mb-5">
 
-            <div class="flex items-center gap-3">
+            <div class="flex gap-3 items-center">
                 <a href="/monitors/{{$milestone->repository->monitor->id}}" title="Show Monitor" class="flex items-center">
-                    <sl-icon class="cursor-pointer text-primary-blue text-4xl rounded-md border-2 p-2 border-other-grey" name="arrow-left-short" wire:ignore></sl-icon>
+                    <sl-icon class="p-2 text-4xl rounded-md border-2 cursor-pointer text-primary-blue border-other-grey" name="arrow-left-short" wire:ignore></sl-icon>
                 </a>
-                <div class="flex items-center gap-1 rounded-md border-2 border-other-grey px-6 py-3"  title="Show User">
+                <div class="flex gap-1 items-center px-6 py-3 rounded-md border-2 border-other-grey"  title="Show User">
 
                     @if($milestone->progress >= 100.00)
-                        <sl-icon wire:ignore class="text-additional-green font-sourceSansPro text-xl font-bold" name="check-circle"></sl-icon>
-                        <div class="text-additional-green font-sourceSansPro text-lg font-bold">
+                        <sl-icon wire:ignore class="text-xl font-bold text-additional-green font-sourceSansPro" name="check-circle"></sl-icon>
+                        <div class="text-lg font-bold text-additional-green font-sourceSansPro">
                             {{strtoupper($milestone->title)}}
                         </div>
                     @else
-                        <sl-icon wire:ignore class="text-additional-orange font-sourceSansPro text-xl font-bold" name="hammer"></sl-icon>
-                        <div class="text-additional-orange font-sourceSansPro text-lg font-bold">
+                        <sl-icon wire:ignore class="text-xl font-bold text-additional-orange font-sourceSansPro" name="hammer"></sl-icon>
+                        <div class="text-lg font-bold text-additional-orange font-sourceSansPro">
                             {{strtoupper($milestone->title)}}
                         </div>
                     @endif
@@ -83,10 +83,10 @@ new class extends Component {
             </div>
 
             <div class="flex gap-2 align-items-center">
-                <sl-icon class="cursor-pointer text-primary-blue text-3xl rounded-md border-2 p-2 border-other-grey" name="filter" wire:ignore></sl-icon>
+                <sl-icon class="p-2 text-3xl rounded-md border-2 cursor-pointer text-primary-blue border-other-grey" name="filter" wire:ignore></sl-icon>
 
                 <a href="/monitors/{{$milestone->repository->monitor->id}}/milestones/{{$milestone->id}}" title="Show Monitor" class="flex items-center">
-                    <sl-icon class="cursor-pointer text-primary-blue text-3xl rounded-md border-2 p-2 border-other-grey" name="eraser" wire:ignore></sl-icon>
+                    <sl-icon class="p-2 text-3xl rounded-md border-2 cursor-pointer text-primary-blue border-other-grey" name="eraser" wire:ignore></sl-icon>
                 </a>
 
                 <sl-icon-button class="text-3xl text-secondary-grey" name="arrow-repeat" label="Reload" type="submit" wire:ignore wire:click="reloadIssues"></sl-icon-button>
@@ -94,10 +94,10 @@ new class extends Component {
 
         </div>
 
-        <div class="border-other-grey border-2 rounded-2xl p-8 m-2">
+        <div class="p-8 m-2 rounded-2xl border-2 border-other-grey">
             <livewire:tasks.list :tasks="$this->reload_tasks()"/>
         </div>
     </div>
 
-    {{ Breadcrumbs::render('milestone', $milestone->repository->monitor, $milestone) }}
+    <x-footer :breadcrumbs="Breadcrumbs::generate('milestone', $milestone->repository->monitor, $milestone)" />
 </div>

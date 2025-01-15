@@ -18,14 +18,15 @@
             @endif
         </header>
 
-        <main class="p-8 min-h-screen">
+        <main class="px-8 pb-4 min-h-screen">
             @if(request()->path() !== '/' && 
                 request()->path() !== 'create-monitor' && 
                 request()->path() !== 'create-open-source-monitor' && 
                 request()->path() !== 'register' && 
                 request()->path() !== 'login' && 
                 request()->path() !== 'join' &&
-                request()->path() !== 'settings/profile')
+                request()->path() !== 'settings/profile' &&
+                request()->route()->getName() !== 'monitors.show')
                 <div class="container px-8 py-4 mx-auto">
                     <x-breadcrumbs 
                         route="{{ request()->route()->getName() }}" 
@@ -41,6 +42,13 @@
             <livewire:base.api-changed-toast></livewire:base.api-changed-toast>
         </main>
 
-        <x-footer :route="request()->route()->getName()" />
+        @if(request()->path() === '/' || 
+            request()->path() === 'create-monitor' || 
+            request()->path() === 'create-open-source-monitor' || 
+            request()->path() === 'register' || 
+            request()->path() === 'login' || 
+            request()->path() === 'join')
+            <x-footer :route="request()->route()->getName()" />
+        @endif
     </body>
 </html>

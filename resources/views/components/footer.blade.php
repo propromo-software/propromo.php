@@ -1,4 +1,18 @@
-<footer class="py-6 mt-auto border-t bg-primary-blue/5 border-primary-blue/10">
+@props([
+    'route' => null,
+    'breadcrumbs' => null
+])
+
+@php
+    $excludedPaths = ['/', 'create-monitor', 'create-open-source-monitor', 'register', 'login', 'join'];
+    $currentPath = request()->path();
+    $shouldHaveNegativeMargin = !in_array($currentPath, $excludedPaths);
+@endphp
+
+<footer @class([
+    'py-6 mt-auto border-t bg-primary-blue/5 border-primary-blue/10',
+    '-mx-8 -mb-8' => $shouldHaveNegativeMargin
+])>
     <div class="container px-8 mx-auto">
         <div class="flex flex-col justify-between items-center space-y-4 md:flex-row md:space-y-0">
             <div class="flex gap-4 items-center text-sm text-primary-blue/70">
@@ -14,7 +28,11 @@
                 </a>
             </div>
             
-            <x-breadcrumbs :route="$route" location="footer" />
+            @if($breadcrumbs)
+                <x-breadcrumbs :breadcrumbs="$breadcrumbs" location="footer" />
+            @else
+                <x-breadcrumbs :route="$route" location="footer" />
+            @endif
         </div>
     </div>
 </footer>

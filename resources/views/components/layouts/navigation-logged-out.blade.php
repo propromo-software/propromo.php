@@ -1,5 +1,5 @@
 @auth
-    <div class="px-8">
+    <div class="p-8">
         <div class="flex justify-between items-center p-6 rounded-2xl border-2 backdrop-blur-sm bg-base-200/50 border-other-grey">
             <a class="text-5xl font-koulen text-primary-blue text-uppercase" href="{{ url('/') }}">Propromo</a>
 
@@ -19,7 +19,7 @@
         </div>
     </div>
 @else
-    <div class="px-8">
+    <div class="p-8">
         <div class="flex justify-between items-center p-6 backdrop-blur-sm bg-base-200/50">
             <a class="text-3xl font-koulen text-primary-blue text-uppercase" href="{{ url('/') }}">Propromo</a>
 

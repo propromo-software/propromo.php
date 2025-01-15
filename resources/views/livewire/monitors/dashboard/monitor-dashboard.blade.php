@@ -105,11 +105,7 @@ new class extends Component {
     public function placeholder()
     {
         return <<<'HTML'
-        <div>
-            <h1>Loading...</h1>
-            <!-- Loading spinner... -->
-            <svg>...</svg>
-        </div>
+        <sl-spinner></sl-spinner>
         HTML;
     }
 }; ?>
@@ -117,11 +113,11 @@ new class extends Component {
 <div class="w-full lg:w-auto lg:flex-shrink-0">
     <h2 class="m-2 text-2xl font-koulen text-primary-blue">Overview</h2>
     <div class="mb-5">
-        <div class="w-full m-2">
+        <div class="m-2 w-full">
             <div class="grid grid-cols-1 gap-3 sm:grid-cols-2 sm:gap-5">
                 <div>
                     <sl-badge class="mb-1" variant="neutral">Open Issues</sl-badge>
-                    <div class="flex items-center justify-between gap-2 p-2 text-white border-2 rounded-md bg-additional-orange" style="min-width: 150px; max-width: 300px; width: 100%;">
+                    <div class="flex gap-2 justify-between items-center p-2 text-white rounded-md border-2 bg-additional-orange" style="min-width: 150px; max-width: 300px; width: 100%;">
                         <sl-icon wire:ignore name="calendar2-week" class="text-xl font-bold text-white font-sourceSansPro"></sl-icon>
                         <div class="text-xl font-bold text-white font-sourceSansPro">{{$total_issues_open}}</div>
                     </div>
@@ -129,7 +125,7 @@ new class extends Component {
 
                 <div>
                     <sl-badge class="mb-1" variant="neutral">Closed Issues</sl-badge>
-                    <div class="flex items-center justify-between gap-2 p-2 border-2 rounded-md border-additional-green bg-additional-green" style="min-width: 150px; max-width: 300px; width: 100%;">
+                    <div class="flex gap-2 justify-between items-center p-2 rounded-md border-2 border-additional-green bg-additional-green" style="min-width: 150px; max-width: 300px; width: 100%;">
                         <sl-icon wire:ignore name="calendar2-x" class="text-xl font-bold text-white font-sourceSansPro"></sl-icon>
                         <div class="text-xl font-bold text-white font-sourceSansPro">{{$total_issues_closed}}</div>
                     </div>
@@ -137,7 +133,7 @@ new class extends Component {
 
                 <div>
                     <sl-badge class="mb-1" variant="neutral">Total Repos</sl-badge>
-                    <div class="flex items-center justify-between gap-2 p-2 border-2 rounded-md border-other-grey" style="min-width: 150px; max-width: 300px; width: 100%;">
+                    <div class="flex gap-2 justify-between items-center p-2 rounded-md border-2 border-other-grey" style="min-width: 150px; max-width: 300px; width: 100%;">
                         <sl-icon wire:ignore name="collection" class="text-xl font-bold text-secondary-grey font-sourceSansPro"></sl-icon>
                         <div class="text-xl font-bold text-secondary-grey font-sourceSansPro">{{$total_repos}}</div>
                     </div>
@@ -145,7 +141,7 @@ new class extends Component {
 
                 <div>
                     <sl-badge class="mb-1" variant="neutral">Total Progess</sl-badge>
-                    <div class="flex items-center justify-between gap-2 p-2 border-2 rounded-md border-other-grey" style="min-width: 150px; max-width: 300px; width: 100%;">
+                    <div class="flex gap-2 justify-between items-center p-2 rounded-md border-2 border-other-grey" style="min-width: 150px; max-width: 300px; width: 100%;">
                         <sl-icon wire:ignore name="percent" class="text-xl font-bold text-secondary-grey font-sourceSansPro"></sl-icon>
                         <div class="text-xl font-bold text-secondary-grey font-sourceSansPro">{{round($total_percentage,2)}}</div>
                     </div>

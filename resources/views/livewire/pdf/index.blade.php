@@ -272,5 +272,5 @@ new class extends Component {
         </div>
     </div>
 
-    {{ Breadcrumbs::render('pdf', $monitor) }}
+    <x-footer :breadcrumbs="Breadcrumbs::generate('pdf', $monitor)" />
 </div>
