@@ -23,7 +23,7 @@
         /* Header Styling */
         .header {
             text-align: center;
-            background-color: #007BFF;
+            background-color: #0D3269;
             color: #fff;
             padding: 20px;
             border-radius: 10px;
@@ -53,9 +53,9 @@
 
         .section h2 {
             font-size: 22px;
-            color: #007BFF;
+            color: #0D3269;
             margin-bottom: 15px;
-            border-bottom: 2px solid #007BFF;
+            border-bottom: 2px solid #0D3269;
             padding-bottom: 5px;
         }
 
@@ -64,18 +64,32 @@
             color: #555;
         }
 
-        /* Content Styling */
-        .content {
-            line-height: 1.6;
+        /* Statistics Table */
+        .statistics-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        .statistics-cell {
+            padding: 10px;
+            text-align: center;
+        }
+
+        .statistics-value {
+            font-size: 20px;
+            font-weight: bold;
+        }
+
+        .statistics-description {
+            font-size: 14px;
+            color: #555;
         }
 
         /* Milestone Styling */
         .milestone {
             padding: 10px 0;
             border-bottom: 1px solid #e5e5e5;
-            display: flex;
-            flex-direction: column;
-            gap: 5px;
         }
 
         .milestone-title {
@@ -99,7 +113,7 @@
 
         .progress-bar {
             height: 100%;
-            background-color: #007BFF;
+            background-color: #0D3269;
         }
 
         .progress-percentage {
@@ -120,7 +134,7 @@
         }
 
         .user-commit strong {
-            color: #007BFF;
+            color: #0D3269;
         }
 
         /* Footer Styling */
@@ -140,21 +154,43 @@
 <div class="container">
     <!-- Header Section -->
     <div class="header">
-        <h1>Project Report</h1>
+        <h1>Project Blood-Report</h1>
         <p><strong>Organization:</strong> {{ $organization_name }}</p>
         <p><strong>Description:</strong> {{ $organization_description }}</p>
     </div>
 
     <!-- Statistics Section -->
     <div class="section">
-        <h2>Statistics</h2>
-        <div class="content">
-            <p><strong>Total Issues:</strong> {{ $total_issues }}</p>
-            <p><strong>Open Issues:</strong> {{ $total_issues_open }}</p>
-            <p><strong>Closed Issues:</strong> {{ $total_issues_closed }}</p>
-            <p><strong>Total Milestones:</strong> {{ $total_milestones }}</p>
-            <p><strong>Progress Percentage:</strong> {{ $total_percentage }}%</p>
-        </div>
+        <h2>General Statistics</h2>
+        <table class="statistics-table">
+            <tr>
+                <td class="statistics-cell">
+                    <div class="statistics-value">{{ $total_issues }}</div>
+                    <div class="statistics-description">Total Issues</div>
+                </td>
+                <td class="statistics-cell">
+                    <div class="statistics-value">{{ $total_issues_open }}</div>
+                    <div class="statistics-description">Open Issues</div>
+                </td>
+                <td class="statistics-cell">
+                    <div class="statistics-value">{{ $total_issues_closed }}</div>
+                    <div class="statistics-description">Closed Issues</div>
+                </td>
+            </tr>
+            <tr>
+                <td class="statistics-cell">
+                    <div class="statistics-value">{{ $total_milestones }}</div>
+                    <div class="statistics-description">Total Milestones</div>
+                </td>
+                <td class="statistics-cell">
+                    <div class="statistics-value">{{ $total_percentage }}%</div>
+                    <div class="statistics-description">Progress Percentage</div>
+                </td>
+                <td class="statistics-cell">
+                    <!-- Empty Cell -->
+                </td>
+            </tr>
+        </table>
     </div>
 
     <!-- Top Milestones Section -->
@@ -171,6 +207,34 @@
                 </div>
             @endforeach
         </div>
+    </div>
+
+    <br>
+    <!-- Milestones Section -->
+    <div class="section">
+        <h2>Milestones and Tasks</h2>
+        @foreach ($repositories as $repository)
+            <h2>Milestones and Tasks</h2>
+            @foreach ($repository->milestones as $milestone)
+                <h4>{{ $milestone->title }}</h4>
+                <table>
+                    <thead>
+                    <tr>
+                        <th>Task</th>
+                        <th>Status</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    @foreach ($milestone->tasks as $task)
+                        <tr>
+                            <td>{{ $task->title }}</td>
+                            <td>{{ $task->closed_at ? 'Closed' : 'Open' }}</td>
+                        </tr>
+                    @endforeach
+                    </tbody>
+                </table>
+            @endforeach
+        @endforeach
     </div>
 
     <!-- Users and Commit Counts Section -->

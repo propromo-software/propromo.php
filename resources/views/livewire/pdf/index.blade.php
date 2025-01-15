@@ -107,6 +107,7 @@ new class extends Component {
             'total_issues_open' => $this->total_issues_open,
             'total_issues_closed' => $this->total_issues_closed,
             'total_milestones' => $this->total_milestones,
+            'repositories' => $this->monitor->repositories,
             'total_percentage' => $this->total_percentage,
             'top_milestones' => $this->top_milestones,
             'generated_date' => now()->format('d-m-Y'),
