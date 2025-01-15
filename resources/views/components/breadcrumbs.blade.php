@@ -1,24 +1,52 @@
 @props([
     'location' => 'top',
-    'route' => null
+    'route' => null,
+    'params' => []
 ])
 
 @php
     $routeMap = [
-        'home.index' => 'home',
-        'monitors.index' => 'monitors',
-        'monitors.show' => 'monitor',
-        'monitors.custom.index' => 'monitors',
-        'monitors.custom.show' => 'monitor',
-        'milestone.show' => 'milestone',
-        'pdf.index' => 'pdf',
-        'settings.index' => 'home',
-        'settings.monitors.index' => 'home',
-        'repositories.list' => 'monitors'
+        'home.index' => ['name' => 'home'],
+        'monitors.index' => ['name' => 'monitors'],
+        'monitors.show' => ['name' => 'monitor', 'params' => ['monitor']],
+        'monitors.custom.index' => ['name' => 'monitors'],
+        'monitors.custom.show' => ['name' => 'monitor', 'params' => ['monitor']],
+        'milestone.show' => ['name' => 'milestone', 'params' => ['monitor', 'milestone']],
+        'pdf.index' => ['name' => 'pdf', 'params' => ['monitor']],
+        'settings.index' => ['name' => 'home'],
+        'settings.monitors.index' => ['name' => 'home'],
+        'repositories.list' => ['name' => 'monitors']
     ];
 
-    $breadcrumbName = $route && isset($routeMap[$route]) ? $routeMap[$route] : $route;
-    $breadcrumbs = $breadcrumbName ? Breadcrumbs::generate($breadcrumbName) : collect([]);
+    $breadcrumbConfig = $route && isset($routeMap[$route]) ? $routeMap[$route] : null;
+    $breadcrumbName = $breadcrumbConfig ? $breadcrumbConfig['name'] : $route;
+    $breadcrumbParams = [];
+    
+    if ($breadcrumbConfig && isset($breadcrumbConfig['params'])) {
+        foreach ($breadcrumbConfig['params'] as $param) {
+            if (isset($params[$param])) {
+                // If the parameter is already a model instance, use it directly
+                if (is_object($params[$param])) {
+                    $breadcrumbParams[] = $params[$param];
+                } else {
+                    // If it's not a model instance, try to find it
+                    $modelClass = match($param) {
+                        'monitor' => \App\Models\Monitor::class,
+                        'milestone' => \App\Models\Milestone::class,
+                        default => null
+                    };
+                    if ($modelClass) {
+                        $model = $modelClass::find($params[$param]);
+                        if ($model) {
+                            $breadcrumbParams[] = $model;
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    $breadcrumbs = $breadcrumbName && !empty($breadcrumbParams) ? Breadcrumbs::generate($breadcrumbName, ...$breadcrumbParams) : collect([]);
 @endphp
 
 @unless ($breadcrumbs->isEmpty())

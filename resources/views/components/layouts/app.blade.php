@@ -27,7 +27,11 @@
                 request()->path() !== 'join' &&
                 request()->path() !== 'settings/profile')
                 <div class="container px-8 py-4 mx-auto">
-                    <x-breadcrumbs route="{{ request()->route()->getName() }}" location="top" />
+                    <x-breadcrumbs 
+                        route="{{ request()->route()->getName() }}" 
+                        location="top"
+                        :params="request()->route()->parameters()" 
+                    />
                 </div>
             @endif
 
