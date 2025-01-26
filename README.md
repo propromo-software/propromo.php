@@ -22,7 +22,7 @@
 
 ---
 
-> Your client wants to know what's up. [Propromo](https://it200250.cloud.htl-leonding.ac.at) makes it possible.
+> Your client wants to know what's up. [Propromo](https://propromo.duckdns.org) makes it possible.
 
 ## The Project
 
@@ -146,8 +146,7 @@ php ./vendor/bin/pest
 -   https://propromo.duckdns.org (points to heroku)
 -   https://propromo.dnset.com (points to heroku)
 -   https://propromo.simulatan.me (points to heroku)
--   https://propromo-d08144c627d3.herokuapp.com (main after stable release, inactive)
--   https://it200250.cloud.htl-leonding.ac.at (main right now)
+-   https://propromo-d08144c627d3.herokuapp.com (main)
 
 ## Design
 
