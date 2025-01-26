@@ -55,7 +55,7 @@ new class extends Component {
 
                 <div>
                     <sl-button variant="default" size="large">
-                        <a href="/monitors/{{ $monitor->id }}/contributions" class="flex items-center sl-button variant-default size-large">
+                        <a href="/monitors/{{ $monitor->id }}/contributions" class="flex items-center">
                             <sl-icon slot="suffix" name="people-fill"></sl-icon>
                             COMMITS
                         </a>
@@ -68,9 +68,9 @@ new class extends Component {
             <livewire:monitors.dashboard.index :monitor="$monitor" lazy="true"/>
         </div>
 
-        <div class="grid grid-cols-1 gap-8 mt-8 md:grid-cols-2 2xl:grid-cols-3">
-            <div class="md:col-span-2 2xl:col-span-1">
-                <livewire:monitors.read-me-view :monitor="$monitor"/>
+        <div class="grid grid-cols-1 gap-4 mt-8 md:grid-cols-2 2xl:grid-cols-3">
+            <div class="p-5 rounded-2xl border-2 border-other-grey">
+                <livewire:monitors.releases-view :monitor="$monitor"/>
             </div>
             <div class="p-5 rounded-2xl border-2 border-other-grey">
                 <livewire:monitors.deployments-view :monitor="$monitor"/>
@@ -78,10 +78,10 @@ new class extends Component {
             <div class="p-5 rounded-2xl border-2 border-other-grey">
                 <livewire:monitors.vulnerabilities-view :monitor="$monitor"/>
             </div>
-            <div></div>
-            <div class="p-5 rounded-2xl border-2 border-other-grey">
-                <livewire:monitors.releases-view :monitor="$monitor"/>
-            </div>
+        </div>
+
+        <div class="my-8 md:col-span-2 2xl:col-span-1">
+            <livewire:monitors.read-me-view :monitor="$monitor"/>
         </div>
     </div>
 

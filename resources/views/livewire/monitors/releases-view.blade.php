@@ -17,17 +17,47 @@
             </div>
         </div>
     
-        <sl-select
-            wire:ignore
-            id="repository-select"
-            value="{{ $selectedRepository ?? '' }}" 
-            class="w-full text-sm rounded-md border-border-color"
-        >
-            <sl-option wire:ignore value="" @selected(!$selectedRepository)>All Repositories</sl-option>
-            @foreach($repositories as $id => $name)
-                <sl-option wire:ignore value="{{ $id }}" @selected($selectedRepository == $id)>{{ $name }}</sl-option>
-            @endforeach
-        </sl-select>
+        <div class="mb-4 space-y-4">
+            <!-- Search -->
+            <div class="flex gap-4">
+                <sl-input
+                    wire:ignore
+                    id="release-search"
+                    placeholder="Search releases..."
+                    class="w-full"
+                    clearable
+                >
+                    <sl-icon wire:ignore name="search" slot="prefix"></sl-icon>
+                </sl-input>
+            </div>
+
+            <!-- Filters -->
+            <div class="flex gap-4">
+                <sl-select
+                    wire:ignore
+                    id="repository-select"
+                    class="w-1/2"
+                    placeholder="Select Repository"
+                >
+                    <sl-option wire:ignore value="">All Repositories</sl-option>
+                    @foreach($repositories as $id => $name)
+                        <sl-option wire:ignore value="{{ $id }}">{{ $name }}</sl-option>
+                    @endforeach
+                </sl-select>
+
+                <sl-select
+                    wire:ignore
+                    id="filter-type-select"
+                    value="all"
+                    class="w-1/2"
+                >
+                    <sl-option wire:ignore value="all">All Releases</sl-option>
+                    <sl-option wire:ignore value="latest">Latest Releases</sl-option>
+                    <sl-option wire:ignore value="prerelease">Pre-releases</sl-option>
+                    <sl-option wire:ignore value="draft">Draft Releases</sl-option>
+                </sl-select>
+            </div>
+        </div>
     </div>
 
     <div class="grid grid-cols-4 gap-4 mb-6">
@@ -37,23 +67,48 @@
         </div>
         <div class="p-4 rounded-md border border-border-color">
             <div class="text-sm text-secondary-grey">Pre-releases</div>
-            <div class="text-2xl font-semibold">{{ $releases->where('is_prerelease', true)->count() }}</div>
+            <div class="text-2xl font-semibold">{{ $preReleaseCount }}</div>
         </div>
         <div class="p-4 rounded-md border border-border-color">
             <div class="text-sm text-secondary-grey">Total Changes</div>
-            <div class="text-2xl font-semibold">{{ $releases->sum(fn($r) => $r->tag->additions + $r->tag->deletions) }}</div>
+            <div class="text-2xl font-semibold">{{ $totalChanges }}</div>
         </div>
         <div class="p-4 rounded-md border border-border-color">
             <div class="text-sm text-secondary-grey">Files Changed</div>
-            <div class="text-2xl font-semibold">{{ $releases->sum(fn($r) => $r->tag->changed_files) }}</div>
+            <div class="text-2xl font-semibold">{{ $totalFilesChanged }}</div>
         </div>
     </div>
 
     <script>
         document.addEventListener('DOMContentLoaded', () => {
-            const select = document.getElementById('repository-select');
-            select.addEventListener('sl-change', (event) => {
+            // Repository select
+            const repositorySelect = document.getElementById('repository-select');
+            repositorySelect.addEventListener('sl-change', (event) => {
                 @this.set('selectedRepository', event.target.value);
+                @this.loadReleases();
+            });
+
+            // Filter type select
+            const filterTypeSelect = document.getElementById('filter-type-select');
+            filterTypeSelect.addEventListener('sl-change', (event) => {
+                @this.set('filterType', event.target.value);
+                @this.loadReleases();
+            });
+
+            // Search input
+            const searchInput = document.getElementById('release-search');
+            let searchTimeout;
+            
+            searchInput.addEventListener('sl-input', (event) => {
+                clearTimeout(searchTimeout);
+                searchTimeout = setTimeout(() => {
+                    @this.set('search', event.target.value);
+                    @this.loadReleases();
+                }, 300);
+            });
+
+            searchInput.addEventListener('sl-clear', () => {
+                @this.set('search', '');
                 @this.loadReleases();
             });
         });
@@ -103,7 +158,7 @@
         </div>
 
         <div wire:loading.remove wire:target="loadReleases" class="space-y-2">
-            @forelse($releases as $release)
+            @forelse($this->releases as $release)
                 <div class="p-4 rounded-md border border-border-color">
                     <div class="flex justify-between items-center mb-2">
                         <div class="flex items-center space-x-2">
@@ -176,5 +231,10 @@
                 </div>
             @endforelse
         </div>
+    </div>
+
+    <!-- Pagination -->
+    <div class="mt-4">
+        {{ $this->releases->links() }}
     </div>
 </div>
