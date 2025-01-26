@@ -1,25 +1,21 @@
-import '../../node_modules/@shoelace-style/shoelace/dist/components/icon/icon.js';
-import '../../node_modules/@shoelace-style/shoelace/dist/components/button/button.js';
-import '../../node_modules/@shoelace-style/shoelace/dist/components/input/input.js';
-import '../../node_modules/@shoelace-style/shoelace/dist/components/progress-bar/progress-bar.js';
-import '../../node_modules/@shoelace-style/shoelace/dist/components/select/select.js';
-import '../../node_modules/@shoelace-style/shoelace/dist/components/option/option.js';
-import '../../node_modules/@shoelace-style/shoelace/dist/components/spinner/spinner.js';
-import '../../node_modules/@shoelace-style/shoelace/dist/components/icon-button/icon-button.js';
-import '../../node_modules/@shoelace-style/shoelace/dist/components/copy-button/copy-button.js';
-import '../../node_modules/@shoelace-style/shoelace/dist/components/alert/alert.js';
-import '../../node_modules/@shoelace-style/shoelace/dist/components/dialog/dialog.js';
-import '../../node_modules/@shoelace-style/shoelace/dist/components/switch/switch.js';
-import '../../node_modules/@shoelace-style/shoelace/dist/components/details/details.js';
-import '../../node_modules/@shoelace-style/shoelace/dist/components/badge/badge.js';
+import "../../node_modules/@shoelace-style/shoelace/dist/components/icon/icon.js";
+import "../../node_modules/@shoelace-style/shoelace/dist/components/button/button.js";
+import "../../node_modules/@shoelace-style/shoelace/dist/components/input/input.js";
+import "../../node_modules/@shoelace-style/shoelace/dist/components/progress-bar/progress-bar.js";
+import "../../node_modules/@shoelace-style/shoelace/dist/components/select/select.js";
+import "../../node_modules/@shoelace-style/shoelace/dist/components/option/option.js";
+import "../../node_modules/@shoelace-style/shoelace/dist/components/spinner/spinner.js";
+import "../../node_modules/@shoelace-style/shoelace/dist/components/icon-button/icon-button.js";
+import "../../node_modules/@shoelace-style/shoelace/dist/components/copy-button/copy-button.js";
+import "../../node_modules/@shoelace-style/shoelace/dist/components/alert/alert.js";
+import "../../node_modules/@shoelace-style/shoelace/dist/components/dialog/dialog.js";
+import "../../node_modules/@shoelace-style/shoelace/dist/components/switch/switch.js";
+import "../../node_modules/@shoelace-style/shoelace/dist/components/details/details.js";
+import "../../node_modules/@shoelace-style/shoelace/dist/components/badge/badge.js";
+import "../../node_modules/@shoelace-style/shoelace/dist/components/skeleton/skeleton.js";
 
-
-
-
-
-
-import { setBasePath } from '../../node_modules/@shoelace-style/shoelace/dist/utilities/base-path.js';
-setBasePath('/');
+import { setBasePath } from "../../node_modules/@shoelace-style/shoelace/dist/utilities/base-path.js";
+setBasePath("/");
 
 /**
  * We'll load the axios HTTP library which allows us to easily issue requests
@@ -27,10 +23,10 @@ setBasePath('/');
  * CSRF token as a header based on the value of the "XSRF" token cookie.
  */
 
-import axios from 'axios';
+import axios from "axios";
 window.axios = axios;
 
-window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
+window.axios.defaults.headers.common["X-Requested-With"] = "XMLHttpRequest";
 
 /**
  * Echo exposes an expressive API for subscribing to channels and listening

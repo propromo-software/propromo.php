@@ -78,6 +78,10 @@ new class extends Component {
             <div class="p-5 rounded-2xl border-2 border-other-grey">
                 <livewire:monitors.vulnerabilities-view :monitor="$monitor"/>
             </div>
+            <div></div>
+            <div class="p-5 rounded-2xl border-2 border-other-grey">
+                <livewire:monitors.releases-view :monitor="$monitor"/>
+            </div>
         </div>
     </div>
 

@@ -102,4 +102,9 @@ class Monitor extends Model
     {
         return $this->hasMany(Vulnerability::class);
     }
+
+    public function releases(): HasMany
+    {
+        return $this->hasMany(Release::class);
+    }
 }
