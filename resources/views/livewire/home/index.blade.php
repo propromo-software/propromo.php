@@ -27,7 +27,7 @@ new class extends Component
 
         <livewire:home.join-monitor-form class="mt-20" />
 
-        <h1 class="mt-20 text-4xl text-center font-koulen text-secondary-grey">PROJECT PREVIEW</h1>
+        <!-- <h1 class="mt-20 text-4xl text-center font-koulen text-secondary-grey">PROJECT PREVIEW</h1>
 
         <div class="mt-8">
             <div class="relative w-full aspect-video">
@@ -39,7 +39,7 @@ new class extends Component
                     title="Propromo Preview">
                 </iframe>
             </div>
-        </div>
+        </div> -->
 
         <br>
     </div>

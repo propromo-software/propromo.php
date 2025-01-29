@@ -42,7 +42,7 @@ new class extends Component
 
                     <br>
 
-                    <div class="relative w-full mt-2 aspect-video">
+                    <!-- <div class="relative w-full mt-2 aspect-video">
                         <iframe 
                             class="absolute top-0 left-0 w-full h-full rounded-lg"
                             src="https://player.vimeo.com/video/953693432?badge=0&amp;autopause=0&amp;player_id=0&amp;app_id=58479&background=1&responsive=1" 
@@ -50,7 +50,7 @@ new class extends Component
                             allow="autoplay; fullscreen; picture-in-picture; clipboard-write" 
                             title="Propromo Preview">
                         </iframe>
-                    </div>
+                    </div> -->
 
                     <div class="flex items-center justify-between mt-5">
                         <a class="text-sm text-gray-600 underline rounded-md dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 dark:focus:ring-offset-gray-800" href="{{ url('create-monitor') }}">
