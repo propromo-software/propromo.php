@@ -14,7 +14,7 @@ new class extends Component {
 
     public function open_pdf()
     {
-        return $this->redirect('/monitors/'.$this->monitor->id.'/pdf');
+        return redirect()->to('/monitors/' . $this->monitor->id . '/pdf');
     }
 
     public function submit_form()
@@ -47,7 +47,7 @@ new class extends Component {
                         <p class="font-light">Want the current project-status as a PDF-file? <br>
                             Check out the PDF-builder now!</p>
                     </div>
-                    <sl-button variant="default" size="large" wire:click="open_pdf()">
+                    <sl-button variant="default" size="large" wire:click.prevent="open_pdf">
                         <sl-icon slot="suffix" name="box-arrow-up-right"></sl-icon>
                         Open PDF-EDITOR
                     </sl-button>

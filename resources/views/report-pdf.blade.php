@@ -246,6 +246,8 @@
             </ul>
         </div>
     </div>
+
+
     <!-- Footer Section -->
     <div class="footer">
         <p>Generated on {{ $generated_date }}</p>
