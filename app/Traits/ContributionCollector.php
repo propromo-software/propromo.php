@@ -47,7 +47,9 @@ trait ContributionCollector
             }
 
             $responseData = $response->json()['data'] ?? [];
-            $repositories = $responseData['organization']['projectV2']['repositories']['nodes'] ?? [];
+            $repositories = $this->type == 'ORGANIZATION' ?
+                $responseData['organization']['projectV2']['repositories']['nodes'] ?? [] :
+                $responseData['user']['projectV2']['repositories']['nodes'] ?? [];
 
             $contributions = [];
             $hasMoreCommits = false;
