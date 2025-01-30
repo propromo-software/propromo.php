@@ -7,73 +7,96 @@ use App\Models\Monitor;
 use App\Models\User;
 use App\Traits\MonitorJoiner;
 use App\Traits\MonitorJoinerApi;
-use Exception;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Log;
 
 class MonitorController extends Controller
 {
     use MonitorJoiner, MonitorJoinerApi;
 
     /**
-     * @throws Exception
+     * Join a monitor via web route.
+     *
+     * @param string $monitor_hash
+     * @return \Illuminate\Http\RedirectResponse
      */
-    public function join($monitor_hash)
+    public function join(string $monitor_hash)
     {
-        if (Auth::check()) {
-            try {
-                $monitor = $this->join_monitor($monitor_hash);
-                return redirect('/monitors/' . $monitor->id);
-            } catch (Exception $e) {
-                return redirect('/join');
-            }
-        } else {
+        if (!Auth::check()) {
             return redirect('/register');
+        }
+
+        try {
+            $monitor = $this->join_monitor($monitor_hash);
+            return redirect('/monitors/' . $monitor->id);
+        } catch (\Exception $e) {
+            Log::error("Monitor join failed: " . $e->getMessage());
+            return redirect('/join')->with('error', 'Failed to join monitor.');
         }
     }
 
     /**
-     * @throws Exception
+     * Join a monitor via API.
+     *
+     * @param Request $request
+     * @return JsonResponse
      */
-    public function join_api(Request $request)
+    public function join_api(Request $request): JsonResponse
     {
-        $user = User::where('email', '=', $request->email)->first();
-        if ($user->exists()) {
-            try {
-                $monitor = $this->join_monitor_api($request->monitorHash, $user);
-                return response()->json([
-                    'success' => true,
-                    'message' => 'Successfully joined monitor!',
-                    'monitor' => $monitor
-                ], 200);
-            } catch (Exception $e) {
-                return response()->json([
-                    'success' => false,
-                    'message' => $e->getMessage()
-                ], 401);
-            }
-        } else {
+        $request->validate([
+            'email' => 'required|email',
+            'monitorHash' => 'required|string'
+        ]);
+
+        $user = User::where('email', $request->email)->first();
+
+        if (!$user) {
             return response()->json([
                 'success' => false,
                 'message' => 'No user found!'
-            ], 401);
+            ], 404);
+        }
+
+        try {
+            $monitor = $this->join_monitor_api($request->monitorHash, $user);
+            return response()->json([
+                'success' => true,
+                'message' => 'Successfully joined monitor!',
+                'monitor' => $monitor
+            ], 200);
+        } catch (\Exception $e) {
+            Log::error("API Monitor join failed: " . $e->getMessage());
+            return response()->json([
+                'success' => false,
+                'message' => 'Failed to join monitor.',
+                'error' => $e->getMessage()
+            ], 500);
         }
     }
 
-    public function show($email)
+    /**
+     * Show all monitors associated with a user.
+     *
+     * @param string $email
+     * @return JsonResponse
+     */
+    public function show(string $email): JsonResponse
     {
-        $user = User::where("email", "=", $email)->first();
-        if($user){
-            $monitors = $user->monitors();
+        $user = User::where("email", $email)->first();
+
+        if (!$user) {
             return response()->json([
-                'success' => true,
-                'monitors' => $monitors->get()
-            ], 200);
-        }else{
-            return response()->json([
-                'success' => true,
+                'success' => false,
+                'message' => 'User not found.',
                 'monitors' => []
-            ], 200);
+            ], 404);
         }
+
+        return response()->json([
+            'success' => true,
+            'monitors' => $user->monitors()->get()
+        ], 200);
     }
 }
