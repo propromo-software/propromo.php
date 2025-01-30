@@ -24,7 +24,6 @@ new class extends Component {
             <livewire:milestones.card :milestone="$milestone" :key="$milestone->id"/>
         @else
             <livewire:milestones.card :milestone="$milestone" :key="$milestone->id"/>
-            <div class="bg-primary-blue rounded-md border p-4 px-6"></div>
         @endif
     @endforeach
 </div>
