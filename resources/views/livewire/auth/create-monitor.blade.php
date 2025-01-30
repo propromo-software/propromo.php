@@ -56,8 +56,9 @@ new class extends Component
         </div>
 
         <form wire:submit.prevent="create" class="space-y-4">
-            <sl-input required wire:model.defer="project_url" placeholder="Your Project URL" type="url"></sl-input>
-            <sl-input wire:model.defer="pat_token" placeholder="Your PAT Token (Optional)" type="password"></sl-input>
+            <sl-input required wire:model.defer="project_url" placeholder="Your Project URL" type="text"></sl-input>
+            <br>
+            <sl-input wire:model.defer="pat_token" placeholder="Your PAT Token (Optional)" type="text"></sl-input>
             <sl-switch wire:click="switchTo()">Open Source</sl-switch>
 
             <div class="flex justify-between items-center mt-4">
