@@ -8,129 +8,144 @@ use App\Models\Author;
 use App\Models\Tag;
 use Exception;
 use Illuminate\Support\Facades\Http;
-use Log;
+use Illuminate\Support\Facades\Log;
 
 trait ReleaseCollector
 {
     /**
+     * Collects releases for a given monitor.
+     *
+     * @param Monitor $monitor
+     * @return array
      * @throws Exception
      */
-    public function collect_releases(Monitor $monitor)
+    public function collectReleases(Monitor $monitor): array
     {
-        $url = $monitor->type == 'ORGANIZATION'
-            ? $_ENV['APP_SERVICE_URL'] . '/v1/github/orgs/' . $monitor->organization_name . '/projects/' . $monitor->project_identification . '/repositories/releases?rootPageSize=25&pageSize=5'
-            : $_ENV['APP_SERVICE_URL'] . '/v1/github/users/' . $monitor->login_name . '/projects/' . $monitor->project_identification . '/repositories/releases?rootPageSize=25&pageSize=5';
+        if (empty($monitor->pat_token)) {
+            throw new Exception("No personal access token (PAT) provided for monitor: {$monitor->id}");
+        }
+
+        $baseUrl = $_ENV['APP_SERVICE_URL'] . '/v1/github/';
+        $monitorType = $monitor->type === 'ORGANIZATION' ? 'orgs' : 'users';
+        $identifier = $monitor->type === 'ORGANIZATION' ? $monitor->organization_name : $monitor->login_name;
+
+        $url = "{$baseUrl}{$monitorType}/{$identifier}/projects/{$monitor->project_identification}/repositories/releases?rootPageSize=25&pageSize=5";
 
         try {
             $response = Http::withHeaders([
-                'content-type' => 'application/json',
+                'Content-Type' => 'application/json',
                 'Accept' => 'text/plain',
                 'Authorization' => 'Bearer ' . $monitor->pat_token
             ])->get($url);
 
-            Log::debug('Raw API Response:', [
+            Log::debug('GitHub API Response', [
                 'status' => $response->status(),
+                'monitor_id' => $monitor->id,
                 'body' => $response->body()
             ]);
 
-            if ($response->successful()) {
-                $monitor->releases()->delete();
-                $processedKeys = [];
+            if (!$response->successful()) {
+                throw new Exception("Failed to fetch releases for monitor: {$monitor->id} ({$monitor->title})");
+            }
 
-                $repositories = $response->json()['data']['organization']['projectV2']['repositories']['nodes'] ?? [];
-                $totalCount = 0;
+            $data = $response->json();
+            $repositories = $data['data']['organization']['projectV2']['repositories']['nodes'] ?? [];
 
-                foreach ($repositories as $repo) {
-                    $releases = $repo['releases'] ?? [];
-                    $totalCount += $releases['totalCount'] ?? 0;
-                    $releaseNodes = $releases['nodes'] ?? [];
+            if (empty($repositories)) {
+                Log::warning("No repositories found for monitor: {$monitor->id}");
+                return ['releases' => [], 'total_count' => 0];
+            }
 
-                    Log::debug('Processing repo:', [
-                        'name' => $repo['name'],
-                        'totalCount' => $releases['totalCount'] ?? 0,
-                        'foundNodes' => count($releaseNodes)
-                    ]);
+            $monitor->releases()->delete();
+            $processedKeys = [];
+            $totalCount = 0;
 
-                    foreach ($releaseNodes as $releaseData) {
-                        // Create unique key based on repository and tag name
-                        $key = md5($repo['name'] . '|' . ($releaseData['tagName'] ?? ''));
+            foreach ($repositories as $repo) {
+                $releases = $repo['releases'] ?? [];
+                $releaseNodes = $releases['nodes'] ?? [];
+                $totalCount += $releases['totalCount'] ?? 0;
 
-                        // Skip if we've already processed this combination
-                        if (in_array($key, $processedKeys)) {
-                            continue;
-                        }
-
-                        $processedKeys[] = $key;
-
-                        // Find or create repository
-                        $repository = $monitor->repositories()->firstOrCreate(
-                            ['name' => $repo['name']],
-                            ['is_custom' => false]
-                        );
-
-                        // Extract GitHub user ID from avatar URL
-                        $authorAvatarUrl = $releaseData['tagCommit']['author']['avatarUrl'] ?? '';
-                        $authorId = preg_replace('/[^0-9]/', '', $authorAvatarUrl);
-
-                        // Find or create author using GitHub ID from avatar URL
-                        $author = Author::firstOrCreate(
-                            ['id' => $authorId],
-                            [
-                                'name' => $releaseData['tagCommit']['author']['name'] ?? '',
-                                'email' => $releaseData['tagCommit']['author']['email'] ?? '',
-                                'avatar_url' => $authorAvatarUrl
-                            ]
-                        );
-
-                        $release = new Release([
-                            'name' => $releaseData['name'] ?? '',
-                            'description' => $releaseData['description'] ?? '',
-                            'is_draft' => $releaseData['isDraft'] ?? false,
-                            'is_latest' => $releaseData['isLatest'] ?? false,
-                            'is_prerelease' => $releaseData['isPrerelease'] ?? false,
-                            'url' => $releaseData['url'] ?? '',
-                            'created_at' => $releaseData['createdAt'],
-                            'updated_at' => $releaseData['updatedAt'],
-                            'repository_id' => $repository->id,
-                            'monitor_id' => $monitor->id
-                        ]);
-
-                        $release = $monitor->releases()->save($release);
-
-                        // Create associated tag
-                        $tag = new Tag([
-                            'name' => $releaseData['tagName'] ?? '',
-                            'additions' => $releaseData['tagCommit']['additions'] ?? 0,
-                            'deletions' => $releaseData['tagCommit']['deletions'] ?? 0,
-                            'changed_files' => $releaseData['tagCommit']['changedFilesIfAvailable'] ?? 0,
-                            'authored_at' => $releaseData['tagCommit']['authoredDate'],
-                            'author_id' => $author->id,
-                            'release_id' => $release->id
-                        ]);
-
-                        $release->tag()->save($tag);
-                    }
-                }
-
-                Log::info('Release collection completed', [
-                    'total_count' => $totalCount,
-                    'unique_count' => count($processedKeys),
-                    'loaded_count' => $monitor->releases()->count()
+                Log::debug('Processing repository', [
+                    'repository_name' => $repo['name'],
+                    'total_releases' => $releases['totalCount'] ?? 0,
+                    'found_nodes' => count($releaseNodes)
                 ]);
 
-                return [
-                    'releases' => $monitor->releases()->get(),
-                    'total_count' => $totalCount
-                ];
-            } else {
-                throw new Exception("Failed to fetch releases for " . $monitor->title . "!");
+                foreach ($releaseNodes as $releaseData) {
+                    $tagName = $releaseData['tagName'] ?? '';
+                    $uniqueKey = md5($repo['name'] . '|' . $tagName);
+
+                    if (in_array($uniqueKey, $processedKeys)) {
+                        continue;
+                    }
+                    $processedKeys[] = $uniqueKey;
+
+                    // Find or create repository
+                    $repository = $monitor->repositories()->firstOrCreate(
+                        ['name' => $repo['name']],
+                        ['is_custom' => false]
+                    );
+
+                    // Extract GitHub user ID from avatar URL (fallback to null)
+                    $authorData = $releaseData['tagCommit']['author'] ?? [];
+                    $authorAvatarUrl = $authorData['avatarUrl'] ?? '';
+                    $authorId = preg_replace('/[^0-9]/', '', $authorAvatarUrl) ?: null;
+
+                    // Find or create author
+                    $author = Author::firstOrCreate(
+                        ['id' => $authorId],
+                        [
+                            'name' => $authorData['name'] ?? 'Unknown',
+                            'email' => $authorData['email'] ?? null,
+                            'avatar_url' => $authorAvatarUrl
+                        ]
+                    );
+
+                    // Create and save release
+                    $release = $monitor->releases()->create([
+                        'name' => $releaseData['name'] ?? '',
+                        'description' => $releaseData['description'] ?? '',
+                        'is_draft' => $releaseData['isDraft'] ?? false,
+                        'is_latest' => $releaseData['isLatest'] ?? false,
+                        'is_prerelease' => $releaseData['isPrerelease'] ?? false,
+                        'url' => $releaseData['url'] ?? '',
+                        'created_at' => $releaseData['createdAt'] ?? now(),
+                        'updated_at' => $releaseData['updatedAt'] ?? now(),
+                        'repository_id' => $repository->id,
+                        'monitor_id' => $monitor->id
+                    ]);
+
+                    // Create and attach tag
+                    $release->tag()->create([
+                        'name' => $tagName,
+                        'additions' => $releaseData['tagCommit']['additions'] ?? 0,
+                        'deletions' => $releaseData['tagCommit']['deletions'] ?? 0,
+                        'changed_files' => $releaseData['tagCommit']['changedFilesIfAvailable'] ?? 0,
+                        'authored_at' => $releaseData['tagCommit']['authoredDate'] ?? now(),
+                        'author_id' => $author->id
+                    ]);
+                }
             }
+
+            Log::info('Release collection completed', [
+                'monitor_id' => $monitor->id,
+                'total_releases' => $totalCount,
+                'unique_releases' => count($processedKeys),
+                'stored_releases' => $monitor->releases()->count()
+            ]);
+
+            return [
+                'releases' => $monitor->releases()->get(),
+                'total_count' => $totalCount
+            ];
+
         } catch (Exception $e) {
-            Log::error('Release collection error:', [
-                'message' => $e->getMessage(),
+            Log::error('Release collection error', [
+                'monitor_id' => $monitor->id,
+                'error_message' => $e->getMessage(),
                 'trace' => $e->getTraceAsString()
             ]);
-            throw $e;
+            throw new Exception("Error collecting releases: " . $e->getMessage());
         }
     }
 }
