@@ -39,7 +39,7 @@
                     <span>{{ $contribution->changed_files }} changed files</span>
                 </div>
                 <div class="flex items-center mt-2 space-x-2">
-                    @if($contribution->authors->isNotEmpty())
+                    @if(!empty($contribution['authors']))
                         @foreach($contribution->authors as $author)
                             <a href="https://github.com/{{ explode('@', $author->email)[0] }}" target="_blank" class="relative group">
                                 <img src="{{ $author->avatar_url }}" alt="{{ $author->name }}" class="w-8 h-8 border border-gray-300 rounded-full" />

@@ -54,7 +54,8 @@ class ContributionsView extends Component
                     ->orderBy('committed_date', 'desc')
                     ->get();
 
-                $this->contributions = array_merge($this->contributions, $loadedContributions->toArray());
+                // Ensure objects are stored instead of arrays
+                $this->contributions = array_merge($this->contributions, $loadedContributions->all());
             }
 
             $this->nextRootCursor = $result['next_root_cursor'];

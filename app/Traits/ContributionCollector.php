@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\Log;
 
 trait ContributionCollector
 {
+
     public function collect_contributions(?string $rootContinueAfter = null, ?string $continueAfter = null)
     {
         try {
@@ -48,10 +49,19 @@ trait ContributionCollector
             $responseData = $response->json()['data'] ?? [];
             $repositories = $responseData['organization']['projectV2']['repositories']['nodes'] ?? [];
 
+            $contributions = [];
+            $hasMoreCommits = false;
+            $hasMoreRepositories = false;
+            $nextRootCursor = null;
+            $nextCursor = null;
+            $currentRepositoryName = null;
+
             foreach ($repositories as $repo) {
                 if (!isset($repo['defaultBranchRef']['target']['history']['edges'])) {
                     continue;
                 }
+
+                $currentRepositoryName = $repo['name'] ?? null;
 
                 $commits = $repo['defaultBranchRef']['target']['history']['edges'];
                 foreach ($commits as $commitData) {
@@ -81,7 +91,7 @@ trait ContributionCollector
                         ]
                     );
 
-                    Contribution::updateOrCreate(
+                    $contribution = Contribution::updateOrCreate(
                         ['id' => $commitHash],
                         [
                             'author_id' => $author->id,
@@ -94,11 +104,28 @@ trait ContributionCollector
                             'committed_date' => $commitNode['committedDate']
                         ]
                     );
+
+                    $contributions[] = $contribution->toArray();
                 }
+
+                $hasMoreCommits = $repo['defaultBranchRef']['target']['history']['pageInfo']['hasNextPage'] ?? false;
+                $nextCursor = $repo['defaultBranchRef']['target']['history']['pageInfo']['endCursor'] ?? null;
             }
 
+            // Adjust these based on actual API response structure
+            $hasMoreRepositories = count($repositories) > 1;
+            $nextRootCursor = $responseData['organization']['projectV2']['repositories']['pageInfo']['endCursor'] ?? null;
+
             Log::info('Contributions successfully collected.');
-            return true;
+
+            return [
+                'contributions' => $contributions,
+                'has_more_commits' => $hasMoreCommits,
+                'has_more_repositories' => $hasMoreRepositories,
+                'next_root_cursor' => $nextRootCursor,
+                'next_cursor' => $nextCursor,
+                'current_repository_name' => $currentRepositoryName
+            ];
 
         } catch (Exception $e) {
             Log::error('Error collecting contributions', [
@@ -106,7 +133,8 @@ trait ContributionCollector
                 'trace' => $e->getTraceAsString()
             ]);
 
-            throw $e;
+            return [];
         }
     }
+
 }
