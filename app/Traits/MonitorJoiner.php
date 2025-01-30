@@ -5,38 +5,45 @@ namespace App\Traits;
 use App\Models\Monitor;
 use App\Models\User;
 use Illuminate\Support\Str;
-use Exception;
 use Illuminate\Support\Facades\Auth;
-
+use Exception;
 
 trait MonitorJoiner
 {
     /**
-     * @throws Exception
+     * Join a monitor by its hash or join link.
+     *
+     * @param string $monitorInput The monitor hash or join link.
+     * @return Monitor
+     * @throws Exception If the monitor is not found or already joined.
      */
-    public function join_monitor($monitor_input)
+    public function joinMonitor(string $monitorInput): Monitor
     {
-        $monitor_hash = $monitor_input;
-        if(Str::contains($monitor_input, 'join')){
-            $monitor_hash = Str::after($monitor_hash,'join/');
-        }
-        $monitor = Monitor::whereMonitorHash($monitor_hash)->first();
+        $monitorHash = Str::contains($monitorInput, 'join/')
+            ? Str::after($monitorInput, 'join/')
+            : $monitorInput;
 
-        if (!is_null($monitor)) {
-            $current_user_projects = User::find(Auth::user()->id)
-                ->monitors()
-                ->where("monitor_hash", "=", $monitor_hash)
-                ->get();
+        $monitor = Monitor::where('monitor_hash', $monitorHash)->first();
 
-            if ($current_user_projects->count() > 0) {
-                throw new Exception("You have already joined the monitor!");
-            } else {
-                $monitor->users()->attach(Auth::user()->id);
-                return $monitor;
-            }
-        } else {
-            throw new Exception("No monitor with that ID found!");
+        if (!$monitor) {
+            throw new Exception("Monitor not found with hash: {$monitorHash}");
         }
+
+        $user = Auth::user();
+        if (!$user) {
+            throw new Exception("Unauthorized: No authenticated user.");
+        }
+
+        $alreadyJoined = $user->monitors()
+            ->where('monitor_hash', $monitorHash)
+            ->exists();
+
+        if ($alreadyJoined) {
+            throw new Exception("You have already joined this monitor!");
+        }
+
+        $monitor->users()->attach($user->id);
+
+        return $monitor;
     }
-
 }
