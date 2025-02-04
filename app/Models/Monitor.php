@@ -107,4 +107,9 @@ class Monitor extends Model
     {
         return $this->hasMany(Release::class);
     }
+
+    public function monitor_logs(): HasMany
+    {
+        return $this->hasMany(MonitorLogs::class);
+    }
 }

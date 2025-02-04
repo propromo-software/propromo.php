@@ -1,25 +1,25 @@
 <?php
 
-namespace App\Traits;
+namespace App\Services;
 
 use App\Models\Monitor;
 use App\Models\User;
+use Exception;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Str;
 use Log;
 
-trait MonitorCreator
+/**
+ * Class MonitorCreatorService.
+ */
+class MonitorCreatorService
 {
-    use TokenCreator;
-    /**
-     * @throws \Exception
-     */
     public function create_monitor($project_url, $pat_token)
     {
         try {
-            Log::debug('Creating monitor:', [
+            \Log::debug('Creating monitor:', [
                 'project_url' => $project_url,
                 'pat_token' => $pat_token
             ]);
@@ -40,7 +40,7 @@ trait MonitorCreator
             if (count($matches) > 1) {
                 $project_identification = intval($matches[1]);
             }else{
-                throw new \Exception("Invalid project-link!");
+                throw new Exception("Invalid project-link!");
             }
 
             $current_user_projects = User::find(Auth::user()->id)->monitors()->get();
@@ -51,7 +51,7 @@ trait MonitorCreator
                     $current_user_projects->where('organization_name', '=', $organization_name)->count() > 0 &&
                     $current_user_projects->where('project_identification', '=', $project_identification)->count() > 0
                 ) {
-                    throw new \Exception("You have already joined the monitor!");
+                    throw new Exception("You have already joined the monitor!");
                 }
                 $type = "ORGANIZATION";
             } else{
@@ -60,7 +60,7 @@ trait MonitorCreator
                     $current_user_projects->where('login_name', '=', $login_name)->count() > 0 &&
                     $current_user_projects->where('project_identification', '=', $project_identification)->count() > 0
                 ) {
-                    throw new \Exception("You have already joined the monitor!");
+                    throw new Exception("You have already joined the monitor!");
                 }
                 $type = "USER";
             }
@@ -70,7 +70,7 @@ trait MonitorCreator
                 "login_name"=> $login_name,
                 "type" => $type,
                 "monitor_hash" => $monitor_hash,
-                "pat_token" => $this->get_application_token($pat_token),
+                "pat_token" => TokenCreatorService::get_application_token($pat_token),
                 "organization_name" => $organization_name,
                 "project_identification" => $project_identification,
             ]);
@@ -103,7 +103,7 @@ trait MonitorCreator
                 $monitor->public = $monitor_data['public'];
                 $monitor->readme = $monitor_data['readme'];
             } else {
-                throw new \Exception("Error occurred while requesting your project! Status: " . $response->status());
+                throw new Exception("Error occurred while requesting your project! Status: " . $response->status());
             }
 
             $monitor->save();
@@ -111,7 +111,7 @@ trait MonitorCreator
             $monitor->users()->attach(Auth::user()->id);
 
             return $monitor;
-        } catch (\Exception $e) {
+        } catch (Exception $e) {
             Log::error('Monitor Creation Error:', [
                 'message' => $e->getMessage(),
                 'trace' => $e->getTraceAsString()

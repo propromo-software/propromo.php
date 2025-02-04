@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Traits;
+namespace App\Services;
 
 use App\Models\Milestone;
 use App\Models\Monitor;
@@ -8,8 +8,10 @@ use App\Models\Repository;
 use Exception;
 use Illuminate\Support\Facades\Http;
 
-
-trait RepositoryCollector
+/**
+ * Class RepositoryFetcherService.
+ */
+class RepositoryFetcherService
 {
     /**
      * @throws Exception
@@ -18,7 +20,7 @@ trait RepositoryCollector
     {
         // milestones
         $url = $monitor->type == 'ORGANIZATION' ?  $_ENV['APP_SERVICE_URL'] . '/v1/github/orgs/' . $monitor->organization_name . '/projects/' . $monitor->project_identification . '/repositories/milestones/issues' . "?rootPageSize=10&milestonesPageSize=10&issuesPageSize=100&issues_states=open,closed"
-        :  $_ENV['APP_SERVICE_URL'] . '/v1/github/users/' . $monitor->login_name . '/projects/' . $monitor->project_identification . '/repositories/milestones/issues' . "?rootPageSize=10&milestonesPageSize=10&issuesPageSize=100&issues_states=open,closed";
+            :  $_ENV['APP_SERVICE_URL'] . '/v1/github/users/' . $monitor->login_name . '/projects/' . $monitor->project_identification . '/repositories/milestones/issues' . "?rootPageSize=10&milestonesPageSize=10&issuesPageSize=100&issues_states=open,closed";
 
         try {
             $response = Http::withHeaders([

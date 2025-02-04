@@ -1,25 +1,38 @@
 <?php
 
+use App\Jobs\CreateMonitor;
 use Livewire\Volt\Component;
 use Illuminate\Support\Facades\Auth;
-use Exception;
 use Illuminate\Validation\ValidationException;
 use App\Traits\MonitorCreator;
 
-new class extends Component
-{
+new class extends Component {
     use MonitorCreator;
 
+    public function getListeners()
+    {
+        return [
+            'echo:monitors,MonitorProcessed' => 'handleMonitorUpdated',
+        ];
+    }
+
+    public $notifications = [];
     public $create_monitor_error;
     public $error_head;
     public $project_url;
     public $pat_token;
-    public $disable_pat_token = true; // Toggle for PAT token input
+    public $disable_pat_token = true;
 
     protected $rules = [
         'project_url' => 'required|url|min:10|max:2048',
         'pat_token' => 'nullable|string|min:10'
     ];
+
+    public function handleMonitorUpdated()
+    {
+        Log::info("Handle Monitor entered.");
+    }
+
 
     public function create()
     {
@@ -42,6 +55,12 @@ new class extends Component
         }
     }
 
+    public function on_create()
+    {
+        CreateMonitor::dispatch($this->project_url, $this->pat_token, $this->disable_pat_token);
+
+    }
+
     public function switchTo()
     {
         return redirect()->to('/create-open-source-monitor');
@@ -50,7 +69,8 @@ new class extends Component
 ?>
 
 <div class="flex flex-col items-center mt-4 bg-gray-100 dark:bg-gray-900 sm:justify-center sm:pt-0">
-    <div class="w-full sm:max-w-md mt-6 p-12 bg-white dark:bg-gray-800 border border-border-color sm:rounded-lg shadow-lg">
+    <div
+        class="w-full sm:max-w-md mt-6 p-12 bg-white dark:bg-gray-800 border border-border-color sm:rounded-lg shadow-lg">
         <div class="text-center">
             <h1 class="mb-6 text-4xl font-bold text-primary-blue">Create Monitor</h1>
         </div>
@@ -67,14 +87,47 @@ new class extends Component
                     Already have a monitor?
                 </a>
 
-                <sl-button wire:loading.attr="disabled" type="submit">Create</sl-button>
+                <sl-dialog wire:ignore label="Dialog" class="dialog-overview">
+                    <sl-button slot="footer" onclick="closeModal()">Open Monitor</sl-button>
+                </sl-dialog>
+
+                <sl-button wire:click="on_create">Create</sl-button>
+
+                <script>
+                    document.addEventListener("livewire:load", function () {
+                        Livewire.on('open-modal', () => {
+                            document.querySelector('.dialog-overview').show();
+                        });
+                    });
+                    window.Echo.channel('monitors')
+                        .listen('.MonitorProcessed', (event) => {
+                            console.log("Received Event: ", event);
+                            Livewire.dispatch('handleMonitorUpdated', event);
+                        });
+
+                    function closeModal() {
+                        document.querySelector('.dialog-overview').hide();
+                    }
+                </script>
+
+
             </div>
         </form>
+
+
+        <script>
+            const dialog = document.querySelector('.dialog-overview');
+            const openButton = dialog.nextElementSibling;
+            const closeButton = dialog.querySelector('sl-button[slot="footer"]');
+
+            openButton.addEventListener('click', () => dialog.show());
+            closeButton.addEventListener('click', () => dialog.hide());
+        </script>
 
         @if($create_monitor_error)
             <sl-alert variant="danger" open closable class="mt-4">
                 <sl-icon wire:ignore slot="icon" name="patch-exclamation"></sl-icon>
-                <strong>{{ $error_head }}</strong><br />
+                <strong>{{ $error_head }}</strong><br/>
                 {{ $create_monitor_error }}
             </sl-alert>
         @endif
