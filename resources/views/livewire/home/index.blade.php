@@ -6,16 +6,16 @@ new class extends Component
 {
 }; ?>
 
-<div class="flex justify-center">
-    <div class="columns-1 w-fit">
-        <div class="flex items-center justify-center mb-10 gap-14">
-            <div class="w-80">
+<div class="flex flex-col items-center justify-center md:flex-row">
+    <div class="columns-1">
+        <div class="flex flex-col items-center justify-center gap-0 mb-10 md:gap-7 md:flex-row md:items-start">
+            <div class="w-full md:w-80">
                 <img src="{{asset('/assets/logo/Propromo-Logo-circle.svg')}}" alt="propromo-logo">
             </div>
-            <div>
-                <h1 class="flex-initial font-koulen text-7xl text-primary-blue">PROPROMO</h1>
-                <h2 class="flex-initial text-4xl font-koulen text-secondary-grey">PROJECT PROGRESS MONITORING</h2>
-                <p class="flex-initial mt-5 text-2xl font-koulen text-other-grey">WORKS WITH:</p>
+            <div class="flex flex-col items-center my-auto md:block">
+                <h1 class="flex-initial font-koulen text-7xl text-primary-blue text-uppercase">Propromo</h1>
+                <h2 class="flex-initial text-4xl text-center font-koulen text-secondary-grey text-uppercase md:text-left">Project Progress Monitoring</h2>
+                <p class="flex-initial mt-5 text-2xl font-koulen text-other-grey text-uppercase">works with:</p>
                 <div>
                     <a href="https://github.com/" target="_blank">
                         <sl-icon wire:ignore name="github" class="text-4xl mt-0.5"></sl-icon>
