@@ -14,7 +14,7 @@ class TokenCreatorService
     /**
      * @throws Exception
      */
-    public function get_application_token($pat_token)
+    public static function get_application_token($pat_token)
     {
         $baseUrl = env('APP_SERVICE_URL', 'http://localhost:3000');
         $url = rtrim($baseUrl, '/') . '/v1/github/auth/token';

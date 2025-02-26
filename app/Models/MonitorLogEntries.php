@@ -10,11 +10,17 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 class MonitorLogEntries extends Model
 {
     use HasFactory;
-    public $table = 'monitor_logs';
 
-    protected $fillable = [];
+    protected $table = 'monitor_log_entries';
 
-    public function monitor_log(): BelongsTo
+    protected $fillable = [
+        'monitor_log_id',
+        'message',
+        'level',
+        'context'
+    ];
+
+    public function monitorLog(): BelongsTo
     {
         return $this->belongsTo(MonitorLogs::class);
     }

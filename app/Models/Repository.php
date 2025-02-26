@@ -30,7 +30,6 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
  */
 class Repository extends Model
 {
-
     protected $fillable =[
         'name',
         'monitor_id',

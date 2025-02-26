@@ -14,9 +14,10 @@ return new class extends Migration
         Schema::create('monitor_logs', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('monitor_id');
-            $table->foreign('monitor_id')
-                ->references('id')
-                ->on('monitors');
+            $table->foreign('monitor_id')->references('id')->on('monitors');
+            // New log attributes:
+            $table->string('status')->nullable();   // e.g., "info", "warning", "error"
+            $table->text('summary')->nullable();      // A brief summary of the log
             $table->timestamps();
         });
     }

@@ -14,9 +14,10 @@ return new class extends Migration
         Schema::create('monitor_log_entries', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('monitor_log_id');
-            $table->foreign('monitor_log_id')
-                ->references('id')
-                ->on('monitor_logs');
+            $table->foreign('monitor_log_id')->references('id')->on('monitor_logs');
+            $table->text('message');                   // Detailed log message
+            $table->string('level')->default('info');  // Log level: info, warning, error, etc.
+            $table->json('context')->nullable();       // Optional extra context stored as JSON
             $table->timestamps();
         });
     }

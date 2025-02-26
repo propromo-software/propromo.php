@@ -1,6 +1,7 @@
 <?php
 
 use App\Jobs\CreateMonitor;
+use Livewire\Attributes\On;
 use Livewire\Volt\Component;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\ValidationException;
@@ -8,13 +9,6 @@ use App\Traits\MonitorCreator;
 
 new class extends Component {
     use MonitorCreator;
-
-    public function getListeners()
-    {
-        return [
-            'echo:monitors,MonitorProcessed' => 'handleMonitorUpdated',
-        ];
-    }
 
     public $notifications = [];
     public $create_monitor_error;
@@ -25,9 +19,10 @@ new class extends Component {
 
     protected $rules = [
         'project_url' => 'required|url|min:10|max:2048',
-        'pat_token' => 'nullable|string|min:10'
+        'pat_token' => 'required|string|min:10'
     ];
 
+    #[On('echo:monitors,MonitorProcessed')]
     public function handleMonitorUpdated()
     {
         Log::info("Handle Monitor entered.");
@@ -88,7 +83,7 @@ new class extends Component {
                 </a>
 
                 <sl-dialog wire:ignore label="Dialog" class="dialog-overview">
-                    <sl-button slot="footer" onclick="closeModal()">Open Monitor</sl-button>
+                    <sl-button slot="footer" onclick="closeModal()" disabled="true">Open Monitor</sl-button>
                 </sl-dialog>
 
                 <sl-button wire:click="on_create">Create</sl-button>
@@ -99,17 +94,11 @@ new class extends Component {
                             document.querySelector('.dialog-overview').show();
                         });
                     });
-                    window.Echo.channel('monitors')
-                        .listen('.MonitorProcessed', (event) => {
-                            console.log("Received Event: ", event);
-                            Livewire.dispatch('handleMonitorUpdated', event);
-                        });
 
                     function closeModal() {
                         document.querySelector('.dialog-overview').hide();
                     }
                 </script>
-
 
             </div>
         </form>
@@ -132,4 +121,5 @@ new class extends Component {
             </sl-alert>
         @endif
     </div>
+
 </div>

@@ -3,6 +3,8 @@
 namespace App\Jobs;
 
 use App\Events\MonitorProcessed;
+use App\Models\MonitorLogEntries;
+use App\Models\MonitorLogs;
 use App\Services\ContributionService;
 use App\Services\DeploymentService;
 use App\Services\IssueService;
@@ -12,6 +14,13 @@ use App\Services\RepositoryFetcherService;
 use App\Services\RepositoryIssueFetcherService;
 use App\Services\TokenCreatorService;
 use App\Services\VulnerabilityService;
+use App\Traits\ContributionCollector;
+use App\Traits\DeploymentCollector;
+use App\Traits\IssueCollector;
+use App\Traits\MonitorCreator;
+use App\Traits\RepositoryCollector;
+use App\Traits\RepositoryIssueCollector;
+use Exception;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
@@ -21,7 +30,15 @@ use Log;
 
 class CreateMonitor implements ShouldQueue
 {
-    use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
+    use Dispatchable,
+        InteractsWithQueue,
+        Queueable,
+        SerializesModels,
+        MonitorCreator,
+        RepositoryCollector,
+        DeploymentCollector,
+        ContributionCollector,
+        IssueCollector;
 
     public $project_url;
     public $pat_token;
@@ -41,8 +58,42 @@ class CreateMonitor implements ShouldQueue
             'pat_token' => $this->pat_token ? 'Provided' : 'Not Provided',
             'disable_pat_token' => $this->disable_pat_token,
         ]);
+        try {
+            $monitor = $this->create_monitor($this->project_url, $this->pat_token);
+            $monitorLog = MonitorLogs::create([
+                'monitor_id' => $monitor->id,
+                'status' => 'started',
+                'summary' => 'Initial monitor log created.',
+            ]);
+            MonitorLogEntries::create([
+                'monitor_log_id' => $monitorLog->id,
+                'message'        => 'Monitoring Creator Job initiated and monitor created successfully.',
+                'level'          => 'info',
+                'context'        => [
+                    'project_url'       => $this->project_url,
+                    'pat_token'         => $this->pat_token ? 'Provided' : 'Not Provided',
+                    'disable_pat_token' => $this->disable_pat_token,
+                ],
+            ]);
 
-        $monitorId = rand(1, 1000);
+            $repositories = $this->collect_repositories($monitor);
+
+            /*
+            foreach ($monitor->repositories as $repository) {
+                foreach ($repository->milestones as $milestone) {
+                    Log::info('Started fetching milestone: ' . $milestone->title);
+                    $issues = $this->collect_tasks($milestone);
+                }
+            }
+
+            $deployments = $this->collect_deployments($monitor);
+             */
+            # Todo: fix
+            #$contribtions = $this->collect_contributions();
+
+        } catch (Exception $e) {
+            Log::error($e->getMessage());
+        }
 
         broadcast(new MonitorProcessed($monitorId, 'Monitor has been successfully created.'));
     }

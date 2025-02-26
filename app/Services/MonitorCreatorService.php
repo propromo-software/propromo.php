@@ -16,7 +16,10 @@ use Log;
  */
 class MonitorCreatorService
 {
-    public function create_monitor($project_url, $pat_token)
+    /**
+     * @throws Exception
+     */
+    public static function create_monitor($project_url, $pat_token)
     {
         try {
             \Log::debug('Creating monitor:', [

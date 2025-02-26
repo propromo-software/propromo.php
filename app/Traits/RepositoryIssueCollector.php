@@ -7,6 +7,7 @@ use App\Models\Task;
 use App\Models\Label;
 use Exception;
 use Illuminate\Support\Facades\Http;
+use Log;
 
 trait RepositoryIssueCollector
 {
@@ -40,7 +41,7 @@ trait RepositoryIssueCollector
 
             foreach ($repositories as $repoData) {
 
-                \Log::info("Processing repository: " . ($repoData['name'] ?? 'Unknown'));
+                Log::info("Processing repository: " . ($repoData['name'] ?? 'Unknown'));
 
                 $repository = Repository::create([
                     'name' => $repoData['name'],
@@ -52,7 +53,7 @@ trait RepositoryIssueCollector
 
                 $repository->save();
 
-                \Log::info("Repository created with ID: " . $repository->id . " and Custom ID: " . $repository->custom_repository_id);
+                Log::info("Repository created with ID: " . $repository->id . " and Custom ID: " . $repository->custom_repository_id);
 
                 #Task::where('custom_repository_id', $repository->custom_repository_id)->delete();
 

@@ -20,7 +20,6 @@ trait ReleaseCollector
         $url = $monitor->type == 'ORGANIZATION'
             ? $_ENV['APP_SERVICE_URL'] . '/v1/github/orgs/' . $monitor->organization_name . '/projects/' . $monitor->project_identification . '/repositories/releases?rootPageSize=25&pageSize=5'
             : $_ENV['APP_SERVICE_URL'] . '/v1/github/users/' . $monitor->login_name . '/projects/' . $monitor->project_identification . '/repositories/releases?rootPageSize=25&pageSize=5';
-
         try {
             $response = Http::withHeaders([
                 'content-type' => 'application/json',
