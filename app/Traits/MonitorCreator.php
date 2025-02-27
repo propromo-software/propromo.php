@@ -36,11 +36,11 @@ trait MonitorCreator
             $organization_name = null;
             $login_name = null;
             $project_identification = null;
-
+            $project_url = trim($project_url);
             preg_match('/\/projects\/(\d+)/', $project_url, $matches);
             if (count($matches) > 1) {
                 $project_identification = intval($matches[1]);
-            }else{
+            } else {
                 throw new Exception("Invalid project-link!");
             }
 
@@ -117,7 +117,6 @@ trait MonitorCreator
                 'message' => $e->getMessage(),
                 'trace' => $e->getTraceAsString()
             ]);
-
             throw $e;
         }
     }

@@ -3,6 +3,7 @@
 namespace App\Jobs;
 
 use App\Events\MonitorProcessed;
+use App\Models\Monitor;
 use App\Models\MonitorLogEntries;
 use App\Models\MonitorLogs;
 use App\Services\ContributionService;
@@ -40,61 +41,62 @@ class CreateMonitor implements ShouldQueue
         ContributionCollector,
         IssueCollector;
 
-    public $project_url;
-    public $pat_token;
-    public $disable_pat_token = true;
+    public $monitor;
+    protected $logId;
 
-    public function __construct($project_url, $pat_token, $disable_pat_token)
+    public function __construct($monitor)
     {
-        $this->project_url = $project_url;
-        $this->pat_token = $pat_token;
-        $this->disable_pat_token = $disable_pat_token;
+        $this->monitor = $monitor;
     }
 
     public function handle(): void
     {
-        Log::info('Monitoring Creator Job started', [
-            'project_url' => $this->project_url,
-            'pat_token' => $this->pat_token ? 'Provided' : 'Not Provided',
-            'disable_pat_token' => $this->disable_pat_token,
-        ]);
         try {
-            $monitor = $this->create_monitor($this->project_url, $this->pat_token);
-            $monitorLog = MonitorLogs::create([
-                'monitor_id' => $monitor->id,
-                'status' => 'started',
-                'summary' => 'Initial monitor log created.',
-            ]);
-            MonitorLogEntries::create([
-                'monitor_log_id' => $monitorLog->id,
-                'message'        => 'Monitoring Creator Job initiated and monitor created successfully.',
-                'level'          => 'info',
-                'context'        => [
-                    'project_url'       => $this->project_url,
-                    'pat_token'         => $this->pat_token ? 'Provided' : 'Not Provided',
-                    'disable_pat_token' => $this->disable_pat_token,
-                ],
-            ]);
+            $monitorLog = MonitorLogs::where('monitor_id', $this->monitor->id)
+                ->latest()
+                ->first();
 
-            $repositories = $this->collect_repositories($monitor);
+            if (!$monitorLog) {
+                Log::warning("No monitor log found for monitor ID: {$this->monitor->id}");
+                return;
+            }
 
-            /*
-            foreach ($monitor->repositories as $repository) {
+            $this->logId = $monitorLog->id;
+
+            $this->log("Starting monitor process...", "info");
+
+            $repositories = $this->collect_repositories($this->monitor);
+            $this->log("Found " . $repositories->count() . " repositories.", "info");
+
+            foreach ($repositories as $repository) {
+                Log::info("REPOSITORY {$repository->id} created.", "info");
+
+                $this->log("Processing repository: {$repository->name}", "info");
+
                 foreach ($repository->milestones as $milestone) {
-                    Log::info('Started fetching milestone: ' . $milestone->title);
                     $issues = $this->collect_tasks($milestone);
+                    $this->log("Milestone {$milestone->title}: Found " .$issues->count() . " issues.", "info");
                 }
             }
 
-            $deployments = $this->collect_deployments($monitor);
-             */
-            # Todo: fix
-            #$contribtions = $this->collect_contributions();
+            // Log successful completion
+            $this->log("Monitor process completed successfully.", "success");
 
         } catch (Exception $e) {
             Log::error($e->getMessage());
+            $this->log("Error: " . $e->getMessage(), "error");
         }
 
-        broadcast(new MonitorProcessed($monitorId, 'Monitor has been successfully created.'));
+        // Broadcast event after processing
+        // broadcast(new MonitorProcessed($this->monitor->id, 'Monitor has been successfully created.'));
+    }
+
+    protected function log($message, $level = "info")
+    {
+        MonitorLogEntries::create([
+            'monitor_log_id' => $this->logId,
+            'message' => $message,
+            'level' => $level,
+        ]);
     }
 }

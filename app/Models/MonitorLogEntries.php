@@ -20,8 +20,11 @@ class MonitorLogEntries extends Model
         'context'
     ];
 
+    protected $casts = [
+        'context' => 'array',
+    ];
     public function monitorLog(): BelongsTo
     {
-        return $this->belongsTo(MonitorLogs::class);
+        return $this->belongsTo(MonitorLogs::class)->onDelete('cascade');
     }
 }

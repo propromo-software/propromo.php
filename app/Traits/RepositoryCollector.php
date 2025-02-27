@@ -42,7 +42,6 @@ trait RepositoryCollector
                 $repository->name = $repositoryData["name"];
 
                 $get_repository = $monitor->repositories()->save($repository); // Save the repository
-
                 $milestones = $repositoryData["milestones"]["nodes"];
                 if (count($milestones) > 0) {
                     foreach ($milestones as $milestoneData) {
@@ -64,7 +63,7 @@ trait RepositoryCollector
                     }
                 }
             }
-            #return Repository::where("monitor_id", "=", $monitor->id);
+            dd($repositories);
             return Repository::where("monitor_id", "=", $monitor->id);
         } else {
             throw new Exception("Looks like you ran out of tokens for " . $monitor->title . "! " . $response->body() );

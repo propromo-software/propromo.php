@@ -20,12 +20,12 @@ class MonitorLogs extends Model
     // Each log belongs to a Monitor.
     public function monitor(): BelongsTo
     {
-        return $this->belongsTo(Monitor::class);
+        return $this->belongsTo(Monitor::class)->onDelete('cascade');
     }
 
     // Each log can have multiple log entries.
     public function monitorLogEntries(): HasMany
     {
-        return $this->hasMany(MonitorLogEntries::class);
+        return $this->hasMany(MonitorLogEntries::class)->onDelete('cascade');
     }
 }
