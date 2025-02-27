@@ -109,52 +109,57 @@ new class extends Component {
     }
 };
 ?>
-<div class="flex flex-col items-center mt-4 bg-gray-100 dark:bg-gray-900 sm:justify-center sm:pt-0">
-    <div class="w-full sm:max-w-4xl mt-6 grid grid-cols-1 sm:grid-cols-2 gap-6">
 
-        <!-- Create Monitor Form -->
-        <div class="p-12 bg-white dark:bg-gray-800 border border-border-color sm:rounded-lg shadow-lg">
-            <div class="text-center">
-                <h1 class="mb-6 text-4xl font-bold text-primary-blue">Create Monitor</h1>
-            </div>
-
-            <form wire:submit.prevent="create" class="space-y-4">
-                <sl-input required wire:model.defer="project_url" placeholder="Your Project URL" type="text"></sl-input>
-                <br>
-                <sl-input wire:model.defer="pat_token" placeholder="Your PAT Token (Optional)" type="text"></sl-input>
-                <sl-switch wire:click="switchTo()">Open Source</sl-switch>
-
-                <div class="flex justify-between items-center mt-4">
-                    <a class="text-sm text-gray-600 underline dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100"
-                       href="{{ url('join') }}">
-                        Already have a monitor?
-                    </a>
-                    <sl-button wire:click="on_create">Create</sl-button>
-                </div>
-            </form>
-
-            @if($create_monitor_error)
-                <sl-alert variant="danger" open closable class="mt-4">
-                    <sl-icon wire:ignore slot="icon" name="patch-exclamation"></sl-icon>
-                    <strong>{{ $error_head }}</strong><br/>
-                    {{ $create_monitor_error }}
-                </sl-alert>
-            @endif
+<div class="flex flex-col items-center w-full h-full bg-gray-100">
+    <div class="flex flex-col justify-center mt-10">
+        <div class="flex gap-1 items-center mt-16 mb-2 sm:mt-10">
+            <div class="w-[30px] h-[30px] rounded-full bg-primary-blue"></div>
+            <div class="w-2 h-1 bg-primary-blue"></div>
+            <div class="w-[30px] h-[30px] bg-primary-blue rounded-full"></div>
         </div>
 
-        <div class="p-4 bg-white dark:bg-gray-800 border border-border-color sm:rounded-lg shadow-lg">
-            <h2 class="text-lg font-semibold mb-2">Monitor Logs</h2>
-            <div wire:poll.100ms="pollLogs" class="h-64 overflow-y-auto p-2 rounded-md">
-                <ul class="space-y-1">
-                    @foreach ($logs as $log)
-                        <li class="text-sm p-1 rounded-md
-                                {{ $log['level'] === 'error' ? 'text-additional-red' :
-                                ($log['level'] === 'warning' ? 'text-additional-orange' :
-                                ($log['level'] === 'success' ? 'text-additional-green' : 'bg-gray-700')) }}">
-                            <strong>[{{ strtoupper($log['level']) }}]</strong> {{ $log['message'] }}
-                        </li>
-                    @endforeach
-                </ul>
+        <div class="flex flex-wrap gap-2">
+            <div class="px-10 pt-8 pb-8 mx-auto w-96 max-w-full bg-white rounded-lg border border-border-color">
+                <h1 class="mb-8 text-6xl uppercase font-koulen text-primary-blue">Create Monitor</h1>
+    
+                <form wire:submit.prevent="create" class="flex flex-col gap-2">
+                    <sl-input size="medium" required wire:model.defer="project_url" placeholder="Your Project URL" type="text"></sl-input>
+                    <sl-input size="medium" wire:model.defer="pat_token" placeholder="Your PAT Token (Optional)" type="text"></sl-input>
+                    <sl-switch class="pt-1 text-secondary-grey" size="medium" wire:click="switchTo()">Open Source</sl-switch>
+    
+                    <div class="flex justify-between items-end mt-5">
+                        <a class="text-sm no-underline text-primary-blue hover:underline"
+                            href="{{ url('join') }}">
+                            Already have a monitor?
+                        </a>
+    
+                        <sl-button size="medium" wire:click="on_create">Create</sl-button>
+                    </div>
+                </form>
+    
+                @if($create_monitor_error)
+                    <sl-alert variant="danger" open closable class="mt-4">
+                        <sl-icon wire:ignore slot="icon" name="patch-exclamation"></sl-icon>
+                        <strong>{{ $error_head }}</strong><br/>
+                        {{ $create_monitor_error }}
+                    </sl-alert>
+                @endif
+            </div>
+    
+            <div class="p-4 w-96 max-w-full bg-white border shadow-lg dark:bg-gray-800 border-border-color sm:rounded-lg">
+                <h2 class="mb-2 text-lg font-semibold">Monitor Logs</h2>
+                <div wire:poll.100ms="pollLogs" class="overflow-y-auto p-2 h-64 rounded-md">
+                    <ul class="space-y-1">
+                        @foreach ($logs as $log)
+                            <li class="text-sm p-1 rounded-md
+                                    {{ $log['level'] === 'error' ? 'text-additional-red' :
+                                    ($log['level'] === 'warning' ? 'text-additional-orange' :
+                                    ($log['level'] === 'success' ? 'text-additional-green' : 'bg-gray-700')) }}">
+                                <strong>[{{ strtoupper($log['level']) }}]</strong> {{ $log['message'] }}
+                            </li>
+                        @endforeach
+                    </ul>
+                </div>
             </div>
         </div>
 
@@ -167,3 +172,10 @@ new class extends Component {
     </div>
 </div>
 
+<!-- <div class="relative mt-2 w-full aspect-video">
+    <iframe 
+        class="absolute top-0 left-0 w-full h-full rounded-lg"
+        src="https://player.vimeo.com/video/953693369?badge=0&amp;autopause=0&amp;player_id=0&amp;app_id=58479&background=1&responsive=1" 
+        frameborder="0" 
+        allow="autoplay; fullscreen; picture-in-picture; clipboard-write" 
+        title="Propromo P
