@@ -63,7 +63,6 @@ trait RepositoryCollector
                     }
                 }
             }
-            dd($repositories);
             return Repository::where("monitor_id", "=", $monitor->id);
         } else {
             throw new Exception("Looks like you ran out of tokens for " . $monitor->title . "! " . $response->body() );
