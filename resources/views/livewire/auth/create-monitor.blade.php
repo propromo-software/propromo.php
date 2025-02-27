@@ -119,25 +119,25 @@ new class extends Component {
                     <div class="w-2 h-1 bg-primary-blue"></div>
                     <div class="w-[30px] h-[30px] bg-primary-blue rounded-full"></div>
                 </div>
-    
+
                 <div class="px-10 pt-8 pb-8 mx-auto w-96 max-w-full bg-white rounded-lg border border-border-color">
                     <h1 class="mb-8 text-6xl uppercase font-koulen text-primary-blue">Create Monitor</h1>
-        
+
                     <form wire:submit.prevent="create" class="flex flex-col gap-2">
                         <sl-input size="medium" required wire:model.defer="project_url" placeholder="Your Project URL" type="text"></sl-input>
                         <sl-input size="medium" wire:model.defer="pat_token" placeholder="Your PAT Token (Optional)" type="text"></sl-input>
                         <sl-switch class="pt-1 text-secondary-grey" size="medium" wire:click="switchTo()">Open Source</sl-switch>
-        
+
                         <div class="flex justify-between items-end mt-5">
                             <a class="text-sm no-underline text-primary-blue hover:underline"
                                 href="{{ url('join') }}">
                                 Already have a monitor?
                             </a>
-        
+
                             <sl-button size="medium" wire:click="on_create">Create</sl-button>
                         </div>
                     </form>
-        
+
                     @if($create_monitor_error)
                         <sl-alert variant="danger" open closable class="mt-4">
                             <sl-icon wire:ignore slot="icon" name="patch-exclamation"></sl-icon>
@@ -147,22 +147,8 @@ new class extends Component {
                     @endif
                 </div>
             </div>
-    
-            <div class="p-4 w-96 max-w-full bg-white border shadow-lg dark:bg-gray-800 border-border-color sm:rounded-lg">
-                <h2 class="mb-2 text-lg font-semibold">Monitor Logs</h2>
-                <div wire:poll.100ms="pollLogs" class="overflow-y-auto p-2 h-64 rounded-md">
-                    <ul class="space-y-1">
-                        @foreach ($logs as $log)
-                            <li class="text-sm p-1 rounded-md
-                                    {{ $log['level'] === 'error' ? 'text-additional-red' :
-                                    ($log['level'] === 'warning' ? 'text-additional-orange' :
-                                    ($log['level'] === 'success' ? 'text-additional-green' : 'bg-gray-700')) }}">
-                                <strong>[{{ strtoupper($log['level']) }}]</strong> {{ $log['message'] }}
-                            </li>
-                        @endforeach
-                    </ul>
-                </div>
-            </div>
+
+
         </div>
 
         <script>
