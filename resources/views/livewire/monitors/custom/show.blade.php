@@ -44,7 +44,7 @@ new class extends Component {
                         <p class="font-light">Want the current project-status as a PDF-file? <br>
                             Check out the PDF-builder now!</p>
                     </div>
-                    <sl-button variant="default" size="large" wire:click="open_pdf()">
+                    <sl-button variant="default" size="large" wire:click="open_pdf">
                         <sl-icon slot="suffix" name="box-arrow-up-right"></sl-icon>
                         Open PDF-EDITOR
                     </sl-button>
