@@ -61,7 +61,9 @@ new class extends Component {
                 ],
             ]);
 
-            //return redirect()->to('/monitors/' . $project->id);
+            $project = $this->create_monitor($this->project_url, $this->pat_token);
+
+            return redirect()->to('/monitors/' . $project->id);
         } catch (ValidationException $e) {
             $this->create_monitor_error = "Invalid input: " . implode(", ", $e->validator->errors()->all());
             $this->error_head = "Validation Failed!";
@@ -105,7 +107,7 @@ new class extends Component {
     {
         return redirect()->to('/create-open-source-monitor');
     }
-}
+};
 ?>
 <div class="flex flex-col items-center mt-4 bg-gray-100 dark:bg-gray-900 sm:justify-center sm:pt-0">
     <div class="w-full sm:max-w-4xl mt-6 grid grid-cols-1 sm:grid-cols-2 gap-6">

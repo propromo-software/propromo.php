@@ -44,40 +44,34 @@ new class extends Component {
     }
 
 };
-
 ?>
-<div class="mt-4 flex flex-col sm:justify-center items-center sm:pt-0 bg-gray-100 dark:bg-gray-900">
-    <div
-        class="w-full sm:max-w-md mt-6 p-12 bg-white dark:bg-gray-800 border-[1px] border-border-color sm:rounded-lg">
 
-        <div class="flex justify-center">
-            <div class="w-full max-w-md"> <!-- Adjust max width as needed -->
-                <h1 class="font-koulen text-6xl text-primary-blue mb-9">REGISTER</h1>
+<div class="flex flex-col items-center w-full h-full bg-gray-100">
+    <div class="flex flex-col justify-center mt-10">
+        <div class="flex gap-1 items-center mt-16 mb-2 sm:mt-10">
+            <div class="w-[30px] h-[30px] rounded-full bg-primary-blue"></div>
+            <div class="w-2 h-1 bg-primary-blue"></div>
+            <div class="w-[30px] h-[30px] bg-other-grey rounded-full"></div>
+        </div>
 
-                <form wire:submit="save">
+        <div class="px-10 pt-8 pb-8 mx-auto w-96 max-w-full bg-white rounded-lg border border-border-color">
+            <h1 class="mb-8 text-6xl uppercase font-koulen text-primary-blue">Register</h1>
 
-                    <sl-input required wire:ignore wire:model="name" placeholder="Your name"></sl-input>
-                    <br>
-                    <sl-input required wire:ignore wire:model="email" placeholder="Your email" type="email"></sl-input>
-                    <br>
-                    <sl-input required wire:ignore wire:model="password" placeholder="Your password"
-                              type="password"></sl-input>
-                    <br>
-                    <sl-input required wire:ignore wire:model="password_confirmation"
-                              placeholder="Confirm your password"
-                              type="password"></sl-input>
+            <form wire:submit="save" class="flex flex-col gap-2">
+                <sl-input size="medium" required wire:ignore wire:model="name" placeholder="Your name"></sl-input>
+                <sl-input size="medium" required wire:ignore wire:model="email" placeholder="Your email" type="email"></sl-input>
+                <sl-input size="medium" required wire:ignore wire:model="password" placeholder="Your password" type="password"></sl-input>
+                <sl-input size="medium" required wire:ignore wire:model="password_confirmation" placeholder="Confirm your password" type="password"></sl-input>
 
+                <div class="flex justify-between items-end mt-5">
+                    <a class="text-sm no-underline text-primary-blue hover:underline"
+                        href="{{ url('login') }}">
+                        Already registered?
+                    </a>
 
-                    <div class="flex items-center justify-between mt-5">
-                        <a class="underline text-sm text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 dark:focus:ring-offset-gray-800"
-                           href="{{ url('login') }}">
-                            Already registered?
-                        </a>
-
-                        <sl-button wire:ignore type="submit">Register</sl-button>
-                    </div>
-                </form>
-            </div>
+                    <sl-button size="medium" wire:ignore type="submit">Register</sl-button>
+                </div>
+            </form>
         </div>
     </div>
 
