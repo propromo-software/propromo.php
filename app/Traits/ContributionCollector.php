@@ -46,6 +46,7 @@ trait ContributionCollector
                 return [];
             }
 
+
             $responseData = $response->json()['data'] ?? [];
             $repositories = $this->type == 'ORGANIZATION' ?
                 $responseData['organization']['projectV2']['repositories']['nodes'] ?? [] :

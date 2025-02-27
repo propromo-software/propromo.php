@@ -4,6 +4,7 @@ namespace App\Traits;
 
 use App\Models\Milestone;
 use App\Models\Monitor;
+use App\Models\MonitorLogEntries;
 use App\Models\Repository;
 use Exception;
 use Illuminate\Support\Facades\Http;
@@ -42,6 +43,14 @@ trait RepositoryCollector
                 $repository->name = $repositoryData["name"];
 
                 $get_repository = $monitor->repositories()->save($repository); // Save the repository
+                MonitorLogEntries::create([
+                    'monitor_log_id' => $monitor->monitor_logs()->first()->id,
+                    'message' => 'Repository created: ' . $repository->name,
+                    'level' => 'info',
+                    'context' => [
+                    ],
+                ]);
+
                 $milestones = $repositoryData["milestones"]["nodes"];
                 if (count($milestones) > 0) {
                     foreach ($milestones as $milestoneData) {
@@ -59,8 +68,31 @@ trait RepositoryCollector
                                 'repository_id' => $get_repository->id
                             ]);
                             $repository->milestones()->save($milestone);
+                            MonitorLogEntries::create([
+                                'monitor_log_id' => $monitor->monitor_logs()->first()->id,
+                                'message' => 'Milestone created: ' . $milestone->title . ' (URL: ' . $milestone->url . ')',
+                                'level' => 'info',
+                                'context' => [
+                                ],
+                            ]);
+                        }else{
+                            MonitorLogEntries::create([
+                                'monitor_log_id' => $monitor->monitor_logs()->first()->id,
+                                'message' => 'Looks like no milestone defined in your gh-project!' . 'Check out for https://propromo-docs.vercel.app/blog/how-to-use-propromos-github-scrum-template-project.mdx for further assistance.',
+                                'level' => 'error',
+                                'context' => [
+                                ],
+                            ]);
                         }
                     }
+                }else{
+                    MonitorLogEntries::create([
+                        'monitor_log_id' => $monitor->monitor_logs()->first()->id,
+                        'message' => 'Looks like no milestone defined in your gh-project!' . 'Check out for https://propromo-docs.vercel.app/blog/how-to-use-propromos-github-scrum-template-project.mdx for further assistance.',
+                        'level' => 'error',
+                        'context' => [
+                        ],
+                    ]);
                 }
             }
             return Repository::where("monitor_id", "=", $monitor->id);

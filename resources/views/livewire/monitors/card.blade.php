@@ -10,7 +10,7 @@ new class extends Component
 
     public $collect_repos_error;
     public $error_head;
-
+    public $log_error = false;
     public Monitor $monitor;
 
     public function mount(Monitor $monitor): void
@@ -21,6 +21,27 @@ new class extends Component
             }
             $this->monitor = $monitor;
             $this->dispatch('monitor-hash-changed', $this->monitor->monitor_hash);
+            $firstLog = $this->monitor
+                ->monitor_logs()
+                ->orderBy('created_at', 'desc')
+                ->latest()
+                ->first();
+            $hasError = false;
+
+            if ($firstLog) {
+
+               // dd($firstLog);
+                foreach ($firstLog->monitorLogEntries() as $log) {
+                    if ($log->level == 'error') {
+                        $hasError = true;
+                        break;
+                    }
+                }
+                if ($hasError) {
+                    $this->log_error = true;
+                }
+            }
+
         } catch (Exception $e) {
             $this->collect_repos_error = $e->getMessage();
             $this->error_head = "Seems like something went wrong...";
@@ -57,11 +78,22 @@ new class extends Component
 <div class="w-full p-5 items-center rounded-xl">
     <div class="flex items-center justify-between mb-5">
 
-        <a  class="text-secondary-grey text-lg font-sourceSansPro font-bold rounded-md border-2 border-other-grey px-6 py-3" href="/monitors/{{ $monitor->id }}" title="Show Monitor">
+        @if(!$log_error)
+        <a class="text-secondary-grey text-lg font-sourceSansPro font-bold rounded-md border-2 border-other-grey px-6 py-3 flex items-center gap-2" href="/monitors/{{ $monitor->id }}" title="Show Monitor">
             {{ strtoupper($monitor->type == 'USER' ? $monitor->login_name : $monitor->organization_name) }} / {{ strtoupper($monitor->title) }}
         </a>
+        @else
+            <a class="text-additional-red text-lg font-sourceSansPro font-bold rounded-md border-2 border-additional-red px-6 py-3 flex items-center gap-2" href="/monitors/{{ $monitor->id }}" title="Show Monitor">
+                {{ strtoupper($monitor->type == 'USER' ? $monitor->login_name : $monitor->organization_name) }} / {{ strtoupper($monitor->title) }}
+            </a>
+        @endif
 
         <div class="flex items-center gap-2">
+            @if($log_error)
+                <button wire:click="openErrorLog" class="bg-red-500 text-additional-red px-2 py-2 rounded-md flex items-center gap-1">
+                    <sl-icon  class="text-4xl" name="bug"></sl-icon>
+                </button>
+            @endif
             <sl-icon-button class="text-5xl text-secondary-grey" name="arrow-repeat" label="Reload" type="submit" wire:ignore wire:click="reload_repositories"></sl-icon-button>
         </div>
     </div>

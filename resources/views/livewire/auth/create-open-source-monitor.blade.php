@@ -1,10 +1,10 @@
 <?php
 
+use App\Models\MonitorLogs;
 use Livewire\Volt\Component;
 use App\Traits\MonitorCreator;
 
-new class extends Component
-{
+new class extends Component {
     use MonitorCreator;
 
     public $create_monitor_error;
@@ -23,6 +23,11 @@ new class extends Component
             try {
                 $this->validate();
                 $project = $this->create_monitor($this->project_url, $this->pat_token);
+                $monitorLog = MonitorLogs::create([
+                    'monitor_id' => $project->id,
+                    'status' => 'started',
+                    'summary' => 'Initial monitor log created.',
+                ]);
                 return redirect('/monitors/' . $project->id);
             } catch (Exception $e) {
                 $this->create_monitor_error = $e->getMessage();
@@ -51,12 +56,14 @@ new class extends Component
             <h1 class="mb-8 text-6xl uppercase font-koulen text-primary-blue">Create Monitor</h1>
 
             <form wire:submit.prevent="create" class="flex flex-col gap-2">
-                <sl-input size="medium" required wire:model="project_url" placeholder="Your Project URL" type="text"></sl-input>
-                <sl-switch class="pt-1 text-secondary-grey" size="medium" wire:click="switchTo()" checked>Open Source</sl-switch>
+                <sl-input size="medium" required wire:model="project_url" placeholder="Your Project URL"
+                          type="text"></sl-input>
+                <sl-switch class="pt-1 text-secondary-grey" size="medium" wire:click="switchTo()" checked>Open Source
+                </sl-switch>
 
                 <div class="flex justify-between items-end mt-5">
                     <a class="text-sm no-underline text-primary-blue hover:underline"
-                        href="{{ url('join') }}">
+                       href="{{ url('join') }}">
                         Already have a monitor?
                     </a>
 
@@ -67,20 +74,20 @@ new class extends Component
     </div>
 
     @if($create_monitor_error)
-    <sl-alert variant="danger" open closable>
-        <sl-icon wire:ignore slot="icon" name="patch-exclamation"></sl-icon>
-        <strong>{{$error_head}}</strong><br />
-        {{$create_monitor_error}}
-    </sl-alert>
+        <sl-alert variant="danger" open closable>
+            <sl-icon wire:ignore slot="icon" name="patch-exclamation"></sl-icon>
+            <strong>{{$error_head}}</strong><br/>
+            {{$create_monitor_error}}
+        </sl-alert>
     @endif
 </div>
 
 <!-- <div class="relative mt-2 w-full aspect-video">
-    <iframe 
+    <iframe
         class="absolute top-0 left-0 w-full h-full rounded-lg"
-        src="https://player.vimeo.com/video/953693369?badge=0&amp;autopause=0&amp;player_id=0&amp;app_id=58479&background=1&responsive=1" 
-        frameborder="0" 
-        allow="autoplay; fullscreen; picture-in-picture; clipboard-write" 
+        src="https://player.vimeo.com/video/953693369?badge=0&amp;autopause=0&amp;player_id=0&amp;app_id=58479&background=1&responsive=1"
+        frameborder="0"
+        allow="autoplay; fullscreen; picture-in-picture; clipboard-write"
         title="Propromo Preview">
     </iframe>
 </div> -->

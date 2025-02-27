@@ -4,6 +4,7 @@ namespace App\Traits;
 
 use App\Models\Label;
 use App\Models\Milestone;
+use App\Models\MonitorLogEntries;
 use App\Models\Task;
 use Exception;
 use Illuminate\Support\Facades\Http;
@@ -38,17 +39,27 @@ trait IssueCollector
 
             foreach ($repositories as $repoData) {
                 if ($repoData['name'] == $repository->name) {
-                    $milestoneData = $repoData['milestone'];
-                    if ($milestoneData) {
+                    try {
+                        $milestoneData = $repoData['milestone'];
+                        if ($milestoneData) {
 
-                        foreach ($milestoneData['open_issues']['nodes'] as $issueData) {
-                            $this->save_task($issueData, $milestone);
+                            foreach ($milestoneData['open_issues']['nodes'] as $issueData) {
+                                $this->save_task($issueData, $milestone);
+                            }
+                            foreach ($milestoneData['closed_issues']['nodes'] as $issueData) {
+                                $this->save_task($issueData, $milestone);
+                            }
                         }
-                        foreach ($milestoneData['closed_issues']['nodes'] as $issueData) {
-                            $this->save_task($issueData, $milestone);
-                        }
+                        break;
+                    }catch (Exception $e) {
+                        MonitorLogEntries::create([
+                            'monitor_log_id' => $monitor->monitor_logs()->first()->id,
+                            'message' => 'Looks like no milestone defined in your gh-project!' . 'Check out for https://propromo-docs.vercel.app/blog/how-to-use-propromos-github-scrum-template-project.mdx for further assistance.',
+                            'level' => 'error',
+                            'context' => [
+                            ],
+                        ]);
                     }
-                    break;
                 }
             }
 

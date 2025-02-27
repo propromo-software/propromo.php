@@ -25,6 +25,6 @@ class MonitorLogEntries extends Model
     ];
     public function monitorLog(): BelongsTo
     {
-        return $this->belongsTo(MonitorLogs::class)->onDelete('cascade');
+        return $this->belongsTo(MonitorLogs::class);
     }
 }

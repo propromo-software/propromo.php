@@ -21,7 +21,7 @@ return new class extends Migration
             $table->string('readme')->nullable();
             $table->boolean('public')->nullable();
             $table->string('title')->nullable();
-            $table->string('short_description')->nullable();
+            $table->text('short_description')->nullable();
             $table->integer('project_identification');
             $table->string('monitor_hash');
             $table->timestamps();
