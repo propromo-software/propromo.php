@@ -33,6 +33,6 @@ new class extends Component {
     <form wire:submit="join" class="p-3.5">
         <sl-input wire:ignore wire:model="monitor_hash" type="text" placeholder="Monitor-Hash"></sl-input>
         <br/>
-        <sl-button wire:ignore type="submit" wire:loading.attr="disabled" wire:ignore>JOIN</sl-button>
+        <sl-button type="submit" wire:loading.attr="disabled" wire:ignore>Join</sl-button>
     </form>
 </div>

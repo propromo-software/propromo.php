@@ -136,7 +136,7 @@ new class extends Component {
                         Already have a monitor?
                     </a>
 
-                    <sl-button size="medium" wire:ignore type="submit">Create</sl-button>
+                    <sl-button type="submit" wire:loading.attr="disabled" wire:ignore size="medium">Create</sl-button>
                 </div>
             </form>
         </div>

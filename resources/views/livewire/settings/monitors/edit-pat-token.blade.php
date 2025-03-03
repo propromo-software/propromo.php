@@ -57,7 +57,7 @@ new class extends Component {
         <sl-input wire:ignore wire:model="pat_token" type="text" placeholder="PAT-TOKEN"></sl-input>
         <br/>
         <div class="[&_sl-button::part(base)]:w-full">
-            <sl-button wire:ignore type="submit" variant="default" wire:loading.attr="disabled">
+            <sl-button type="submit" wire:loading.attr="disabled" wire:ignore>
                 <sl-icon slot="prefix" name="check-lg" class="text-base"></sl-icon>
                 Save Changes
             </sl-button>

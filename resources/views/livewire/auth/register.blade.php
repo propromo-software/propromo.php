@@ -77,7 +77,7 @@ new class extends Component {
                         Already registered?
                     </a>
 
-                    <sl-button wire:ignore size="medium" type="submit">Register</sl-button>
+                    <sl-button type="submit" wire:loading.attr="disabled" wire:ignore size="medium">Register</sl-button>
                 </div>
             </form>
         </div>

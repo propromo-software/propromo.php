@@ -80,7 +80,7 @@ new class extends Component {
                         Already have a monitor?
                     </a>
 
-                    <sl-button wire:ignore type="submit">Create</sl-button>
+                    <sl-button type="submit" wire:loading.attr="disabled" wire:ignore>Create</sl-button>
                 </div>
             </form>
         </div>

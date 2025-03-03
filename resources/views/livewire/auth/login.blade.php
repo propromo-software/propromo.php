@@ -76,7 +76,7 @@ new class extends Component {
                         No Account yet?
                     </a>
 
-                    <sl-button size="medium" wire:ignore type="submit">Login</sl-button>
+                    <sl-button type="submit" wire:loading.attr="disabled" wire:ignore size="medium">Login</sl-button>
                 </div>
             </form>
         </div>

@@ -50,7 +50,7 @@ new class extends Component
                         No monitor yet?
                     </a>
 
-                    <sl-button size="medium" wire:ignore wire:loading.attr="disabled" type="submit">Join</sl-button>
+                    <sl-button wire:ignore wire:loading.attr="disabled" type="submit" size="medium">Join</sl-button>
                 </div>
             </form>
         </div>

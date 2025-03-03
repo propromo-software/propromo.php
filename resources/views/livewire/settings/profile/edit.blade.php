@@ -80,7 +80,7 @@ new class extends Component {
             <sl-input wire:ignore wire:model="password_confirmation" type="password" placeholder="Retype Password" password-toggle></sl-input>
         
             <div class="[&_sl-button::part(base)]:w-full">
-                <sl-button wire:ignore type="submit" variant="default" wire:loading.attr="disabled">
+                <sl-button wire:ignore type="submit" wire:loading.attr="disabled">
                     <sl-icon slot="prefix" name="check-lg" class="text-base"></sl-icon>
                     Save Changes
                 </sl-button>
