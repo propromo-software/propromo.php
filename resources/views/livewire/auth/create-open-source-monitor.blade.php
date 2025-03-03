@@ -7,8 +7,6 @@ use App\Traits\MonitorCreator;
 new class extends Component {
     use MonitorCreator;
 
-    public $create_monitor_error;
-    public $error_head;
     public $project_url;
     public $pat_token = "use-open-source-program";
     public $disable_pat_token = true;
@@ -23,15 +21,30 @@ new class extends Component {
             try {
                 $this->validate();
                 $project = $this->create_monitor($this->project_url, $this->pat_token);
+
                 $monitorLog = MonitorLogs::create([
                     'monitor_id' => $project->id,
                     'status' => 'started',
                     'summary' => 'Initial monitor log created.',
                 ]);
+
                 return redirect('/monitors/' . $project->id);
+            } catch (ValidationException $e) {
+                $message = implode(", ", $e->validator->errors()->all());
+                logger()->error('Create Monitor Error', ['errors' => $message]);
+
+                $this->dispatch('show-error-alert', [
+                    'head' => 'Create Monitor Error',
+                    'message' => $message
+                ]);
             } catch (Exception $e) {
-                $this->create_monitor_error = $e->getMessage();
-                $this->error_head = "Seems like something went wrong...";
+                $message = $e->getMessage();
+                logger()->error('Create Monitor Error', ['message' => $message]);
+
+                $this->dispatch('show-error-alert', [
+                    'head' => 'Create Monitor Error',
+                    'message' => 'Something unexpected happened!'
+                ]);
             }
         } else {
             return redirect('/register');
@@ -55,7 +68,7 @@ new class extends Component {
         <div class="px-10 pt-8 pb-8 mx-auto w-96 max-w-full bg-white rounded-lg border border-border-color">
             <h1 class="mb-8 text-6xl uppercase font-koulen text-primary-blue">Create Monitor</h1>
 
-            <form wire:submit.prevent="create" class="flex flex-col gap-2">
+            <form wire:submit="create" class="flex flex-col gap-2">
                 <sl-input size="medium" required wire:model="project_url" placeholder="Your Project URL"
                           type="text"></sl-input>
                 <sl-switch class="pt-1 text-secondary-grey" size="medium" wire:click="switchTo()" checked>Open Source
@@ -67,19 +80,11 @@ new class extends Component {
                         Already have a monitor?
                     </a>
 
-                    <sl-button wire:loading.attr="disabled" type="submit">Create</sl-button>
+                    <sl-button wire:ignore type="submit">Create</sl-button>
                 </div>
             </form>
         </div>
     </div>
-
-    @if($create_monitor_error)
-        <sl-alert variant="danger" open closable>
-            <sl-icon wire:ignore slot="icon" name="patch-exclamation"></sl-icon>
-            <strong>{{$error_head}}</strong><br/>
-            {{$create_monitor_error}}
-        </sl-alert>
-    @endif
 </div>
 
 <!-- <div class="relative mt-2 w-full aspect-video">

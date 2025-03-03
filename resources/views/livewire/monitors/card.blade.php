@@ -4,12 +4,9 @@ use Livewire\Volt\Component;
 use App\Models\Monitor;
 use App\Traits\RepositoryCollector;
 
-new class extends Component
-{
+new class extends Component {
     use RepositoryCollector;
 
-    public $collect_repos_error;
-    public $error_head;
     public $log_error = false;
     public Monitor $monitor;
 
@@ -29,8 +26,6 @@ new class extends Component
             $hasError = false;
 
             if ($firstLog) {
-
-               // dd($firstLog);
                 foreach ($firstLog->monitorLogEntries() as $log) {
                     if ($log->level == 'error') {
                         $hasError = true;
@@ -43,8 +38,13 @@ new class extends Component
             }
 
         } catch (Exception $e) {
-            $this->collect_repos_error = $e->getMessage();
-            $this->error_head = "Seems like something went wrong...";
+            $message = $e->getMessage();
+            logger()->error('Failed to load repositories Error', ['message' => $message]);
+
+            $this->dispatch('show-error-alert', [
+                'head' => 'Failed to load repositories Error',
+                'message' => 'Something unexpected happened!'
+            ]);
         }
     }
 
@@ -62,35 +62,34 @@ new class extends Component
     }
 
     /*
-        public function placeholder()
-        {
-            return <<<'HTML'
-            <center class="p-10" wire:key="{{ $monitor->id }}">
-                <sl-spinner class="text-7xl" style="--track-width: 9px;"></sl-spinner>
-            </center>
-            HTML;
-        }
+    public function placeholder()
+    {
+        return <<<'HTML'
+        <center class="p-10" wire:key="{{ $monitor->id }}">
+            <sl-spinner class="text-7xl" style="--track-width: 9px;"></sl-spinner>
+        </center>
+        HTML;
+    }
     */
-
 };
 ?>
 
-<div class="w-full p-5 items-center rounded-xl">
-    <div class="flex items-center justify-between mb-5">
+<div class="items-center p-5 w-full rounded-xl">
+    <div class="flex justify-between items-center mb-5">
 
         @if(!$log_error)
-        <a class="text-secondary-grey text-lg font-sourceSansPro font-bold rounded-md border-2 border-other-grey px-6 py-3 flex items-center gap-2" href="/monitors/{{ $monitor->id }}" title="Show Monitor">
+        <a class="flex gap-2 items-center px-6 py-3 text-lg font-bold rounded-md border-2 text-secondary-grey font-sourceSansPro border-other-grey" href="/monitors/{{ $monitor->id }}" title="Show Monitor">
             {{ strtoupper($monitor->type == 'USER' ? $monitor->login_name : $monitor->organization_name) }} / {{ strtoupper($monitor->title) }}
         </a>
         @else
-            <a class="text-additional-red text-lg font-sourceSansPro font-bold rounded-md border-2 border-additional-red px-6 py-3 flex items-center gap-2" href="/monitors/{{ $monitor->id }}" title="Show Monitor">
+            <a class="flex gap-2 items-center px-6 py-3 text-lg font-bold rounded-md border-2 text-additional-red font-sourceSansPro border-additional-red" href="/monitors/{{ $monitor->id }}" title="Show Monitor">
                 {{ strtoupper($monitor->type == 'USER' ? $monitor->login_name : $monitor->organization_name) }} / {{ strtoupper($monitor->title) }}
             </a>
         @endif
 
-        <div class="flex items-center gap-2">
+        <div class="flex gap-2 items-center">
             @if($log_error)
-                <button wire:click="openErrorLog" class="bg-red-500 text-additional-red px-2 py-2 rounded-md flex items-center gap-1">
+                <button wire:click="openErrorLog" class="flex gap-1 items-center px-2 py-2 bg-red-500 rounded-md text-additional-red">
                     <sl-icon  class="text-4xl" name="bug"></sl-icon>
                 </button>
             @endif
@@ -98,13 +97,4 @@ new class extends Component
         </div>
     </div>
     <livewire:repositories.list :monitor_id="$monitor->id" />
-
-    @if($collect_repos_error)
-        <sl-alert variant="danger" open closable>
-            <sl-icon wire:ignore slot="icon" name="patch-exclamation"></sl-icon>
-            <strong>{{$error_head}}</strong><br />
-            {{$collect_repos_error}}
-        </sl-alert>
-    @endif
-
 </div>

@@ -17,7 +17,7 @@ trait MonitorJoiner
      * @return Monitor
      * @throws Exception If the monitor is not found or already joined.
      */
-    public function joinMonitor(string $monitorInput): Monitor
+    public function join_monitor(string $monitorInput): Monitor
     {
         $monitorHash = Str::contains($monitorInput, 'join/')
             ? Str::after($monitorInput, 'join/')

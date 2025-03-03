@@ -11,11 +11,6 @@ new class extends Component {
     public string $pat_token = "";
     #[Validate(['monitor_id' => 'required'])]
     public $monitor_id= 0;
-
-    public $pat_token_edit_error_message;
-    public $pat_token_edit_success_message;
-    public $error_head;
-
     public $monitors;
 
     public function mount()
@@ -29,12 +24,20 @@ new class extends Component {
             $this->validate();
             $monitor = Monitor::whereId($this->monitor_id)->first();
             $monitor->pat_token = $this->pat_token;
-
             $monitor->save();
-            $this->pat_token_edit_success_message = "Successfully updated the PAT-TOKEN.";
+
+            $this->dispatch('show-error-alert', [
+                'head' => 'PAT saved',
+                'message' => 'Successfully updated the PAT.'
+            ]);
         } catch (Exception $e) {
-            $this->pat_token_edit_error_message = $e->getMessage();
-            $this->error_head = "Seems like something went wrong...";
+            $message = $e->getMessage();
+            logger()->error('Save PAT Error', ['message' => $message]);
+
+            $this->dispatch('show-error-alert', [
+                'head' => 'Save PAT Error',
+                'message' => 'Something unexpected happened!'
+            ]);
         }
     }
 }; ?>
@@ -60,20 +63,4 @@ new class extends Component {
             </sl-button>
         </div>
     </form>
-
-    @if($pat_token_edit_error_message)
-        <sl-alert variant="danger" open closable>
-            <sl-icon wire:ignore slot="icon" name="patch-exclamation"></sl-icon>
-            <strong>{{$error_head}}</strong><br/>
-            {{$pat_token_edit_error_message}}
-        </sl-alert>
-    @endif
-
-    @if($pat_token_edit_success_message)
-        <sl-alert variant="success" open closable>
-            <sl-icon wire:ignore slot="icon" name="check-circle"></sl-icon>
-            <strong>Success</strong><br/>
-            {{$pat_token_edit_success_message}}
-        </sl-alert>
-    @endif
 </div>

@@ -6,8 +6,6 @@ use Livewire\Volt\Component;
 new class extends Component {
     use MonitorCreator;
 
-    public $create_monitor_error;
-    public $error_head;
     public $project_url;
     public $pat_token;
     public $disable_pat_token = true;
@@ -27,8 +25,13 @@ new class extends Component {
                 $project = $this->create_monitor($this->project_url, $this->pat_token);
                 return redirect('/monitors/' . $project->id);
             } catch (Exception $e) {
-                $this->create_monitor_error = $e->getMessage();
-                $this->error_head = "Seems like something went wrong...";
+                $message = $e->getMessage();
+                logger()->error('Create Monitor Error', ['message' => $message]);
+
+                $this->dispatch('show-error-alert', [
+                    'head' => 'Create Monitor Error',
+                    'message' => 'Something unexpected happened!'
+                ]);
             }
         } else {
             return redirect('/register');
@@ -50,13 +53,4 @@ new class extends Component {
             </sl-button>
         </div>
     </form>
-
-    @if($create_monitor_error)
-        <sl-alert variant="danger" open closable>
-            <sl-icon wire:ignore slot="icon" name="patch-exclamation"></sl-icon>
-            <strong>{{$error_head}}</strong><br />
-            {{$create_monitor_error}}
-        </sl-alert>
-    @endif
-
 </div>

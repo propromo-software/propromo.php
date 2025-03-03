@@ -14,8 +14,6 @@ new class extends Component {
     use MonitorCreator;
 
     public $notifications = [];
-    public $create_monitor_error;
-    public $error_head;
     public $project_url;
     public $pat_token;
     public $disable_pat_token = true;
@@ -65,17 +63,23 @@ new class extends Component {
 
             return redirect()->to('/monitors/' . $project->id);
         } catch (ValidationException $e) {
-            $this->create_monitor_error = "Invalid input: " . implode(", ", $e->validator->errors()->all());
-            $this->error_head = "Validation Failed!";
-        } catch (Exception $e) {
-            $this->create_monitor_error = $e->getMessage();
-            $this->error_head = "Something went wrong...";
-        }
-    }
+            $message = implode(", ", $e->validator->errors()->all());
+            logger()->error('Create Monitor Error', ['errors' => $message]);
 
-    public function on_create()
-    {
-        $this->create();
+            $this->dispatch('show-error-alert', [
+                'head' => 'Create Monitor Error',
+                'message' => $message
+            ]);
+        } catch (Exception $e) {
+            $message = $e->getMessage();
+            logger()->error('Create Monitor Error', ['message' => $message]);
+
+            $this->dispatch('show-error-alert', [
+                'head' => 'Create Monitor Error',
+                'message' => 'Something unexpected happened!'
+            ]);
+        }
+
         if ($this->monitor != null) {
             CreateMonitor::dispatch($this->monitor);
             $latestMonitorLog = Monitor::whereId($this->monitor->id)
@@ -97,7 +101,7 @@ new class extends Component {
                 ->latest()
                 ->take(20)
                 ->get()
-                ->reverse() // Reverse collection order
+                ->reverse()
                 ->toArray();
             $this->dispatch('updateLogs');
         }
@@ -110,52 +114,38 @@ new class extends Component {
 };
 ?>
 
-<div class="flex flex-col items-center w-full h-full bg-gray-100">
+<div class="flex relative flex-col items-center w-full h-full bg-gray-100">
     <div class="flex flex-col justify-center mt-10">
-        <div class="flex flex-wrap gap-2 justify-center mt-16">
-            <div>
-                <div class="flex gap-1 items-center mb-2 sm:mt-10">
-                    <div class="w-[30px] h-[30px] rounded-full bg-primary-blue"></div>
-                    <div class="w-2 h-1 bg-primary-blue"></div>
-                    <div class="w-[30px] h-[30px] bg-primary-blue rounded-full"></div>
-                </div>
-
-                <div class="px-10 pt-8 pb-8 mx-auto w-96 max-w-full bg-white rounded-lg border border-border-color">
-                    <h1 class="mb-8 text-6xl uppercase font-koulen text-primary-blue">Create Monitor</h1>
-
-                    <form wire:submit.prevent="create" class="flex flex-col gap-2">
-                        <sl-input size="medium" required wire:model.defer="project_url" placeholder="Your Project URL" type="text"></sl-input>
-                        <sl-input size="medium" wire:model.defer="pat_token" placeholder="Your PAT Token (Optional)" type="text"></sl-input>
-                        <sl-switch class="pt-1 text-secondary-grey" size="medium" wire:click="switchTo()">Open Source</sl-switch>
-
-                        <div class="flex justify-between items-end mt-5">
-                            <a class="text-sm no-underline text-primary-blue hover:underline"
-                                href="{{ url('join') }}">
-                                Already have a monitor?
-                            </a>
-
-                            <sl-button size="medium" wire:click="on_create">Create</sl-button>
-                        </div>
-                    </form>
-
-                    @if($create_monitor_error)
-                        <sl-alert variant="danger" open closable class="mt-4">
-                            <sl-icon wire:ignore slot="icon" name="patch-exclamation"></sl-icon>
-                            <strong>{{ $error_head }}</strong><br/>
-                            {{ $create_monitor_error }}
-                        </sl-alert>
-                    @endif
-                </div>
-            </div>
-
-
+        <div class="flex gap-1 items-center mt-16 mb-2 sm:mt-10">
+            <div class="w-[30px] h-[30px] rounded-full bg-primary-blue"></div>
+            <div class="w-2 h-1 bg-primary-blue"></div>
+            <div class="w-[30px] h-[30px] bg-primary-blue rounded-full"></div>
         </div>
 
-        <script>
-            window.addEventListener('updateLogs', function () {
-                const logContainer = document.getElementById('log-container');
-                logContainer.scrollTop = logContainer.scrollHeight; // Auto-scroll to latest log
-            });
-        </script>
+        <div class="px-10 pt-8 pb-8 mx-auto w-96 max-w-full bg-white rounded-lg border border-border-color">
+            <h1 class="mb-8 text-6xl uppercase font-koulen text-primary-blue">Create Monitor</h1>
+
+            <form wire:submit="create" class="flex flex-col gap-2">
+                <sl-input size="medium" required wire:model.defer="project_url" placeholder="Your Project URL" type="text"></sl-input>
+                <sl-input size="medium" wire:model.defer="pat_token" placeholder="Your PAT Token (Optional)" type="text"></sl-input>
+                <sl-switch class="pt-1 text-secondary-grey" size="medium" wire:click="switchTo()">Open Source</sl-switch>
+
+                <div class="flex justify-between items-end mt-5">
+                    <a class="text-sm no-underline text-primary-blue hover:underline"
+                        href="{{ url('join') }}">
+                        Already have a monitor?
+                    </a>
+
+                    <sl-button size="medium" wire:ignore type="submit">Create</sl-button>
+                </div>
+            </form>
+        </div>
     </div>
+
+    <script>
+        window.addEventListener('updateLogs', function () {
+            const logContainer = document.getElementById('log-container');
+            logContainer.scrollTop = logContainer.scrollHeight;
+        });
+    </script>
 </div>

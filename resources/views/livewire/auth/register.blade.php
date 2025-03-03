@@ -4,11 +4,9 @@ use Livewire\Volt\Component;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use Livewire\Attributes\Validate;
+use Illuminate\Validation\ValidationException;
 
 new class extends Component {
-
-    public $account_creation_message;
-    public $error_head;
 
     #[Validate(['name' => 'required'])]
     public $name;
@@ -25,8 +23,7 @@ new class extends Component {
     public function save()
     {
         try {
-            $this->validate();
-
+            $validated = $this->validate();
             $user = User::create([
                 "name" => $this->name,
                 "email" => $this->email,
@@ -35,14 +32,25 @@ new class extends Component {
             ]);
 
             Auth::login($user);
+            return redirect('/');
+        } catch (ValidationException $e) {
+            $message = implode(", ", $e->validator->errors()->all());
+            logger()->error('Registration Error', ['errors' => $message]);
 
-            redirect('/');
+            $this->dispatch('show-error-alert', [
+                'head' => 'Registration Error',
+                'message' => $message
+            ]);
         } catch (Exception $e) {
-            $this->account_creation_message = $e->getMessage();
-            $this->error_head = "Seems like something went wrong...";
+            $message = $e->getMessage();
+            logger()->error('Registration Error', ['message' => $message]);
+
+            $this->dispatch('show-error-alert', [
+                'head' => 'Registration Error',
+                'message' => 'Something unexpected happened!'
+            ]);
         }
     }
-
 };
 ?>
 
@@ -58,10 +66,10 @@ new class extends Component {
             <h1 class="mb-8 text-6xl uppercase font-koulen text-primary-blue">Register</h1>
 
             <form wire:submit="save" class="flex flex-col gap-2">
-                <sl-input size="medium" required wire:ignore wire:model="name" placeholder="Your name"></sl-input>
-                <sl-input size="medium" required wire:ignore wire:model="email" placeholder="Your email" type="email"></sl-input>
-                <sl-input size="medium" required wire:ignore wire:model="password" placeholder="Your password" type="password"></sl-input>
-                <sl-input size="medium" required wire:ignore wire:model="password_confirmation" placeholder="Confirm your password" type="password"></sl-input>
+                <sl-input wire:model="name" size="medium" required placeholder="Your name"></sl-input>
+                <sl-input wire:model="email" size="medium" required placeholder="Your email" type="email"></sl-input>
+                <sl-input wire:model="password" size="medium" required placeholder="Your password" type="password"></sl-input>
+                <sl-input wire:model="password_confirmation" size="medium" required placeholder="Confirm your password" type="password"></sl-input>
 
                 <div class="flex justify-between items-end mt-5">
                     <a class="text-sm no-underline text-primary-blue hover:underline"
@@ -69,17 +77,9 @@ new class extends Component {
                         Already registered?
                     </a>
 
-                    <sl-button size="medium" wire:ignore type="submit">Register</sl-button>
+                    <sl-button wire:ignore size="medium" type="submit">Register</sl-button>
                 </div>
             </form>
         </div>
     </div>
-
-    @if($account_creation_message)
-        <sl-alert variant="danger" open closable>
-            <sl-icon wire:ignore slot="icon" name="patch-exclamation"></sl-icon>
-            <strong>{{$error_head}}</strong><br/>
-            {{$account_creation_message}}
-        </sl-alert>
-    @endif
 </div>

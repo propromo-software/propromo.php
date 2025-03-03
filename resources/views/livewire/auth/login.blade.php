@@ -7,33 +7,38 @@ use Livewire\Attributes\Validate;
 
 new class extends Component {
 
-    public $account_login_message;
-
-    public $error_head;
-
     #[Validate(['email' => 'required|email'])]
     public $email;
 
     #[Validate(['password' => 'required'])]
     public $password;
 
-    public function submit()
+    public function save()
     {
-        try{
-            $this->validate();
+        try {
+            $validated = $this->validate();
 
             $credentials = [
                 'email' => $this->email,
                 'password' => $this->password,
             ];
+
             if (Auth::attempt($credentials)) {
                 return redirect('/monitors');
             } else {
-                throw new Exception("Cannot find user!");
+                $this->dispatch('show-error-alert', [
+                    'head' => 'Login Error',
+                    'message' => 'Something unexpected happened!'
+                ]);
             }
-        }catch (Exception $e){
-            $this->account_login_message = $e->getMessage();
-            $this->error_head = "Seems like something went wrong...";
+        } catch (ValidationException $e){
+            $message = implode(", ", $e->validator->errors()->all());
+            logger()->error('Login Error', ['errors' => $message]);
+
+            $this->dispatch('show-error-alert', [
+                'head' => 'Login Error',
+                'message' => $message
+            ]);
         }
     }
 };
@@ -76,12 +81,4 @@ new class extends Component {
             </form>
         </div>
     </div>
-
-    @if($account_login_message)
-        <sl-alert variant="danger" open closable>
-            <sl-icon wire:ignore slot="icon" name="patch-exclamation"></sl-icon>
-            <strong>{{$error_head}}</strong><br/>
-            {{$account_login_message}}
-        </sl-alert>
-    @endif
 </div>
