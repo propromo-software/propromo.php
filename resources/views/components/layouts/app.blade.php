@@ -8,6 +8,39 @@
 
         @vite(['resources/css/app.css', 'resources/js/app.js'])
 
+        <script>
+            // Add Livewire hook to preserve Web Component attributes
+            Livewire.hook('morph.updating', ({ el, component, toEl }) => {
+                // Check if element is a custom element
+                if (!el.tagName.includes('-')) {
+                    return;
+                }
+
+                // Store the original attributes
+                let oldAttributes = Array.from(el.attributes)
+                    .reduce((attrs, attr) => {
+                        attrs[attr.name] = attr.value;
+                        return attrs;
+                    }, {});
+
+                // Restore all attributes that might have been removed by Livewire
+                let currentAttributes = Array.from(toEl.attributes).map(attr => attr.name);
+                Object.entries(oldAttributes).forEach(([name, value]) => {
+                    if (!name.startsWith('!') && !currentAttributes.includes(name)) {
+                        toEl.setAttribute(name, value);
+                    }
+                });
+
+                // Remove attributes starting with '!' from the toEl
+                Array.from(toEl.attributes).forEach(attr => {
+                    if (attr.name.startsWith('!')) {
+                        toEl.removeAttribute(attr.name.substring(1)); // Remove the corresponding actual attribute
+                        toEl.removeAttribute(attr.name); // Remove the attribute with the '!' prefix
+                    }
+                });
+            });
+        </script>
+
     </head>
     <body class="relative min-h-screen font-sans antialiased bg-base-200/50 dark:bg-base-200">
         <!-- QR Dialog -->
@@ -22,6 +55,24 @@
             </div>
             <sl-button slot="footer" class="w-full">Close</sl-button>
         </sl-dialog>
+
+        <!-- Global Error Alert -->
+        <div class="fixed right-4 bottom-4 z-50">
+            <sl-alert id="global-error-alert-component" variant="danger" duration="5000" countdown="rtl" closable>
+                <sl-icon slot="icon" name="exclamation-octagon"></sl-icon>
+                <strong class="alert-component-head"></strong><br>
+                <span class="alert-component-content"></span>
+            </sl-alert>
+        </div>
+
+        <!-- Global Success Alert -->
+        <div class="fixed right-4 bottom-4 z-50">
+            <sl-alert id="global-success-alert-component" variant="success" duration="5000" countdown="rtl" closable>
+                <sl-icon slot="icon" name="check-circle"></sl-icon>
+                <strong class="alert-component-head"></strong><br>
+                <span class="alert-component-content"></span>
+            </sl-alert>
+        </div>
 
         <script>
             document.addEventListener('DOMContentLoaded', () => {
@@ -51,6 +102,62 @@
                 const closeButton = dialog.querySelector('sl-button[slot="footer"]');
                 closeButton.addEventListener('click', () => {
                     dialog.hide();
+                });
+
+                const errorComponent = document.querySelector('#global-error-alert-component');
+                const successComponent = document.querySelector('#global-success-alert-component');
+
+                function getAlertContent(data) {
+                    let head = 'Error';
+                    let message = 'An error occurred';
+
+                    if (data.detail) {
+                        head = data.detail.head || head;
+                        message = data.detail.message || message;
+                    } else if (typeof data === 'object') {
+                        // Try other possible structures
+                        if (data.head) head = data.head;
+                        if (data.message) message = data.message;
+                        // Check if it's an array
+                        if (Array.isArray(data) && data.length > 0) {
+                            if (data[0].detail) {
+                                head = data[0].detail.head || head;
+                                message = data[0].detail.message || message;
+                            } else {
+                                if (data[0].head) head = data[0].head;
+                                if (data[0].message) message = data[0].message;
+                            }
+                        }
+                    }
+
+                    return {
+                        head,
+                        message
+                    }
+                }
+
+                Livewire.on('show-error-alert', (data) => {
+                    console.log('Error alert event received:', data);
+
+                    const componentHead = errorComponent.querySelector('.alert-component-head');
+                    const componentContent = errorComponent.querySelector('.alert-component-content');
+
+                    const { head, message } = getAlertContent(data);
+                    componentHead.textContent = head;
+                    componentContent.textContent = message;
+                    errorComponent.show();
+                });
+
+                Livewire.on('show-success-alert', (data) => {
+                    console.log('Success alert event received:', data);
+
+                    const componentHead = successComponent.querySelector('.alert-component-head');
+                    const componentContent = successComponent.querySelector('.alert-component-content');
+
+                    const { head, message } = getAlertContent(data);
+                    componentHead.textContent = head;
+                    componentContent.textContent = message;
+                    successComponent.show();
                 });
             });
         </script>
@@ -111,6 +218,16 @@
                 background: rgba(0, 0, 0, 0.5);
                 visibility: visible;
             }
+
+            sl-alert::part(base) {
+                width: auto;
+                min-width: max-content;
+                overflow-wrap: break-word;
+            }
+
+            sl-alert::part(message) {
+                overflow-wrap: break-word;
+            }
         </style>
 
         <header class="sticky top-0 z-50">
@@ -121,7 +238,7 @@
             @endif
         </header>
 
-        <main class="min-h-screen px-8 pb-4">
+        <main class="px-8 pb-4 min-h-screen">
             @if(request()->path() !== '/' && 
                 request()->path() !== 'create-monitor' && 
                 request()->path() !== 'create-open-source-monitor' && 
