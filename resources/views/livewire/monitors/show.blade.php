@@ -13,7 +13,7 @@ new class extends Component {
     {
         $this->monitor = $monitor;
         CollectIssues::dispatch($monitor);
-        CreateMonitor::dispatch($project);
+        CreateMonitor::dispatch($monitor);
     }
 
     public function open_pdf()
