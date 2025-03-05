@@ -13,11 +13,13 @@ trait TokenCreator
      */
     public function get_application_token($pat_token)
     {
+
         $baseUrl = env('APP_SERVICE_URL', 'http://localhost:3000');
         $url = rtrim($baseUrl, '/') . '/v1/github/auth/token';
 
         try {
             try {
+                $this->dispatch('monitor-log-sent', ["message" => "Requesting Propromo auth-token..."]);
                 $testResponse = Http::get($baseUrl);
                 \Log::debug('Base URL Test:', [
                     'url' => $baseUrl,

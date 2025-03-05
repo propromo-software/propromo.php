@@ -56,9 +56,9 @@ new class extends Component {
             $this->tasks = array_merge($this->tasks, $repositoryTasks->all());
         }
 
-        if (empty($this->tasks)) {
+        /*if (empty($this->tasks)) {
             $this->reload_issues();
-        }
+        }*/
 
 
         $this->total_repos = $this->monitor->repositories()->count();

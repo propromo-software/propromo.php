@@ -20,9 +20,8 @@ class MonitorProcessed implements ShouldBroadcast
     /**
      * Create a new event instance.
      */
-    public function __construct($monitorId, $message)
+    public function __construct($message)
     {
-        $this->monitorId = $monitorId;
         $this->message = $message;
     }
 
@@ -30,11 +29,14 @@ class MonitorProcessed implements ShouldBroadcast
     public function broadcastOn()
     {
         Log::info("$this->message");
-        return new Channel('monitors');
+        return new Channel('monitor-job-progress');
     }
 
-    public function broadcastAs(){
-        return 'MonitorProcessed';
+    public function broadcastWith()
+    {
+        return [
+            'message' => $this->message
+        ];
     }
 
 }

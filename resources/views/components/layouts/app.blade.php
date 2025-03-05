@@ -78,7 +78,7 @@
             document.addEventListener('DOMContentLoaded', () => {
                 const dialog = document.querySelector('#global-qr-dialog');
                 const qrCode = document.querySelector('#global-qr-code');
-                
+
                 function updateQRSize() {
                     const body = dialog.shadowRoot.querySelector('[part="body"]');
                     const size = Math.min(body.clientWidth - 64, body.clientHeight - 64);
@@ -149,7 +149,7 @@
                 });
 
                 Livewire.on('show-success-alert', (data) => {
-                    console.log('Success alert event received:', data);
+
 
                     const componentHead = successComponent.querySelector('.alert-component-head');
                     const componentContent = successComponent.querySelector('.alert-component-content');
@@ -239,19 +239,19 @@
         </header>
 
         <main class="px-8 pb-4 min-h-screen">
-            @if(request()->path() !== '/' && 
-                request()->path() !== 'create-monitor' && 
-                request()->path() !== 'create-open-source-monitor' && 
-                request()->path() !== 'register' && 
-                request()->path() !== 'login' && 
+            @if(request()->path() !== '/' &&
+                request()->path() !== 'create-monitor' &&
+                request()->path() !== 'create-open-source-monitor' &&
+                request()->path() !== 'register' &&
+                request()->path() !== 'login' &&
                 request()->path() !== 'join' &&
                 request()->path() !== 'settings/profile' &&
                 request()->route()->getName() !== 'monitors.show')
                 <div class="container px-8 py-4 mx-auto">
-                    <x-breadcrumbs 
-                        route="{{ request()->route()->getName() }}" 
+                    <x-breadcrumbs
+                        route="{{ request()->route()->getName() }}"
                         location="top"
-                        :params="request()->route()->parameters()" 
+                        :params="request()->route()->parameters()"
                     />
                 </div>
             @endif
@@ -260,13 +260,14 @@
             {{ $slot }}
 
             <livewire:base.api-changed-toast></livewire:base.api-changed-toast>
+
         </main>
 
-        @if(request()->path() === '/' || 
-            request()->path() === 'create-monitor' || 
-            request()->path() === 'create-open-source-monitor' || 
-            request()->path() === 'register' || 
-            request()->path() === 'login' || 
+        @if(request()->path() === '/' ||
+            request()->path() === 'create-monitor' ||
+            request()->path() === 'create-open-source-monitor' ||
+            request()->path() === 'register' ||
+            request()->path() === 'login' ||
             request()->path() === 'join')
             <x-footer :route="request()->route()->getName()" />
         @endif

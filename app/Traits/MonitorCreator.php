@@ -65,6 +65,7 @@ trait MonitorCreator
                 }
                 $type = "USER";
             }
+            $this->dispatch('monitor-log-sent', ["message" => "Creating monitor from $project_url..."]);
 
             $monitor = Monitor::create([
                 "project_url" => $project_url,
@@ -110,7 +111,10 @@ trait MonitorCreator
             $monitor->save();
 
             $monitor->users()->attach(Auth::user()->id);
-
+            $this->dispatch('monitor-log-sent', ["message" => "Successfully created monitor!"]);
+            $this->dispatch('monitor-created', [
+                'monitorId' => $monitor->id
+            ]);
             return $monitor;
         } catch (Exception $e) {
             Log::error('Monitor Creation Error:', [

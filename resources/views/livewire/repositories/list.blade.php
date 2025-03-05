@@ -8,8 +8,6 @@ use \App\Models\Repository;
 
 new class extends Component
 {
-    use RepositoryCollector;
-
     public $monitor_id;
     public $repositories;
 

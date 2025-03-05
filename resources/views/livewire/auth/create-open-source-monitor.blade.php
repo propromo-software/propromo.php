@@ -1,6 +1,8 @@
 <?php
 
+use App\Jobs\CreateMonitor;
 use App\Models\MonitorLogs;
+use Illuminate\Validation\ValidationException;
 use Livewire\Volt\Component;
 use App\Traits\MonitorCreator;
 
@@ -20,15 +22,12 @@ new class extends Component {
         if (Auth::check()) {
             try {
                 $this->validate();
+                $this->dispatch('monitor-creation-called');
+                $this->dispatch('monitor-log-sent', ["message" => "Monitor creation called..."]);
                 $project = $this->create_monitor($this->project_url, $this->pat_token);
-
-                $monitorLog = MonitorLogs::create([
-                    'monitor_id' => $project->id,
-                    'status' => 'started',
-                    'summary' => 'Initial monitor log created.',
-                ]);
-
-                return redirect('/monitors/' . $project->id);
+                $this->dispatch('monitor-log-sent', ["message" => "Monitor creation completed..."]);
+                CreateMonitor::dispatch($project);
+              //  return redirect('/monitors/' . $project->id);
             } catch (ValidationException $e) {
                 $message = implode(", ", $e->validator->errors()->all());
                 logger()->error('Create Monitor Error', ['errors' => $message]);
@@ -83,6 +82,7 @@ new class extends Component {
                     <sl-button type="submit" wire:loading.attr="disabled" wire:ignore>Create</sl-button>
                 </div>
             </form>
+            <livewire:base.creation-dialog></livewire:base.creation-dialog>
         </div>
     </div>
 </div>

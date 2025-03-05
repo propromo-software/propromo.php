@@ -1,5 +1,6 @@
 <?php
 
+use App\Jobs\CreateMonitor;
 use Livewire\Volt\Component;
 use App\Models\Monitor;
 use App\Traits\RepositoryCollector;
@@ -13,30 +14,10 @@ new class extends Component {
     public function mount(Monitor $monitor): void
     {
         try {
-            if ($monitor->repositories()->get()->isEmpty()) {
-                $this->collect_repositories($monitor);
-            }
             $this->monitor = $monitor;
-            $this->dispatch('monitor-hash-changed', $this->monitor->monitor_hash);
-            $firstLog = $this->monitor
-                ->monitor_logs()
-                ->orderBy('created_at', 'desc')
-                ->latest()
-                ->first();
-            $hasError = false;
-
-            if ($firstLog) {
-                foreach ($firstLog->monitorLogEntries() as $log) {
-                    if ($log->level == 'error') {
-                        $hasError = true;
-                        break;
-                    }
-                }
-                if ($hasError) {
-                    $this->log_error = true;
-                }
+            if($this->monitor->repositories->isEmpty()){
+                $this->reload_repositories();
             }
-
         } catch (Exception $e) {
             $message = $e->getMessage();
             logger()->error('Failed to load repositories Error', ['message' => $message]);
@@ -52,7 +33,6 @@ new class extends Component {
     {
         $this->monitor->repositories()->delete();
         $this->collect_repositories($this->monitor);
-
         $this->dispatch("repositories-updated", monitor_id: $this->monitor->id);
     }
 
@@ -78,23 +58,29 @@ new class extends Component {
     <div class="flex justify-between items-center mb-5">
 
         @if(!$log_error)
-        <a class="flex gap-2 items-center px-6 py-3 text-lg font-bold rounded-md border-2 text-secondary-grey font-sourceSansPro border-other-grey" href="/monitors/{{ $monitor->id }}" title="Show Monitor">
-            {{ strtoupper($monitor->type == 'USER' ? $monitor->login_name : $monitor->organization_name) }} / {{ strtoupper($monitor->title) }}
-        </a>
+            <a class="flex gap-2 items-center px-6 py-3 text-lg font-bold rounded-md border-2 text-secondary-grey font-sourceSansPro border-other-grey"
+               href="/monitors/{{ $monitor->id }}" title="Show Monitor">
+                {{ strtoupper($monitor->type == 'USER' ? $monitor->login_name : $monitor->organization_name) }}
+                / {{ strtoupper($monitor->title) }}
+            </a>
         @else
-            <a class="flex gap-2 items-center px-6 py-3 text-lg font-bold rounded-md border-2 text-additional-red font-sourceSansPro border-additional-red" href="/monitors/{{ $monitor->id }}" title="Show Monitor">
-                {{ strtoupper($monitor->type == 'USER' ? $monitor->login_name : $monitor->organization_name) }} / {{ strtoupper($monitor->title) }}
+            <a class="flex gap-2 items-center px-6 py-3 text-lg font-bold rounded-md border-2 text-additional-red font-sourceSansPro border-additional-red"
+               href="/monitors/{{ $monitor->id }}" title="Show Monitor">
+                {{ strtoupper($monitor->type == 'USER' ? $monitor->login_name : $monitor->organization_name) }}
+                / {{ strtoupper($monitor->title) }}
             </a>
         @endif
 
         <div class="flex gap-2 items-center">
             @if($log_error)
-                <button wire:click="openErrorLog" class="flex gap-1 items-center px-2 py-2 bg-red-500 rounded-md text-additional-red">
-                    <sl-icon  class="text-4xl" name="bug"></sl-icon>
+                <button wire:click="openErrorLog"
+                        class="flex gap-1 items-center px-2 py-2 bg-red-500 rounded-md text-additional-red">
+                    <sl-icon class="text-4xl" name="bug"></sl-icon>
                 </button>
             @endif
-            <sl-icon-button class="text-5xl text-secondary-grey" name="arrow-repeat" label="Reload" type="submit" wire:ignore wire:click="reload_repositories"></sl-icon-button>
+            <sl-icon-button class="text-5xl text-secondary-grey" name="arrow-repeat" label="Reload" type="submit"
+                            wire:ignore wire:click="reload_repositories"></sl-icon-button>
         </div>
     </div>
-    <livewire:repositories.list :monitor_id="$monitor->id" />
+    <livewire:repositories.list :monitor_id="$monitor->id"/>
 </div>

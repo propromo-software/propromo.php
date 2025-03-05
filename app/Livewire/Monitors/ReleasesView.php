@@ -38,8 +38,8 @@ class ReleasesView extends Component
     {
         $this->monitor = $monitor;
         $this->loadRepositories();
-        $result = $this->collect_releases($this->monitor);
-        $this->totalReleases = $result['total_count'];
+       // $result = $this->collect_releases($this->monitor);
+        $this->totalReleases = $this->monitor->releases()->count();
         $this->loadReleases();
     }
 
@@ -70,9 +70,9 @@ class ReleasesView extends Component
 
     private function getCachedReleases($query)
     {
-        $cacheKey = 'releases_' . $this->monitor->id . '_' . 
-                   $this->selectedRepository . '_' . 
-                   $this->filterType . '_' . 
+        $cacheKey = 'releases_' . $this->monitor->id . '_' .
+                   $this->selectedRepository . '_' .
+                   $this->filterType . '_' .
                    $this->search . '_' .
                    $this->page;
 
@@ -86,7 +86,7 @@ class ReleasesView extends Component
         try {
             $this->isLoading = true;
             $query = $this->monitor->releases()->with(['tag.author', 'repository']);
-            
+
             // Initialize statistics with zero values
             $this->preReleaseCount = 0;
             $this->totalChanges = 0;
@@ -99,7 +99,7 @@ class ReleasesView extends Component
                 $this->totalChanges = $allReleases->sum(fn($r) => $r->tag->additions + $r->tag->deletions);
                 $this->totalFilesChanged = $allReleases->sum(fn($r) => $r->tag->changed_files);
             }
-            
+
             if ($this->selectedRepository) {
                 $query->where('repository_id', $this->selectedRepository);
             }
@@ -115,7 +115,7 @@ class ReleasesView extends Component
                     $query->where('is_draft', true);
                     break;
             }
-            
+
             if ($this->search) {
                 $query->where(function($q) {
                     $searchTerm = strtolower($this->search);
@@ -123,7 +123,7 @@ class ReleasesView extends Component
                       ->orWhereRaw('LOWER(description) LIKE ?', ["%{$searchTerm}%"]);
                 });
             }
-            
+
             $this->releases = $query->orderByDesc('created_at')
                 ->paginate($this->perPage, ['*'], 'releasePage');
             $this->filteredCount = $this->releases->total();

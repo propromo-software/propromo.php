@@ -1,5 +1,6 @@
 <?php
 
+use App\Jobs\CollectIssues;
 use Livewire\Volt\Component;
 use \App\Models\Monitor;
 
@@ -10,10 +11,12 @@ new class extends Component {
     public function mount(Monitor $monitor)
     {
         $this->monitor = $monitor;
+        CollectIssues::dispatch($monitor);
     }
 
     public function open_pdf()
     {
+
         return redirect()->to('/monitors/' . $this->monitor->id . '/pdf');
     }
 
@@ -29,9 +32,10 @@ new class extends Component {
     <div class="mx-8 mt-6 mb-4">
         <div class="flex gap-4 items-center mb-2">
             <a href="/monitors" title="Show Monitor" class="flex items-center">
-                <sl-icon class="p-2 text-4xl rounded-md border-2 cursor-pointer text-primary-blue border-other-grey" name="arrow-left-short" wire:ignore></sl-icon>
+                <sl-icon class="p-2 text-4xl rounded-md border-2 cursor-pointer text-primary-blue border-other-grey"
+                         name="arrow-left-short" wire:ignore></sl-icon>
             </a>
-            <x-breadcrumbs :breadcrumbs="Breadcrumbs::generate('monitor', $monitor)" location="top" />
+            <x-breadcrumbs :breadcrumbs="Breadcrumbs::generate('monitor', $monitor)" location="top"/>
         </div>
         <div class="rounded-2xl border-2 border-other-grey">
             <livewire:monitors.card lazy="true" :monitor="$monitor"/>
@@ -47,7 +51,7 @@ new class extends Component {
                         <p class="font-light">Want the current project-status as a PDF-file? <br>
                             Check out the PDF-builder now!</p>
                     </div>
-                    <sl-button variant="default" size="large" wire:click.prevent="open_pdf">
+                    <sl-button wire:ignore variant="default" size="large" wire:click="open_pdf">
                         <sl-icon slot="suffix" name="box-arrow-up-right"></sl-icon>
                         Open PDF-EDITOR
                     </sl-button>
@@ -85,5 +89,5 @@ new class extends Component {
         </div>
     </div>
 
-    <x-footer :breadcrumbs="Breadcrumbs::generate('monitor', $monitor)" />
+    <x-footer :breadcrumbs="Breadcrumbs::generate('monitor', $monitor)"/>
 </div>

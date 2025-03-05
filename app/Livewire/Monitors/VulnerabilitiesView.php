@@ -23,9 +23,9 @@ class VulnerabilitiesView extends Component
     public function loadVulnerabilities()
     {
         try {
-            $result = $this->collect_vulnerabilities($this->monitor);
-            $this->vulnerabilities = $result['vulnerabilities'];
-            $this->totalVulnerabilities = $result['total_count'];
+            //$result = $this->collect_vulnerabilities($this->monitor);
+            $this->vulnerabilities = $this->monitor->vulnerabilities()->get();
+            $this->totalVulnerabilities = $this->monitor->vulnerabilities()->count();
         } catch (\Exception $e) {
             $this->addError('vulnerabilities', $e->getMessage());
         }

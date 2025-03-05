@@ -17,7 +17,8 @@ class DeploymentsView extends Component
     public function mount(Monitor $monitor)
     {
         $this->monitor = $monitor;
-        $this->loadDeployments();
+        $this->deployments = $monitor->deployments()->get();
+        // $this->loadDeployments();
     }
 
     public function loadDeployments()
