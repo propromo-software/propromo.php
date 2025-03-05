@@ -1,6 +1,7 @@
 <?php
 
 use App\Jobs\CollectIssues;
+use App\Jobs\CreateMonitor;
 use Livewire\Volt\Component;
 use \App\Models\Monitor;
 
@@ -12,6 +13,7 @@ new class extends Component {
     {
         $this->monitor = $monitor;
         CollectIssues::dispatch($monitor);
+        CreateMonitor::dispatch($project);
     }
 
     public function open_pdf()
