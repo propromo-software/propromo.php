@@ -55,8 +55,6 @@ class CreateMonitor implements ShouldQueue
             $this->collect_vulnerabilities($this->monitor);
         } catch (Exception $e) {
             Log::error("Error processing monitor: " . $e->getMessage());
-        } finally {
-            Cache::forget($cacheKey);
         }
     }
 }

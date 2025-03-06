@@ -54,8 +54,6 @@ class CollectIssues implements ShouldQueue
             }
         } catch (Exception $e) {
             Log::error('Error while collecting issues: ' . $e->getMessage());
-        } finally {
-            Cache::forget($cacheKey);
         }
     }
 }

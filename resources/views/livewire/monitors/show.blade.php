@@ -16,6 +16,7 @@ new class extends Component {
         CreateMonitor::dispatch($monitor);
     }
 
+
     public function open_pdf()
     {
 
